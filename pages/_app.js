@@ -6,7 +6,7 @@ import Header from '/Components/Shared/Header';
 import 'aos/dist/aos.css';
 
 //import { wrapper } from '../redux/store';
-import Loader from '../Components/shared/Loader'; 
+import Loader from '../Components/Shared/Loader'; 
 
 import Router, { useRouter  } from 'next/router';
 
