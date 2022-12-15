@@ -1,0 +1,12 @@
+.home-styles{
+    .hero{
+        padding: 150px;
+        background: url("../public/images/dubai_1.png");
+        height: 80vh; 
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

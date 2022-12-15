@@ -1,0 +1,83 @@
+.portal-layout{
+    #components-layout-demo-custom-trigger .trigger {
+        padding: 0 24px;
+        font-size: 18px;
+        line-height: 64px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      
+      .site-layout .site-layout-background {
+        background: #ddddddbf;
+      }
+      .site-layout{
+        height: 100vh;
+      }
+
+      li.ant-menu-item.ant-menu-item-selected{
+        background-color: #323335!important;
+      }
+
+      ul > li::before{
+        background-color: #1b1c1e!important;
+        border-radius: 25px;
+      }
+      ul > li::after{
+        background-color: #1b1c1e!important;
+        border-radius: 25px;
+      }
+
+      ul{
+        padding-top: 0px;
+        background-color: #1b1c1e!important;
+    }
+    .ant-layout-sider{
+        background-color: #1b1c1e!important;
+        
+      }
+      .menu-toggler{
+        cursor: pointer;
+        transition-duration: 300ms;
+        position: relative;
+        left: -15px;
+        padding: 0px 7px 6px 7px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 50px;
+        color: rgb(29, 29, 29);
+        font-size: 20px;
+        box-shadow: 2px 4px 11px -6px rgba(0,0,0,0.52);
+        -webkit-box-shadow: 2px 4px 11px -6px rgba(0,0,0,0.52);
+        -moz-box-shadow: 2px 4px 11px -6px rgba(0,0,0,0.52);
+    }
+    .big-logo{
+        transition-duration: 250ms;
+          min-height: 110px;
+          padding-top: 20px;
+          padding-left: 40px;
+        }
+    .big-logo > span > img{
+        transition-duration: 200ms;
+        height: 50px;
+    }
+    .big-logo > span > p{
+        transition-duration: 200ms;
+        color: grey;
+        font-size: 20px;
+    }
+
+    .small-logo{
+        transition-duration: 250ms;
+        min-height: 110px;
+        padding-left: 10px;
+        padding-top: 45px;
+        }
+    .small-logo > span > img{
+        transition-duration: 200ms;
+        height: 30px;
+    }
+    .small-logo > span > p{
+        transition-duration: 200ms;
+        color: grey;
+        font-size: 12px;
+    }
+}

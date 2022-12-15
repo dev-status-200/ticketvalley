@@ -1,0 +1,155 @@
+@import 'HomeStyles.scss';
+@import 'HeaderStyles.scss';
+@import 'PortanLayout.scss';
+
+.cur{
+    cursor: pointer;
+}
+.ico{
+    transition-duration: 300ms;
+    margin-bottom: 3px;
+}
+.custom-btn{
+    transition-duration: 300ms;
+    border: none;
+    background-color: rgb(24, 127, 187);
+    color: white;
+    font-size: 20px;
+    padding: 10px 30px 10px 30px;
+    border-radius: 25px;
+}
+.custom-btn:hover{
+    transition-duration: 300ms;
+    padding: 10px 20px 10px 30px;
+}
+
+.custom-btn:hover > .ico{
+    transition-duration: 300ms;
+    display: inline-block;
+    margin-left: 20px;
+    
+}
+
+.shade{
+    box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75);
+}
+.text-shade{
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+}
+
+.wh-txt{ color: white!important; }
+.grey-txt{ color: grey!important; }
+.silver-txt{ color: silver!important; }
+.wh-txt{ color: white!important; }
+
+.fs-15 { font-size: 15px!important; }
+.fs-16 { font-size: 16px!important; }
+.fs-17 { font-size: 17px!important; }
+.fs-18 { font-size: 18px!important; }
+.fs-19 { font-size: 19px!important; }
+.fs-20 { font-size: 20px!important; }
+.fs-21 { font-size: 21px!important; }
+.fs-22 { font-size: 22px!important; }
+.fs-23 { font-size: 23px!important; }
+.fs-24 { font-size: 24px!important; }
+.fs-25 { font-size: 25px!important; }
+.fs-26 { font-size: 26px!important; }
+.fs-27 { font-size: 27px!important; }
+.fs-28 { font-size: 28px!important; }
+.fs-29 { font-size: 29px!important; }
+.fs-30 { font-size: 30px!important; }
+.fs-31 { font-size: 31px!important; }
+.fs-32 { font-size: 32px!important; }
+.fs-33 { font-size: 33px!important; }
+.fs-34 { font-size: 34px!important; }
+.fs-35 { font-size: 35px!important; }
+
+.fs-45 { font-size: 45px!important; }
+
+
+.fs-65 { font-size: 65px!important; }
+
+.fw-800{ font-weight: 900; }
+
+.bg-signin{
+  background-image: url("../public/loginBg.png");
+  overflow: hidden;
+
+  /* Full height */
+  height: 100vh; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-inp{
+  color: rgb(0, 0, 0);
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid rgb(52, 50, 50);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: #162a4600;
+  position: relative;
+  left: 30px;
+  text-align: left;
+  width: 60%;
+}
+.login-inp:focus{
+  outline: #215c7100;
+  border-bottom: 3px solid rgba(27, 141, 156, 0.687);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.username-img{
+  position: relative;
+  right: 1%;
+}
+
+.login-btn{
+  background-color: rgb(6, 150, 172)!important;
+  border: 1px solid rgb(6, 150, 172)!important;
+  border-radius: 55px!important;
+  padding:12px 50px 12px 50px!important;
+  font-weight: 500!important;
+  color: white;
+  width: 60%;
+}
+.login-btn:hover{
+  transition-duration: 300ms;
+  background-color: rgb(6, 150, 172)!important;
+  color: rgb(238, 238, 238);
+}
+
+.flip{
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.btn-custom{
+  background-color: rgb(6, 150, 172)!important;
+  color: white;
+  padding: 5px 20px 5px 20px;
+  border-radius: 15px;
+  border: none;
+}
+
+.tableFixHead thead th {
+  transition-duration: 300ms;
+  position: sticky;
+  top: 0;
+  background-color: rgb(239, 238, 238);
+  border: none;
+  z-index: 1;
+}
+
+.modify-edit:hover{
+  cursor: pointer;
+  color: rgb(6, 150, 172)!important;
+}
