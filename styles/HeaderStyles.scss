@@ -17,21 +17,6 @@
         transition-duration: 300ms;
         background-color: rgb(6, 81, 160);
     }
-    .dropdown-hidden{
-        display: none;
-    }
-    .dropdown-show{
-        transition-duration: 1000ms;
-        position:absolute;
-        opacity: 0.8;
-        z-index: 1;
-        background-color:rgba(19, 23, 42, 0.922);
-        height:250px;
-        width:200px;
-        top:115px;
-        left:55.65%;
-        border-radius: 0px 0px 5px 5px;
-    }
     .ul{
         color: grey;
         margin: 12px;
@@ -41,4 +26,5 @@
     .ul:hover{
         color: silver;
     }
+
 }

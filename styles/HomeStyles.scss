@@ -1,12 +1,106 @@
 .home-styles{
     .hero{
-        padding: 150px;
-        background: url("../public/images/dubai_1.png");
-        height: 80vh; 
+        background: url("../public/images/hero.png");
+        height: 96vh; 
 
         /* Center and scale the image nicely */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+    }
+
+    
+    .dropbtn {
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        min-width: 100px;
+        max-width: 100px;
+        font-weight: 600;
+    }
+    .dropbtn:hover{
+        color: rgb(156, 156, 156);
+    }
+      
+      .dropup {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropup-content {
+        display: none;
+        position: absolute;
+        background-color: #211c1c;
+        min-width: 110px;
+        z-index: 1;
+        left: 20px;
+        padding-bottom: 10px;
+        padding-top: 5px;
+      }
+      
+      .dropup-content .links {
+        color: rgb(247, 247, 247);
+        padding-left: 20px;
+        padding-top: 5px;
+        text-align: left;
+        text-decoration: none;
+        display: block;
+      }
+      
+      .dropup:hover .dropup-content {
+        display: block;
+      }
+
+      .hero-cont{
+        padding-top: 100px;
+        padding-left: 120px;
+      }
+
+      .hero-txt-1{
+        font-size: 150px;
+        font-weight: 700;
+        text-shadow: 11px 7px 6px rgba(0,0,0,0.6);
+      }
+      .hero-txt-2{
+        font-size: 70px;
+        font-weight: 200;
+        text-shadow: 5px 5px 6px rgba(0,0,0,0.6);
+      }
+
+      .swiper {
+        width: 100%;
+        height: 100%;
+    }
+      
+    .swiper-slide {
+        background: #fff;
+    }
+      
+    .swiper-slide img {
+        zoom: 100%;
+    }
+      
+    .card-slide{
+        margin-top: 10px;
+        margin-bottom: 40px;
+        box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
+    }
+    .card-heading{
+        font-weight: 500;
+        font-size: 20px;
+        color: rgb(36, 36, 36);
+    }
+    .card-price{
+        float: right;
+        font-weight: 700;
+        font-size: 25px;
+        color: #2d2a2a;
+    }
+    .gold{
+        color: goldenrod;
     }
 }
