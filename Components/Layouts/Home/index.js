@@ -24,9 +24,11 @@ const Home = () => {
             <div className="dropup">
             <button className="dropbtn">DESTINATIONS</button>
             <div className="dropup-content">
-                <div className='links'>Content 1</div>
-                <div className='links'>Content 2</div>
-                <div className='links'>Content 3</div>
+                <div className='links'>Museum of the Future</div>
+                <div className='links'>Infinity De Lumieres</div>
+                <div className='links'>Dubai Safari Park</div>
+                <div className='links'>The Palm Monorail</div>
+                <div className='links'>Inside Burj Al Arab</div>
             </div>
             </div>
             <span className="dropbtn">
@@ -43,6 +45,7 @@ const Home = () => {
             <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
         </div>
         </div>
+        {/* Hot Avtivities */}
         <div className='arabic-bg py-5'>
             <Container className='my-5 py-5'>
             <h3 className='my-5 fw-700 wh-txt'>NEW YEARS EVE ACTIVITIES</h3>

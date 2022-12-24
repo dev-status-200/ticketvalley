@@ -33,7 +33,7 @@
         display: none;
         position: absolute;
         background-color: #211c1c;
-        min-width: 110px;
+        min-width: 180px;
         z-index: 1;
         left: 20px;
         padding-bottom: 10px;
@@ -41,12 +41,16 @@
       }
       
       .dropup-content .links {
-        color: rgb(247, 247, 247);
+        color: white;
         padding-left: 20px;
         padding-top: 5px;
         text-align: left;
         text-decoration: none;
         display: block;
+      }
+      .links:hover{
+        cursor: pointer;
+        color: grey;
       }
       
       .dropup:hover .dropup-content {
@@ -69,7 +73,7 @@
         text-shadow: 5px 5px 6px rgba(0,0,0,0.6);
       }
 
-      .swiper {
+    .swiper {
         width: 100%;
         height: 100%;
     }
@@ -77,12 +81,12 @@
     .swiper-slide {
         background: #fff;
     }
-      
     .swiper-slide img {
         zoom: 100%;
     }
       
     .card-slide{
+        cursor: pointer;
         margin-top: 10px;
         margin-bottom: 40px;
         box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
@@ -90,15 +94,15 @@
         -moz-box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
     }
     .card-heading{
-        font-weight: 500;
+        font-weight: 700;
         font-size: 20px;
-        color: rgb(36, 36, 36);
+        color: rgb(49, 49, 49);
     }
     .card-price{
         float: right;
         font-weight: 700;
         font-size: 25px;
-        color: #2d2a2a;
+        color: #424141;
     }
     .gold{
         color: goldenrod;
