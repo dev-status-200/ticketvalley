@@ -19,7 +19,7 @@ const Home = () => {
     <div className='home-styles' data-aos="fade-in">
         <div className='hero'>
         {/* Header */}
-        <div className='text-center pt-4'> 
+        <div className='text-center pt-4' data-aos='fade-down'> 
             <button className="dropbtn">HOME</button>
             <div className="dropup">
             <button className="dropbtn">DESTINATIONS</button>
@@ -40,14 +40,14 @@ const Home = () => {
         </div>
 
         {/* TEXT */}
-        <div className='hero-cont'>
+        <div className='hero-cont' data-aos='fade-up'>
             <h1 className='wh-txt hero-txt-1'>PEACELAND</h1>
             <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
         </div>
         </div>
         {/* Hot Avtivities */}
         <div className='arabic-bg py-5'>
-            <Container className='my-5 py-5'>
+            <Container className='my-5 py-5' data-aos='fade-up'>
             <h3 className='my-5 fw-700 wh-txt'>NEW YEARS EVE ACTIVITIES</h3>
             <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
                 modules={[Pagination]}
@@ -77,7 +77,7 @@ const Home = () => {
                 </SwiperSlide>
                 <SwiperSlide className='card-slide'>
                     <Row>
-                        <img src={'/tour-images/new-year-cruise.png'}/>
+                        <img src={'/tour-images/new-year-cruise.PNG'}/>
                         <div className='p-4'>
                             <div className='card-heading'>New Year's Eve Cruise</div>
                             <Col md={5}><Rate allowHalf defaultValue={2.5} /></Col>
