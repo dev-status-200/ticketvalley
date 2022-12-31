@@ -79,19 +79,14 @@
     }
       
     .swiper-slide {
-        background: #fff;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
     .swiper-slide img {
         zoom: 100%;
     }
       
     .card-slide{
-        cursor: pointer;
-        margin-top: 10px;
-        margin-bottom: 40px;
-        box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
-        -webkit-box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
-        -moz-box-shadow: 10px 10px 25px -11px rgba(0,0,0,0.75);
     }
     .card-heading{
         font-weight: 700;
@@ -106,5 +101,8 @@
     }
     .gold{
         color: goldenrod;
+    }
+    .border-btm{
+        border-bottom: 2px solid goldenrod;
     }
 }

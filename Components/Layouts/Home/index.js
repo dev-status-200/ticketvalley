@@ -7,8 +7,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 import "swiper/css/bundle";
-import { Rate } from 'antd';
-
+import { Rate,Card } from 'antd';
+const { Meta } = Card;
 const Home = () => {
 
     useEffect(() => {
@@ -46,45 +46,51 @@ const Home = () => {
         </div>
         </div>
         {/* Hot Avtivities */}
-        <div className='arabic-bg py-5'>
-            <Container className='my-5 py-5' data-aos='fade-up'>
-            <h3 className='my-5 fw-700 wh-txt'>NEW YEARS EVE ACTIVITIES</h3>
+        <div className='py-5'>
+            <Container className='my-5' data-aos='fade-up'>
+            <h3 className='my-5 fw-700'>NEW YEARS EVE <span className='border-btm'>ACTIVITIES</span></h3>
             <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
                 modules={[Pagination]}
                 className="mySwiper"
             >
                 <SwiperSlide className='card-slide'>
-                    <Row>
-                        <img src={'/tour-images/dinner-cruise.png'}/>
-                        <div className='p-4'>
-                            <div className='card-heading'>Dhow Dinner Cruise - Dubai Marina</div>
-                            <Col md={5}><Rate allowHalf defaultValue={2.5} /></Col>
-                            <Col md={5}>(1 Review)</Col>
-                            <div className='card-price mx-3'>400 <span className='gold'>AED</span></div>
-                        </div>
-                    </Row>
+                <Card
+                    hoverable
+                    style={{ width: 340 }}
+                    cover={<img alt="example" src="/tour-images/dinner-cruise.png" />}
+                >
+                    <Meta title="Dhow Dinner Cruise"  />
+                    <div>
+                        <Rate allowHalf defaultValue={4.5} />
+                        <div className='card-price mx-3'>400 <span className='gold'>AED</span></div>
+                    </div>
+                </Card>
                 </SwiperSlide>
                 <SwiperSlide className='card-slide'>
-                    <Row>
-                        <img src={'/tour-images/burj-fire.jpg'}/>
-                        <div className='p-4'>
-                            <div className='card-heading'>Celebration Burj Khalifa Fireworks</div>
-                            <Col md={5}><Rate allowHalf defaultValue={2.5} /></Col>
-                            <Col md={5}>(1 Review)</Col>
-                            <div className='card-price mx-3'>1,130 <span className='gold'>AED</span></div>
-                        </div>
-                    </Row>
+                <Card
+                    hoverable
+                    style={{ width: 340 }}
+                    cover={<img alt="example" src="/tour-images/burj-fire.jpg" />}
+                >
+                    <Meta title="Celebration Burj Khalifa Fireworks"  />
+                    <div>
+                    <Rate allowHalf defaultValue={4.5} />
+                    <div className='card-price mx-3'>1,130 <span className='gold'>AED</span></div>
+                    </div>
+                </Card>
                 </SwiperSlide>
                 <SwiperSlide className='card-slide'>
-                    <Row>
-                        <img src={'/tour-images/new-year-cruise.PNG'}/>
-                        <div className='p-4'>
-                            <div className='card-heading'>New Year's Eve Cruise</div>
-                            <Col md={5}><Rate allowHalf defaultValue={2.5} /></Col>
-                            <Col md={5}>(1 Review)</Col>
-                            <div className='card-price mx-3'>1,230 <span className='gold'>AED</span></div>
-                        </div>
-                    </Row>
+                <Card
+                    hoverable
+                    style={{ width: 340 }}
+                    cover={<img alt="example" src="/tour-images/new-year-cruise.PNG" />}
+                >
+                    <Meta title="New Year's Eve Cruise"  />
+                    <div>
+                    <Rate allowHalf defaultValue={4.5} />
+                    <div className='card-price mx-3'>1,230 <span className='gold'>AED</span></div>
+                    </div>
+                </Card>
                 </SwiperSlide>
             </Swiper>
             </Container>
@@ -94,3 +100,13 @@ const Home = () => {
 }
 
 export default Home
+
+{/* <Row>
+<img src={'/tour-images/new-year-cruise.PNG'}/>
+<div className='p-4'>
+    <div className='card-heading'>New Year's Eve Cruise</div>
+    <Col md={5}><Rate allowHalf defaultValue={2.5} /></Col>
+    <Col md={5}>(1 Review)</Col>
+    <div className='card-price mx-3'>1,230 <span className='gold'>AED</span></div>
+</div>
+</Row> */}
