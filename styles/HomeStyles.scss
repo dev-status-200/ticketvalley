@@ -9,7 +9,22 @@
         background-size: cover;
     }
 
-    
+    .navBar{
+      text-align: center;
+    }
+    .navLink{
+      display: inline-block;
+      min-width: 100px;
+      text-decoration: none;
+      color: white;
+  
+      font-size: 16px;
+      font-weight: 600;
+  
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.52);
+    }
+
+
     .dropbtn {
         color: white;
         padding: 16px;
@@ -104,5 +119,32 @@
     }
     .border-btm{
         border-bottom: 2px solid goldenrod;
+    }
+
+    .why-us-section{
+      //TOUR
+      background: url("../public/images/whyusbg.png");
+      height: 100%; 
+
+      /* Center and scale the image nicely */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .section-bg{
+      //TOUR
+      background: url("../public/images/tours-bg.png");
+      height: 100%; 
+
+      /* Center and scale the image nicely */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .detail-btn{
+      text-decoration: none;
+      color: white;
+      background-color: rgb(52, 99, 179);
+      padding: 8px 18px 8px 18px;
+      border-radius: 25px;
     }
 }

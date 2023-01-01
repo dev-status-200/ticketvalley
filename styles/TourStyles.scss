@@ -1,0 +1,106 @@
+.tour-styles{
+  .hero{
+      background: url("../public/images/tour-top-img-1.png");
+       
+
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  .navBar{
+    text-align: center;
+  }
+  .navLink{
+    display: inline-block;
+    min-width: 100px;
+    text-decoration: none;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.52);
+  }
+
+  .section-nav-container{
+    padding: 30px 20px 30px 20px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.349);
+  }
+  .section-nav{
+    transition-duration: 300ms;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 60px;
+    color: rgb(159, 158, 158);
+  }
+
+  .section-nav:hover{
+    transition-duration: 300ms;
+    color: rgba(0, 0, 0, 0.838);
+  }
+  
+  .booking-form{
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+  }
+  .info-logo{
+    margin-right: 15px;
+    color: rgb(37, 70, 117);
+    font-size: 20px;
+  }
+  .info-text{
+    position: relative;
+    top: 2px;
+    font-size: 18px;
+    color: rgb(71, 71, 71);
+    line-height: 10px;
+  }
+  .bt-2{
+    position: relative;
+    bottom: 4px;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 370px;
+    object-fit: cover;
+  }
+
+  div.swiper-pagination.swiper-pagination-bullets-dynamic.swiper-pagination-bullets.swiper-pagination-horizontal{
+    position: relative;
+    top: 0px;
+    margin-top: 10px;
+  }
+}

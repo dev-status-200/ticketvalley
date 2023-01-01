@@ -8,7 +8,7 @@ const Header = () => {
     const [menu, setMenu] = useState(false);
   return (
     <div className='header-styles'>
-        <Row className='px-5 pb-2 pt-1 m-0 white-bg'>
+        <Row className='px-5 pb-3 pt-3 m-0 white-bg'>
             <Col md={4}>
                 <div>
                     <span style={{color:'grey', fontSize:13}}><FaPhoneAlt/></span>
@@ -28,20 +28,6 @@ const Header = () => {
                 </div>
             </Col>
         </Row>
-        {/* <div className='text-center' style={{backgroundColor:'white'}}> 
-        <button className="dropbtn">HOME</button>
-        <span className="dropbtn">
-            <img src={'/images/logo.png'} height={80} />
-        </span>
-        <div className="dropup">
-        <button class="dropbtn">DESTINATIONS</button>
-        <div className="dropup-content">
-            <div className='links'>Content 1</div>
-            <div className='links'>Content 2</div>
-            <div className='links'>Content 3</div>
-        </div>
-        </div>
-        </div> */}
     </div>
   )
 }
