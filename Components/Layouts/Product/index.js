@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
@@ -13,6 +13,7 @@ import { TbLanguageHiragana, TbPoint } from "react-icons/tb";
 import Carasoul from './Carasoul';
 import { useRouter } from 'next/router';
 import data from '../../../data.json'
+import Aos from 'aos';
 
 const Product = () => {
 
@@ -22,16 +23,21 @@ const Product = () => {
 
   const router = useRouter();
   const {id} = router.query;
-  React.useEffect(() => {
+  useEffect(() => {
+    console.log(router)
     data.forEach((x)=>{
       if(id==x.id){
         setTour(x);
       }
     })
   }, [])
+
+  useEffect(() => {
+    Aos.init({duration:700});
+}, [])
   
   return (
-    <div className='tour-styles' style={{backgroundColor:'white'}}>
+    <div className='tour-styles' style={{backgroundColor:'white'}} data-aos="fade-in">
       <div className='hero py-4'>
         {/* Header */}
         <div className='navBar'>

@@ -23,21 +23,25 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
 
   return (
     <> 
-    { (router.pathname !='/portal' && router.pathname !='/login') && 
-      <ClientLayout>
-          { loading && <Loader/> }
-          { !loading && <Component {...pageProps} /> }
-      </ClientLayout>
+    { (router.pathname =='/' || router.pathname =='/product' ) && 
+        <>
+        { loading && <Loader/> }
+        { !loading &&
+          <ClientLayout>
+           <Component {...pageProps} /> 
+          </ClientLayout>
+        }
+        </>
     }
-    { router.pathname =='/portal' &&
+    { (router.pathname =='/portal' || router.pathname =='/productCreation') &&
       <PortalLayout>
         { loading && <Loader/> }
         { !loading && <Component {...pageProps} /> }
       </PortalLayout>
     }
     { router.pathname =='/login' &&
-        <Component {...pageProps} />
-      }
+      <Component {...pageProps} />
+    }
     </>
   )
 }

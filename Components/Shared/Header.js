@@ -5,7 +5,7 @@ import { SiFacebook, SiInstagram, SiTwitter } from "react-icons/si";
 import { AiOutlineUser } from "react-icons/ai";
 import Link from 'next/link'
 const Header = () => {
-    const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(false);
   return (
     <div className='header-styles'>
         <Row className='px-5 pb-3 pt-3 m-0 white-bg'>
@@ -24,7 +24,7 @@ const Header = () => {
                     <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiInstagram/></span>
                     <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiTwitter/></span>
                     <span className='cur ' style={{color:'grey', fontSize:13, marginLeft:20}}><AiOutlineUser/></span>
-                    <Link className='cur f mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href={'/login'}>Login</Link>
+                    <Link className='cur f mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href="/login">Login</Link>
                 </div>
             </Col>
         </Row>

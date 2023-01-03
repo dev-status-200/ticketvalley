@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined, SnippetsOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 import Router from 'next/router';
@@ -24,22 +24,26 @@ const PortalLayout = ({children}) => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
+          onSelect={(x)=>{
+            console.log(x.key);
+            if(x.key=='1'){
+              Router.push('/portal')
+            }else if(x.key=='2'){
+              Router.push('/productCreation')
+            }
+          }}
           items={[
             {
               key: '1',
               icon: <UserOutlined />,
-              label: 'nav 1',
+              label: 'Dashboard',
             },
             {
               key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'nav 2',
+              icon: <SnippetsOutlined />,
+              label: 'Product',
             },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3',
-            },
+
           ]}
         />
       </Sider>

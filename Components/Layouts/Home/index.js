@@ -29,7 +29,14 @@ const Home = () => {
         {/* Header */}
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
-          <Link className='navLink' href='/'>DESTINATION</Link>
+        <div className='dropdown'>
+        <div className='navLink dropbtn'>DESTINATION</div>
+        <div class="dropdown-content">
+            <a className='menu-drop-links'>Destinations 1</a>
+            <a className='menu-drop-links'>Destinations 2</a>
+            <a className='menu-drop-links'>Destinations 3</a>
+        </div>
+        </div>
           <span className="navLink">
             <img src={'/images/logo.png'} height={100} />
           </span>
@@ -62,8 +69,8 @@ const Home = () => {
                         Your expert trip leader is with you for the entire trip
                     </p>
                 </Col>
-                <Col md={6}>
-                    <img src={'images/Asset 2-8.png'} height={500} />
+                <Col md={6} className='py-5'>
+                    <img src={'images/Asset 2-8.png'} style={{width:'48vw'}} />
                 </Col>
             </Row>
             </div>
