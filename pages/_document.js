@@ -4,7 +4,7 @@ class MainDocument extends Document {
   render() {
     return (
     <Html>
-      <title>Peaceland | Travel & Tours</title>
+      <title>Ticket Valley | Travel & Tours</title>
       <Head>
         <meta name="description" content="Lead Management System" />
         <link rel="icon" href="/images/logo.png" />

@@ -46,7 +46,7 @@ const Home = () => {
 
         {/* TEXT */}
         <div className='hero-cont' data-aos='fade-up'>
-            <h1 className='wh-txt hero-txt-1'>PEACELAND</h1>
+            <h1 className='wh-txt hero-txt-1'>TICKET VALLEY</h1>
             <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
         </div>
         </div>
