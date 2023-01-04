@@ -40,7 +40,12 @@ const initialState = {
     edit:false,
     activeTab:'1',
     load:false,
+    search:"",
     //form values
+    show_image:"",
+    show_images:"",
+    main_image:"",
+    more_images:[],
     title:"",
     availability:"",
     duration:"",
