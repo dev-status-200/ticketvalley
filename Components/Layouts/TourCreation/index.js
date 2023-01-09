@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import { Modal, Card, Input } from 'antd';
-import { reducerFunctions, initialState } from './states';
+import { reducerFunctions, initialState, baseValues } from './states';
 import { Row, Col, Table } from 'react-bootstrap';
 import CreateOrEdit from './CreateOrEdit';
 import { EditOutlined } from '@ant-design/icons';

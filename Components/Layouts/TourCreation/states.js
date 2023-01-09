@@ -33,6 +33,28 @@ function reducerFunctions(state, action) {
     }
 
 }
+
+const baseValues = {
+
+  title:"",
+  availability:"",
+  duration:"",
+  time_slot:"",
+  transport:"",
+  confirmation:"",
+  refund:"",
+  voucher:"",
+  lang:"",
+  tour_detail:"",
+  departure:"",
+  reporting:"",
+  
+  child_price:"",
+  adult_price:"",
+
+  category:"",
+}
+
 const initialState = {
     records:[],
     selectedRecord:{},
@@ -42,34 +64,31 @@ const initialState = {
     load:false,
     search:"",
     //form values
-    show_image:"",
-    show_images:"",
+    values:baseValues,
+
     main_image:"",
+    show_image:"",
+
     more_images:[],
-    title:"",
-    availability:"",
-    duration:"",
-    time_slot:"",
-    transport:"",
-    confirmation:"",
-    refund:"",
-    voucher:"",
-    lang:"",
-    tour_detail:"",
+    show_images:"",
+
     inclusion:"",
     inclusions:[],
+
     why_should:"",
     why_shoulds:[],
-    price:"",
-    departure:"",
-    reporting:"",
-    meals:"",
+
     imp_info:"",
     imp_infos:[],
+
     policy:"",
     policies:[],
-    product_category:"",
-    tour_category:""
+
+    cancellation_policy:"",
+    cancellation_polices:[],
+
+    term_condition:"",
+    terms_conditions:[]
 };
 
-export { initialState, reducerFunctions }
+export { initialState, reducerFunctions, baseValues }

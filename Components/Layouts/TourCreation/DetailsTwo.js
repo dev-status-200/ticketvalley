@@ -1,81 +1,85 @@
 import React from 'react';
-import { Input } from 'antd';
 import { Row, Col } from 'react-bootstrap';
+import InputComp from '../../Shared/Form/InputComp';
+import SelectComp from '../../Shared/Form/SelectComp';
+import InputAreaComp from '../../Shared/Form/InputAreaComp';
 
-const DetailsTwo = ({state, setValues}) => {
+const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
   return (
     <>
     <Row>
     <Col className='px-4' md={4}>
-        <div>Price</div>
-        <Input placeholder="Price" value={state.price} 
-            onChange={(e)=>setValues(e.target.value,'price')} />
+        <InputComp  register={register} name='title' control={control} label='Title' />
+    </Col>
+    <Col className='px-4' md={8}>
+        <InputAreaComp  register={register} name='detail' control={control} label='Detail' />
+    </Col>
+    <Col className='px-4' md={4}>
+        <InputComp  register={register} name='adult_price' control={control} label='Adult price' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div>Availability</div>
-        <Input placeholder="Availability" value={state.availability} 
-            onChange={(e)=>setValues(e.target.value,'availability')} />
+        <InputComp  register={register} name='child_price' control={control} label='Child Price' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div>Duration</div>
-        <Input placeholder="Duration" value={state.duration} 
-            onChange={(e)=>setValues(e.target.value,'duration')} />
+        <InputComp  register={register} name='availability' control={control} label='Availability' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Time Slot</div>
-        <Input placeholder="Time Slot" value={state.time_slot} 
-            onChange={(e)=>setValues(e.target.value,'time_slot')} />
+        <InputComp  register={register} name='duration' control={control} label='Duration' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Transport</div>
-        <Input placeholder="Transport" value={state.transport} 
-            onChange={(e)=>setValues(e.target.value,'transport')} />
+        <InputComp  register={register} name='time_slot' control={control} label='Time Slot' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Confirmation</div>
-        <Input placeholder="Confirmation" value={state.confirmation} 
-            onChange={(e)=>setValues(e.target.value,'confirmation')} />
+        <InputComp  register={register} name='confirmation' control={control} label='Confirmation' />
     </Col>
     
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Refund</div>
-        <Input placeholder="Refund" value={state.refund} 
-            onChange={(e)=>setValues(e.target.value,'refund')} />
+        <SelectComp register={register} name='refund' control={control} label='Refund' width={"100%"}
+          options={[  
+            {id:'Yes', name:'Yes'},
+            {id:'No', name:'No'},
+        ]}/>
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Voucher Info</div>
-        <Input placeholder="voucher" value={state.voucher} 
-            onChange={(e)=>setValues(e.target.value,'voucher')} />
+        <SelectComp register={register} name='voucher' control={control} label='Voucher' width={"100%"}
+          options={[  
+            {id:'Printed V-copy Accepted', name:'Printed V-copy Accepted'},
+        ]}/>
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Lang Info</div>
-        <Input placeholder="Lang" value={state.lang} 
-            onChange={(e)=>setValues(e.target.value,'lang')} />
+        <InputComp  register={register} name='lang' control={control} label='Lang Info' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Departure Info</div>
-        <Input placeholder="Departure Info" value={state.departure} 
-            onChange={(e)=>setValues(e.target.value,'departure')} />
+        <InputComp  register={register} name='departure' control={control} label='Departure Info' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Reporting Info</div>
-        <Input placeholder="Reporting Info" value={state.reporting} 
-            onChange={(e)=>setValues(e.target.value,'reporting')} />
+        <InputComp  register={register} name='reporting' control={control} label='Reporting Info' />
     </Col>
 
     <Col className='px-4' md={4}>
-        <div className='mt-3'>Meals Info</div>
-        <Input placeholder="Meals Info" value={state.meals} 
-            onChange={(e)=>setValues(e.target.value,'meals')} />
+        <SelectComp register={register} name='transport' control={control} label='Transport' width={"100%"}
+          options={[  
+            {id:'Available', name:'Available'},
+            {id:'Not Available', name:'Not Available'},
+        ]}/>
+    </Col>
+
+    <Col className='px-4' md={4}>
+        <SelectComp register={register} name='category' control={control} label='Category' width={"100%"}
+          options={[  
+            {id:'Best Selling', name:'Best Selling'},
+            {id:'Adventure Tours', name:'Adventure Tours'},
+            {id:'Combo Tours', name:'Combo Tours'},
+        ]}/>
     </Col>
     </Row>
     </>
