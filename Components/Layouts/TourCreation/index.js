@@ -39,65 +39,42 @@ export default function TourCreation({productData}) {
         </Row>
         </Col>
       </Row>
-      <Row>
-        {records.filter((x)=>{
-              if(
-                x.title.toLowerCase().includes(state.search.toLowerCase())||
-                x.price.toLowerCase().includes(state.search.toLowerCase())||
-                x.tour_detail.toLowerCase().includes(state.search.toLowerCase())
-              ){
-                return x
-              }
-              if(state.search==""){
-                return x
-              }
-            }).map((x, i)=>{
-          return(
-          <Col md={2} className="m-2">
-          <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={<img alt="example" style={{height:250, width:240}} src={x.main_image} />}
-            >
-              <Card.Meta title={x.title} description={x.tour_detail} />
-              <div>AED. {x.price}</div>
-            </Card>
-          </Col>
-          )
-        })}
-      </Row>
-      {/* <div className='table-sm-1 mt-3'>
-          <Table className='tableFixHead'>
-              <thead>
-                  <tr>
-                      <th>#</th>
-                      <th>Title</th>
-                      <th>Detail</th>
-                      <th>Price</th>
-                      <th>Refund</th>
-                      <th>Modify</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {
-                  records.map((x, index) => {
-                  return (
-                      <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{x.title}</td>
-                          <td>{x.tour_detail}</td>
-                          <td className='fw-700' style={{color:'green'}}>{x.price} AED</td>
-                          <td>{x.refund}</td>
-                          <td><EditOutlined className='edit-icon' onClick={()=>dispatch({type: 'edit', payload:x})} /></td>
-                      </tr>
-                  )
-                  })
-                  }
-              </tbody>
-          </Table>
-      </div> */}
+      <div style={{ maxHeight:700, overflowY:'auto', overflowX:'hidden'}}>
+        <Row >
+          {
+          records.filter((x)=>{
+            if(
+              x.title.toLowerCase().includes(state.search.toLowerCase())||
+              x.adult_price.toLowerCase().includes(state.search.toLowerCase())||
+              x.tour_detail.toLowerCase().includes(state.search.toLowerCase())
+            ){
+              return x
+            }
+            if(state.search==""){
+              return x
+            }
+          }).map((x, i)=>{
+            return(
+            <Col md={3} className="mx-1 my-3" key={i} onClick={()=>{
+              dispatch({type:'edit', payload:x})
+            }}>
+            <Card
+                hoverable
+                style={{
+                  width: 240,
+                }}
+                cover={<img alt="example" style={{height:180, width:240}} src={x.main_image} />}
+              >
+                <Card.Meta title={x.title} description={x.tour_detail} />
+                <div style={{float:'right'}}>Stock: <strong>10</strong></div>
+                <div>AED. {x.adult_price}</div>
+              </Card>
+            </Col>
+            )
+          })}
+        </Row>
+      </div>
+      
       <Modal
         title="Create A Product"
         open={visible}
@@ -106,7 +83,7 @@ export default function TourCreation({productData}) {
         width={1000}
         footer={[]}
       >
-        <CreateOrEdit state={state} dispatch={dispatch} />
+        <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} />
       </Modal>
     </div>
   );

@@ -10,11 +10,26 @@ import { Input, Tabs } from 'antd';
 import Router from 'next/router';
 import axios from 'axios';
 
-const CreateOrEdit = ({state, dispatch}) => {
+const CreateOrEdit = ({state, dispatch, baseValues}) => {
 
   const {register, control, handleSubmit, reset, formState:{errors} } = useForm({
     defaultValues:state.values
   });
+
+  useEffect(() => {
+    if(state.edit){
+      let tempState = {...state.selectedRecord};
+      console.log(tempState)
+      state.terms_conditions = tempState.terms_conditions.split(",");
+      state.cancellation_polices = tempState.cancellation_polices.split(",");
+      state.policies = tempState.policies.split(",");
+      state.imp_infos = tempState.imp_infos.split(",");
+      state.why_shoulds = tempState.why_shoulds.split(",");
+      state.inclusions = tempState.inclusions.split(",");
+      reset(tempState);
+    }
+    if(!state.edit){ reset(baseValues) }
+  }, [state.selectedRecord])
 
   const setValues = (value, field) => {
     dispatch({
@@ -42,18 +57,16 @@ const CreateOrEdit = ({state, dispatch}) => {
   }
 
   const onSubmit = async(data) => {
-    dispatch({type:'field', fieldName:'load', payload:true})
 
+    dispatch({type:'field', fieldName:'load', payload:true})
     let cover;
     let value;
     let values=[];
-
     cover = await uploadImage(state.main_image);
     for(let i = 0; i<state.more_images.length; i++){
       value = await uploadImage(state.more_images[i]);
       values.push(value)
     }
-
     setTimeout(
       await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
         {
@@ -63,21 +76,60 @@ const CreateOrEdit = ({state, dispatch}) => {
           why_shoulds:state.why_shoulds.toString(),
           imp_infos:state.imp_infos.toString(),
           more_images:values.toString(),
-          policies:state.policies.toString()
+          policies:state.policies.toString(),
+          cancellation_polices:state.cancellation_polices.toString(),
+          terms_conditions:state.terms_conditions.toString(),
         }
       ).then((x)=>{
-        console.log(x.data)
-        // if(x.data.status=='success'){
-        //   let tempState = [...state.records];
-        //   tempState.unshift(x.data.result);
-        //   dispatch({type:'field', fieldName:'records', payload:tempState})
-        // }
-         dispatch({type:'field', fieldName:'load', payload:false})
-        // dispatch({type: 'modalOff'})
+        if(x.data.status=='success'){
+          let tempState = [...state.records];
+          tempState.unshift(x.data.result);
+          dispatch({type:'field', fieldName:'records', payload:tempState})
+          reset(baseValues)
+        }
+        dispatch({type:'field', fieldName:'load', payload:false})
+        dispatch({type: 'modalOff'})
       }), 3000)
   }
 
-  const onEdit = async(data) => { };
+  const onEdit = async(data) => {
+    dispatch({type:'field', fieldName:'load', payload:true});
+    delete data.main_image;
+    delete data.more_images;
+
+    console.log(data)
+
+    if(state.main_image){
+      console.log(state.main_image)
+      let cover;
+      cover = await uploadImage(state.main_image);
+      data.main_image = cover;
+    }
+    
+    setTimeout(
+      await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
+        {
+          ...data,
+          inclusions:state.inclusions.toString(),
+          why_shoulds:state.why_shoulds.toString(),
+          imp_infos:state.imp_infos.toString(), 
+          policies:state.policies.toString(),
+          cancellation_polices:state.cancellation_polices.toString(),
+          terms_conditions:state.terms_conditions.toString(),
+        }
+      ).then((x)=>{
+        console.log(x.data);
+        if(x.data.status=='success'){
+
+          Router.push("/productCreation")
+
+          dispatch({type:'modalOff'});
+          //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
+      }
+        dispatch({type:'field', fieldName:'load', payload:false});
+        dispatch({type: 'modalOff'})
+      }), 3000)
+  };
 
   const onError = async(data) => { };
 
@@ -87,7 +139,6 @@ const CreateOrEdit = ({state, dispatch}) => {
       <Tabs
         defaultActiveKey="1"
         onChange={(e)=>dispatch({type:'toggle', fieldName:'activeTab', payload:e})}
-        //onChange={(e)=>console.log(e)}
         items={[
           {
             label: `Description`,
@@ -106,9 +157,9 @@ const CreateOrEdit = ({state, dispatch}) => {
           }
         ]}
       />
-        <Col md={12} className='pt-3'>
+      <Col md={12} className='pt-3'>
         <button className='btn-custom' type="submit" disabled={state.load?true:false}>{state.load?<Spinner animation="border" size='sm' className='mx-3' />:'Submit'}</button>
-        </Col>
+      </Col>
       </form>
     </div>
   )

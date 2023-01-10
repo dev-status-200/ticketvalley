@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import Aos from 'aos';
 import { AiOutlineRight } from "react-icons/ai";
@@ -15,11 +15,18 @@ import { useRouter } from 'next/router'
 import { GiBowTieRibbon, GiGymBag, GiWifiRouter } from "react-icons/gi";
 import { SiOpenstreetmap } from "react-icons/si";
 
-const Home = () => {
+const Home = ({bestSellingData, adventureData, comboData}) => {
     const router = useRouter();
+    const [bestSelling, setBestSelling] = useState([])
+    const [adventures, setAdventures] = useState([])
+    const [combos, setCombos] = useState([])
 
     useEffect(() => {
         Aos.init({duration:700});
+        console.log(adventureData)
+        setAdventures(adventureData)
+        setBestSelling(bestSellingData)
+        setCombos(comboData)
     }, [])
     
     return (
@@ -31,10 +38,8 @@ const Home = () => {
           <Link className='navLink' href='/'>HOME</Link>
         <div className='dropdown'>
         <div className='navLink dropbtn'>DESTINATION</div>
-        <div class="dropdown-content">
-            <a className='menu-drop-links'>Destinations 1</a>
-            <a className='menu-drop-links'>Destinations 2</a>
-            <a className='menu-drop-links'>Destinations 3</a>
+        <div className="dropdown-content">
+            <a className='menu-drop-links pb-2'>Dubai</a>
         </div>
         </div>
           <span className="navLink">
@@ -101,82 +106,64 @@ const Home = () => {
 
         {/* Hot Avtivities */}
         <div className='py-5 section-bg'>
-            <Container className='my-5' data-aos='fade-up'>
-            <h3 className='my-5 fw-700'>ADVENTURES AND TOUR <span className='border-btm'>ACTIVITIES</span></h3>
-            <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
-                modules={[Pagination]}
-                className="mySwiper"
-            >
-                <SwiperSlide className='card-slide'>
-                <Card
-                    hoverable
-                    style={{ width: 340 }}
-                    cover={<img alt="example" src="/tour-images/dinner-cruise.png" />}
-                >
-                    <Meta title="Dhow Dinner Cruise"  />
-                    <div>
-                        <Rate allowHalf defaultValue={4.5} />
-                        <div className='card-price mx-3'>400 <span className='gold'>AED</span></div>
-                    </div>
-                </Card>
-                </SwiperSlide>
-                <SwiperSlide className='card-slide'>
-                <Card
-                    hoverable
-                    style={{ width: 340 }}
-                    cover={<img alt="example" src="/tour-images/burj-fire.jpg" />}
-                >
-                    <Meta title="Celebration Burj Khalifa Fireworks"  />
-                    <div>
-                    <Rate allowHalf defaultValue={4.5} />
-                    <div className='card-price mx-3'>1,130 <span className='gold'>AED</span></div>
-                    </div>
-                </Card>
-                </SwiperSlide>
-                <SwiperSlide className='card-slide'>
-                <Card
-                    hoverable
-                    style={{ width: 340 }}
-                    cover={<img alt="example" src="/tour-images/new-year-cruise.PNG" />}
-                >
-                    <Meta title="New Year's Eve Cruise"  />
-                    <div>
-                    <Rate allowHalf defaultValue={4.5} />
-                    <div className='card-price mx-3'>1,230 <span className='gold'>AED</span></div>
-                    </div>
-                </Card>
-                </SwiperSlide>
-            </Swiper>
-            </Container>
+
             <Container className='my-5' data-aos='fade-up'>
             <h3 className='my-5 fw-700'>BEST SELLING <span className='border-btm'>ACTIVITIES</span></h3>
             <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
                 modules={[Pagination]}
                 className="mySwiper"
             >
-                <SwiperSlide className='card-slide' onClick={()=>
-                    router.push({
-                    pathname: '/product',
-                    query: { id: 1 },
-                })}>
-                <Cards title="Museum Of Future" image="/tour-images/main-2.png" price="$ 39.48" />
+                {bestSelling.map((x, i)=>{
+                    return(
+                        <SwiperSlide className='card-slide' onClick={()=>
+                            router.push({
+                            pathname: '/product',
+                            query: { id: x.id },
+                        })}>
+                        <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
+            </Container>
 
-                </SwiperSlide>
-                <SwiperSlide className='card-slide' onClick={()=>
-                    router.push({
-                    pathname: '/product',
-                    query: { id: 2 },
-                })}>
-                <Cards title="Dubai Mall Aquarium" image="/tour-images/main-3.png" price="$ 39.48" />
+            <Container className='my-5' data-aos='fade-up'>
+            <h3 className='my-5 fw-700'>ADVENTURES AND TOUR <span className='border-btm'>ACTIVITIES</span></h3>
+            <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
+                modules={[Pagination]}
+                className="mySwiper"
+            >
+                {adventures.map((x, i)=>{
+                    return(
+                        <SwiperSlide className='card-slide' onClick={()=>
+                            router.push({
+                            pathname: '/product',
+                            query: { id: x.id },
+                        })}>
+                        <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
+            </Container>
 
-                </SwiperSlide>
-                <SwiperSlide className='card-slide' onClick={()=>
-                    router.push({
-                    pathname: '/product',
-                    query: { id: 3 },
-                })}>
-                <Cards title="Burj Khalifa Ticket with..." image="/tour-images/main-4.png" price="$ 39.48" />
-                </SwiperSlide>
+            <Container className='my-5' data-aos='fade-up'>
+            <h3 className='my-5 fw-700'>COMBO TOURS <span className='border-btm'>ACTIVITIES</span></h3>
+            <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
+                modules={[Pagination]}
+                className="mySwiper"
+            >
+                {combos.map((x, i)=>{
+                    return(
+                        <SwiperSlide className='card-slide' onClick={()=>
+                            router.push({
+                            pathname: '/product',
+                            query: { id: x.id },
+                        })}>
+                        <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
+                        </SwiperSlide>
+                    )
+                })}
             </Swiper>
             </Container>
         </div>
@@ -185,13 +172,3 @@ const Home = () => {
 }
 
 export default Home
-
-{/* <Row>
-<img src={'/tour-images/new-year-cruise.PNG'}/>
-<div className='p-4'>
-    <div className='card-heading'>New Year's Eve Cruise</div>
-    <Col md={5}><Rate allowHalf defaultValue={2.5} /></Col>
-    <Col md={5}>(1 Review)</Col>
-    <div className='card-price mx-3'>1,230 <span className='gold'>AED</span></div>
-</div>
-</Row> */}

@@ -8,7 +8,10 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
-
+    div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+      
+      bottom: -5px;
+    }
     .navBar{
       text-align: center;
     }
@@ -132,7 +135,7 @@
     }
     .section-bg{
       //TOUR
-      background: url("../public/images/tours-bg.png");
+      background: url("../public/images/tours-bg-2.png");
       height: 100%; 
 
       /* Center and scale the image nicely */

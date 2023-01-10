@@ -12,7 +12,7 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
         <InputComp  register={register} name='title' control={control} label='Title' />
     </Col>
     <Col className='px-4' md={8}>
-        <InputAreaComp  register={register} name='detail' control={control} label='Detail' />
+        <InputAreaComp  register={register} name='tour_detail' control={control} label='Detail' />
     </Col>
     <Col className='px-4' md={4}>
         <InputComp  register={register} name='adult_price' control={control} label='Adult price' />

@@ -24,6 +24,9 @@ function reducerFunctions(state, action) {
       case 'modalOff': {
         return {
           ...state,
+          selectedRecord:{},
+          main_image:"",
+          show_image:"",
           visible: false,
           edit: false,
         };
