@@ -27,15 +27,6 @@ const Carasoul = (props) => {
         </SwiperSlide>
         )
       })}
-      {/* <SwiperSlide>
-        <img src={'/tour-images/4.png'} alt="" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src={'/tour-images/3.png'} alt="" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src={'/tour-images/1.png'} alt="" />
-      </SwiperSlide> */}
     </Swiper>
   </>
   )
