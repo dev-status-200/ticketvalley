@@ -13,7 +13,6 @@ import axios from 'axios';
 const CreateOrEdit = ({state, dispatch}) => {
 
   const {register, control, handleSubmit, reset, formState:{errors} } = useForm({
-    //resolver:yupResolver(SignupSchema),
     defaultValues:state.values
   });
 
@@ -43,8 +42,7 @@ const CreateOrEdit = ({state, dispatch}) => {
   }
 
   const onSubmit = async(data) => {
-    
-    //console.log(data)
+    dispatch({type:'field', fieldName:'load', payload:true})
 
     let cover;
     let value;
@@ -56,49 +54,30 @@ const CreateOrEdit = ({state, dispatch}) => {
       values.push(value)
     }
 
-    console.log('cover', cover)
-    console.log('carousel', values)
-
-
-    // dispatch({type:'field', fieldName:'load', payload:true})
-    // setTimeout(
-    //   await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
-    //     {
-    //       title:state.title,
-    //       main_image:await(uploadImage(state.main_image)),
-    //       availability:state.availability,
-    //       duration:state.duration,
-    //       time_slot:state.time_slot,
-    //       transport:state.transport,
-    //       confirmation:state.confirmation,
-    //       refund:state.refund,
-    //       voucher:state.voucher,
-    //       lang:state.lang,
-    //       tour_detail:state.tour_detail,
-    //       price:state.price,
-    //       departure:state.departure,
-    //       reporting:state.reporting,
-    //       meals:state.meals,
-    //       inclusions:state.inclusions.toString(),
-    //       why_shoulds:state.why_shoulds.toString(),
-    //       imp_infos:state.imp_infos.toString(),
-    //       policies:state.policies.toString()
-    //     }
-    //   ).then((x)=>{
-    //     console.log(x.data.result)
-    //     if(x.data.status=='success'){
-    //       let tempState = [...state.records];
-    //       tempState.unshift(x.data.result);
-    //       dispatch({type:'field', fieldName:'records', payload:tempState})
-    //     }
-    //     dispatch({type:'field', fieldName:'load', payload:false})
-    //     dispatch({type: 'modalOff'})
-    //   }), 3000)
+    setTimeout(
+      await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
+        {
+          ...data,
+          main_image:cover,
+          inclusions:state.inclusions.toString(),
+          why_shoulds:state.why_shoulds.toString(),
+          imp_infos:state.imp_infos.toString(),
+          more_images:values.toString(),
+          policies:state.policies.toString()
+        }
+      ).then((x)=>{
+        console.log(x.data)
+        // if(x.data.status=='success'){
+        //   let tempState = [...state.records];
+        //   tempState.unshift(x.data.result);
+        //   dispatch({type:'field', fieldName:'records', payload:tempState})
+        // }
+         dispatch({type:'field', fieldName:'load', payload:false})
+        // dispatch({type: 'modalOff'})
+      }), 3000)
   }
 
-  const onEdit = async(data) => {
-
-  }
+  const onEdit = async(data) => { };
 
   const onError = async(data) => { };
 
