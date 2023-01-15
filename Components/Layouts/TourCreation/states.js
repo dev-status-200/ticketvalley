@@ -56,6 +56,7 @@ const baseValues = {
   adult_price:"",
 
   category:"",
+  stock:"",
 }
 
 const initialState = {
@@ -72,6 +73,8 @@ const initialState = {
     main_image:"",
     show_image:"",
 
+    prev_images:[],
+    deleted_images:[],
     more_images:[],
     show_images:"",
 
@@ -91,7 +94,9 @@ const initialState = {
     cancellation_polices:[],
 
     term_condition:"",
-    terms_conditions:[]
+    terms_conditions:[],
+    
+    status:""
 };
 
 export { initialState, reducerFunctions, baseValues }

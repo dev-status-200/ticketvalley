@@ -13,7 +13,7 @@ const InputAreaComp = (props) => {
       {...props.register(`${props.name}`)}
       render={({ field }) => (
           <>
-            <div>{props.label}</div>
+            <div className="mt-3">{props.label}</div>
             <Input.TextArea
             style={{minWidth:props.width}}
              {...field} 

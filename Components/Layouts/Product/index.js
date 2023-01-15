@@ -40,15 +40,6 @@ const Product = ({id, tourData}) => {
         </div>
         <div className='my-5 py-3'></div>
       </div>
-      {/* <div className='section-nav-container'>
-        <Container className='px-5'> 
-          <div className='section-nav'>Detail</div>
-          <div className='section-nav'>Rates</div>
-          <div className='section-nav'>Inclusions</div>
-          <div className='section-nav'>Timings</div>
-          <div className='section-nav'>Important Info</div>
-        </Container>
-      </div> */}
       {Object.keys(tour).length>0 &&
       <div>
         <Container className='px-5'>
@@ -144,7 +135,7 @@ const Product = ({id, tourData}) => {
               </div>
               <hr/>
               <div className='my-5 py-2'>
-                <h3 className='my-4'>Museum of the Future Tickets Timings</h3>
+                <h3 className='my-4'>{tour.title} Timings</h3>
                 <Table responsive="sm" style={{border:'1px solid #5184c8'}}>
                   <thead>
                     <tr style={{textAlign:'center'}}>
@@ -225,8 +216,9 @@ const Product = ({id, tourData}) => {
             </Col>
             <Col md={4}>
               <div className='booking-form'>
-                <p className='fw-600 fs-20'>Best Seller</p>
-                <p className='fw-600 fs-30'><AiFillTags/> {tour.adult_price} AED</p>
+                <div className='fw-300 fs-15'>Cateory</div>
+                <p className='fw-600 fs-20'>{tour.category}</p>
+                <p className='fw-600 fs-30'><AiFillTags/> {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span></p>
               </div>
             </Col>
           </Row>

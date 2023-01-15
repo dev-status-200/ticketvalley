@@ -1,12 +1,10 @@
-import { useForm, useWatch, useFormContext } from "react-hook-form";
-import {CloseCircleOutlined} from '@ant-design/icons';
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { useForm } from "react-hook-form";
+import { Spinner } from 'react-bootstrap';
 import ImageUpload from './ImageUpload';
 import React, {useEffect} from 'react';
 import DetailsOne from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
-import { Input, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import Router from 'next/router';
 import axios from 'axios';
 
@@ -19,13 +17,15 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   useEffect(() => {
     if(state.edit){
       let tempState = {...state.selectedRecord};
-      console.log(tempState)
       state.terms_conditions = tempState.terms_conditions.split(",");
       state.cancellation_polices = tempState.cancellation_polices.split(",");
+      state.status = tempState.status;
       state.policies = tempState.policies.split(",");
       state.imp_infos = tempState.imp_infos.split(",");
       state.why_shoulds = tempState.why_shoulds.split(",");
       state.inclusions = tempState.inclusions.split(",");
+      state.inclusions = tempState.inclusions.split(",");
+      state.prev_images = tempState.more_images.split(",");
       reset(tempState);
     }
     if(!state.edit){ reset(baseValues) }
@@ -51,7 +51,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     })
         .then(resp => resp.json())
         .then(data => data.url)
-        .catch(err => console.log(err));
+        .catch(err => {});
 
     return value;
   }
@@ -62,6 +62,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     let cover;
     let value;
     let values=[];
+
     cover = await uploadImage(state.main_image);
     for(let i = 0; i<state.more_images.length; i++){
       value = await uploadImage(state.more_images[i]);
@@ -71,6 +72,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
         {
           ...data,
+          status:state.status,
           main_image:cover,
           inclusions:state.inclusions.toString(),
           why_shoulds:state.why_shoulds.toString(),
@@ -94,22 +96,49 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
 
   const onEdit = async(data) => {
     dispatch({type:'field', fieldName:'load', payload:true});
-    delete data.main_image;
-    delete data.more_images;
-
-    console.log(data)
-
+    let prev_img = "";
+    let value;
+    let values=[];
     if(state.main_image){
-      console.log(state.main_image)
+      prev_img = data.main_image
+      delete data.main_image; // this has the previous image
+      //delete data.more_images;
       let cover;
-      cover = await uploadImage(state.main_image);
+      cover = await uploadImage(state.main_image); // this has the new image
       data.main_image = cover;
+    }else{
+      delete data.main_image;
     }
-    
+    if(state.more_images.length>0){
+      for(let i = 0; i<state.more_images.length; i++){
+        value = await uploadImage(state.more_images[i]);
+        values.push(value)
+      }
+      state.prev_images.forEach((x)=>{
+        values.push(x)
+      })
+    }
+    if(state.deleted_images.length>0 && state.more_images.length==0){
+      console.log("Function Hit")
+      let tempMages = [];
+      state.prev_images.forEach((x)=>{
+        state.deleted_images.forEach((y)=>{
+          if(x!=y){
+            tempMages.push(x);
+          }
+        })
+      })
+      values = tempMages;
+      console.log(values)
+    }
     setTimeout(
       await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
         {
           ...data,
+          prev_img:prev_img,
+          status:state.status,
+          more_images:values.toString(),
+          deleted_images:state.deleted_images,
           inclusions:state.inclusions.toString(),
           why_shoulds:state.why_shoulds.toString(),
           imp_infos:state.imp_infos.toString(), 
@@ -118,37 +147,32 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
           terms_conditions:state.terms_conditions.toString(),
         }
       ).then((x)=>{
-        console.log(x.data);
         if(x.data.status=='success'){
-
-          Router.push("/productCreation")
-
           dispatch({type:'modalOff'});
+          Router.push("/productCreation")
           //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
       }
-        dispatch({type:'field', fieldName:'load', payload:false});
-        dispatch({type: 'modalOff'})
       }), 3000)
   };
 
   const onError = async(data) => { };
 
   return (
-    <div className='pt-2'>
+    <div className=''>
       <form onSubmit={handleSubmit(state.edit?onEdit:onSubmit, onError)}>
       <Tabs
         defaultActiveKey="1"
         onChange={(e)=>dispatch({type:'toggle', fieldName:'activeTab', payload:e})}
         items={[
           {
-            label: `Description`,
+            label: `Tour Info`,
             key: '1',
-            children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+            children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
           },
           {
-            label: `Tour Info`,
+            label: `Description`,
             key: '2',
-            children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+            children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
           },
           {
             label: `Images`,
@@ -157,9 +181,9 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
           }
         ]}
       />
-      <Col md={12} className='pt-3'>
+      <div className='pt-3'>
         <button className='btn-custom' type="submit" disabled={state.load?true:false}>{state.load?<Spinner animation="border" size='sm' className='mx-3' />:'Submit'}</button>
-      </Col>
+      </div>
       </form>
     </div>
   )

@@ -20,5 +20,5 @@ export async function getServerSideProps({req, res, query}){
 
   return{
     props: { id:id, tourData:tourData },
-}
+  }
 }

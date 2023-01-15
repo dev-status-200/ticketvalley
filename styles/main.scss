@@ -3,6 +3,7 @@
 @import 'PortanLayout.scss';
 @import 'TourStyles.scss';
 @import 'FooterStyles.scss';
+@import 'CustomerLogin.scss';
 
 html, body{
   font-family: 'Poppins', sans-serif;
@@ -86,6 +87,9 @@ html, body{
 .fw-700{ font-weight: 700; }
 .fw-800{ font-weight: 800; }
 .fw-900{ font-weight: 900; }
+
+.right{ float: right; }
+.error-line{ color:'red'!important }
 
 .bg-signin{
   background-image: url("../public/loginBg.png");
@@ -173,6 +177,13 @@ html, body{
   color: rgb(6, 150, 172)!important;
 }
 
+.card-cntnt{
+  color: grey;
+  font-size: 13px;
+  line-height: 15px;
+  margin-top: 5px;
+}
+
 .arabic-bg{
   background:linear-gradient(rgb(51, 68, 113), rgba(199, 215, 245, 0.733)), url("../public/images/bg-3.png");
   padding: 20px;
@@ -232,3 +243,37 @@ html, body{
 
 
 .dropdown:hover .dropdown-content {display: block;}
+
+.img-box{
+  cursor: pointer;
+}
+.img-cross{
+  opacity: 0.5;
+  color: rgb(190, 65, 65);
+  position: absolute;
+  margin-left: 8.5%;
+  margin-top: 3.5%;
+  background-color: rgba(201, 201, 201, 0.811);
+  font-size: 38px;
+  border-radius: 50px;
+}
+.img-box:hover > .img-cross{
+  opacity: 1;
+}
+
+.signIn-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.signInBtn {
+  background-color: aqua;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}

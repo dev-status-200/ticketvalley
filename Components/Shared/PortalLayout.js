@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined, SnippetsOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined, VideoCameraOutlined, SnippetsOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 import Router from 'next/router';
@@ -14,12 +14,8 @@ const PortalLayout = ({children}) => {
     <Layout className='portal-layout'>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
-        {!collapsed &&
-        <h5 className='m-4' style={{color:'white', transitionDuration:300}}>
-            Welcome
-        </h5>
-        }
-        {collapsed && <div style={{minHeight:72}}></div>}
+        {!collapsed && <h5 className='m-4 wh-txt'>Welcome</h5> }
+        {collapsed && <div style={{minHeight:72}}></div> }
         <Menu
           theme="dark"
           mode="inline"
@@ -30,6 +26,8 @@ const PortalLayout = ({children}) => {
               Router.push('/portal')
             }else if(x.key=='2'){
               Router.push('/productCreation')
+            }else if(x.key=='3'){
+              Router.push('/transport')
             }
           }}
           items={[
@@ -43,17 +41,16 @@ const PortalLayout = ({children}) => {
               icon: <SnippetsOutlined />,
               label: 'Product',
             },
-
+            {
+              key: '3',
+              icon: <CarOutlined />,
+              label: 'Transport',
+            },
           ]}
         />
       </Sider>
       <Layout className="site-layout">
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        >
+        <Header style={{ padding: 0, background: colorBgContainer }}>
           <span style={{marginLeft:12, cursor:'pointer'}} onClick={() => setCollapsed(!collapsed)}>
             {collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
           </span>
@@ -66,14 +63,7 @@ const PortalLayout = ({children}) => {
             }}
           >Logout</span>
         </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-          }}
-        >
+        <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280, background: colorBgContainer }}>
           {children}
         </Content>
       </Layout>

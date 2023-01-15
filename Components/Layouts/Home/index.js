@@ -8,14 +8,14 @@ import "swiper/css/pagination";
 import Link from 'next/link'
 import { Pagination } from "swiper";
 import "swiper/css/bundle";
-import { Rate,Card } from 'antd';
-const { Meta } = Card;
+import { Card } from 'antd';
 import Cards from '../../Shared/Cards';
 import { useRouter } from 'next/router'
-import { GiBowTieRibbon, GiGymBag, GiWifiRouter } from "react-icons/gi";
+import { GiBowTieRibbon, GiGymBag } from "react-icons/gi";
 import { SiOpenstreetmap } from "react-icons/si";
 
 const Home = ({bestSellingData, adventureData, comboData}) => {
+
     const router = useRouter();
     const [bestSelling, setBestSelling] = useState([])
     const [adventures, setAdventures] = useState([])
@@ -23,7 +23,6 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
 
     useEffect(() => {
         Aos.init({duration:700});
-        console.log(adventureData)
         setAdventures(adventureData)
         setBestSelling(bestSellingData)
         setCombos(comboData)
@@ -55,7 +54,6 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
             <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
         </div>
         </div>
-
         <div className='py-5 why-us-section'>
         <Container className='my-5 py-3'>
             <div>
@@ -115,7 +113,7 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
             >
                 {bestSelling.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' onClick={()=>
+                        <SwiperSlide className='card-slide' key={i} onClick={()=>
                             router.push({
                             pathname: '/product',
                             query: { id: x.id },
@@ -135,7 +133,7 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
             >
                 {adventures.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' onClick={()=>
+                        <SwiperSlide className='card-slide' key={i} onClick={()=>
                             router.push({
                             pathname: '/product',
                             query: { id: x.id },
@@ -155,7 +153,7 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
             >
                 {combos.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' onClick={()=>
+                        <SwiperSlide className='card-slide' key={i} onClick={()=>
                             router.push({
                             pathname: '/product',
                             query: { id: x.id },

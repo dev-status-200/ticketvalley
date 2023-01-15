@@ -24,7 +24,7 @@ export default function TourCreation({productData}) {
         <Col className='py-3' md={3}><h5>Product</h5></Col>
         <Col>
         <Row >
-          <Col md={6  }></Col>
+          <Col md={6}></Col>
             <Col md={4}>
             <Input value={state.search} placeholder="Search Packages"
             onChange={(e)=>dispatch({
@@ -63,10 +63,11 @@ export default function TourCreation({productData}) {
                 style={{
                   width: 240,
                 }}
-                cover={<img alt="example" style={{height:180, width:240}} src={x.main_image} />}
+                cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}
               >
-                <Card.Meta title={x.title} description={x.tour_detail} />
-                <div style={{float:'right'}}>Stock: <strong>10</strong></div>
+                <Card.Meta title={x.title} />
+                <p className='card-cntnt'>{x.tour_detail.slice(0,60)} .....</p>
+                <div style={{float:'right'}}>Stock: <strong>{x.stock}</strong></div>
                 <div>AED. {x.adult_price}</div>
               </Card>
             </Col>
@@ -76,7 +77,7 @@ export default function TourCreation({productData}) {
       </div>
       
       <Modal
-        title="Create A Product"
+        centered
         open={visible}
         onOk={() => dispatch({type: 'modalOff'}) }
         onCancel={() => dispatch({type: 'modalOff'}) }
