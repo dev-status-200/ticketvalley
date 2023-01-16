@@ -20,7 +20,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     useEffect(() => {
         let tempState = {...state.selectedRecord};
         if(state.edit){
-            console.log(tempState)
             reset(tempState); 
         }
         if(!state.edit){ reset(baseValues) }
@@ -34,7 +33,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
                 if(x.data.status=='success'){
                     let tempRecords = [...state.records];
                     tempRecords.unshift(x.data.result);
-                    console.log(x.data.result)
                     dispatch({type:'toggle', fieldName:'records', payload:tempRecords});
                     dispatch({type:'modalOff'});
                     reset(baseValues)
@@ -50,11 +48,12 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     const onEdit = async(data) => {
         dispatch({type:'toggle', fieldName:'load', payload:true});
         setTimeout(async() => {
-            await axios.post(process.env.NEXT_PUBLIC_CLIMAX_POST_EDIT_CLIENT, data).then((x)=>{
+            await axios.post(process.env.NEXT_PUBLIC_EDIT_TRANSPORT, data).then((x)=>{
                 if(x.data.status=='success'){
+                    console.log(data)
                     let tempRecords = [...state.records];
                     let i = tempRecords.findIndex((y=>data.id==y.id));
-                    tempRecords[i] = x.data.result;
+                    tempRecords[i] = data;
                     dispatch({type:'toggle', fieldName:'records', payload:tempRecords});
                     dispatch({type:'modalOff'});
                     reset(baseValues)

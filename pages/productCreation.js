@@ -3,16 +3,15 @@ import TourCreation from '../Components/Layouts/TourCreation';
 import axios from 'axios';
 import Cookies from 'cookies';
 
-const tourCreation = ({productData}) => {
+const tourCreation = ({productData, transportData}) => {
   return (
-    <TourCreation productData={productData} />
+    <TourCreation productData={productData} transportData={transportData} />
   )
 }
 
 export default tourCreation
-//NEXT_PUBLIC_GET_ALL_PRODUCTS
-export async function getServerSideProps({req,res}){
 
+export async function getServerSideProps({req,res}){
   const cookies = new Cookies(req, res)
   // const sessionRequest = await axios.get(process.env.NEXT_PUBLIC_EVE_AUTHENTICATE_TOKEN,{
   //     headers:{
@@ -23,8 +22,9 @@ export async function getServerSideProps({req,res}){
 
   const request = await axios.get(process.env.NEXT_PUBLIC_GET_ALL_PRODUCTS)
   const productData = await request.data
+  const transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result)
 
   return{
-      props: { productData: productData }
+      props: { productData: productData, transportData:transportData }
   }
 }

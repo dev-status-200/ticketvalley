@@ -57,6 +57,7 @@ const baseValues = {
 
   category:"",
   stock:"",
+  transportType:"",
 }
 
 const initialState = {
@@ -69,7 +70,7 @@ const initialState = {
     search:"",
     //form values
     values:baseValues,
-
+    transportData:[],
     main_image:"",
     show_image:"",
 

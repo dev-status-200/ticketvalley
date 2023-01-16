@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
 import { MdPeopleAlt } from "react-icons/md";
-import { Rate } from 'antd';
+import { Rate, Select } from 'antd';
 import { IoCalendarSharp } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { FaShuttleVan } from "react-icons/fa";
@@ -12,17 +12,19 @@ import { RiExchangeFundsLine } from "react-icons/ri";
 import { TbLanguageHiragana, TbPoint } from "react-icons/tb";
 import Carasoul from './Carasoul';
 import { useRouter } from 'next/router';
-import data from '../../../data.json'
 import Aos from 'aos';
+import Book from './Book';
 
-const Product = ({id, tourData}) => {
+const Product = ({id, tourData, transportData}) => {
 
   const [tour, setTour] = React.useState({})
+  const [transport, setTransport] = React.useState([])
 
   useEffect(() => {
     Aos.init({duration:700});
-    console.log(tourData)
     setTour(tourData)
+    console.log(transportData)
+    setTransport(transportData)
 }, [])
   
   return (
@@ -218,7 +220,10 @@ const Product = ({id, tourData}) => {
               <div className='booking-form'>
                 <div className='fw-300 fs-15'>Cateory</div>
                 <p className='fw-600 fs-20'>{tour.category}</p>
-                <p className='fw-600 fs-30'><AiFillTags/> {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span></p>
+                <p className='fw-600 fs-30'><AiFillTags/>
+                  {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
+                </p>
+                <Book tour={tour} transport={transport} />
               </div>
             </Col>
           </Row>

@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '/Components/Shared/Header';
 import 'aos/dist/aos.css';
 
-//import { wrapper } from '../redux/store';
 import Loader from '../Components/Shared/Loader'; 
 
 import Router, { useRouter  } from 'next/router';
@@ -13,6 +12,9 @@ import Router, { useRouter  } from 'next/router';
 import ClientLayout from '../Components/Shared/ClientLayout';
 import PortalLayout from '../Components/Shared/PortalLayout';
 import {SessionProvider} from "next-auth/react";
+
+import { store } from '/redux/store';
+import { Provider } from 'react-redux';
 
 function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
 
@@ -24,14 +26,16 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
 
   return (
     <> 
-    { (router.pathname =='/' || router.pathname =='/product' ) && 
+    { (router.pathname =='/' || router.pathname =='/product' || router.pathname =='/cart' ) && 
         <>
         { loading && <Loader/> }
         { !loading &&
         <SessionProvider session={session}>
-          <ClientLayout>
-           <Component {...pageProps} /> 
-          </ClientLayout>
+          <Provider store={store}>
+            <ClientLayout>
+              <Component {...pageProps} /> 
+            </ClientLayout>
+          </Provider>
         </SessionProvider>
         }
         </>

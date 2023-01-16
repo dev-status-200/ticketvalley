@@ -5,7 +5,7 @@ import { Row, Col, Table } from 'react-bootstrap';
 import CreateOrEdit from './CreateOrEdit';
 import { EditOutlined } from '@ant-design/icons';
 
-export default function TourCreation({productData}) {
+export default function TourCreation({productData, transportData}) {
 
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
   const { records, visible, edit } = state;
@@ -15,7 +15,12 @@ export default function TourCreation({productData}) {
         type: 'field',
         fieldName: 'records',
         payload: productData.result
-      })
+      });
+      dispatch({
+        type: 'field',
+        fieldName: 'transportData',
+        payload: transportData
+      });
   }, [])
   
   return (

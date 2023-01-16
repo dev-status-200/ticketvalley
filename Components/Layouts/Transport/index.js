@@ -74,15 +74,15 @@ const Transport = ({transportData}) => {
           <tr>
             <th>Sr.</th>
             <th>Name</th>
-            <th>Price
-                
-            </th>
+            <th>Price</th>
+            <th>Modify</th>
           </tr>
         </thead>
         <tbody>
         {state.records.map((x, index) => {
           return (
           <tr key={index} className='f'>
+            <td> {index+1} </td>
             <td> {x.name} </td>
             <td> {x.price} </td>
             <td> <span> <EditOutlined className='modify-edit' onClick={()=>dispatch({type:'edit', payload:x})}/> </span> </td>

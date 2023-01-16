@@ -91,6 +91,10 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
             {id:'Not Available', name:'Not Available'},
         ]}/>
     </Col>
+    <Col className='px-4' md={4}>
+        <SelectComp register={register} name='transportType' control={control} label='Select Transport type' width={"100%"}
+          options={state.transportData}/>
+    </Col>
 
 
     </Row>

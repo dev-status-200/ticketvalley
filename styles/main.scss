@@ -4,6 +4,7 @@
 @import 'TourStyles.scss';
 @import 'FooterStyles.scss';
 @import 'CustomerLogin.scss';
+@import 'Cart-styles.scss';
 
 html, body{
   font-family: 'Poppins', sans-serif;
@@ -276,4 +277,32 @@ html, body{
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
+}
+
+.cart-btn{
+  background-color: rgb(154, 27, 12)!important;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  border: none;
+}
+.cart-btn:hover{
+  transition-duration: 300ms;
+  background-color: rgb(70, 17, 3)!important;
+}
+.cart-btn:disabled{
+  background-color: silver!important;
+}
+.cart-price{
+  color: rgb(10, 33, 124);
+  font-weight: 600;
+  font-size: 20px;
+}
+.already{
+  background-color: rgba(139, 200, 139, 0.655);
+  border: 1px solid green;
+  padding: 10px;
+  text-align: center;
+  font-weight: 500;
 }
