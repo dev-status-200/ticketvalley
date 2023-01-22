@@ -1,26 +1,39 @@
-import React, { usestate, useEffect, useState } from 'react'
-import { DatePicker, Select } from 'antd';
-import { Row, Col, Form } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Select, Modal } from 'antd';
+import { Row, Col, Form, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/cart/cartSlice';
 import Router from 'next/router';
+import aos from "aos";
 
 const Book = ({tour, transport}) => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.value);
 
+    const [load, setLoad] = useState(false);
     const [price, setPrice] = useState(0);
-    
     const [adult, setAdult] = useState(0);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
     const [tranfer, setTransfer] = useState("Yes");
     const [date, setDate] = useState("");
-
     const [added, setAdded] = useState(false);
 
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+
     useEffect(() => {
-        console.log(cart);
+        aos.init({duration:300})
         cart.forEach((x)=>{
             if(x.tourId==tour.id){
                 setAdded(true)
@@ -46,11 +59,22 @@ const Book = ({tour, transport}) => {
         setPrice(price)
     }
 
+    const addToCart = async() => {
+        setLoad(true);
+        await delay(1000);
+
+        let temp = [...cart];
+        temp.push({tourId:tour.id, image:tour.main_image, name:tour.title, adults:adult, childs:children, infant:infant, transfer:tranfer, date:date, price:price })
+        dispatch(addProduct(temp));
+
+        setLoad(false);
+    }
+
   return (
     <div>
     {!added &&<>
         <hr/>
-        <Row className='mb-1'>
+        <Row className='mb-1' >
         <Col md={5}> <p className='my-1'>No. of Adult</p> </Col>
         <Col className='mx-2'>
         <Select defaultValue="1" style={{ width: 110 }} value={adult} onChange={(e)=>calculatePrice(e, children, tranfer)}
@@ -115,29 +139,35 @@ const Book = ({tour, transport}) => {
             </Col>
         </Row>
         <hr/>
-        <Row>
+        <Row data-aos="slide-up">
             <Col md={5}> <p className='my-1'>Total Price</p> </Col>
             <Col className='mx-2'><p className='cart-price'>{price} AED</p></Col>
         </Row>
 
-        {(adult!=0&&date!="")&&
-        <button className='cart-btn mt-5'
-            onClick={()=>{
-                let temp = [...cart];
-                temp.push({tourId:tour.id, image:tour.main_image, name:tour.title, adults:adult, childs:children, infant:infant, transfer:tranfer, date:date, price:price })
-                dispatch(addProduct(temp));
-            }}
-        >Add To Cart</button>
+        {!added&&
+        <button className='cart-btn mt-3 px-5 fs-20'
+            onClick={addToCart}
+        >Book Now
+        </button>
         }
     </>}
     {
         added&&
         <>
-            <div className='already' style={{cursor:'pointer'}} onClick={()=>Router.push('/cart')}>
-                Already Added To Cart
+            <div data-aos="fade-up" className='already' style={{cursor:'pointer'}} onClick={()=>Router.push('/cart')}>
+                Added To Cart
             </div>
         </>
     }
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+        width={800}
+        maskClosable={false}
+        footer={false}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
     </div>
   )
 }

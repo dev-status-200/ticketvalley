@@ -23,12 +23,11 @@ const Product = ({id, tourData, transportData}) => {
   useEffect(() => {
     Aos.init({duration:700});
     setTour(tourData)
-    console.log(transportData)
     setTransport(transportData)
 }, [])
   
   return (
-    <div className='tour-styles' style={{backgroundColor:'white'}} data-aos="fade-in">
+    <div className='tour-styles' style={{backgroundColor:'white'}} >
       <div className='hero py-4'>
         {/* Header */}
         <div className='navBar'>
@@ -44,7 +43,7 @@ const Product = ({id, tourData, transportData}) => {
       </div>
       {Object.keys(tour).length>0 &&
       <div>
-        <Container className='px-5'>
+        <Container className='px-5' data-aos="fade-up">
           <Row className='py-4'>
             <Col md={8}>
               <img src={tour.main_image} style={{borderRadius:4, width:'47vw'}}  />
@@ -220,6 +219,7 @@ const Product = ({id, tourData, transportData}) => {
               <div className='booking-form'>
                 <div className='fw-300 fs-15'>Cateory</div>
                 <p className='fw-600 fs-20'>{tour.category}</p>
+                <div className=''><span className='fw-400 fs-18 grey-txt'>Startin From</span></div>
                 <p className='fw-600 fs-30'><AiFillTags/>
                   {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
                 </p>

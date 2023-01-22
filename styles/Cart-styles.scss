@@ -2,30 +2,29 @@
     .cont{
         background-color: rgb(237, 244, 254);
         min-height: 50vh;
-        padding: 60px;
     }
     .cart-box{
-        padding: 50px;
         border: 2px solid white;
         background-color: white;
-        border-radius: 10px;
-        box-shadow: 10px 10px 11px -9px rgba(49,126,181,0.75);
-        -webkit-box-shadow: 10px 10px 11px -9px rgba(49,126,181,0.75);
-        -moz-box-shadow: 10px 10px 11px -9px rgba(49,126,181,0.75);
+        
     }
     .cart-item{
-        border: 1px solid silver;
         margin-bottom: 5px;
         padding: 10px;
         cursor: pointer;
         border-radius: 15px;
     }
     .close-cart-btn{
-        color: rgb(186, 37, 37);
-        font-size: 25px;
+        color: rgb(91, 20, 20);
+        font-size: 20px;
         margin-left: 20px;
+        position: relative;
+        bottom: 3px;
     }
     .close-cart-btn:hover{
-        color: rgb(91, 20, 20);
+        color: rgb(186, 37, 37);
+    }
+    .pay-screen{
+        background-color: bisque;
     }
 }
