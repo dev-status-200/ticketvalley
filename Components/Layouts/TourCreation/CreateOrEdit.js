@@ -4,6 +4,7 @@ import ImageUpload from './ImageUpload';
 import React, {useEffect} from 'react';
 import DetailsOne from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
+import DetailsThree from "./DetailsThree";
 import { Tabs } from 'antd';
 import Router from 'next/router';
 import axios from 'axios';
@@ -17,15 +18,17 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   useEffect(() => {
     if(state.edit){
       let tempState = {...state.selectedRecord};
-      state.terms_conditions = tempState.terms_conditions.split(",");
-      state.cancellation_polices = tempState.cancellation_polices.split(",");
+      state.terms_conditions = tempState.terms_conditions.split("//");
+      state.cancellation_polices = tempState.cancellation_polices.split("//");
       state.status = tempState.status;
-      state.policies = tempState.policies.split(",");
-      state.imp_infos = tempState.imp_infos.split(",");
-      state.why_shoulds = tempState.why_shoulds.split(",");
-      state.inclusions = tempState.inclusions.split(",");
-      state.inclusions = tempState.inclusions.split(",");
+      state.policies = tempState.policies.split("//");
+      state.imp_infos = tempState.imp_infos.split("//");
+      state.why_shoulds = tempState.why_shoulds.split("//");
+      state.inclusions = tempState.inclusions.split("//");
       state.prev_images = tempState.more_images.split(",");
+      state.stock = tempState.stock;
+      state.dated = tempState.dated;
+      state.dates = JSON.parse(tempState.dates);
       reset(tempState);
     }
     if(!state.edit){ reset(baseValues) }
@@ -56,10 +59,18 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     return value;
   }
 
+  const makeString = (data) => {
+    let result = "";
+    data.forEach((x, i)=>{
+        result = i==0?result+`${x}` :result + "//" + `${x}`
+    })
+    return result
+}
+
   const onSubmit = async(data) => {
 
     dispatch({type:'field', fieldName:'load', payload:true})
-    let cover;
+    let cover = "a";
     let value;
     let values=[];
 
@@ -72,15 +83,18 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
         {
           ...data,
+          stock:state.stock,
+          dated:state.dated,
+          dates:state.dates,
           status:state.status,
-          main_image:cover,
-          inclusions:state.inclusions.toString(),
-          why_shoulds:state.why_shoulds.toString(),
-          imp_infos:state.imp_infos.toString(),
-          more_images:values.toString(),
-          policies:state.policies.toString(),
-          cancellation_polices:state.cancellation_polices.toString(),
-          terms_conditions:state.terms_conditions.toString(),
+          main_image:cover==null?"a":cover,
+          more_images:values.length>0? values.toString():"a",
+          inclusions:makeString(state.inclusions),
+          why_shoulds:makeString(state.why_shoulds),
+          imp_infos:makeString(state.imp_infos),
+          policies:makeString(state.policies),
+          cancellation_polices:makeString(state.cancellation_polices),
+          terms_conditions:makeString(state.terms_conditions),
         }
       ).then((x)=>{
         if(x.data.status=='success'){
@@ -135,16 +149,19 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
         {
           ...data,
+          stock:state.stock,
+          dated:state.dated,
+          dates:state.dates,
           prev_img:prev_img,
           status:state.status,
-          more_images:values.toString(),
           deleted_images:state.deleted_images,
-          inclusions:state.inclusions.toString(),
-          why_shoulds:state.why_shoulds.toString(),
-          imp_infos:state.imp_infos.toString(), 
-          policies:state.policies.toString(),
-          cancellation_polices:state.cancellation_polices.toString(),
-          terms_conditions:state.terms_conditions.toString(),
+          more_images:values.toString(),
+          inclusions:makeString(state.inclusions),
+          why_shoulds:makeString(state.why_shoulds),
+          imp_infos:makeString(state.imp_infos),
+          policies:makeString(state.policies),
+          cancellation_polices:makeString(state.cancellation_polices),
+          terms_conditions:makeString(state.terms_conditions),
         }
       ).then((x)=>{
         if(x.data.status=='success'){
@@ -152,7 +169,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
           Router.push("/productCreation")
           //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
       }
-      }), 3000)
+    }), 3000)
   };
 
   const onError = async(data) => { };
@@ -170,13 +187,18 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
             children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
           },
           {
-            label: `Description`,
+            label: `Dates/Stock`,
             key: '2',
+            children:<DetailsThree state={state} setValues={setValues} dispatch={dispatch} />
+          },
+          {
+            label: `Description`,
+            key: '3',
             children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
           },
           {
             label: `Images`,
-            key: '3',
+            key: '4',
             children:<ImageUpload state={state} setValues={setValues} dispatch={dispatch} />
           }
         ]}

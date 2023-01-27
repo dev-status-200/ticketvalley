@@ -5,7 +5,7 @@ import { Row, Col, Table } from 'react-bootstrap';
 import CreateOrEdit from './CreateOrEdit';
 import { EditOutlined } from '@ant-design/icons';
 
-export default function TourCreation({productData, transportData}) {
+export default function TourCreation({productData}) {
 
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
   const { records, visible, edit } = state;
@@ -16,11 +16,7 @@ export default function TourCreation({productData, transportData}) {
         fieldName: 'records',
         payload: productData.result
       });
-      dispatch({
-        type: 'field',
-        fieldName: 'transportData',
-        payload: transportData
-      });
+
   }, [])
   
   return (
@@ -71,8 +67,9 @@ export default function TourCreation({productData, transportData}) {
                 cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}
               >
                 <Card.Meta title={x.title} />
-                <p className='card-cntnt'>{x.tour_detail.slice(0,60)} .....</p>
-                <div style={{float:'right'}}>Stock: <strong>{x.stock}</strong></div>
+                <p className='card-cntnt mt-2'>{x.tour_detail.slice(0,50)} .....</p>
+                {!x.dated &&<div style={{float:'right'}}>Stock: <strong>{x.stock}</strong></div>}
+                {x.dated &&<div style={{float:'right'}}><strong>{" "}</strong></div>}
                 <div>AED. {x.adult_price}</div>
               </Card>
             </Col>

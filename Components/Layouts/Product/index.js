@@ -36,7 +36,16 @@ const Product = ({id, tourData, transportData}) => {
           <span className="navLink">
             <img src={'/images/logo.png'} height={100} />
           </span>
-          <Link className='navLink' href='/'>TOURS</Link>
+          <div className='dropdown mx-2'>
+            <span className='navLink dropbtn'>ACTIVITIES</span>
+            <div className="dropdown-content">
+                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Park'}}}>Theme Parks</Link>
+                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
+                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
+                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
+                <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
+            </div>
+          </div>
           <Link className='navLink' href='/'>CONTACT</Link>
         </div>
         <div className='my-5 py-3'></div>
@@ -91,7 +100,7 @@ const Product = ({id, tourData, transportData}) => {
                   <Col>
                     <Row>
                       <Col md={2}><span className='info-logo bt-2'><TbLanguageHiragana /></span></Col>
-                      <Col><span className='info-text'>{tour.lang.split("x")}</span></Col>
+                      <Col><span className='info-text'>{tour.lang}</span></Col>
                     </Row>
                   </Col>
                 </Row>
@@ -107,7 +116,7 @@ const Product = ({id, tourData, transportData}) => {
               <div className='my-5'>
                 <h3 className='my-4'>Inclusions</h3>
                 {
-                  tour.inclusions.split(",").map((x, i)=>{
+                  tour.inclusions.split("//").map((x, i)=>{
                     return(
                     <p className='fs-18' key={i}>
                       <AiOutlineCheckCircle className='mx-3 mb-1' color='green' />
@@ -120,7 +129,7 @@ const Product = ({id, tourData, transportData}) => {
               <hr/>
               <div className='my-5'>
                 <h3 className='my-4'>Why Should I go for This?</h3>
-                {tour.why_shoulds.split(",").map((x, i)=>{
+                {tour.why_shoulds.split("//").map((x, i)=>{
                   return(
                   <Row key={i}>
                     <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
@@ -151,7 +160,7 @@ const Product = ({id, tourData, transportData}) => {
                       <td style={{maxWidth:150}}>{tour.duration}</td>
                       <td style={{maxWidth:150}}>{tour.departure}</td>
                       <td style={{maxWidth:150}}>{tour.reporting}</td>
-                      <td style={{maxWidth:150}}>{tour.lang.split(",")}</td>
+                      <td style={{maxWidth:150}}>{tour.lang}</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -160,7 +169,7 @@ const Product = ({id, tourData, transportData}) => {
               <div className='my-5'>
                 <h3 className='my-4'>Important Information</h3>
                 {
-                  tour.imp_infos.split(",").map((x, i)=>{
+                  tour.imp_infos.split("//").map((x, i)=>{
                     return(
                   <Row key={i}>
                     <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
@@ -174,7 +183,7 @@ const Product = ({id, tourData, transportData}) => {
               <div className='my-5'>
                 <h3 className='my-4'>Booking Policy</h3>
                 {
-                  tour.policies.split(",").map((x, i)=>{
+                  tour.policies.split("//").map((x, i)=>{
                     return(
                     <Row key={i}>
                       <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
@@ -189,7 +198,7 @@ const Product = ({id, tourData, transportData}) => {
 
                 <h3 className='my-4'>Terms & Conditions</h3>
                 {
-                  tour.terms_conditions.split(",").map((x, i)=>{
+                  tour.terms_conditions.split("//").map((x, i)=>{
                     return(
                     <Row key={i}>
                       <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
@@ -204,7 +213,7 @@ const Product = ({id, tourData, transportData}) => {
 
                 <h3 className='my-4'>Cancellation Policies</h3>
                 {
-                  tour.cancellation_polices.split(",").map((x, i)=>{
+                  tour.cancellation_polices.split("//").map((x, i)=>{
                     return(
                     <Row key={i}>
                       <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>

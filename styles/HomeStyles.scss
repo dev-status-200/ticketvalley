@@ -8,6 +8,19 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
+
+    .theme{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/theme.jpg"); }
+    .water{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/water.jpg"); }
+    .city{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/city.jpg"); }
+    .luxury{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/luxury.jpeg"); }
+    .adv{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/adventure.jpg"); }
+    .activity{
+        height: 46vh; 
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
     div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
       
       bottom: -5px;

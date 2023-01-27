@@ -5,7 +5,7 @@ import {CloseCircleOutlined} from '@ant-design/icons'
 const ImageUpload = ({state, setValues, dispatch}) => {
 
   return (
-    <div>
+    <div style={{minHeight:542}}>
     <Row>
       <Col md={12}>
 

@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
 
   return (
     <> 
-    { (router.pathname =='/' || router.pathname =='/product' || router.pathname =='/cart' ) && 
+    { (router.pathname =='/' || router.pathname =='/product' || router.pathname =='/cart' || router.pathname =='/activities' ) && 
         <>
         { loading && <Loader/> }
         { !loading &&

@@ -7,8 +7,8 @@ import InputAreaComp from '../../Shared/Form/InputAreaComp';
 
 const DetailsOne = ({register, control, state, setValues, dispatch}) => {
   return (
-    <>
-    <Row style={{maxHeight:500, overflowY:"auto"}}>
+    <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
+    <Row >
     <Col className='px-4'>
         <div className='mt-4'>Terms & Conditions</div>
         <Row>
@@ -230,7 +230,7 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
         }
     </Col>
     </Row>
-    </>
+    </div>
   )
 }
 

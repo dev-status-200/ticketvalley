@@ -10,7 +10,7 @@ const Cards = (props) => {
         cover={<img alt="example" src={props.image} style={{height:200}} />}
     >
         <div>
-            <h4 className=' fw-700'>{props.title}</h4>
+            <h5 className=' fw-600' style={{maxHeight:50, minHeight:50}}>{props.title}</h5>
             <Rate allowHalf defaultValue={4.5} />
             <div className=''> <span className='gold fs-18'>(10 reviews)</span></div>
             <div style={{float:'right'}}>

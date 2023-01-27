@@ -43,7 +43,6 @@ const baseValues = {
   availability:"",
   duration:"",
   time_slot:"",
-  transport:"",
   confirmation:"",
   refund:"",
   voucher:"",
@@ -56,8 +55,7 @@ const baseValues = {
   adult_price:"",
 
   category:"",
-  stock:"",
-  transportType:"",
+  advCategory:"",
 }
 
 const initialState = {
@@ -70,7 +68,7 @@ const initialState = {
     search:"",
     //form values
     values:baseValues,
-    transportData:[],
+    stock:0,
     main_image:"",
     show_image:"",
 
@@ -96,6 +94,9 @@ const initialState = {
 
     term_condition:"",
     terms_conditions:[],
+
+    dated:false,
+    dates:[{date:'', stock:0}],
     
     status:""
 };

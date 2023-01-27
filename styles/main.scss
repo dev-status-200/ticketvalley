@@ -222,9 +222,9 @@ html, body{
 .dropdown-content {
   display: none;
   position: absolute;
-  left: 10px;
+  left: 0px;
   background-color: #000000a4;
-  min-width: 120px;
+  min-width: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   padding-top: 5px;
@@ -233,6 +233,10 @@ html, body{
 }
 
 .dropdown-content a {
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content Link {
   text-decoration: none;
   display: block;
 }
@@ -305,4 +309,30 @@ html, body{
   padding: 10px;
   text-align: center;
   font-weight: 500;
+}
+
+.date-list-boundary{
+  border: 1px solid silver;
+  margin: 3px;
+  padding-top: 9px;
+  border-radius: 5px;
+}
+
+.date-list-boundary:hover{
+  transition-duration: 300ms;
+  background-color: rgba(192, 192, 192, 0.153);
+}
+
+.specific-date{
+  color: grey;
+}
+
+.close-icon{
+  color: rgb(142, 24, 24);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.text-shadow{
+  text-shadow: 2px 2px 10px #000000;
 }

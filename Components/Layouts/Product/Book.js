@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Select, Modal } from 'antd';
-import { Row, Col, Form, Spinner } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/cart/cartSlice';
 import Router from 'next/router';
 import aos from "aos";
 
 const Book = ({tour, transport}) => {
+
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.value);
 
@@ -22,12 +23,15 @@ const Book = ({tour, transport}) => {
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const showModal = () => {
       setIsModalOpen(true);
     };
+
     const handleOk = () => {
       setIsModalOpen(false);
     };
+
     const handleCancel = () => {
       setIsModalOpen(false);
     };
