@@ -14,15 +14,22 @@
         cursor: pointer;
         border-radius: 15px;
     }
+    .cart-item:hover{
+        transition-duration: 300ms;
+        background-color: rgba(197, 196, 196, 0.121);
+    }
     .close-cart-btn{
-        color: rgb(91, 20, 20);
+        color: rgb(159, 40, 40);
         font-size: 20px;
         margin-left: 20px;
         position: relative;
-        bottom: 3px;
+        bottom: 0px;
     }
     .close-cart-btn:hover{
-        color: rgb(186, 37, 37);
+        border-radius: 100%;
+        transition-duration: 100ms;
+        color: rgb(255, 255, 255);
+        background-color: rgb(159, 40, 40);
     }
     .pay-screen{
         background-color: bisque;

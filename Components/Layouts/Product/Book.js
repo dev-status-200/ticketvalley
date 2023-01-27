@@ -1,132 +1,169 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import { Select, Modal } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/cart/cartSlice';
 import Router from 'next/router';
+import Incrementor from '../../Shared/Incrementor';
 import aos from "aos";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from 'date-fns';
+import MoreInfo from './MoreInfo';
+
+function reducerFunctions(state, action) {
+    switch (action.type) {
+      case 'field': {
+        return {
+          ...state,
+          [action.fieldName]: action.payload,
+        };
+      }
+      case 'open': {
+        return {
+          ...state,
+          visible: true,
+        };
+      }
+      case 'close': {
+        return {
+          ...state,
+          visible: false,
+        };
+      }
+      default:
+        return state;
+    }
+}
+
+const initialState = {
+    load:false,
+    price:0.0,
+    adult:0,
+    children:0,
+    infant:0,
+    transfer:"No",
+    date:"",
+    added:false,
+    visible:false,
+    edit:false,
+
+    dated:false,
+    dates:[],
+
+    title:"Mr.",
+    fName:"",
+    lName:"",
+    email:"",
+    contact:"",
+    specialReq:"",
+    address:"",
+    additionalAddress:""
+};
 
 const Book = ({tour, transport}) => {
 
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.value);
+    const [cartIndex, setCartIndex] = useState(0)
+    const [state, dispatchReducer] = useReducer(reducerFunctions, initialState);
 
-    const [load, setLoad] = useState(false);
-    const [price, setPrice] = useState(0);
-    const [adult, setAdult] = useState(0);
-    const [infant, setInfant] = useState(0);
-    const [children, setChildren] = useState(0);
-    const [tranfer, setTransfer] = useState("Yes");
-    const [date, setDate] = useState("");
     const [added, setAdded] = useState(false);
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-      setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-      setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
-
     useEffect(() => {
         aos.init({duration:300})
-        cart.forEach((x)=>{
+        cart.forEach((x, i)=>{
             if(x.tourId==tour.id){
-                setAdded(true)
+                setAdded(true);
+                setCartIndex(i)
             }
         })
     }, [cart])
 
-    const calculatePrice = (adult, child, trans) => {
-        setAdult(adult);
-        setChildren(child);
-        setTransfer(trans);
-        let price = 0;
-        price = adult*tour.adult_price + price;
-        price = child*tour.child_price + price;
-        if(trans=="Yes"){
-            console.log(tour.transportType)
-            transport.forEach(x => {
-                if(x.id==tour.transportType){
-                    price = price + parseFloat(x.price)
-                }
-            });
+    useEffect(() => {
+        let price = 0.0;
+        price = price + state.adult*parseFloat(tour.adult_price)
+        price = price + state.children*parseFloat(tour.child_price)
+        if(state.transfer=="Shared"){
+            price = price + 30.00
+        }else if(state.transfer=="Private"){
+            price = price + 90.00
         }
-        setPrice(price)
-    }
+        price = price + state.children*parseInt(tour.child_price)
+        dispatchReducer({ type: 'field', fieldName:'price', payload: price.toFixed(2) })
+        console.log(price)
+    }, [state.children, state.adult, state.transfer])
+
+    useEffect(() => {
+        let tempDates = [];
+        JSON.parse(tour.dates).forEach((x)=>{
+            if(x.stock>0){
+                tempDates.push(new Date(`${x.date}`))
+            }
+        });
+        dispatchReducer({ type: 'field', fieldName:'dated', payload: tour.dated })
+        dispatchReducer({ type: 'field', fieldName:'dates', payload: tempDates })
+    }, [])
 
     const addToCart = async() => {
-        setLoad(true);
         await delay(1000);
-
         let temp = [...cart];
-        temp.push({tourId:tour.id, image:tour.main_image, name:tour.title, adults:adult, childs:children, infant:infant, transfer:tranfer, date:date, price:price })
+        temp.push({
+            tourId:tour.id, image:tour.main_image, name:tour.title,
+            adults:state.adult, childs:state.children,
+            infant:state.infant, transfer:state.transfer, 
+            date:state.date, price:state.price, passenerInfo:{
+                title:state.title, fName:state.fName, lName:state.lName,
+                address:state.address, specialReq:state.specialReq,
+                email:state.email, contact:state.contact, 
+                additionalAddress:state.additionalAddress
+            }
+        })
         dispatch(addProduct(temp));
-
-        setLoad(false);
+        dispatchReducer({ type: 'close' })
     }
 
   return (
     <div>
-    {!added &&<>
+    {!added &&
+    <>
         <hr/>
         <Row className='mb-1' >
         <Col md={5}> <p className='my-1'>No. of Adult</p> </Col>
         <Col className='mx-2'>
-        <Select defaultValue="1" style={{ width: 110 }} value={adult} onChange={(e)=>calculatePrice(e, children, tranfer)}
-            options={[
-                { value: '1', label: '1'},
-                { value: '2', label: '2'},
-                { value: '3', label: '3'},
-                { value: '4', label: '4'},
-                { value: '5', label: '5'},
-                { value: '6', label: '6'}
-            ]}
-        />
+            <Incrementor value={state.adult} field={'adult'} dispatchReducer={dispatchReducer} />
         </Col>
         </Row>
         <Row className='mb-1'>
         <Col md={5}> <p className='my-1'>No. of Child</p> </Col>
         <Col className='mx-2'>
-        <Select defaultValue="1" style={{ width: 110 }} value={children} onChange={(e)=>calculatePrice(adult, e, tranfer)}
-            options={[
-                { value: '0', label: '0'},
-                { value: '1', label: '1'},
-                { value: '2', label: '2'},
-                { value: '3', label: '3'},
-                { value: '4', label: '4'},
-                { value: '5', label: '5'},
-                { value: '6', label: '6'}
-            ]}
-        />
+        <Incrementor value={state.children} field={'children'} dispatchReducer={dispatchReducer} />
         </Col>
         </Row>
         <Row className='mb-1'>
         <Col md={5}> <p className='my-1'>Infant</p> </Col>
         <Col className='mx-2'>
-        <Select defaultValue="0" style={{ width: 110 }} value={infant} onChange={(e)=>setInfant(e)}
-            options={[
-                { value: '0', label: '0'},
-                { value: '1', label: '1'},
-            ]}
-        />
+        <Incrementor value={state.infant} field={'infant'} dispatchReducer={dispatchReducer} />
         </Col>
         </Row>
         <Row className='mb-1'>
-        <Col md={5}> <p className='my-1'>With Transfer</p> </Col>
+        <Col md={5}> <p className='my-1'>Transfer Opt.</p> </Col>
         <Col className='mx-2'>
-        <Select defaultValue="Yes" style={{ width: 110 }} value={tranfer} onChange={(e)=>calculatePrice(adult, children, e)}
+        <Select defaultValue="Yes" style={{ width: "80%" }} value={state.transfer} 
+            onChange={(e)=>{
+                dispatchReducer({ type: 'field', fieldName: 'transfer', payload: e })
+                if(e=="No"){
+                    dispatchReducer({ type: 'field', fieldName: 'address', payload: "none" })
+                }else{
+                    dispatchReducer({ type: 'field', fieldName: 'address', payload: "" })
+                }
+            }}
             options={[
-                { value: 'Yes', label: 'Yes'},
-                { value: 'No', label: 'No'}
+                { value: 'No', label: 'No'},
+                { value: 'Shared', label: 'Shared'},
+                { value: 'Private', label: 'Private'},
             ]}
         />
         </Col>
@@ -134,43 +171,37 @@ const Book = ({tour, transport}) => {
         <Row className='mb-1'>
             <Col md={5}> <p className='my-1'>Tour Date</p> </Col>
             <Col className='mx-2'>
-                <Form.Control type="date" size='sm' style={{ width: 110 }} value={date} 
-                onChange={(e)=>{
-                    console.log(e.target.value)
-                    setDate(e.target.value)
-                }}
-                 />
+            <DatePicker 
+                selected={state.date} 
+                onChange={(date) => dispatchReducer({ type: 'field', fieldName: 'date', payload:date })}
+                minDate={new Date()}
+                includeDates={state.dated?state.dates:false}
+                dateFormat="yyyy - MMM - dd"
+            />
             </Col>
         </Row>
         <hr/>
-        <Row data-aos="slide-up">
+        <Row>
             <Col md={5}> <p className='my-1'>Total Price</p> </Col>
-            <Col className='mx-2'><p className='cart-price'>{price} AED</p></Col>
+            <Col className='mx-2'><p className='cart-price'>{state.price} AED</p></Col>
         </Row>
-
-        {!added&&
-        <button className='cart-btn mt-3 px-5 fs-20'
-            onClick={addToCart}
-        >Book Now
-        </button>
+        {(state.date && state.adult>0) &&
+            <button className='cart-btn mt-3 px-5 fs-17' onClick={()=>dispatchReducer({ type: 'open' })}>Book Now</button>
         }
-    </>}
-    {
-        added&&
-        <>
-            <div data-aos="fade-up" className='already' style={{cursor:'pointer'}} onClick={()=>Router.push('/cart')}>
-                Added To Cart
-            </div>
-        </>
+    </>
     }
-      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+        {added&&
+        <div data-aos="fade-up" className='already' style={{cursor:'pointer'}} onClick={()=>Router.push('/cart')}>
+            Added To Cart
+        </div>
+        }
+
+      <Modal open={state.visible} onOk={()=>dispatchReducer({ type: 'close' })} onCancel={()=>dispatchReducer({ type: 'close' })}
         width={800}
         maskClosable={false}
         footer={false}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <MoreInfo state={state} dispatchReducer={dispatchReducer} addToCart={addToCart} />
       </Modal>
     </div>
   )
