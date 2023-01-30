@@ -13,6 +13,14 @@ function reducerFunctions(state, action) {
           edit: false,
         };
       }
+      case 'bulkCreate': {
+        return {
+          ...state,
+          bulk: true,
+          visible: true,
+          edit: false,
+        };
+      }
       case 'edit': {
         return {
           ...state,
@@ -29,6 +37,7 @@ function reducerFunctions(state, action) {
           show_image:"",
           visible: false,
           edit: false,
+          bulk: false,
         };
       }
       default:
@@ -62,6 +71,7 @@ const initialState = {
     records:[],
     selectedRecord:{},
     visible:false,
+    bulk:false,
     edit:false,
     activeTab:'1',
     load:false,
@@ -97,8 +107,14 @@ const initialState = {
 
     dated:false,
     dates:[{date:'', stock:0}],
+
+    timed:false,
+    timeSlots:[],
+
+    time:"",
     
-    status:""
+    status:"",
+    prevPrice:0
 };
 
 export { initialState, reducerFunctions, baseValues }

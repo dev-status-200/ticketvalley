@@ -357,3 +357,19 @@ div.react-datepicker-wrapper > div > input{
 body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > form > div:nth-child(3) > div > div > div > div.css-1hwfws3 > div.css-1wa3eu0-placeholder{
   color: white;
 }
+
+.time-slot{
+  cursor: pointer;
+  background-color: rgb(247, 193, 124);
+  color: white;
+  font-weight: 500;
+  padding: 2px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.time-slot:hover{
+  transition-duration: 300ms;
+  background-color: antiquewhite;
+  color: rgb(46, 46, 46);
+  font-weight: 600;
+}

@@ -50,6 +50,8 @@ const initialState = {
 
     dated:false,
     dates:[],
+    timed:false,
+    timeSlot:"",
 
     title:"Mr.",
     fName:"",
@@ -58,7 +60,8 @@ const initialState = {
     contact:"",
     specialReq:"",
     address:"",
-    additionalAddress:""
+    additionalAddress:"",
+    timeslotindex:null
 };
 
 const Book = ({tour, transport}) => {
@@ -97,7 +100,10 @@ const Book = ({tour, transport}) => {
     }, [state.children, state.adult, state.transfer])
 
     useEffect(() => {
+    
+    if(tour.dated){
         let tempDates = [];
+        
         JSON.parse(tour.dates).forEach((x)=>{
             if(x.stock>0){
                 tempDates.push(new Date(`${x.date}`))
@@ -105,6 +111,9 @@ const Book = ({tour, transport}) => {
         });
         dispatchReducer({ type: 'field', fieldName:'dated', payload: tour.dated })
         dispatchReducer({ type: 'field', fieldName:'dates', payload: tempDates })
+    }
+
+        dispatchReducer({ type: 'field', fieldName:'timed', payload: tour.timed })
     }, [])
 
     const addToCart = async() => {
@@ -114,7 +123,9 @@ const Book = ({tour, transport}) => {
             tourId:tour.id, image:tour.main_image, name:tour.title,
             adults:state.adult, childs:state.children,
             infant:state.infant, transfer:state.transfer, 
-            date:state.date, price:state.price, passenerInfo:{
+            date:state.date, price:state.price,
+            timeslot:tour.timed?state.timeSlot:"", 
+            passenerInfo:{
                 title:state.title, fName:state.fName, lName:state.lName,
                 address:state.address, specialReq:state.specialReq,
                 email:state.email, contact:state.contact, 
@@ -180,12 +191,37 @@ const Book = ({tour, transport}) => {
             />
             </Col>
         </Row>
+        {tour.timed && 
+        <Row className='mb-1'>
+            <Col md={5}> <p className='my-1'>Timings</p> </Col>
+            <Col className='mx-2'>
+                <Row>
+                    {
+                    tour.timeSlots.split("//").map((x, i)=>{
+                        return(
+                            <Col md={5}>
+                                <div className='time-slot text-center my-1'
+                                style={{backgroundColor:state.timeslotindex==i?"#cd6937":null}}
+                                onClick={()=>{
+                                    console.log(i)
+                                    dispatchReducer({ type: 'field', fieldName: 'timeslotindex', payload:i })
+                                    dispatchReducer({ type: 'field', fieldName: 'timeSlot', payload:x })
+                                }}
+                                >
+                                    {x}
+                                </div>
+                            </Col>
+                        )
+                    })}
+                </Row>
+            </Col>
+        </Row>}
         <hr/>
         <Row>
             <Col md={5}> <p className='my-1'>Total Price</p> </Col>
             <Col className='mx-2'><p className='cart-price'>{state.price} AED</p></Col>
         </Row>
-        {(state.date && state.adult>0) &&
+        {(state.date && state.adult>0 && ( (tour.timed==true && state.timeSlot!="") || (tour.timed==false))) &&
             <button className='cart-btn mt-3 px-5 fs-17' onClick={()=>dispatchReducer({ type: 'open' })}>Book Now</button>
         }
     </>

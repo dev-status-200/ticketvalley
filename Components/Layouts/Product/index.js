@@ -229,6 +229,9 @@ const Product = ({id, tourData, transportData}) => {
                 <div className='fw-300 fs-15'>Cateory</div>
                 <p className='fw-600 fs-20'>{tour.category}</p>
                 <div className=''><span className='fw-400 fs-18 grey-txt'>Starting From</span></div>
+                <s className='fw-400 fs-20' style={{color:"#af302c"}}>
+                  {" "}{tour.prevPrice} AED{" "}
+                </s>
                 <p className='fw-600 fs-30'><AiFillTags/>
                   {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
                 </p>

@@ -70,6 +70,7 @@ const Cart = () => {
                             <h5 className='fw-500'>{x.name}</h5>
                             <div className='silver-txt fs-16'>{x.adults} Adults, {x.childs} Children{x.infant!=""?", 1 Infant":""}</div>
                             <div className='silver-txt fs-16'>Lead Passenger : {x.passenerInfo.title} {x.passenerInfo.fName} {x.passenerInfo.lName}</div>
+                                {x.timeslot!="" && <div className='silver-txt fs-16'>Time Slot :  {x.timeslot}</div>}
                             <div className='silver-txt fs-16'>
                                 {x.transfer!="No"? 
                                 <>

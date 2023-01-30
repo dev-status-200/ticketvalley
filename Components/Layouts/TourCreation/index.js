@@ -4,6 +4,7 @@ import { reducerFunctions, initialState, baseValues } from './states';
 import { Row, Col, Table } from 'react-bootstrap';
 import CreateOrEdit from './CreateOrEdit';
 import { EditOutlined } from '@ant-design/icons';
+import BulkCreate from './BulkCreate';
 
 export default function TourCreation({productData}) {
 
@@ -25,7 +26,7 @@ export default function TourCreation({productData}) {
         <Col className='py-3' md={3}><h5>Product</h5></Col>
         <Col>
         <Row >
-          <Col md={6}></Col>
+          <Col md={4}></Col>
             <Col md={4}>
             <Input value={state.search} placeholder="Search Packages"
             onChange={(e)=>dispatch({
@@ -35,7 +36,10 @@ export default function TourCreation({productData}) {
             })} />
             </Col>
             <Col md={2}>
-              <button style={{float:'right'}} className='btn-custom' onClick={()=>dispatch({type: 'create'})}>Create</button>
+              <button style={{float:'right'}} className='btn-custom' onClick={()=>dispatch({type: 'bulkCreate'})}>Bulk Add</button>
+            </Col>
+            <Col md={1}>
+              <button  className='btn-custom' style={{float:'right'}} onClick={()=>dispatch({type: 'create'})}>Create</button>
             </Col>
         </Row>
         </Col>
@@ -67,7 +71,7 @@ export default function TourCreation({productData}) {
                 cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}
               >
                 <Card.Meta title={x.title} />
-                <p className='card-cntnt mt-2'>{x.tour_detail.slice(0,50)} .....</p>
+                <p className='card-cntnt mt-2'>{x.tour_detail.slice(0,35)} .....</p>
                 {!x.dated &&<div style={{float:'right'}}>Stock: <strong>{x.stock}</strong></div>}
                 {x.dated &&<div style={{float:'right'}}><strong>{" "}</strong></div>}
                 <div>AED. {x.adult_price}</div>
@@ -86,7 +90,8 @@ export default function TourCreation({productData}) {
         width={1000}
         footer={[]}
       >
-        <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} />
+        {!state.bulk && <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} />}
+        {state.bulk && <BulkCreate state={state} dispatch={dispatch} />}
       </Modal>
     </div>
   );

@@ -21,7 +21,9 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       state.terms_conditions = tempState.terms_conditions.split("//");
       state.cancellation_polices = tempState.cancellation_polices.split("//");
       state.status = tempState.status;
+      state.timed = tempState.timed;
       state.policies = tempState.policies.split("//");
+      state.timeSlots = tempState.timeSlots.split("//");
       state.imp_infos = tempState.imp_infos.split("//");
       state.why_shoulds = tempState.why_shoulds.split("//");
       state.inclusions = tempState.inclusions.split("//");
@@ -83,6 +85,8 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
         {
           ...data,
+          timed:state.timed,
+          timeSlots:makeString(state.timeSlots),
           stock:state.stock,
           dated:state.dated,
           dates:state.dates,
@@ -149,6 +153,8 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
         {
           ...data,
+          timed:state.timed,
+          timeSlots:makeString(state.timeSlots),
           stock:state.stock,
           dated:state.dated,
           dates:state.dates,
