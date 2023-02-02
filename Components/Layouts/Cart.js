@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Container } from 'react-bootstrap';
 import { CloseCircleOutlined, ExclamationCircleFilled, LeftCircleOutlined } from '@ant-design/icons';
 import { AiFillCar } from 'react-icons/ai';
 import { addProduct } from '../../redux/cart/cartSlice';
-import { Modal } from 'antd';
+import { Modal, Button, Result } from 'antd';
 import Link from 'next/link';
 const { confirm } = Modal;
 import axios from "axios";
 import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 const Cart = () => {
 
@@ -39,6 +40,18 @@ const Cart = () => {
             console.log('Cancel');
           },
         });
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+        Router.push("/")
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
     };
 
   return (
@@ -94,7 +107,7 @@ const Cart = () => {
                             axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
                                 user:session?.user||null
                             }).then((x)=>{
-                                console.log(x.data)
+                                showModal();
                             })
                         }}
                     >Checkout</button>
@@ -109,6 +122,22 @@ const Cart = () => {
             </Col>
             </Row>
         </Container>
+        <Modal title="" open={isModalOpen} onOk={handleOk} 
+        footer={[
+            <></>,
+          ]}
+        >
+            <Result
+                status="success"
+                title="Purchase Successfull!"
+                subTitle="Please wait for our confirmation email, it will be arriving shortly"
+                extra={[
+                    <Button key="back" onClick={handleOk}>
+                    OK
+                </Button>,
+                ]}
+            />
+      </Modal>
     </div>
   )
 }

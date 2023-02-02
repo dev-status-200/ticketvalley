@@ -59,7 +59,7 @@ const initialState = {
     email:"",
     contact:"",
     specialReq:"",
-    address:"",
+    address:"none",
     additionalAddress:"",
     timeslotindex:null
 };

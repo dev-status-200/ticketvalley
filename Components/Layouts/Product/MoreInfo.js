@@ -73,11 +73,11 @@ const MoreInfo = ({state, dispatchReducer, addToCart}) => {
                             placeholder: 'Enter Address',
                             components : {
                                 IndicatorSeparator: () => null,
-                                    DropdownIndicator: () => 
-                                    <>
-                                    <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
-                                    <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
-                                    </>
+                                DropdownIndicator: () => 
+                                <>
+                                <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
+                                <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
+                                </>
                             },
                         }}
                     />
@@ -92,14 +92,16 @@ const MoreInfo = ({state, dispatchReducer, addToCart}) => {
             </>
             }
             <hr className='mt-4'/>
-            {(state.address!="" && state.fName!="" && state.email!="" && state.contact!="") &&
-            <>
-                <button className='cart-btn mt-3 px-5 fs-12'>Add To Cart</button>
-            </>}
+            {//((state.address!="" && state.transfer!="No") && state.fName!="" && state.email!="" && state.contact!="") &&
+            (state.address!="" && state.fName!="" && state.email!="" && state.contact!="")?
+            <><button className='cart-btn mt-3 px-5 fs-12'>Add To Cart</button></>:<></>
+            }
+            
             {(state.address=="" || state.fName=="" || state.email=="" || state.contact=="") &&
             <>
                 <span style={{color:"silver"}}>Complete The Details To Proceed</span> <span style={{color:"red"}}>*</span>
-            </>}
+            </>
+            }
         </form>
     </div>
   )
