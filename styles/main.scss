@@ -284,7 +284,7 @@ html, body{
 }
 
 .cart-btn{
-  background-color: rgb(154, 27, 12)!important;
+  background-color: rgb(151, 57, 47)!important;
   color: white;
   font-weight: 600;
   padding: 10px 20px 10px 20px;
@@ -293,7 +293,7 @@ html, body{
 }
 .cart-btn:hover{
   transition-duration: 300ms;
-  background-color: rgb(70, 17, 3)!important;
+  background-color: rgb(99, 31, 13)!important;
 }
 .cart-btn:disabled{
   background-color: silver!important;
@@ -372,4 +372,50 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   background-color: antiquewhite;
   color: rgb(46, 46, 46);
   font-weight: 600;
+}
+
+.payment-message{
+  margin-top: 20px;
+  color: rgb(155, 38, 38);
+  font-size: 18px;
+}
+
+.cart-logged-in-warning{
+  font-size: 23px;
+  margin-top: 25%;
+  text-align: center;
+  font-weight: 500;
+  color: rgb(79, 78, 78);
+}
+
+.swiper-button-next {
+  position: relative;
+  right:-3px!important;
+  width: 45px;
+}
+.swiper-button-prev {
+  position: relative;
+  left: -2px!important;
+  width: 45px;
+}
+.mySwiper{
+  padding: 0px 20px 0px 20px!important;
+  margin: 0px;
+}
+
+@media screen and (min-width: 1390px) {
+  .mySwiper{
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+    margin-left: 30px!important;
+  }
+  .swiper-button-next {
+    position: relative;
+    right:50px!important;
+  }
+}
+
+.book-home-btn{
+  background-color: red;
+  color: white;
 }

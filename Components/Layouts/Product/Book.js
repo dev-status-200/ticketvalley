@@ -8,8 +8,8 @@ import Incrementor from '../../Shared/Incrementor';
 import aos from "aos";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from 'date-fns';
 import MoreInfo from './MoreInfo';
+import { saveCart } from '../../../functions/cartFunction';
 
 function reducerFunctions(state, action) {
     switch (action.type) {
@@ -72,7 +72,6 @@ const Book = ({tour, transport}) => {
     const [state, dispatchReducer] = useReducer(reducerFunctions, initialState);
 
     const [added, setAdded] = useState(false);
-
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     useEffect(() => {
@@ -100,26 +99,20 @@ const Book = ({tour, transport}) => {
     }, [state.children, state.adult, state.transfer])
 
     useEffect(() => {
-    
-    if(tour.dated){
-        let tempDates = [];
-        
-        JSON.parse(tour.dates).forEach((x)=>{
-            if(x.stock>0){
-                tempDates.push(new Date(`${x.date}`))
-            }
-        });
-        dispatchReducer({ type: 'field', fieldName:'dated', payload: tour.dated })
-        dispatchReducer({ type: 'field', fieldName:'dates', payload: tempDates })
-    }
-
+        if(tour.dated){
+            let tempDates = [];
+            JSON.parse(tour.dates).forEach((x)=>{
+                if(x.stock>0){ tempDates.push(new Date(`${x.date}`)) }
+            });
+            dispatchReducer({ type: 'field', fieldName:'dated', payload: tour.dated })
+            dispatchReducer({ type: 'field', fieldName:'dates', payload: tempDates })
+        }
         dispatchReducer({ type: 'field', fieldName:'timed', payload: tour.timed })
     }, [])
 
     const addToCart = async() => {
-        await delay(1000);
-        let temp = [...cart];
-        temp.push({
+        await delay(100);
+        let cartValues = {
             tourId:tour.id, image:tour.main_image, name:tour.title,
             adults:state.adult, childs:state.children,
             infant:state.infant, transfer:state.transfer, 
@@ -131,7 +124,10 @@ const Book = ({tour, transport}) => {
                 email:state.email, contact:state.contact, 
                 additionalAddress:state.additionalAddress
             }
-        })
+        }
+        saveCart(cartValues)
+        let temp = [...cart];
+        temp.push(cartValues)
         dispatch(addProduct(temp));
         dispatchReducer({ type: 'close' })
     }
@@ -222,12 +218,13 @@ const Book = ({tour, transport}) => {
             <Col className='mx-2'><p className='cart-price'>{state.price} AED</p></Col>
         </Row>
         {(state.date && state.adult>0 && ( (tour.timed==true && state.timeSlot!="") || (tour.timed==false))) &&
-            <button className='cart-btn mt-3 px-5 fs-17' onClick={()=>dispatchReducer({ type: 'open' })}>Book Now</button>
+            <button className='cart-btn mt-3 px-5 fs-17' onClick={()=>dispatchReducer({ type: 'open' })}>Continue</button>
         }
     </>
     }
         {added&&
-        <div data-aos="fade-up" className='already' style={{cursor:'pointer'}} onClick={()=>Router.push('/cart')}>
+        <div data-aos="fade-up" className='already' style={{cursor:'pointer'}}
+         onClick={()=>Router.push('/cart')}>
             Added To Cart
         </div>
         }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined, VideoCameraOutlined, SnippetsOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined, TagsOutlined, SnippetsOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 import Router from 'next/router';
@@ -28,6 +28,8 @@ const PortalLayout = ({children}) => {
               Router.push('/productCreation')
             }else if(x.key=='3'){
               Router.push('/transport')
+            }else if(x.key=='4'){
+              Router.push('/promos')
             }
           }}
           items={[
@@ -45,6 +47,11 @@ const PortalLayout = ({children}) => {
               key: '3',
               icon: <CarOutlined />,
               label: 'Transport',
+            },
+            {
+              key: '4',
+              icon: <TagsOutlined />,
+              label: 'Promos',
             },
           ]}
         />

@@ -2,8 +2,7 @@ import React, {useEffect} from 'react';
 import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
-import { MdPeopleAlt } from "react-icons/md";
-import { Rate, Select } from 'antd';
+import { Rate } from 'antd';
 import { IoCalendarSharp } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { FaShuttleVan } from "react-icons/fa";
@@ -11,7 +10,6 @@ import { IoFlashSharp } from "react-icons/io5";
 import { RiExchangeFundsLine } from "react-icons/ri";
 import { TbLanguageHiragana, TbPoint } from "react-icons/tb";
 import Carasoul from './Carasoul';
-import { useRouter } from 'next/router';
 import Aos from 'aos';
 import Book from './Book';
 
@@ -229,9 +227,9 @@ const Product = ({id, tourData, transportData}) => {
                 <div className='fw-300 fs-15'>Cateory</div>
                 <p className='fw-600 fs-20'>{tour.category}</p>
                 <div className=''><span className='fw-400 fs-18 grey-txt'>Starting From</span></div>
-                <s className='fw-400 fs-20' style={{color:"#af302c"}}>
+                {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
                   {" "}{tour.prevPrice} AED{" "}
-                </s>
+                </s>}
                 <p className='fw-600 fs-30'><AiFillTags/>
                   {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
                 </p>

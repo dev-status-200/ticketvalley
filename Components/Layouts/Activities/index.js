@@ -6,9 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
-import { useRouter } from 'next/router'
-import { GiBowTieRibbon, GiGymBag } from "react-icons/gi";
-import { SiOpenstreetmap } from "react-icons/si";
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import Aos from 'aos';
 import { Empty } from 'antd';

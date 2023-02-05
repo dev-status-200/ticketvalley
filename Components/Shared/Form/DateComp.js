@@ -11,7 +11,7 @@ const DateComp = (props) => {
       {...props.register(`${props.name}`)}
       render={({ field }) => (
         <>
-          <div>{props.label}</div>
+          <div className='mt-3'>{props.label}</div>
           <DatePicker {...field} />
         </>
       )}

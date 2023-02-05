@@ -13,7 +13,7 @@ const InputNumComp = (props) => {
       {...props.register(`${props.name}`)}
       render={({ field }) => (
           <>
-            <div>{props.label}</div>
+            <div className="mt-3">{props.label}</div>
             <InputNumber
             style={{minWidth:props.width}}
              min="0"

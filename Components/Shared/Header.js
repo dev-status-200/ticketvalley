@@ -8,9 +8,9 @@ import { useRouter } from 'next/router';
 import Cookies from "js-cookie"
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { GrLogout } from "react-icons/gr";
+import { HiShoppingCart } from "react-icons/hi";
 
 const Header = () => {
-  const [menu, setMenu] = useState(false);
   const {data:session} = useSession();
   const router = useRouter();
 
@@ -28,6 +28,10 @@ const Header = () => {
             <Col md={3}></Col>
             <Col md={5}>
                 <div style={{float:'right'}}>
+                    <span className='cur mx-1' style={{color:'grey', fontSize:15}}
+                        onClick={()=>router.push("/cart")}
+                        ><HiShoppingCart/></span>
+                    <span className='mx-2' style={{color:'grey', fontSize:15}}> | </span>
                     <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiFacebook/></span>
                     <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiInstagram/></span>
                     <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiTwitter/></span>

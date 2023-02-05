@@ -6,11 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from 'next/link'
-import { Pagination } from "swiper";
+import { Autoplay, Navigation } from "swiper";
 import "swiper/css/bundle";
 import { Card } from 'antd';
 import Cards from '../../Shared/Cards';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { GiBowTieRibbon, GiGymBag } from "react-icons/gi";
 import { SiOpenstreetmap } from "react-icons/si";
 
@@ -113,41 +113,44 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
 
         {/* Hot Avtivities */}
         <div className='py-5 section-bg'>
-
             <Container className='my-5' data-aos='fade-up'>
             <h3 className='my-5 fw-700'>BEST SELLING <span className='border-btm'>ACTIVITIES</span></h3>
-            <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
-                modules={[Pagination]}
+            <div>
+            <Swiper slidesPerView={3} spaceBetween={30}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
+                modules={[Navigation]}
+                navigation={true}
                 className="mySwiper"
             >
                 {bestSelling.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' key={i} onClick={()=>
-                            router.push({
-                            pathname: '/product',
-                            query: { id: x.id },
-                        })}>
-                        <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
+                        <SwiperSlide className='card-slide' key={i}>
+                            <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
+            </div>   
             </Container>
 
             <Container className='my-5' data-aos='fade-up'>
             <h3 className='my-5 fw-700'>ADVENTURES AND TOUR <span className='border-btm'>ACTIVITIES</span></h3>
-            <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
-                modules={[Pagination]}
+            <Swiper slidesPerView={3} spaceBetween={30} 
+                modules={[Navigation]}
+                navigation={true}
                 className="mySwiper"
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
             >
                 {adventures.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' key={i} onClick={()=>
-                            router.push({
-                            pathname: '/product',
-                            query: { id: x.id },
-                        })}>
-                        <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
+                        <SwiperSlide className='card-slide' key={i}>
+                        <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
                         </SwiperSlide>
                     )
                 })}
@@ -156,18 +159,19 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
 
             <Container className='my-5' data-aos='fade-up'>
             <h3 className='my-5 fw-700'>COMBO TOURS <span className='border-btm'>ACTIVITIES</span></h3>
-            <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
-                modules={[Pagination]}
+            <Swiper slidesPerView={3} spaceBetween={30} 
+                modules={[Navigation]}
+                navigation={true}
                 className="mySwiper"
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
             >
                 {combos.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' key={i} onClick={()=>
-                            router.push({
-                            pathname: '/product',
-                            query: { id: x.id },
-                        })}>
-                        <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
+                        <SwiperSlide className='card-slide' key={i}>
+                        <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
                         </SwiperSlide>
                     )
                 })}

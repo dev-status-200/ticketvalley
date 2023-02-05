@@ -5,12 +5,7 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper";
 
 const Carasoul = (props) => {
-
-  useEffect(() => {
-    console.log(props)
-  }, [])
   
-
   return (
     <>
     <Swiper

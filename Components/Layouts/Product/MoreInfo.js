@@ -51,7 +51,7 @@ const MoreInfo = ({state, dispatchReducer, addToCart}) => {
                     />
                 </Col>
                 <Col md={12} className="mb-3">
-                    <Input.TextArea className='dark-placeholder' placeholder='Special Request' required
+                    <Input.TextArea className='dark-placeholder' placeholder='Special Request'
                         value={state.specialReq} 
                         onChange={(e)=>dispatchReducer({ type: 'field', fieldName: 'specialReq', payload: e.target.value })}
                     />
