@@ -13,6 +13,7 @@ import Cards from '../../Shared/Cards';
 import { useRouter } from 'next/router';
 import { GiBowTieRibbon, GiGymBag } from "react-icons/gi";
 import { SiOpenstreetmap } from "react-icons/si";
+import VideoComp from './VideoComp';
 
 const Home = ({bestSellingData, adventureData, comboData}) => {
 
@@ -30,9 +31,8 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
     
     return (
     <div className='home-styles' data-aos="fade-in">
-        <div className='hero py-4'>
-        {/* Header */}
-        {/* Header */}
+
+        {/* <div className='hero py-4'>
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
         <div className='dropdown'>
@@ -56,13 +56,14 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
           </div>
           <Link className='navLink' href='/'>CONTACT</Link>
         </div>
-
-        {/* TEXT */}
         <div className='hero-cont' data-aos='fade-up'>
             <h1 className='wh-txt hero-txt-1'>TICKET VALLEY</h1>
             <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
         </div>
-        </div>
+        </div> */}
+
+        <VideoComp/>
+        
         <div className='py-5 why-us-section'>
         <Container className='my-5 py-3'>
             <div>
