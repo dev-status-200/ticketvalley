@@ -419,3 +419,15 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   background-color: red;
   color: white;
 }
+@media screen and (min-width: 1300px) {
+  .hero-icons{ top:60vh; }
+  .top-text{ top:10vh; }
+}
+@media screen and (min-width: 1600px) {
+  .hero-icons{ top:65vh; }
+  .top-text{ top:15vh; }
+}
+@media screen and (min-width: 1900px) {
+  .hero-icons{ top:70vh; }
+  .top-text{ top:20vh; }
+}
