@@ -4,26 +4,33 @@ import { addProduct } from '../../redux/cart/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { destroyCart } from '../../functions/cartFunction';
 import Router from 'next/router';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const PaySuccess = () => {
-
+    const router = useRouter();
     const dispatch = useDispatch();
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     useEffect(() => {
       Aos.init({duration:600});
       afterPay();
-
     }, [])
 
     const afterPay = async() => {
         dispatch(addProduct([]));
         destroyCart();
-        await delay(5000)
-        console.log("Complete")
-        Router.push("/")
+        await delay(5000);
+        //Router.push("/")
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
+            user:router.query.email
+        }).then((x)=>{
+            console.log(x.data)
+        })
     }
     
+
+
   return (
     <div style={{backgroundColor:"white", padding:100}}>
         <div className='text-center' data-aos="fade-in">

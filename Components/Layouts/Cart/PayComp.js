@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Elements } from "@stripe/react-stripe-js"
 import Checkout from './Checkout';
 
-const PayComp = ({price}) => {
+const PayComp = ({price, email}) => {
 
     const [stripePromise, setStripePromise] = useState(null)
     const [clientSecret, setClientSecret] = useState("");
@@ -34,7 +34,7 @@ const PayComp = ({price}) => {
     <div>
         {stripePromise && clientSecret &&
         <Elements stripe={stripePromise} options={{clientSecret}}>
-            <Checkout />
+            <Checkout email={email} />
         </Elements>
         }
     </div>

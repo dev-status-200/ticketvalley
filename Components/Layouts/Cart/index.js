@@ -1,19 +1,18 @@
-import { CloseCircleOutlined, ExclamationCircleFilled, LeftCircleOutlined } from '@ant-design/icons';
-import { removeFromCart } from '../../../functions/cartFunction';
-import { Row, Col, Container, Spinner } from 'react-bootstrap';
-import { addProduct } from '../../../redux/cart/cartSlice';
-import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { AiFillCar } from 'react-icons/ai';
-import { Modal, Empty, Input } from 'antd';
-import Router from 'next/router';
-import PayComp from './PayComp';
-import Cookies from 'js-cookie';
 import Link from 'next/link';
-import moment from 'moment';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart } from '../../../functions/cartFunction';
+import PayComp from './PayComp';
+import { Row, Col, Container, Spinner } from 'react-bootstrap';
+import { Modal, Empty, Input } from 'antd';
+import { CloseCircleOutlined, ExclamationCircleFilled, LeftCircleOutlined } from '@ant-design/icons';
+import { addProduct } from '../../../redux/cart/cartSlice';
+import { useSession } from 'next-auth/react';
 import Aos from 'aos';
+import { AiFillCar } from 'react-icons/ai';
+import Router from 'next/router';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const Cart = () => {
 
@@ -25,35 +24,25 @@ const Cart = () => {
     const [promo, setPromo] = useState("");
     const [discountPrice, setDiscountPrice] = useState(0);
     const [load, setLoad] = useState(false);
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-    useEffect(() => { Aos.init({duration:500}); }, []);
 
-    useEffect(() => {
-        setPrice(parseFloat(getTotalPrice(cart)).toFixed(2));
-    }, [cart])
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    useEffect(() => { Aos.init({duration:500}); }, []);
+    useEffect(()=> setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)), [cart])
 
     const getTotalPrice = (val) => {
         let discount = Cookies.get("promoDiscount");
         let removingPrice = 0;
         let p = 0.0;
-        val.forEach(x => {
-            p = p + parseFloat(x.price)
-        });
+        val.forEach(x => p = p + parseFloat(x.price) );
         if(discount){ 
             discount = JSON.parse(discount);
-            console.log(discount)
             setPromoInfo(discount)
-            if(discount.byPercentage){
-                removingPrice = discount.price*(p/100)
-            }else if(!discount.byPercentage){
-                removingPrice = discount.price
-            }
-        } else {
-
+            if(discount.byPercentage){ removingPrice = discount.price*(p/100) }
+            else if(!discount.byPercentage){ removingPrice = discount.price }
         }
         setDiscountPrice(removingPrice)
         let retrnValue = p.toFixed(2)-removingPrice;
-
         return retrnValue;
     }
 
@@ -68,7 +57,6 @@ const Cart = () => {
             })
             removeFromCart(x.tourId)
             if(cart.length==1){
-                console.log("Removed")
                 Cookies.remove("promoDiscount")
             }
             dispatch(addProduct(tempState));
@@ -110,16 +98,10 @@ const Cart = () => {
         })
     };
 
-    // axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
-    //     user:session?.user||null
-    // }).then((x)=>{
-    //     console.log(x.data)
-    // })
-
   return (
     <div className='cart-styles' style={{borderTop:"1px solid silver"}}>
         <Container className='cart-box' fluid>
-            <Row>
+        <Row>
             <Col md={8}>
             <Container className='px-5'>
                 <div className='my-3'>
@@ -159,11 +141,9 @@ const Cart = () => {
                         </Col>
                     </Row>
                 )})}
-                    
-                    <hr/>
-
-                    <div className='mt-3' style={{minHeight:90}}>
-                    <div style={{float:'right'}}>
+                <hr/>
+                <div className='mt-3' style={{minHeight:90}}>
+                    <div className='my-4' style={{float:'right'}}>
                         <form onSubmit={ApplyPromo}>
                         <Row>
                             <Col md={3}>
@@ -189,7 +169,7 @@ const Cart = () => {
                         <h5 className='text-end' style={{fontWeight:400}}>Total AED</h5>
                         <h2 style={{color:'green'}} className='text-end'>{price}</h2>
                     </div>
-                    </div>
+                </div>
                 </>
                 }
                 {cart.length==0 && 
@@ -203,30 +183,25 @@ const Cart = () => {
             </Container>
             </Col>
             <Col md={4} className="pay-screen p-5">
-                {cart.length>0 &&
-                    <>
-                        {session &&
-                            <>
-                                {price>0 && <PayComp price={price} />}
-                            </>
-                        }
-                        {!session &&
-                            <div className='cart-logged-in-warning'>
-                                Sign-in is required to continue Checkout!
-                            </div>
-                        }
-                    </>
-                }
-                {cart.length==0 &&
-                    <div className='cart-logged-in-warning'>
-                        Fill up cart to continue Checkout!
-                    </div>
-                }
+            {cart.length>0 &&
+                <>
+                    {session && <> {price>0 && <PayComp price={price} email={session?.user.email} />} </> }
+                    {!session &&
+                        <div className='cart-logged-in-warning'>
+                            Sign-in is required to continue Checkout!
+                        </div>
+                    }
+                </>
+            }
+            {cart.length==0 &&
+                <div className='cart-logged-in-warning'>
+                    Fill up cart to continue Checkout!
+                </div>
+            }
             </Col>
-            </Row>
+        </Row>
         </Container>
     </div>
   )
 }
-
 export default Cart

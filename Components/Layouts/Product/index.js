@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
-import { Rate } from 'antd';
+import { Rate, Affix } from 'antd';
 import { IoCalendarSharp } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { FaShuttleVan } from "react-icons/fa";
@@ -223,6 +223,7 @@ const Product = ({id, tourData, transportData}) => {
               </div>
             </Col>
             <Col md={4}>
+              <Affix offsetTop={120}>
               <div className='booking-form'>
                 <div className='fw-300 fs-15'>Cateory</div>
                 <p className='fw-600 fs-20'>{tour.category}</p>
@@ -235,6 +236,7 @@ const Product = ({id, tourData, transportData}) => {
                 </p>
                 <Book tour={tour} transport={transport} />
               </div>
+            </Affix>
             </Col>
           </Row>
         </Container>

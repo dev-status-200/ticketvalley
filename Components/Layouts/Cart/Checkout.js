@@ -2,7 +2,7 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({email}) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -17,13 +17,16 @@ export default function CheckoutForm() {
       return;
     }
     setIsProcessing(true);
-
+    console.log(email);
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${process.env.NEXT_PUBLIC_URL}/paySuccess`,
+        return_url: `${process.env.NEXT_PUBLIC_URL}/paySuccess?email=${email}`,
+        receipt_email:email
+        
       },
+      
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {

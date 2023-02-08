@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Cards from '../../Shared/Cards';
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper";
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import Aos from 'aos';
@@ -13,14 +9,14 @@ import { Empty } from 'antd';
 
 const Activities = ({activity}) => {
   const router = useRouter();
+  const [load, setLoad] = useState(true);
   const [bg, setBg] = useState("");
   const [activities, setActivities] = useState([]);
 
     useEffect(() => {
-        Aos.init({duration:700});
-      console.log(activity);
-      getTourData() 
-      if(activity=="Theme Park"){
+      Aos.init({duration:700});
+      getTourData();
+      if(activity=="Theme Parks"){
         setBg("theme")
       } else if(activity=="Water Parks"){
         setBg("water")
@@ -34,11 +30,11 @@ const Activities = ({activity}) => {
     }, [])
 
     const getTourData = async() => {
-        const toursData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_BASE_CATEGORY,{
+        await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_BASE_CATEGORY,{
             headers:{ "category": `${activity}` }
           }).then((x)=>{
-            console.log(x.data.result)
-            setActivities(x.data.result)
+            setActivities(x.data.result);
+            setLoad(false);
         })
     }
 
@@ -60,7 +56,7 @@ const Activities = ({activity}) => {
       <div className='dropdown  mx-2'>
         <span className='navLink dropbtn'>ACTIVITIES</span>
         <div className="dropdown-content">
-            <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Park'}}}>Theme Parks</Link>
+            <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
             <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
             <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
             <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
@@ -71,33 +67,34 @@ const Activities = ({activity}) => {
     </div>
     <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>{activity.toUpperCase()}  ACTIVITIES</h1>
     </div>
+    {!load &&
     <div className='p-3'>
-    {activities.length>0 &&
-    <Container className='my-5' data-aos='fade-up'>
-        {/* <h3 className='my-5 fw-700 text-center'>BEST SELLING <span className='border-btm'>ACTIVITIES</span></h3> */}
-        <Swiper slidesPerView={3} spaceBetween={30} pagination={{ clickable: true }}
-            modules={[Pagination]}
-            className="mySwiper"
-        >
-            {activities.map((x, i)=>{
-                return(
-                    <SwiperSlide className='card-slide' key={i}
-                    onClick={()=> { console.log("Clicked"); router.push({ pathname: '/product', query: { id: x.id }, }) }}
-                    >
-                    <Cards title={x.title} image={x.main_image} price={`${x.adult_price} AED`} />
-                    </SwiperSlide>
-                )
-            })}
-        </Swiper>
-    </Container>
-    }
-    {activities.length==0 &&
-        <Container className='py-5' data-aos='fade-up'>
-            <Empty />
-            <h1 className='text-center fw-200 mt-5'>Sorry No Activities Added Yet!</h1>
-        </Container>
-    }
+      {activities.length>0 &&
+      <Container className='my-5' data-aos='fade-up'>
+        <Row>
+        {activities.map((x, i)=>{
+            return(
+              <Col md={4} className='card-slide my-5' key={i}>
+                <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
+              </Col>
+            )
+        })}
+        </Row>
+      </Container>
+      }
+      {activities.length==0 &&
+          <Container className='py-5' data-aos='fade-up'>
+              <Empty />
+              <h1 className='text-center fw-200 mt-5'>Sorry No Activities Added Yet!</h1>
+          </Container>
+      }
     </div>
+    }
+    {load &&
+      <div style={{backgroundColor:"white"}} className="text-center py-5">
+          <img src={'/loader.svg'} className="my-5 py-5" />
+      </div>
+    }
     </div>
   )
 }

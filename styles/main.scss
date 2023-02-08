@@ -6,10 +6,6 @@
 @import 'CustomerLogin.scss';
 @import 'Cart-styles.scss';
 
-html, body{
-  font-family: 'Poppins', sans-serif;
-}
-
 .cur{
     cursor: pointer;
 }
@@ -419,7 +415,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   background-color: red;
   color: white;
 }
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1200px) {
   .hero-icons{ top:60vh; }
   .top-text{ top:10vh; }
 }
