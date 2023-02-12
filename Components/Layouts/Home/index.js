@@ -8,14 +8,12 @@ import "swiper/css/pagination";
 import Link from 'next/link'
 import { Autoplay, Navigation } from "swiper";
 import "swiper/css/bundle";
-import { Card } from 'antd';
-import Cards from '../../Shared/Cards';
 import { useRouter } from 'next/router';
-import { GiBowTieRibbon, GiGymBag } from "react-icons/gi";
-import { SiOpenstreetmap } from "react-icons/si";
 import VideoComp from './VideoComp';
+import axios from 'axios';
+import TourCardOne from '../../Shared/TourCardOne';
 
-const Home = ({bestSellingData, adventureData, comboData}) => {
+const Home = () => {
 
     const router = useRouter();
     const [bestSelling, setBestSelling] = useState([])
@@ -24,99 +22,122 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
 
     useEffect(() => {
         Aos.init({duration:700});
-        setAdventures(adventureData)
-        setBestSelling(bestSellingData)
-        setCombos(comboData)
+        getData();
     }, [])
-    
+
+    const getData = async() => {
+          await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+            headers:{ "category": "Best Selling" }
+          }).then((x)=>setBestSelling(x.data.result))
+          await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+            headers:{ "category": "Adventure Tours" }
+          }).then((x)=>setAdventures(x.data.result))
+          await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+            headers:{ "category": "Combo Tours" }
+          }).then((x)=>setCombos(x.data.result))
+    }
+
     return (
     <div className='home-styles' data-aos="fade-in">
-
-        {/* <div className='hero py-4'>
-        <div className='navBar'>
-          <Link className='navLink' href='/'>HOME</Link>
-        <div className='dropdown'>
-        <div className='navLink dropbtn'>DESTINATION</div>
-        <div className="dropdown-content">
-            <a className='menu-drop-links pb-2'>Dubai</a>
-        </div>
-        </div>
-          <span className="navLink">
-            <img src={'/images/logo.png'} height={100} />
-          </span>
-          <div className='dropdown mx-2'>
-            <span className='navLink dropbtn'>ACTIVITIES</span>
-            <div className="dropdown-content">
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Park'}}}>Theme Parks</Link>
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
-                <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
-            </div>
-          </div>
-          <Link className='navLink' href='/'>CONTACT</Link>
-        </div>
-        <div className='hero-cont' data-aos='fade-up'>
-            <h1 className='wh-txt hero-txt-1'>TICKET VALLEY</h1>
-            <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
-        </div>
-        </div> */}
-
         <VideoComp/>
-        
+
         <div className='py-5 why-us-section'>
         <Container className='my-5 py-3'>
             <div>
             <Row  data-aos='fade-up'>
-                <Col className='fs-20 grey-txt' md={6}>
-                    <img className='mt-5 mb-3' src='images/binoculars.png' />
-                    <h3 className='mb-5 fw-700 black-txt'>WHY CHOOSE <span className='border-btm'>US?</span></h3>
-                    <p>
-                        It{"’"}s our passion and our expertise, and has been for over two decades.
-                        We know the trails and the towns inside and out. We know the hoteliers and their rooms,
-                        and restauranteurs and their menus. We don{"’"}t guide on any route we haven{"’"}t done many times before.
-                        Our expertise gives you a richer, more enjoyable experience, and we will makes better use of your time. 
-                    </p>
-                    <p>
-                        We provide a thorough and complete orientation, so you are fully prepared to make the most of your Swiss vacation or Alps hiking adventure.
-                        Your expert trip leader is with you for the entire trip
-                    </p>
+                <Col className='grey-txt' md={7}>
+                    <p className='mb-5 fw-400 fs-55 blue-txt'><span className='border-btm'>WHY</span> CHOOSE US?</p>
+                    <div className='mb-5 fw-700 fs-55 black-txt' style={{lineHeight:1}}>DISCOVER THE <span className='blue-txt'>WORLD</span> WITH OUR GUIDE</div>
+                    <span className='fs-20 black-txt fw-500'>
+                        <p>
+                            It{"’"}s our passion and our expertise, and has been for over two decades.
+                            We know the trails and the towns inside and out. We know the hoteliers and their rooms,
+                            and restauranteurs and their menus. We don{"’"}t guide on any route we haven{"’"}t done many times before.
+                            Our expertise gives you a richer, more enjoyable experience, and we will makes better use of your time. 
+                        </p>
+                        <p>
+                            We provide a thorough and complete orientation, so you are fully prepared to make the most of your Swiss vacation or Alps hiking adventure.
+                            Your expert trip leader is with you for the entire trip
+                        </p>
+                    </span>
                 </Col>
-                <Col md={6} className='py-5'>
-                    <img src={'images/Asset 2-8.png'} style={{width:'48vw'}} />
+                <Col md={5} className='py-1'>
+                    <div style={{float:'right'}}>
+                        <img src={'images/why-us.png'} style={{width:'32vw'}} />
+                    </div>
                 </Col>
             </Row>
             </div>
         </Container>
         </div>
 
-        <div className='py-5 white-bg'>
+        <div className='py-1 white-bg'>
             <Container className='my-5 py-1'>
                 <Row>
-                    <Col className='text-center px-5 mx-3'>
-                        <GiBowTieRibbon className='mb-3' color='#2467db' size={40} />
-                        <h5 className='fw-700 mb-3'>20 YEARS EXPERIENCES</h5>
-                        <p className='grey-txt fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
+                    <Col className='text-center px-5 mx-0'>
+                        <img src={'/other-assets/home-1.png'} height={130} />
+                        <h4 className='fw-700 my-3 lt-blue-txt'>20 YEARS EXPERIENCES</h4>
+                        <p className='black-txt fw-500 fs-18' >Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
                     </Col>
-                    <Col className='text-center px-5 mx-3'>
-                        <SiOpenstreetmap className='mb-3' color='#2467db' size={40} />
-                        <h5 className='fw-700 mb-3'>MOST COMPLETED MAP</h5>
-                        <p className='grey-txt fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
+                    <Col className='text-center px-5 mx-0'>
+                        <img src={'/other-assets/home-3.png'} height={130} />
+                        <h4 className='fw-700 my-3 lt-blue-txt'>MOST COMPLETED MAP</h4>
+                        <p className='black-txt fw-500 fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
                     </Col>
-                    <Col className='text-center px-5 mx-3'>
-                        <GiGymBag className='mb-3' color='#2467db' size={40} />
-                        <h5 className='fw-700 mb-3'>PACKING ADVISE</h5>
-                        <p className='grey-txt fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
+                    <Col className='text-center px-5 mx-0'>
+                        <img src={'/other-assets/home-2.png'} height={130} />
+                        <h4 className='fw-700 my-3 lt-blue-txt'>PACKING ADVISE</h4>
+                        <p className='black-txt fw-500 fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
                     </Col>
                 </Row>
             </Container>
         </div>
 
-        {/* Hot Avtivities */}
-        <div className='py-5 section-bg'>
-            <Container className='my-5' data-aos='fade-up'>
-            <h3 className='my-5 fw-700'>BEST SELLING <span className='border-btm'>ACTIVITIES</span></h3>
+        <div className='py-5 why-us-section'>
+        <Container className='my-5 py-3'>
             <div>
+            <Row  data-aos='fade-up'>
+                <Col md={6} className='py-1'>
+                    <div className='px-5'>
+                        <img src={'images/about-us.png'} style={{width:'33vw'}} />
+                    </div>
+                </Col>
+                <Col className='grey-txt' md={6}>
+                    <p className='mb-5 fw-400 fs-55 blue-txt'><span className='border-btm'>About</span> US!</p>
+                    <br/>
+                    <div className='fs-20 black-txt fw-500'>
+                        <p>
+                            It{"’"}s our passion and our expertise, and has been for over two decades.
+                            We know the trails and the towns inside and out. We know the hoteliers and their rooms,
+                            and restauranteurs and their menus. We don{"’"}t guide on any route we haven{"’"}t done many times before.
+                            Our expertise gives you a richer, more enjoyable experience, and we will makes better use of your time. 
+                        </p>
+                        <p>
+                            We provide a thorough and complete orientation, so you are fully prepared to make the most of your Swiss vacation or Alps hiking adventure.
+                            Your expert trip leader is with you for the entire trip
+                        </p>
+                    </div>
+                </Col>
+            </Row>
+            </div>
+        </Container>
+        </div>
+
+        {/* Hot Avtivities */}
+        {bestSelling.length>0 &&
+        <div style={{backgroundColor:"white"}}>
+            <Container className='py-5 px-4'>
+            <div className='blue-txt px-3' style={{letterSpacing:7}}>CHOOSE YOUR PLACE</div>
+            <h1 className='fw-700 px-3'><span className='black-txt'>BEST</span> <span className='blue-txt'>SELLING ACTIVITIES</span></h1>
+            <Row className='px-3'>
+                <Col md={8} data-aos='fade-right'>
+                    <TourCardOne tour={bestSelling[0]} height={500} info={false}  />
+                </Col>
+                <Col md={4} data-aos='fade-down'>
+                    <TourCardOne tour={bestSelling[1]} height={500} info={false} />
+                </Col>
+            </Row>
+            <Row className='mt-2' data-aos='fade-left'>
             <Swiper slidesPerView={3} spaceBetween={30}
                 autoplay={{
                     delay: 2500,
@@ -126,19 +147,24 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
                 navigation={true}
                 className="mySwiper"
             >
-                {bestSelling.map((x, i)=>{
+                {bestSelling.slice(2).map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' key={i}>
-                            <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
+                        <SwiperSlide className='' key={i}>
+                            <TourCardOne tour={x} height={300} info={false} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
-            </div>   
+            </Row>
             </Container>
+        </div>
+        }
+        {/* <Slider/> */}
 
-            <Container className='my-5' data-aos='fade-up'>
-            <h3 className='my-5 fw-700'>ADVENTURES AND TOUR <span className='border-btm'>ACTIVITIES</span></h3>
+
+        <div className='py-5' style={{backgroundColor:"white"}}>
+        <Container className='my-5' data-aos='fade-up'>
+            <h1 className='mt-3 fw-700 px-4'>ADVENTURES &<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
             <Swiper slidesPerView={3} spaceBetween={30} 
                 modules={[Navigation]}
                 navigation={true}
@@ -150,16 +176,17 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
             >
                 {adventures.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' key={i}>
-                        <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
+                        <SwiperSlide className='' key={i}>
+                            <TourCardOne tour={x} height={320} info={true} font={18} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
-            </Container>
+        </Container>
 
-            <Container className='my-5' data-aos='fade-up'>
-            <h3 className='my-5 fw-700'>COMBO TOURS <span className='border-btm'>ACTIVITIES</span></h3>
+
+        <Container className='my-5 py-5' data-aos='fade-up'>
+            <h1 className='mt-3 fw-700 px-4'>COMBO<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
             <Swiper slidesPerView={3} spaceBetween={30} 
                 modules={[Navigation]}
                 navigation={true}
@@ -171,13 +198,15 @@ const Home = ({bestSellingData, adventureData, comboData}) => {
             >
                 {combos.map((x, i)=>{
                     return(
-                        <SwiperSlide className='card-slide' key={i}>
-                        <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
+                        <SwiperSlide className='' key={i}>
+                            <TourCardOne tour={x} height={320} info={true} font={18} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
-            </Container>
+        </Container>
+
+
         </div>
     </div>
   )

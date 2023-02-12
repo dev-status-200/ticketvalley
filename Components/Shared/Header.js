@@ -16,28 +16,28 @@ const Header = () => {
 
   return (
     <div className='header-styles'>
-        <Row className='px-5 pb-3 pt-3 m-0 white-bg'>
-            <Col md={4}>
+        <Row className='px-5 py-2 m-0 white-bg'>
+            <Col md={6}>
                 <div>
-                    <span style={{color:'grey', fontSize:13}}><FaPhoneAlt/></span>
-                    <span className='f mx-2' style={{position:'relative', top:2}}>+41 21 634 05 05</span>
-                    <span style={{color:'grey', fontSize:13, marginLeft:20}}><FaRegEnvelopeOpen/></span>
-                    <span className='f mx-2' style={{position:'relative', top:2}}>Booking@ticketvalley.com</span>
+                    <span style={{fontSize:13}}><FaPhoneAlt/></span>
+                    <span className='' style={{position:'relative', top:2}}>+41 21 634 05 05</span>
+                    <span style={{marginLeft:10, marginRight:10}}>|</span>
+                    <span style={{fontSize:13}}><FaRegEnvelopeOpen/></span>
+                    <span className=' mx-2' style={{position:'relative', top:2}}>booking@ticketsvalley.com</span>
                 </div>
             </Col>
-            <Col md={3}></Col>
-            <Col md={5}>
+            <Col md={6}>
                 <div style={{float:'right'}}>
-                    <span className='cur mx-1' style={{color:'grey', fontSize:15}}
+                    <span className='cur mx-1' style={{fontSize:15}}
                         onClick={()=>router.push("/cart")}
                         ><HiShoppingCart/></span>
-                    <span className='mx-2' style={{color:'grey', fontSize:15}}> | </span>
-                    <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiFacebook/></span>
-                    <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiInstagram/></span>
-                    <span className='cur mx-2' style={{color:'grey', fontSize:13}}><SiTwitter/></span>
-                    <span className='' style={{color:'grey', fontSize:13, marginLeft:20}}><AiOutlineUser/></span>
+                    <span className='mx-2' style={{fontSize:15}}> | </span>
+                    <span className='cur mx-1' style={{fontSize:13}}><SiFacebook/></span>
+                    <span className='cur mx-1' style={{fontSize:13}}><SiInstagram/></span>
+                    <span className='cur mx-1' style={{fontSize:13}}><SiTwitter/></span>
+                    <span className='' style={{fontSize:13, marginLeft:20}}><AiOutlineUser/></span>
                     {!session &&
-                    <span className='cur f mx-2' style={{position:'relative', top:2}}
+                    <span className='cur mx-2' style={{position:'relative', top:2}}
                         onClick={()=>{
                             if(Object.keys(router.query).length>0){ Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`) }
                             else { Cookies.set("redirect",`${router.pathname}`) }
@@ -47,14 +47,14 @@ const Header = () => {
                     }
                     {session &&
                     <>
-                    <span className='f mx-2' style={{position:'relative', top:2}} >{session.user.name}</span>
-                    <span className='cur f mx-2'  style={{position:'relative', top:2}} onClick={()=>signOut()}>
+                    <span className=' mx-2' style={{position:'relative', top:2}} >{session.user.name}</span>
+                    <span className='cur  mx-2'  style={{position:'relative', top:2}} onClick={()=>signOut()}>
                         <GrLogout className='mx-1' style={{position:'relative', bottom:2, fontSize:13}}  />Logout
                     </span>
                     </>
                     }
                     {!session && <span className=''>|</span>}
-                    {!session && <Link className='cur f mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href="/login">Agent Login</Link>}
+                    {!session && <Link className='cur black-txt mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href="/login">Agent Login</Link>}
                 </div>
             </Col>
         </Row>

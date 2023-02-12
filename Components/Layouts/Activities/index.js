@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Aos from 'aos';
 import { Empty } from 'antd';
+import TourCardOne from '../../Shared/TourCardOne';
 
 const Activities = ({activity}) => {
-  const router = useRouter();
   const [load, setLoad] = useState(true);
   const [bg, setBg] = useState("");
   const [activities, setActivities] = useState([]);
@@ -75,7 +75,7 @@ const Activities = ({activity}) => {
         {activities.map((x, i)=>{
             return(
               <Col md={4} className='card-slide my-5' key={i}>
-                <Cards title={x.title} id={x.id} image={x.main_image} price={`${x.adult_price} AED`} />
+                <TourCardOne tour={x} height={300} info={true} />
               </Col>
             )
         })}
