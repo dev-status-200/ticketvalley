@@ -40,7 +40,6 @@ const Home = () => {
     return (
     <div className='home-styles' data-aos="fade-in">
         <VideoComp/>
-
         <div className='py-5 why-us-section'>
         <Container className='my-5 py-3'>
             <div>
@@ -124,44 +123,46 @@ const Home = () => {
         </div>
 
         {/* Hot Avtivities */}
-        {bestSelling.length>0 &&
         <div style={{backgroundColor:"white"}}>
             <Container className='py-5 px-4'>
             <div className='blue-txt px-3' style={{letterSpacing:7}}>CHOOSE YOUR PLACE</div>
             <h1 className='fw-700 px-3'><span className='black-txt'>BEST</span> <span className='blue-txt'>SELLING ACTIVITIES</span></h1>
-            <Row className='px-3'>
-                <Col md={8} data-aos='fade-right'>
-                    <TourCardOne tour={bestSelling[0]} height={500} info={false}  />
-                </Col>
-                <Col md={4} data-aos='fade-down'>
-                    <TourCardOne tour={bestSelling[1]} height={500} info={false} />
-                </Col>
-            </Row>
-            <Row className='mt-2' data-aos='fade-left'>
-            <Swiper slidesPerView={3} spaceBetween={30}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
-                modules={[Navigation]}
-                navigation={true}
-                className="mySwiper"
-            >
-                {bestSelling.slice(2).map((x, i)=>{
-                    return(
-                        <SwiperSlide className='' key={i}>
-                            <TourCardOne tour={x} height={300} info={false} />
-                        </SwiperSlide>
-                    )
-                })}
-            </Swiper>
-            </Row>
+            {bestSelling.length>0 && 
+            <div>
+                <Row className='px-3'>
+                    <Col md={8} data-aos='fade-right'>
+                        <TourCardOne tour={bestSelling[0]} height={500} info={false}  />
+                    </Col>
+                    <Col md={4} data-aos='fade-down'>
+                        <TourCardOne tour={bestSelling[1]} height={500} info={false} />
+                    </Col>
+                </Row>
+                <Row className='mt-2' data-aos='fade-left'>
+                <Swiper slidesPerView={3} spaceBetween={30}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    modules={[Navigation]}
+                    navigation={true}
+                    className="mySwiper"
+                >
+                    {bestSelling.slice(2).map((x, i)=>{
+                        return(
+                            <SwiperSlide className='' key={i}>
+                                <TourCardOne tour={x} height={220} info={false} />
+                            </SwiperSlide>
+                        )
+                    })}
+                </Swiper>
+                </Row>
+            </div>
+            }
+            {bestSelling.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
             </Container>
         </div>
-        }
+        
         {/* <Slider/> */}
-
-
         <div className='py-5' style={{backgroundColor:"white"}}>
         <Container className='my-5' data-aos='fade-up'>
             <h1 className='mt-3 fw-700 px-4'>ADVENTURES &<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
@@ -177,13 +178,13 @@ const Home = () => {
                 {adventures.map((x, i)=>{
                     return(
                         <SwiperSlide className='' key={i}>
-                            <TourCardOne tour={x} height={320} info={true} font={18} />
+                            <TourCardOne tour={x} height={270} info={true} font={18} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
+            {adventures.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
         </Container>
-
 
         <Container className='my-5 py-5' data-aos='fade-up'>
             <h1 className='mt-3 fw-700 px-4'>COMBO<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
@@ -199,11 +200,12 @@ const Home = () => {
                 {combos.map((x, i)=>{
                     return(
                         <SwiperSlide className='' key={i}>
-                            <TourCardOne tour={x} height={320} info={true} font={18} />
+                            <TourCardOne tour={x} height={270} info={true} font={18} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
+            {combos.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
         </Container>
 
 
