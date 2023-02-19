@@ -13,6 +13,7 @@ import Aos from 'aos';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
 
@@ -20,6 +21,7 @@ const Cart = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.value);
     const conversion = useSelector((state) => state.currency.conversion);
+    const router = useRouter();
     const [promoInfo, setPromoInfo] = useState({price:0, byPercentage:false, name:""});
     const [price, setPrice] = useState(0.0);
     const [promo, setPromo] = useState("");
@@ -198,7 +200,16 @@ const Cart = () => {
                         <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>
                         <Row className='mt-4'>
                             <Col></Col>
-                            <Col><div className='btn-custom' onClick={()=>signIn()}>Sign In</div></Col>
+                            <Col><div className='btn-custom' onClick={()=>{
+                                // This Logic sets the redirected URL to get back to this page
+                                if(Object.keys(router.query).length>0){ 
+                                    Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
+                                }
+                                else { 
+                                        Cookies.set("redirect",`${router.pathname}`) 
+                                }
+                                signIn();
+                            }}>Sign In</div></Col>
                             <Col></Col>
                         </Row>
                     </div>

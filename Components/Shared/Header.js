@@ -5,7 +5,7 @@ import { SiFacebook, SiInstagram, SiTwitter } from "react-icons/si";
 import { AiOutlineUser } from "react-icons/ai";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { fetchCurrencyData } from '../../functions/fetchCurrencyData';
 import { GrLogout } from "react-icons/gr";
@@ -80,8 +80,13 @@ const Header = () => {
                     {!session &&
                     <span className='cur mx-2' style={{position:'relative', top:2}}
                         onClick={()=>{
-                            if(Object.keys(router.query).length>0){ Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  }
-                            else {  Cookies.set("redirect",`${router.pathname}`)  }
+                            // This Logic sets the redirected URL to get back to this page
+                            if(Object.keys(router.query).length>0){ 
+                                Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
+                            }
+                            else { 
+                                 Cookies.set("redirect",`${router.pathname}`) 
+                            }
                             signIn();
                         }}
                     >My Login</span>
