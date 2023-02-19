@@ -31,10 +31,9 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
         user:email, booking_id:id
       }).then((x)=>{
-        console.log(x.data);
-        dispatch(addProduct([]));
-        destroyCart();
-        Router.push("/");
+        //dispatch(addProduct([]));
+        //destroyCart();
+        //Router.push("/");
       })
     }
 
@@ -54,7 +53,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       let booking_id = '';
       let cartData = []
       let reserve = {}
-      cartData = await retrieveCart()
+      cartData = await retrieveCart();
       let disc = await Cookies.get('promoDiscount');
 
       cartData = cartData.map((x) => ({
@@ -76,11 +75,14 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       reserve.payment_intent = payment_intent;
       reserve.name = name;
       reserve.email = email;
+
+      console.log(cartData, "Cart Data");
+      console.log(reserve, "Reservation");
+
       await axios.post(process.env.NEXT_PUBLIC_CREATE_RESERVATION,{
         bookedTours:cartData,
         reservation:reserve
       }).then((x)=>{
-        console.log(x.data)
         booking_id = x.data.result
       })
       setCount(count+1);
@@ -91,7 +93,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
     <div style={{backgroundColor:"white", padding:100}}>
         <div className='text-center' data-aos="fade-in">
             <img src={"/other-assets/payment_done.png"} height={200} />
-            <h1 style={{color:"#20bf55", fontWeight:700}} className="my-3">Thank You! {count}</h1>
+            <h1 style={{color:"#20bf55", fontWeight:700}} className="my-3">Thank You!</h1>
             <p style={{color:"grey"}}>Payment done successfully</p>
             <p style={{color:"silver"}}>A confirmation E-mail will be sent in a moment, and you'll be directed towards the home page shortly!</p>
         </div>

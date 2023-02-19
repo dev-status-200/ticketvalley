@@ -17,8 +17,6 @@ export default function CheckoutForm({email, name}) {
       return;
     }
     setIsProcessing(true);
-    console.log(email);
-    console.log(name);
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
