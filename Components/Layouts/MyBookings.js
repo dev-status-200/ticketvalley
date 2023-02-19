@@ -119,6 +119,12 @@ const MyBookings = () => {
             </Col>
             </Row>
         )})}
+        {
+            bookings.length==0 &&
+            <>
+            <div className='text-center'> <img src='/loader.svg' /> </div>
+            </>
+        }
         </Container>
     </div>
   )
