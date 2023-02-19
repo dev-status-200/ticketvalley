@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Elements } from "@stripe/react-stripe-js"
 import Checkout from './Checkout';
 
-const PayComp = ({price, email}) => {
+const PayComp = ({price, email, name}) => {
 
     const [stripePromise, setStripePromise] = useState(null)
     const [clientSecret, setClientSecret] = useState("");
@@ -13,7 +13,6 @@ const PayComp = ({price, email}) => {
         axios.get(process.env.NEXT_PUBLIC_CREATE_CONFIG)
         .then((x)=>{
             if(x.data.status=="success"){
-                console.log("publishable Key",x.data.publishableKey)
                 setStripePromise(loadStripe(x.data.publishableKey))
             }
         })
@@ -24,7 +23,6 @@ const PayComp = ({price, email}) => {
         })
         .then((x)=>{
             if(x.data.status=="success"){
-                console.log("client secret", x.data.client_secret)
                 setClientSecret(x.data.client_secret)
             }
         })
@@ -34,7 +32,7 @@ const PayComp = ({price, email}) => {
     <div>
         {stripePromise && clientSecret &&
         <Elements stripe={stripePromise} options={{clientSecret}}>
-            <Checkout email={email} />
+            <Checkout email={email} name={name} />
         </Elements>
         }
     </div>

@@ -389,9 +389,9 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 
 .cart-logged-in-warning{
   font-size: 23px;
-  margin-top: 25%;
+  margin-top: 40%;
   text-align: center;
-  font-weight: 500;
+  font-weight: 400;
   color: rgb(79, 78, 78);
 }
 
@@ -485,6 +485,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   font-weight: 700;
   text-shadow: 11px 7px 6px rgba(0,0,0,0.6);
 }
+
 .hero-txt-2{
   font-size: 70px;
   font-weight: 600;
@@ -536,4 +537,34 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   .hero-icons-imgs{
     height: 190px !important;
   }
+}
+
+.hov-row{
+  transition-duration: 300ms;
+  background-color: white;
+  cursor: pointer;
+}
+
+.hov-row:hover{
+  transition-duration: 300ms;
+  background-color: rgb(238, 246, 255);
+}
+
+.tour-booking-list{
+  border: 1px solid grey;
+  border-radius: 4px;
+  margin: 7px;
+}
+
+.flag-hov{
+  transition-duration: 300ms;
+  font-size: 20px;
+  border: 1px solid white;
+  border-radius: 2px;
+  padding: 3px;
+}
+.flag-hov:hover{
+  transition-duration: 300ms;
+  border: 1px solid rgb(121, 164, 220);
+  background-color: rgba(176, 209, 253, 0.322);
 }

@@ -11,7 +11,6 @@ const CustomerLoin = ({providers, signIn}) => {
 
   useEffect(() => {
     if(session){
-      console.log(Cookies.get("redirect"))
       Router.push(`${Cookies.get("redirect")}`)
     }
   }, [session])

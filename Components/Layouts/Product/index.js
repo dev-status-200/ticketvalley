@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
@@ -12,9 +12,11 @@ import { TbLanguageHiragana, TbPoint } from "react-icons/tb";
 import Carasoul from './Carasoul';
 import Aos from 'aos';
 import Book from './Book';
+import { useSelector } from 'react-redux';
 
 const Product = ({id, tourData, transportData}) => {
 
+  const conversion = useSelector((state) => state.currency.conversion);
   const [tour, setTour] = React.useState({})
   const [transport, setTransport] = React.useState([])
 
@@ -24,6 +26,21 @@ const Product = ({id, tourData, transportData}) => {
     setTransport(transportData)
 }, [])
   
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = () => {
+      const position = window.pageYOffset;
+      setScrollPosition(position);
+      //console.log(position)
+  };
+
+  useEffect(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+  }, []);
+
   return (
     <div className='tour-styles' style={{backgroundColor:'white'}} >
       <div className='hero py-4'>
@@ -223,20 +240,18 @@ const Product = ({id, tourData, transportData}) => {
               </div>
             </Col>
             <Col md={4}>
-              <Affix offsetTop={120}>
               <div className='booking-form'>
                 <div className='fw-300 fs-15'>Cateory</div>
                 <p className='fw-600 fs-20'>{tour.category}</p>
                 <div className=''><span className='fw-400 fs-18 grey-txt'>Starting From</span></div>
                 {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
-                  {" "}{tour.prevPrice} AED{" "}
+                  {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
                 </s>}
                 <p className='fw-600 fs-30'><AiFillTags/>
-                  {tour.adult_price} AED <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
+                  {(tour.adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
                 </p>
                 <Book tour={tour} transport={transport} />
               </div>
-            </Affix>
             </Col>
           </Row>
         </Container>

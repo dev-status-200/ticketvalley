@@ -27,10 +27,11 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
   return (
     <> 
     { (
-        router.pathname =='/' || 
-        router.pathname =='/product' || 
-        router.pathname =='/cart' || 
-        router.pathname =='/activities' || 
+        router.pathname =='/' ||
+        router.pathname =='/product' ||
+        router.pathname =='/cart' ||
+        router.pathname =='/activities' ||
+        router.pathname =='/myBookings' ||
         router.pathname =='/paySuccess'
       ) && 
         <>
@@ -50,6 +51,7 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/portal' || 
         router.pathname =='/productCreation'|| 
         router.pathname =='/transport'|| 
+        router.pathname =='/bookings'|| 
         router.pathname =='/promos' 
       ) &&
       <PortalLayout>

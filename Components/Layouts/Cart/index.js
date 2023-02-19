@@ -5,11 +5,11 @@ import { removeFromCart } from '../../../functions/cartFunction';
 import PayComp from './PayComp';
 import { Row, Col, Container, Spinner } from 'react-bootstrap';
 import { Modal, Empty, Input } from 'antd';
+import { AiFillCar } from 'react-icons/ai';
 import { CloseCircleOutlined, ExclamationCircleFilled, LeftCircleOutlined } from '@ant-design/icons';
 import { addProduct } from '../../../redux/cart/cartSlice';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import Aos from 'aos';
-import { AiFillCar } from 'react-icons/ai';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -19,6 +19,7 @@ const Cart = () => {
     const {data:session} = useSession();
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.value);
+    const conversion = useSelector((state) => state.currency.conversion);
     const [promoInfo, setPromoInfo] = useState({price:0, byPercentage:false, name:""});
     const [price, setPrice] = useState(0.0);
     const [promo, setPromo] = useState("");
@@ -28,7 +29,7 @@ const Cart = () => {
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     useEffect(() => { Aos.init({duration:500}); }, []);
-    useEffect(()=> setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)), [cart])
+    useEffect(()=> setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)), [cart]);
 
     const getTotalPrice = (val) => {
         let discount = Cookies.get("promoDiscount");
@@ -97,17 +98,18 @@ const Cart = () => {
             }
         })
     };
-
   return (
     <div className='cart-styles' style={{borderTop:"1px solid silver"}}>
         <Container className='cart-box' fluid>
         <Row>
             <Col md={8}>
             <Container className='px-5'>
-                <div className='my-3'>
-                <Link href="/" style={{color:'grey', textDecoration:'none'}}><LeftCircleOutlined style={{fontSize:24}} /></Link>
+                <div className='mt-3'>
+                <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:24}}>
+                    <LeftCircleOutlined style={{position:'relative', bottom:6}} /> <span className='mx-2'> Go Back</span>
+                </Link>
                 </div>
-                <h3 className='mb-3'><strong>Your Cart</strong></h3>
+                {/* <h3 className='mb-1'><strong>Your Cart</strong></h3> */}
                 {cart.length>0 &&
                 <>
                 {cart.map((x, i)=>{
@@ -118,7 +120,7 @@ const Cart = () => {
                         </Col>
                         <Col className="" md={9} >
                         <div style={{float:'right'}}>
-                            <span className='fs-18 fw-500 grey-txt'>AED {x.price}</span>
+                            <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {(x.price*conversion.rate).toFixed(2)}</span>
                             <CloseCircleOutlined className='close-cart-btn' 
                                 onClick={()=>showConfirm(x)}
                             />
@@ -142,8 +144,8 @@ const Cart = () => {
                     </Row>
                 )})}
                 <hr/>
-                <div className='mt-3' style={{minHeight:90}}>
-                    <div className='my-4' style={{float:'right'}}>
+                <div style={{minHeight:90}}>
+                    <div className='my-1' style={{float:'right'}}>
                         <form onSubmit={ApplyPromo}>
                         <Row>
                             <Col md={3}>
@@ -162,12 +164,19 @@ const Cart = () => {
                         <hr/>
                         {discountPrice>0 && 
                         <h5 className='text-end'>
-                            <span style={{fontWeight:400}}>Promo Code: </span><span style={{fontWeight:400, color:"silver"}}>{promoInfo.name}</span><br/>
-                            <span style={{fontWeight:400}}>Discount </span><s style={{color:'#dd9613'}}> {discountPrice}</s>
+                            <Row>
+                                <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
+                                <Col md={6} style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
+                            </Row>
+                            <Row className='mt-3'>
+                                <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
+                                <Col md={6} style={{color:'#dd9613'}}><s > {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency}</Col>
+                                <Col md={12}><hr/></Col>
+                            </Row>
                         </h5>
                         }
-                        <h5 className='text-end' style={{fontWeight:400}}>Total AED</h5>
-                        <h2 style={{color:'green'}} className='text-end'>{price}</h2>
+                        <h5 className='text-end' style={{fontWeight:400}}>Total {conversion.currency}</h5>
+                        <h2 style={{color:'green'}} className='text-end'>{(price*conversion.rate).toFixed(2)}</h2>
                     </div>
                 </div>
                 </>
@@ -175,8 +184,7 @@ const Cart = () => {
                 {cart.length==0 && 
                 <div>
                     <Container className='py-5' data-aos='fade-up'>
-                        <Empty />
-                        <h3 className='text-center fw-200 mt-5'>Cart Is Empty!</h3>
+                        <Empty /> <h3 className='text-center fw-200 mt-5'>Cart Is Empty!</h3>
                     </Container>
                 </div>
                 }
@@ -184,20 +192,20 @@ const Cart = () => {
             </Col>
             <Col md={4} className="pay-screen p-5">
             {cart.length>0 &&
-                <>
-                    {session && <> {price>0 && <PayComp price={price} email={session?.user.email} />} </> }
+                <>{session && <> {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} />} </> }
                     {!session &&
-                        <div className='cart-logged-in-warning'>
-                            Sign-in is required to continue Checkout!
-                        </div>
+                    <div className='text-center'>
+                        <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>
+                        <Row className='mt-4'>
+                            <Col></Col>
+                            <Col><div className='btn-custom' onClick={()=>signIn()}>Sign In</div></Col>
+                            <Col></Col>
+                        </Row>
+                    </div>
                     }
                 </>
             }
-            {cart.length==0 &&
-                <div className='cart-logged-in-warning'>
-                    Fill up cart to continue Checkout!
-                </div>
-            }
+            {cart.length==0 &&<div className='cart-logged-in-warning'>Fill up cart to continue Checkout!</div>}
             </Col>
         </Row>
         </Container>

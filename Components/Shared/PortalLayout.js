@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined, TagsOutlined, SnippetsOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined, TagsOutlined, SnippetsOutlined, CreditCardOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 import Router from 'next/router';
@@ -21,16 +21,11 @@ const PortalLayout = ({children}) => {
           mode="inline"
           defaultSelectedKeys={['1']}
           onSelect={(x)=>{
-            console.log(x.key);
-            if(x.key=='1'){
-              Router.push('/portal')
-            }else if(x.key=='2'){
-              Router.push('/productCreation')
-            }else if(x.key=='3'){
-              Router.push('/transport')
-            }else if(x.key=='4'){
-              Router.push('/promos')
-            }
+            if(x.key=='1'){ Router.push('/portal')
+            } else if(x.key=='2'){ Router.push('/productCreation')
+            } else if(x.key=='3'){ Router.push('/transport')
+            } else if(x.key=='4'){ Router.push('/promos')
+            } else if(x.key=='5'){ Router.push('/bookings') }
           }}
           items={[
             {
@@ -52,6 +47,11 @@ const PortalLayout = ({children}) => {
               key: '4',
               icon: <TagsOutlined />,
               label: 'Promos',
+            },
+            {
+              key: '5',
+              icon: <CreditCardOutlined />,
+              label: 'Bookings',
             },
           ]}
         />

@@ -16,7 +16,7 @@ const MainLayout = ({children}) => {
 
   return (
     <>
-      <Layout>
+      <Layout style={{fontFamily:'Alata'}}>
       <Header/>
         {children}
       <Footer/>

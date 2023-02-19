@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export const cartSlice = createSlice({
-  name: 'counter',
+  name: 'cart',
   initialState,
   reducers: {
     addProduct: (state, action) => {
@@ -19,5 +19,4 @@ export const cartSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { addProduct, removeProduct } = cartSlice.actions
-
 export default cartSlice.reducer

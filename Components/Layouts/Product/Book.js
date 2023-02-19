@@ -68,6 +68,7 @@ const Book = ({tour, transport}) => {
 
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.value);
+    const conversion = useSelector((state) => state.currency.conversion);
     const [cartIndex, setCartIndex] = useState(0)
     const [state, dispatchReducer] = useReducer(reducerFunctions, initialState);
 
@@ -93,9 +94,8 @@ const Book = ({tour, transport}) => {
         }else if(state.transfer=="Private"){
             price = price + 90.00
         }
-        price = price + state.children*parseInt(tour.child_price)
+        //price = price + state.children*parseInt(tour.child_price)
         dispatchReducer({ type: 'field', fieldName:'price', payload: price.toFixed(2) })
-        console.log(price)
     }, [state.children, state.adult, state.transfer])
 
     useEffect(() => {
@@ -215,7 +215,7 @@ const Book = ({tour, transport}) => {
         <hr/>
         <Row>
             <Col md={5}> <p className='my-1'>Total Price</p> </Col>
-            <Col className='mx-2'><p className='cart-price'>{state.price} AED</p></Col>
+            <Col className='mx-2'><p className='cart-price'>{(state.price*conversion.rate).toFixed(2)} {conversion.currency}</p></Col>
         </Row>
         {(state.date && state.adult>0 && ( (tour.timed==true && state.timeSlot!="") || (tour.timed==false))) &&
             <button className='cart-btn mt-3 px-5 fs-17' onClick={()=>dispatchReducer({ type: 'open' })}>Continue</button>
