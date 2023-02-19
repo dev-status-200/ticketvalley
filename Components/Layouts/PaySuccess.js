@@ -31,9 +31,9 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
         user:email, booking_id:id
       }).then((x)=>{
-        //dispatch(addProduct([]));
-        //destroyCart();
-        //Router.push("/");
+        dispatch(addProduct([]));
+        destroyCart();
+        Router.push("/");
       })
     }
 
