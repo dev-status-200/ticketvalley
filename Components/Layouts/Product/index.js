@@ -26,24 +26,25 @@ const Product = ({id, tourData, transportData}) => {
     setTransport(transportData)
 }, [])
   
-  // const [scrollPosition, setScrollPosition] = useState(0);
-  // const handleScroll = () => {
-  //     const position = window.pageYOffset;
-  //     setScrollPosition(position);
-  //     //console.log(position)
-  // };
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = () => {
+      const position = window.pageYOffset;
+      setScrollPosition(position);
+      //console.log(position)
+  };
 
-  // useEffect(() => {
-  //     window.addEventListener('scroll', handleScroll, { passive: true });
+  useEffect(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
-  //     return () => {
-  //         window.removeEventListener('scroll', handleScroll);
-  //     };
-  // }, []);
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+  }, []);
 
   return (
     <div className='tour-styles' style={{backgroundColor:'white'}} >
       <div className='hero py-4'>
+        {/* Header */}
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
           <Link className='navLink' href='/'>DESTINATION</Link>
@@ -64,7 +65,7 @@ const Product = ({id, tourData, transportData}) => {
         </div>
         <div className='my-5 py-3'></div>
       </div>
-      {/* {Object.keys(tour).length>0 &&
+      {Object.keys(tour).length>0 &&
       <div>
         <Container className='px-5' data-aos="fade-up">
           <Row className='py-4'>
@@ -255,7 +256,7 @@ const Product = ({id, tourData, transportData}) => {
           </Row>
         </Container>
       </div>
-      } */}
+      }
       {
         Object.keys(tour).length==0 && <div>Please wait...</div>
       }
