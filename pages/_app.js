@@ -36,7 +36,15 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/paySuccess'
       ) && 
         <>
-        { loading && <Loader/> }
+        { loading && 
+          <SessionProvider session={session}>
+            <Provider store={store}>
+              <ClientLayout>
+                <Loader/> 
+                </ClientLayout>
+            </Provider>
+          </SessionProvider>
+          }
         { !loading &&
         <SessionProvider session={session}>
           <Provider store={store}>

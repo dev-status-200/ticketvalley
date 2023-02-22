@@ -3,8 +3,8 @@ import Image from 'next/image';
 
 const Loader = () => {
     return (
-        <div>
-            <div className="text-center" style={{position:"relative",top:"300px"}}>
+        <div style={{backgroundColor:'white', height:'50vh', paddingTop:'5%'}}> 
+            <div className="text-center">
             <img src={'/loader.svg'}  />
               </div>
         </div>
