@@ -131,10 +131,10 @@ const Home = () => {
             <div>
                 <Row className='px-3'>
                     <Col md={8} data-aos='fade-right'>
-                        <TourCardOne tour={bestSelling[0]} height={500} info={false}  />
+                        <TourCardOne tour={bestSelling[0]} height={420} info={false}  />
                     </Col>
                     <Col md={4} data-aos='fade-down'>
-                        <TourCardOne tour={bestSelling[1]} height={500} info={false} />
+                        <TourCardOne tour={bestSelling[1]} height={420} info={false} />
                     </Col>
                 </Row>
                 <Row className='mt-2' data-aos='fade-left'>
@@ -150,7 +150,7 @@ const Home = () => {
                     {bestSelling.slice(2).map((x, i)=>{
                         return(
                             <SwiperSlide className='' key={i}>
-                                <TourCardOne tour={x} height={220} info={false} />
+                                <TourCardOne tour={x} height={210} info={false} />
                             </SwiperSlide>
                         )
                     })}
@@ -178,7 +178,7 @@ const Home = () => {
                 {adventures.map((x, i)=>{
                     return(
                         <SwiperSlide className='' key={i}>
-                            <TourCardOne tour={x} height={270} info={true} font={18} />
+                            <TourCardOne tour={x} height={220} info={true} font={18} />
                         </SwiperSlide>
                     )
                 })}
@@ -186,7 +186,7 @@ const Home = () => {
             {adventures.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
         </Container>
 
-        <Container className='my-5 py-5' data-aos='fade-up'>
+        <Container className='my-0 py-3' data-aos='fade-up'>
             <h1 className='mt-3 fw-700 px-4'>COMBO<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
             <Swiper slidesPerView={3} spaceBetween={30} 
                 modules={[Navigation]}
@@ -200,14 +200,13 @@ const Home = () => {
                 {combos.map((x, i)=>{
                     return(
                         <SwiperSlide className='' key={i}>
-                            <TourCardOne tour={x} height={270} info={true} font={18} />
+                            <TourCardOne tour={x} height={220} info={true} font={18} />
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
             {combos.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
         </Container>
-
 
         </div>
     </div>
