@@ -47,7 +47,6 @@ const VideoComp = () => {
           }}>
             <div className='text-center'>
             <h1 className='wh-txt hero-txt-1'>TICKETS <span className='yellow-txt'>VALLEY</span></h1>
-            <h1 className='wh-txt hero-txt-2'>Travel & Tours</h1>
             </div>
         </div>
         <div

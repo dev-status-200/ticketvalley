@@ -14,7 +14,7 @@ const TourCardOne = ({tour, height, info, font}) => {
     <div className='hover-shadow'
         onClick={()=>{
             if(!info){
-                router.push({ pathname:'/product', query:{ id: tour.id }})
+                router.push(`/product/${tour.id}`)
             }
         }}
     >
@@ -58,7 +58,7 @@ const TourCardOne = ({tour, height, info, font}) => {
                 <h4 style={{color:'white'}}>{(tour.adult_price*conversion.rate).toFixed(2)} {conversion.currency}</h4>
             </div>
             <div style={{float:'right'}}>
-                <button className='custom-btn-02' onClick={()=>router.push({ pathname:'/product', query:{ id: tour.id }})}>
+                <button className='custom-btn-02' onClick={()=>router.push(`/product/${tour.id}`)}>
                     BOOK NOW
                 </button>
             </div>
