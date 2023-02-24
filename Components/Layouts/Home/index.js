@@ -28,18 +28,23 @@ const Home = () => {
     const getData = async() => {
           await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
             headers:{ "category": "Best Selling" }
-          }).then((x)=>setBestSelling(x.data.result))
-          await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-            headers:{ "category": "Adventure Tours" }
-          }).then((x)=>setAdventures(x.data.result))
-          await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-            headers:{ "category": "Combo Tours" }
-          }).then((x)=>setCombos(x.data.result))
+          }).then((x)=>{
+            setBestSelling(x.data.result);
+            axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+                headers:{ "category": "Adventure Tours" }
+              }).then((x)=>{
+                setAdventures(x.data.result);
+                axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+                    headers:{ "category": "Combo Tours" }
+                  }).then((x)=>setCombos(x.data.result))
+            })
+        })
     }
 
     return (
     <div className='home-styles' data-aos="fade-in">
         <VideoComp/>
+
         <div className='py-5 why-us-section'>
         <Container className='my-5 py-3'>
             <div>
@@ -92,7 +97,7 @@ const Home = () => {
             </Container>
         </div>
 
-        <div className='py-5 why-us-section'>
+        <div className='py-5 section-bg'>
         <Container className='my-5 py-3'>
             <div>
             <Row  data-aos='fade-up'>
@@ -131,10 +136,10 @@ const Home = () => {
             <div>
                 <Row className='px-3'>
                     <Col md={8} data-aos='fade-right'>
-                        <TourCardOne tour={bestSelling[0]} height={420} info={false}  />
+                        <TourCardOne tour={bestSelling[0]} height={440} info={false}  />
                     </Col>
                     <Col md={4} data-aos='fade-down'>
-                        <TourCardOne tour={bestSelling[1]} height={420} info={false} />
+                        <TourCardOne tour={bestSelling[1]} height={440} info={false} />
                     </Col>
                 </Row>
                 <Row className='mt-2' data-aos='fade-left'>
@@ -163,7 +168,7 @@ const Home = () => {
         </div>
         
         {/* <Slider/> */}
-        <div className='py-5' style={{backgroundColor:"white"}}>
+        <div className='py-5 bg-02' style={{backgroundColor:"white"}}>
         <Container className='my-5' data-aos='fade-up'>
             <h1 className='mt-3 fw-700 px-4'>ADVENTURES &<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
             <Swiper slidesPerView={3} spaceBetween={30} 

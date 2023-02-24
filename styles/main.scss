@@ -583,3 +583,13 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   border-radius: 25px;
   padding: 5px 15px 5px 15px;
 }
+
+.bg-02{
+  background-image: url("../public/images/tours-bg-1.png");
+  overflow: hidden;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
