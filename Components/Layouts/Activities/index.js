@@ -41,31 +41,31 @@ const Activities = ({activity}) => {
   return (
     <div className='home-styles'>
     <div className={`${bg} activity py-4`}>
-    {/* Header */}
-    <div className='navBar'>
-      <Link className='navLink' href='/'>HOME</Link>
-    <div className='dropdown'>
-    <div className='navLink dropbtn'>DESTINATION</div>
-    <div className="dropdown-content">
-        <a className='menu-drop-links pb-2'>Dubai</a>
-    </div>
-    </div>
-      <span className="navLink">
-        <img src={'/images/logo.png'} height={100} />
-      </span>
-      <div className='dropdown  mx-2'>
-        <span className='navLink dropbtn'>ACTIVITIES</span>
-        <div className="dropdown-content">
-            <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
-            <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
-            <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
-            <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
-            <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
-        </div>
+      {/* Header */}
+      <div className='navBar'>
+        <Link className='navLink' href='/'>HOME</Link>
+      <div className='dropdown'>
+      <div className='navLink dropbtn'>DESTINATION</div>
+      <div className="dropdown-content">
+          <a className='menu-drop-links pb-2'>Dubai</a>
       </div>
-      <Link className='navLink' href='/'>CONTACT</Link>
-    </div>
-    <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>{activity.toUpperCase()}  ACTIVITIES</h1>
+      </div>
+        <span className="navLink">
+          <img src={'/images/logo.png'} height={100} />
+        </span>
+        <div className='dropdown  mx-2'>
+          <span className='navLink dropbtn'>ACTIVITIES</span>
+          <div className="dropdown-content">
+              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
+              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
+              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
+              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
+              <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
+          </div>
+        </div>
+        <Link className='navLink' href='/about'>ABOUT US</Link>
+      </div>
+      <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>{activity.toUpperCase()}  ACTIVITIES</h1>
     </div>
     {!load &&
     <div className='p-3'>

@@ -10,6 +10,7 @@
     // }
 
     .theme{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/theme.jpg"); }
+    .about-us{ background:linear-gradient(0deg, rgba(34, 39, 77, 0), rgba(93, 14, 60, 0.434)), url("../public/images/aboutmain.jpg"); }
     .water{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/water.jpg"); }
     .city{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/city.jpg"); }
     .luxury{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/luxury.jpeg"); }
@@ -128,8 +129,8 @@
 
     .why-us-section{
       //TOUR
-      background: url("../public/images/bg-002.png");
-      height: 100%; 
+      background: url("../public/images/bg-004.png");
+      height: 100%;
 
       /* Center and scale the image nicely */
       background-repeat: no-repeat;

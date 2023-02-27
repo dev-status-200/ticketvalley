@@ -33,8 +33,9 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/cart' ||
         router.pathname =='/activities' ||
         router.pathname =='/myBookings' ||
+        router.pathname =='/about' ||
         router.pathname =='/paySuccess'
-      ) && 
+      ) &&
         <>
         { loading && 
           <SessionProvider session={session}>
@@ -44,15 +45,15 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
                 </ClientLayout>
             </Provider>
           </SessionProvider>
-          }
+        }
         { !loading &&
-        <SessionProvider session={session}>
-          <Provider store={store}>
-            <ClientLayout>
-              <Component {...pageProps} /> 
-            </ClientLayout>
-          </Provider>
-        </SessionProvider>
+          <SessionProvider session={session}>
+            <Provider store={store}>
+              <ClientLayout>
+                <Component {...pageProps} /> 
+              </ClientLayout>
+            </Provider>
+          </SessionProvider>
         }
         </>
     }
@@ -63,15 +64,15 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/bookings'|| 
         router.pathname =='/promos' 
       ) &&
-      <PortalLayout>
-        { loading && <Loader/> }
-        { !loading && <Component {...pageProps} /> }
-      </PortalLayout>
+        <PortalLayout>
+          { loading && <Loader/> }
+          { !loading && <Component {...pageProps} /> }
+        </PortalLayout>
     }
     { (router.pathname =='/login' || router.pathname =='/auth/signin') &&
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     }
     </>
   )

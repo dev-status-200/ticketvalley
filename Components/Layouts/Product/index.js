@@ -61,7 +61,7 @@ const Product = ({id, tourData, transportData}) => {
                 <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
             </div>
           </div>
-          <Link className='navLink' href='/'>CONTACT</Link>
+          <Link className='navLink' href='/about'>ABOUT US</Link>
         </div>
         <div className='my-5 py-3'></div>
       </div>
