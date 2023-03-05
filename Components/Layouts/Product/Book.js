@@ -94,10 +94,12 @@ const Book = ({tour, transport}) => {
 
     useEffect(() => {
         let tempBook = [];
-        tour.TourOptions.forEach((x, i)=>{
-            tempBook.push({id:x.id, tour:x.TourId, name:x.name, check:i==0?true:false, adult_price:parseFloat(x.adult_price), child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:"No", date:new Date(), price:parseFloat(x.adult_price)})
-        })
-        dispatchReducer({ type: 'field', fieldName:'booking', payload: tempBook });
+        if(tour.TourOptions!=undefined){
+            tour.TourOptions.forEach((x, i)=>{
+                tempBook.push({id:x.id, tour:x.TourId, name:x.name, check:i==0?true:false, adult_price:parseFloat(x.adult_price), child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:"No", date:new Date(), price:parseFloat(x.adult_price)})
+            })
+            dispatchReducer({ type: 'field', fieldName:'booking', payload: tempBook });
+        }
 
         if(tour.dated){
             let tempDates = [];
