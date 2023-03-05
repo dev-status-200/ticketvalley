@@ -36,10 +36,7 @@ export default function TourCreation({productData}) {
             })} />
             </Col>
             <Col md={2}>
-              <button style={{float:'right'}} className='btn-custom' onClick={()=>dispatch({type: 'bulkCreate'})}>Bulk Add</button>
-            </Col>
-            <Col md={1}>
-              <button  className='btn-custom' style={{float:'right'}} onClick={()=>dispatch({type: 'create'})}>Create</button>
+              <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>dispatch({type:'create'})}>Create</button>
             </Col>
         </Row>
         </Col>

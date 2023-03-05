@@ -220,6 +220,14 @@ body {
   border-radius: 5px;
 }
 
+.list-items-2{
+  background-color: rgba(0, 145, 255, 0.036);
+  padding: 2px 8px 2px 8px;
+  color: rgb(27, 27, 27);
+  border-radius: 5px;
+  border: 1px solid silver;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -596,4 +604,20 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 
 .why-us-bg-clr{
   background-color: rgb(234, 234, 234);
+}
+
+.tour-opt{
+  border: 1px solid silver;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.inc-dec{
+  position: relative;
+  color: #61a7c8;
+  bottom: 4px;
+  cursor: pointer;
+}
+.inc-dec:hover{
+  color: #3e73c8;
 }

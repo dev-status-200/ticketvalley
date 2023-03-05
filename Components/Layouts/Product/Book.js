@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useReducer } from 'react'
-import { Select, Modal } from 'antd';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Select, Checkbox } from 'antd';
+import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/cart/cartSlice';
 import Router from 'next/router';
-import Incrementor from '../../Shared/Incrementor';
 import aos from "aos";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
-import MoreInfo from './MoreInfo';
 import { saveCart } from '../../../functions/cartFunction';
+import IncDec from './IncDec';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { MdPlace } from "react-icons/md";
+import moment from "moment";
 
 function reducerFunctions(state, action) {
     switch (action.type) {
@@ -61,7 +63,11 @@ const initialState = {
     specialReq:"",
     address:"none",
     additionalAddress:"",
-    timeslotindex:null
+    timeslotindex:null,
+
+    booking:[
+        {id:"", tour:"", title:"", check:"", adult_price:0.00, child_price:0.00, adult:0, child:0, infant:0, transfer:"No", date:"", address:"", price:0.00}
+    ]
 };
 
 const Book = ({tour, transport}) => {
@@ -85,20 +91,14 @@ const Book = ({tour, transport}) => {
         })
     }, [cart])
 
-    useEffect(() => {
-        let price = 0.0;
-        price = price + state.adult*parseFloat(tour.adult_price)
-        price = price + state.children*parseFloat(tour.child_price)
-        if(state.transfer=="Shared"){
-            price = price + 30.00
-        }else if(state.transfer=="Private"){
-            price = price + 90.00
-        }
-        //price = price + state.children*parseInt(tour.child_price)
-        dispatchReducer({ type: 'field', fieldName:'price', payload: price.toFixed(2) })
-    }, [state.children, state.adult, state.transfer])
 
     useEffect(() => {
+        let tempBook = [];
+        tour.TourOptions.forEach((x, i)=>{
+            tempBook.push({id:x.id, tour:x.TourId, name:x.name, check:i==0?true:false, adult_price:parseFloat(x.adult_price), child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:"No", date:new Date(), price:parseFloat(x.adult_price)})
+        })
+        dispatchReducer({ type: 'field', fieldName:'booking', payload: tempBook });
+
         if(tour.dated){
             let tempDates = [];
             JSON.parse(tour.dates).forEach((x)=>{
@@ -134,108 +134,116 @@ const Book = ({tour, transport}) => {
 
   return (
     <div>
-    {!added &&
-    <>
-        <hr/>
-        <Row className='mb-1' >
-        <Col md={5}> <p className='my-1'>No. of Adult</p> </Col>
-        <Col className='mx-2'>
-            <Incrementor value={state.adult} field={'adult'} dispatchReducer={dispatchReducer} />
-        </Col>
-        </Row>
-        <Row className='mb-1'>
-        <Col md={5}> <p className='my-1'>No. of Child</p> </Col>
-        <Col className='mx-2'>
-        <Incrementor value={state.children} field={'children'} dispatchReducer={dispatchReducer} />
-        </Col>
-        </Row>
-        <Row className='mb-1'>
-        <Col md={5}> <p className='my-1'>Infant</p> </Col>
-        <Col className='mx-2'>
-        <Incrementor value={state.infant} field={'infant'} dispatchReducer={dispatchReducer} />
-        </Col>
-        </Row>
-        <Row className='mb-1'>
-        <Col md={5}> <p className='my-1'>Transfer Opt.</p> </Col>
-        <Col className='mx-2'>
-        <Select defaultValue="Yes" style={{ width: "80%" }} value={state.transfer} 
-            onChange={(e)=>{
-                dispatchReducer({ type: 'field', fieldName: 'transfer', payload: e })
-                if(e=="No"){
-                    dispatchReducer({ type: 'field', fieldName: 'address', payload: "none" })
-                }else{
-                    dispatchReducer({ type: 'field', fieldName: 'address', payload: "" })
-                }
-            }}
-            options={[
-                { value: 'No', label: 'No'},
-                { value: 'Shared', label: 'Shared'},
-                { value: 'Private', label: 'Private'},
-            ]}
-        />
-        </Col>
-        </Row>
-        <Row className='mb-1'>
-            <Col md={5}> <p className='my-1'>Tour Date</p> </Col>
-            <Col className='mx-2'>
-            <DatePicker 
-                selected={state.date} 
-                onChange={(date) => dispatchReducer({ type: 'field', fieldName: 'date', payload:date })}
-                minDate={new Date()}
-                includeDates={state.dated?state.dates:false}
-                dateFormat="yyyy - MMM - dd"
-            />
-            </Col>
-        </Row>
-        {tour.timed && 
-        <Row className='mb-1'>
-            <Col md={5}> <p className='my-1'>Timings</p> </Col>
-            <Col className='mx-2'>
-                <Row>
-                    {
-                    tour.timeSlots.split("//").map((x, i)=>{
-                        return(
-                            <Col md={5}>
-                                <div className='time-slot text-center my-1'
-                                style={{backgroundColor:state.timeslotindex==i?"#cd6937":null}}
-                                onClick={()=>{
-                                    console.log(i)
-                                    dispatchReducer({ type: 'field', fieldName: 'timeslotindex', payload:i })
-                                    dispatchReducer({ type: 'field', fieldName: 'timeSlot', payload:x })
-                                }}
-                                >
-                                    {x}
-                                </div>
-                            </Col>
-                        )
-                    })}
-                </Row>
-            </Col>
-        </Row>}
-        <hr/>
-        <Row>
-            <Col md={5}> <p className='my-1'>Total Price</p> </Col>
-            <Col className='mx-2'><p className='cart-price'>{(state.price*conversion.rate).toFixed(2)} {conversion.currency}</p></Col>
-        </Row>
-        {(state.date && state.adult>0 && ( (tour.timed==true && state.timeSlot!="") || (tour.timed==false))) &&
-            <button className='cart-btn mt-3 px-5 fs-17' onClick={()=>dispatchReducer({ type: 'open' })}>Continue</button>
-        }
-    </>
-    }
-        {added&&
-        <div data-aos="fade-up" className='already' style={{cursor:'pointer'}}
-         onClick={()=>Router.push('/cart')}>
-            Added To Cart
-        </div>
-        }
+    {
+        state.booking.map((x, i)=>{
+            return(
+            <div className='tour-opt mb-4 prevent-select' key={i}>
+                <Row style={{color:x.check?"black":"silver"}}>
+                    <Col style={{maxWidth:30}}
+                    onClick={()=>{
+                        let temp = [...state.booking];
+                        temp[i].check = !temp[i].check
+                        dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                    }}
+                    >
+                        <Checkbox className='mt-1' checked={x.check}/>
+                    </Col>
+                    <Col md={7}
+                        onClick={()=>{
+                            let temp = [...state.booking];
+                            temp[i].check = !temp[i].check
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        }}
+                    ><h5 >{x.name}</h5></Col>
+                    <Col md={4}
+                        onClick={()=>{
+                            let temp = [...state.booking];
+                            temp[i].check = !temp[i].check
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        }}
+                    ><h5 className='text-end' style={{color:x.check?"#075ca2":"silver"}}>{x.price.toFixed(2)} AED</h5></Col>
+                    <Col md={12}><hr className='my-2' /></Col>
+                    <Col md={4}>
+                        <IncDec type={"adult"} count={x.adult} index={i} state={state} dispatchReducer={dispatchReducer} />
+                    </Col>
+                    <Col md={4}>
+                        <IncDec type={"child"} count={x.child} index={i} state={state} dispatchReducer={dispatchReducer} />
+                    </Col>
+                    <Col md={4}>
+                        <IncDec type={"infant"} count={x.infant} index={i} state={state} dispatchReducer={dispatchReducer} />
+                    </Col>
+                    <Col className='mt-3 ' style={{ maxWidth:170, marginLeft:14}}>
+                    <span>Transfer: </span>
+                    {" "}
+                    <Select defaultValue="Yes" value={x.transfer} 
+                        onChange={(e)=>{
+                            let temp = [...state.booking];
+                            temp[i].transfer = e;
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
 
-      <Modal open={state.visible} onOk={()=>dispatchReducer({ type: 'close' })} onCancel={()=>dispatchReducer({ type: 'close' })}
-        width={800}
-        maskClosable={false}
-        footer={false}
-      >
-        <MoreInfo state={state} dispatchReducer={dispatchReducer} addToCart={addToCart} />
-      </Modal>
+                            if(e=="No"){
+                                dispatchReducer({ type: 'field', fieldName: 'address', payload: "none" })
+                            }else{
+                                dispatchReducer({ type: 'field', fieldName: 'address', payload: "" })
+                            }
+                        }}
+                        options={[
+                            { value: 'No', label: 'No'},
+                            { value: 'Shared', label: 'Shared'},
+                            { value: 'Private', label: 'Private'},
+                        ]}
+                    />
+                    </Col>
+                    <Col className='text-center mt-3' >
+                        <Row>
+                            <Col md={1} className='pt-1'><span>Date: </span> </Col>
+                            <Col>
+                            <DatePicker 
+                            selected={x.date}
+                            onChange={(date) => {
+                                let temp = [...state.booking];
+                                temp[i].date = date;
+                                dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                            }}
+                            minDate={new Date()}
+                            includeDates={state.dated?state.dates:false}
+                            dateFormat="yyyy - MMM - dd"
+                            /> 
+                            </Col>
+                        </Row>
+
+                    </Col>
+                    {x.transfer!="No" && <Col md={12}><hr className='my-2' /></Col> }
+                    {x.transfer!="No" &&
+                    <Col md={12} className="mt-1 px-4">
+                        <GooglePlacesAutocomplete
+                            apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
+                            selectProps={{
+                                onChange: (res)=> {
+                                    console.log(res.label);
+                                    let temp = [...state.booking];
+                                    temp[i].address = res.label;
+                                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                                    //dispatchReducer({ type: 'field', fieldName: 'address', payload: res.label })
+                                },
+                                placeholder: 'Pick up Address',
+                                components : {
+                                    IndicatorSeparator: () => null,
+                                    DropdownIndicator: () => 
+                                    <>
+                                    <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
+                                    <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
+                                    </>
+                                },
+                            }}
+                        />
+                    </Col>
+                    }
+                </Row>
+            </div>
+            )
+        })
+    }
     </div>
   )
 }

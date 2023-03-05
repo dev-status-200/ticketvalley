@@ -99,6 +99,9 @@ const initialState = {
     policy:"",
     policies:[],
 
+    package:{ name:"", child_price:"0.00", adult_price:"0.00" },
+    packages:[],
+
     cancellation_policy:"",
     cancellation_polices:[],
 

@@ -8,6 +8,7 @@ import DetailsThree from "./DetailsThree";
 import { Tabs } from 'antd';
 import Router from 'next/router';
 import axios from 'axios';
+import PackagesInfo from "./PackagesInfo";
 
 const CreateOrEdit = ({state, dispatch, baseValues}) => {
 
@@ -21,6 +22,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       state.terms_conditions = tempState.terms_conditions.split("//");
       state.cancellation_polices = tempState.cancellation_polices.split("//");
       state.status = tempState.status;
+      state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
       state.policies = tempState.policies.split("//");
       state.timeSlots = tempState.timeSlots.split("//");
@@ -70,7 +72,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
 }
 
   const onSubmit = async(data) => {
-
     dispatch({type:'field', fieldName:'load', payload:true})
     let cover = "a";
     let value;
@@ -85,6 +86,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
         {
           ...data,
+          packages:state.packages,
           timed:state.timed,
           timeSlots:makeString(state.timeSlots),
           stock:state.stock,
@@ -154,6 +156,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         {
           ...data,
           timed:state.timed,
+          packages:state.packages,
           timeSlots:makeString(state.timeSlots),
           stock:state.stock,
           dated:state.dated,
@@ -191,6 +194,11 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
             label: `Tour Info`,
             key: '1',
             children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+          },
+          {
+            label: `Packages Info`,
+            key: '5',
+            children:<PackagesInfo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
           },
           {
             label: `Dates/Stock`,
