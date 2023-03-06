@@ -30,7 +30,7 @@ const Cart = () => {
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    useEffect(() => { Aos.init({duration:500}); }, []);
+    useEffect(() => { Aos.init({duration:500}); console.log(cart)}, []);
     useEffect(()=> setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)), [cart]);
 
     const getTotalPrice = (val) => {
@@ -108,7 +108,7 @@ const Cart = () => {
             <Container className='px-5'>
                 <div className='mt-3'>
                 <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:24}}>
-                    <LeftCircleOutlined style={{position:'relative', bottom:6}} /> <span className='mx-2'> Go Back</span>
+                    <LeftCircleOutlined style={{position:'relative', bottom:0}} /> <span className='mx-2'> Go Back</span>
                 </Link>
                 </div>
                 {/* <h3 className='mb-1'><strong>Your Cart</strong></h3> */}
@@ -128,8 +128,17 @@ const Cart = () => {
                             />
                             <br/>
                         </div>
-                        <h5 className='fw-500'>{x.name}</h5>
-                        <div className='silver-txt fs-16'>{x.adults} Adults, {x.childs} Children{x.infant!=""?", 1 Infant":""}</div>
+                        <h5 className='fw-200'>{x.name}</h5>
+                        {
+                            x.options.map((y, j)=>{
+                                return(
+                                    <div key={j+i}>
+                                        <div className='silver-txt fs-16'>{y.name} {y.adult} Adults, {y.child} Children{y.infant!=""?", 1 Infant":""}</div>
+                                    </div>
+                                )
+                            })
+                        }
+                        {/* <div className='silver-txt fs-16'>{x.adults} Adults, {x.childs} Children{x.infant!=""?", 1 Infant":""}</div>
                         <div className='silver-txt fs-16'>Lead Passenger : {x.passenerInfo.title} {x.passenerInfo.fName} {x.passenerInfo.lName}</div>
                             {x.timeslot!="" && <div className='silver-txt fs-16'>Time Slot :  {x.timeslot}</div>}
                         <div className='silver-txt fs-16'>
@@ -141,7 +150,7 @@ const Cart = () => {
                             </>:
                             "Without Transfer"
                             }
-                        </div>
+                        </div> */}
                         </Col>
                     </Row>
                 )})}

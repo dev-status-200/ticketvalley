@@ -10,7 +10,8 @@ const IncDec = (props) => {
             onClick={()=>{
                 let temp = [...props.state.booking];
                 temp[props.index][`${props.type}`] = temp[props.index][`${props.type}`]+1;
-                temp[props.index].price = temp[props.index].adult*temp[props.index].adult_price + temp[props.index].child*temp[props.index].child_price;
+                console.log(temp)
+                temp[props.index].price = temp[props.index].adult*temp[props.index].adult_price + temp[props.index].child*temp[props.index].child_price + temp[props.index].transportPrice
                 props.dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
             }}
         />

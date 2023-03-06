@@ -62,12 +62,12 @@ const Header = () => {
                     <Popover placement="bottom" content={
                         <div className='text-center' style={{minHeight:60}}>
                             <div>Select Currency</div>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AED')}><span class="fi fi-ae"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('USD')}><span class="fi fi-um"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AUD')}><span class="fi fi-au"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('GBP')}><span class="fi fi-gb"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('PKR')}><span class="fi fi-pk"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span class="fi fi-in"></span></span>
+                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AED')}><span className="fi fi-ae"></span></span>
+                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('USD')}><span className="fi fi-um"></span></span>
+                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AUD')}><span className="fi fi-au"></span></span>
+                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('GBP')}><span className="fi fi-gb"></span></span>
+                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('PKR')}><span className="fi fi-pk"></span></span>
+                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span className="fi fi-in"></span></span>
                         </div>
                     } trigger="click">
                         <span className='cur mx-2' style={{fontSize:15}}><GrCurrency/></span>

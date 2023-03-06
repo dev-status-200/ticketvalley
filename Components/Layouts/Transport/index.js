@@ -64,7 +64,7 @@ const Transport = ({transportData}) => {
     <div>
     <Row>
         <Col><h5>Transport</h5></Col>
-        <Col><button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button></Col>
+        {/* <Col><button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button></Col> */}
     </Row>
     <Row style={{maxHeight:'69vh',overflowY:'auto', overflowX:'hidden'}}>
     <Col md={12}>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm, useWatch, useFormContext } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import InputComp from '../../Shared/Form/InputComp';
+import InputNumComp from '../../Shared/Form/InputNumComp';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import axios from "axios";
 
@@ -16,7 +16,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         resolver: yupResolver(SignupSchema),
         defaultValues:state.values
     });
-
+    const name = useWatch({control, name:"name"});
     useEffect(() => {
         let tempState = {...state.selectedRecord};
         if(state.edit){
@@ -74,11 +74,13 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         <form onSubmit={handleSubmit(state.edit?onEdit:onSubmit, onError)}>
         <Row>
             <Col md={6} className='py-1'>
-                <InputComp  register={register} name='name' control={control} label='Name' />
+                {/* <InputComp  register={register} name='name' control={control} label='Name' /> */}
+                <div className='mt-3'>Name</div>
+                <div style={{border:"1px solid silver", paddingTop:4, paddingBottom:4, paddingLeft:10, borderRadius:6}}>{name}</div>
                 {errors.name && <div className='error-line'>{errors.name.message}*</div>}
             </Col>
             <Col md={6} className='py-1'>
-                <InputComp  register={register} name='price' control={control} label='Price' />
+                <InputNumComp min={"0"} register={register} name='price' control={control} label='Price' />
                 {errors.price && <div className='error-line'>{errors.price.message}*</div>}
             </Col>
         </Row>
