@@ -20,6 +20,7 @@ const MyBookings = () => {
             email:data
         }).then((x)=>{
             setBookings(x.data.result)
+            console.log(x.data.result)
         })
     }
 
@@ -27,7 +28,7 @@ const MyBookings = () => {
     <div style={{backgroundColor:'white'}}>
         <hr className='my-0' />
         <div className='home-styles'>
-            <div className='theme activity py-4'>
+        <div className='theme empty-bg py-4'>
             <div className='navBar'>
             <Link className='navLink' href='/'>HOME</Link>
             <div className='dropdown'>
@@ -49,9 +50,9 @@ const MyBookings = () => {
                     <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
                 </div>
             </div>
-            <Link className='navLink' href='/about'>About Us</Link>
+            <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
-            </div>
+        </div>
         </div>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
         <Container className='my-5 px-5'>
@@ -62,14 +63,12 @@ const MyBookings = () => {
             <Col md={12}>
             <hr className='mb-3 mt-0' />
             {y.BookedTours.map((x, i)=>{
-                return(
+            return(
                 <Row key={i} className="cart-item my-2">
-                    <Col md={2} className="">
-                        <img src={x.image} height={100} width={170} style={{borderRadius:5}} />
-                    </Col>
+                    <Col md={2} className=""><img src={x.image} height={100} width={170} style={{borderRadius:5}} /></Col>
                     <Col className="" md={10} >
                     <div style={{float:'right'}}>
-                        {i==0 &&
+                    {i==0 &&
                         <div>
                             <div>Date :  <span className='grey-txt'>{moment(y.moment).format('DD/MM/YY')}</span></div>
                             <div>Booking No. :  <b className='grey-txt'>{y.id}</b></div>
@@ -88,42 +87,31 @@ const MyBookings = () => {
                                     }
                                 </span>
                             </div>
-                            <div className='mt-2'>Total Price :  
+                            <h4 className='mt-2'>Total Price :  
                                 {" "}<b className='grey-txt'>{(y.final_price*conversion.rate).toFixed(2)}</b> {conversion.currency}
-                            </div>
+                            </h4>
                         </div>
-                        }
-                        <br/>
+                    }
+                    <br/>
                     </div>
                     <h5 className='fw-500'>{x.name}</h5>
-                    <div className='silver-txt fs-14'>{x.adults} Adults, {x.childs} Children{x.infant!=""?", 1 Infant":""}</div>
-                    <div className='silver-txt fs-14'>Lead Passenger : {x.title} {x.fName} {x.lName}</div>
-                        {x.timeslot!="" && <div className='silver-txt fs-14'>Time Slot :  {x.timeslot}</div>}
-                    <div className='silver-txt fs-16'>
-                        {x.transfer!="No"? 
-                        <>
-                            <AiFillCar style={{position:"relative", bottom:2}}/> {" "}
-                            {x.transfer} Transfer<br/>
-                                {/* <div className='fs-13'>{x.passenerInfo.address}</div> */}
-                        </>:
-                        "Without Transfer"
-                        }
+                    {x.BookedToursOptions.map((y, j)=>{
+                    return(
+                    <div key={j+i}>
+                        <div className=''>
+                            Option: {y.name} {"("}{`${y.adult} Adult`}{y.child>0?`, ${y.child} Child`:""} {y.infant>0?`, Infant ${y.infant}`:""}{" )"}
+                        </div>
+                        <div>Transfer Type: {y.transfer}</div>
+                        <div>{y.transfer!="No"?`Pickup Location: ${y.address} `:""}</div>
                     </div>
-                    <div className='fs-16 fw-500 grey-txt my-2'>{(x.price*conversion.rate).toFixed(2)} {conversion.currency}</div>
+                    )})}
                     </Col>
                 </Row>
-                )
-            })}
-            
+            )})}
             </Col>
             </Row>
         )})}
-        {
-            bookings.length==0 &&
-            <>
-            <div className='text-center'> <img src='/loader.svg' /> </div>
-            </>
-        }
+        {bookings.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div> }
         </Container>
     </div>
   )

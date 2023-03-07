@@ -33,6 +33,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       }).then((x)=>{
         dispatch(addProduct([]));
         destroyCart();
+        Cookies.remove("promoDiscount", { path: '' })
         Router.push("/");
       })
     }
@@ -43,31 +44,22 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
 
       let discObj = disc==undefined?'none':JSON.parse(disc);
       cartData.forEach(x => {
-        base_price = parseFloat(base_price) + parseFloat(x.price)
+        x.options.forEach((y)=>{
+          base_price = parseFloat(base_price) + parseFloat(y.price)
+        })
       });
       final_price = disc==undefined?base_price:(discObj.byPercentage? (base_price-(base_price/100)*discObj.price).toFixed(2) : parseFloat(base_price-discObj.price).toFixed(2));
       return { base_price, final_price }
     }
 
     const createReservation = async() => {
+      
       let booking_id = '';
-      let cartData = []
-      let reserve = {}
+      let cartData = [];
+      let reserve = {};
       cartData = await retrieveCart();
       let disc = await Cookies.get('promoDiscount');
 
-      cartData = cartData.map((x) => ({
-        ...x,
-        title:x.passenerInfo.title,
-        fName:x.passenerInfo.fName,
-        lName:x.passenerInfo.lName,
-        email:x.passenerInfo.email,
-        address:x.passenerInfo.address,
-        contact:x.passenerInfo.contact,
-        additionalAddress:x.passenerInfo.additionalAddress,
-        specialReq:x.passenerInfo.specialReq,
-      }));
-      
       reserve.promo = disc==undefined?'none':disc;
       reserve.base_price = priceCalc(cartData, disc).base_price;
       reserve.final_price = priceCalc(cartData, disc).final_price;
@@ -75,9 +67,8 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       reserve.payment_intent = payment_intent;
       reserve.name = name;
       reserve.email = email;
-
-      console.log(cartData, "Cart Data");
-      console.log(reserve, "Reservation");
+      // console.log(cartData, "Cart Data");
+      // console.log(reserve, "Reservation");
 
       await axios.post(process.env.NEXT_PUBLIC_CREATE_RESERVATION,{
         bookedTours:cartData,

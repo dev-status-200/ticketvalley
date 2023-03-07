@@ -30,14 +30,21 @@ const Cart = () => {
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    useEffect(() => { Aos.init({duration:500}); console.log(cart)}, []);
-    useEffect(()=> setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)), [cart]);
+    useEffect(() => { Aos.init({duration:500});}, []);
+    useEffect(()=> {
+        setPrice(parseFloat(getTotalPrice(cart)).toFixed(2))
+        console.log(cart)
+    }, [cart]);
 
     const getTotalPrice = (val) => {
         let discount = Cookies.get("promoDiscount");
         let removingPrice = 0;
         let p = 0.0;
-        val.forEach(x => p = p + parseFloat(x.price) );
+        val.forEach((x)=>{
+            x.options.forEach((y)=>{
+                p = p + y.price;
+            })
+        })
         if(discount){ 
             discount = JSON.parse(discount);
             setPromoInfo(discount)
@@ -45,8 +52,16 @@ const Cart = () => {
             else if(!discount.byPercentage){ removingPrice = discount.price }
         }
         setDiscountPrice(removingPrice)
-        let retrnValue = p.toFixed(2)-removingPrice;
+        let retrnValue = p-removingPrice;
         return retrnValue;
+    }
+
+    const showIndivPrice = (val) => {
+        let result = 0;
+        val.forEach((x)=>{
+            result = result + x.price;
+        })
+        return result.toFixed(2)
     }
 
     const showConfirm = (x) => {
@@ -108,7 +123,8 @@ const Cart = () => {
             <Container className='px-5'>
                 <div className='mt-3'>
                 <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:24}}>
-                    <LeftCircleOutlined style={{position:'relative', bottom:0}} /> <span className='mx-2'> Go Back</span>
+                    <LeftCircleOutlined style={{position:'relative', bottom:0}} />
+                    {/* <span className='mx-2'> Go Back</span> */}
                 </Link>
                 </div>
                 {/* <h3 className='mb-1'><strong>Your Cart</strong></h3> */}
@@ -122,7 +138,7 @@ const Cart = () => {
                         </Col>
                         <Col className="" md={9} >
                         <div style={{float:'right'}}>
-                            <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {(x.price*conversion.rate).toFixed(2)}</span>
+                            <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {showIndivPrice(x.options)}</span>
                             <CloseCircleOutlined className='close-cart-btn' 
                                 onClick={()=>showConfirm(x)}
                             />
@@ -133,24 +149,21 @@ const Cart = () => {
                             x.options.map((y, j)=>{
                                 return(
                                     <div key={j+i}>
-                                        <div className='silver-txt fs-16'>{y.name} {y.adult} Adults, {y.child} Children{y.infant!=""?", 1 Infant":""}</div>
+                                        <hr className='my-1' />
+                                        <div className=''>
+                                            Option: {y.name} {"("}{`${y.adult} Adult`}{y.child>0?`, ${y.child} Child`:""} {y.infant>0?`, Infant ${y.infant}`:""}{" )"}
+                                        </div>
+                                        <div>
+                                            Transfer Type: {y.transfer} 
+                                        </div>
+                                        <div>
+                                            {y.transfer!="No"?`Pickup Location: ${y.address} `:""}
+                                        </div>
+                                        
                                     </div>
                                 )
                             })
                         }
-                        {/* <div className='silver-txt fs-16'>{x.adults} Adults, {x.childs} Children{x.infant!=""?", 1 Infant":""}</div>
-                        <div className='silver-txt fs-16'>Lead Passenger : {x.passenerInfo.title} {x.passenerInfo.fName} {x.passenerInfo.lName}</div>
-                            {x.timeslot!="" && <div className='silver-txt fs-16'>Time Slot :  {x.timeslot}</div>}
-                        <div className='silver-txt fs-16'>
-                            {x.transfer!="No"? 
-                            <>
-                                <AiFillCar style={{position:"relative", bottom:2}}/> {" "}
-                                {x.transfer} Transfer<br/>
-                                    <div className='fs-13'>{x.passenerInfo.address}</div>
-                            </>:
-                            "Without Transfer"
-                            }
-                        </div> */}
                         </Col>
                     </Row>
                 )})}

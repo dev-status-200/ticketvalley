@@ -22,6 +22,13 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
+    .empty-bg{
+        height: 26vh; 
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
     div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
       
       bottom: -5px;

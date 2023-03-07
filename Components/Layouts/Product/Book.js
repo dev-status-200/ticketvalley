@@ -129,6 +129,7 @@ const Book = ({tour, transport}) => {
                 cartValues.options.push({...x, date:x.date.toString()})
             }
         })
+        console.log(state.booking)
         saveCart(cartValues);
         let temp = [...cart];
         temp.push(cartValues);
@@ -244,7 +245,9 @@ const Book = ({tour, transport}) => {
                                         onChange: (res)=> {
                                             let temp = [...state.booking];
                                             temp[i].address = res.label;
+                                            //console.log(temp[i].address)
                                             dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                                            console.log(temp)
                                         },
                                         placeholder: 'Pick up Address',
                                         components : {
