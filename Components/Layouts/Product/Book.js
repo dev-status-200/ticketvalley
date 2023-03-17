@@ -275,7 +275,12 @@ const Book = ({tour, transport}) => {
         {load && <div className='text-center py-5'> <Spinner className='mt-5' /><p className='mb-5'>Please wait...</p> </div>}
     </div>
     }
-    {added && <button className='already-in-cart mt-3' onClick={()=>Router.push("/cart")}>Go To Cart</button>}
+    {added && 
+        <div>
+            <h3 className='text-center'>Product Already Added!</h3>
+            <button className='already-in-cart mt-3' onClick={()=>Router.push("/cart")}>Go To Cart</button>
+        </div>
+    }
     </>
   )
 }

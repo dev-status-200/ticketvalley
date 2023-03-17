@@ -25,57 +25,57 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
   Router.events.on("routeChangeComplete", () => { setLoading(false)});
 
   return (
-        <div className='text-center' style={{marginTop:"25%"}}> Unexpected Server Error Occured </div>
-//     <> 
-//     { (
-//         router.pathname =='/' ||
-//         router.pathname =='/product' ||
-//         router.pathname =='/product/[id]' ||
-//         router.pathname =='/cart' ||
-//         router.pathname =='/activities' ||
-//         router.pathname =='/myBookings' ||
-//         router.pathname =='/about' ||
-//         router.pathname =='/paySuccess'
-//       ) &&
-//         <>
-//         { loading && 
-//           <SessionProvider session={session}>
-//             <Provider store={store}>
-//               <ClientLayout>
-//                 <Loader/> 
-//                 </ClientLayout>
-//             </Provider>
-//           </SessionProvider>
-//         }
-//         { !loading &&
-//           <SessionProvider session={session}>
-//             <Provider store={store}>
-//               <ClientLayout>
-//                 <Component {...pageProps} /> 
-//               </ClientLayout>
-//             </Provider>
-//           </SessionProvider>
-//         }
-//         </>
-//     }
-//     { (
-//         router.pathname =='/portal' || 
-//         router.pathname =='/productCreation'|| 
-//         router.pathname =='/transport'|| 
-//         router.pathname =='/bookings'|| 
-//         router.pathname =='/promos' 
-//       ) &&
-//         <PortalLayout>
-//           { loading && <Loader/> }
-//           { !loading && <Component {...pageProps} /> }
-//         </PortalLayout>
-//     }
-//     { (router.pathname =='/login' || router.pathname =='/auth/signin') &&
-//       <SessionProvider session={session}>
-//         <Component {...pageProps} />
-//       </SessionProvider>
-//     }
-//     </>
+        // <div className='text-center' style={{marginTop:"25%"}}> Unexpected Server Error Occured </div>
+    <> 
+    { (
+        router.pathname =='/' ||
+        router.pathname =='/product' ||
+        router.pathname =='/product/[id]' ||
+        router.pathname =='/cart' ||
+        router.pathname =='/activities' ||
+        router.pathname =='/myBookings' ||
+        router.pathname =='/about' ||
+        router.pathname =='/paySuccess'
+      ) &&
+        <>
+        { loading && 
+          <SessionProvider session={session}>
+            <Provider store={store}>
+              <ClientLayout>
+                <Loader/> 
+                </ClientLayout>
+            </Provider>
+          </SessionProvider>
+        }
+        { !loading &&
+          <SessionProvider session={session}>
+            <Provider store={store}>
+              <ClientLayout>
+                <Component {...pageProps} /> 
+              </ClientLayout>
+            </Provider>
+          </SessionProvider>
+        }
+        </>
+    }
+    { (
+        router.pathname =='/portal' || 
+        router.pathname =='/productCreation'|| 
+        router.pathname =='/transport'|| 
+        router.pathname =='/bookings'|| 
+        router.pathname =='/promos' 
+      ) &&
+        <PortalLayout>
+          { loading && <Loader/> }
+          { !loading && <Component {...pageProps} /> }
+        </PortalLayout>
+    }
+    { (router.pathname =='/login' || router.pathname =='/auth/signin') &&
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    }
+    </>
   )
 }
 

@@ -52,14 +52,13 @@
   .info-logo{
     margin-right: 15px;
     color: rgb(37, 70, 117);
-    font-size: 20px;
+    font-size: 18px;
   }
   .info-text{
     position: relative;
-    top: 2px;
-    font-size: 18px;
+    top: -1px;
+    font-size: 15px;
     color: rgb(71, 71, 71);
-    line-height: 10px;
   }
   .bt-2{
     position: relative;
@@ -103,4 +102,72 @@
     top: 0px;
     margin-top: 10px;
   }
+
+  // position:scrollPosition>700?'fixed':'absolute',
+  // top:scrollPosition>700?40:345,
+  // backgroundColor:'white', 
+  // maxWidth:"35%", 
+  // right:0, 
+  // backgroundColor:'red'
+  .book{
+    max-width: 38%!important;
+    right: 3%;
+    background-color: white;
+  }
+  .normal-book{
+    position: absolute!important;
+    top: 345px!important;
+
+  }
+  .fixed-book{
+    position: fixed!important;
+    top: 10px!important;
+  }
+}
+
+
+// BTN CSS
+.wrapper{
+  cursor: pointer;
+}
+
+.a{
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  font-weight: 800;
+  transition: all .35s;
+}
+
+.a span{
+  position: relative;
+  z-index: 2;
+}
+
+.a:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff6a00;
+  transition: all .35s;
+}
+
+.a:hover{
+  color: #fff;
+}
+
+.a:hover:after{
+  width: 100%;
 }
