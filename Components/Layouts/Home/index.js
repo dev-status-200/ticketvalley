@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import VideoComp from './VideoComp';
 import axios from 'axios';
 import TourCardOne from '../../Shared/TourCardOne';
+import { Widget } from "@uploadcare/react-widget";
 
 const Home = () => {
 
@@ -130,6 +131,17 @@ const Home = () => {
         {/* Hot Avtivities */}
         <div style={{backgroundColor:"white"}}>
             <Container className='py-5 px-4'>
+            {/* <Widget publicKey='b88855950ae25756154e' id='file' multiple={true}
+                onFileSelect={(file) => {
+                    console.log('File changed: ', file)
+                
+                    if (file) {
+                      file.progress(info => console.log('File progress: ', info.progress))
+                      file.done(info => console.log('File uploaded: ', info))
+                    }
+                  }}
+                  onChange={info => console.log('Upload completed:', info)}
+            /> */}
             <div className='blue-txt px-3' style={{letterSpacing:7}}>CHOOSE YOUR PLACE</div>
             <h1 className='fw-700 px-3'><span className='black-txt'>BEST</span> <span className='blue-txt'>SELLING ACTIVITIES</span></h1>
             {bestSelling.length>0 && 

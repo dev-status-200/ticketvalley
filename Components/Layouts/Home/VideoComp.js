@@ -7,7 +7,7 @@ const VideoComp = () => {
   return (
     <div style={{width:'100%' , position:'relative', left:0, top:0}}>
         <video autoPlay loop muted style={{ width:'100%' }}>
-            <source src="https://res.cloudinary.com/abdullah7c/video/upload/v1676206146/VN20230212_174337_wgr5qg.mp4" />
+            <source src="/videos/video3.mp4" />
         </video>
 
         <div className='navBar' 
