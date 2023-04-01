@@ -119,7 +119,7 @@ const Cart = () => {
     <div className='cart-styles' style={{borderTop:"1px solid silver"}}>
         <Container className='cart-box' fluid>
         <Row>
-            <Col md={8}>
+            <Col md={8} className="pt-4">
             <Container className='px-5'>
                 <div className='mt-3'>
                 <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:24}}>

@@ -25,6 +25,7 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
   Router.events.on("routeChangeComplete", () => { setLoading(false)});
 
   return (
+        // <div className='text-center' style={{marginTop:"25%"}}> Unexpected Server Error Occured </div>
     <> 
     { (
         router.pathname =='/' ||

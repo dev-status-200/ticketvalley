@@ -2,50 +2,51 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
-import { Rate, Affix } from 'antd';
+import { Rate, Affix, Drawer } from 'antd';
 import { IoCalendarSharp } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { FaShuttleVan } from "react-icons/fa";
 import { IoFlashSharp } from "react-icons/io5";
 import { RiExchangeFundsLine } from "react-icons/ri";
-import { TbLanguageHiragana, TbPoint } from "react-icons/tb";
-import Carasoul from './Carasoul';
+import { TbLanguageHiragana } from "react-icons/tb";
 import Aos from 'aos';
 import Book from './Book';
 import { useSelector } from 'react-redux';
+import Details from './Details';
 
 const Product = ({id, tourData, transportData}) => {
 
   const conversion = useSelector((state) => state.currency.conversion);
-  const [tour, setTour] = React.useState({})
-  const [transport, setTransport] = React.useState([])
+  const [tour, setTour] = React.useState({});
+  const [transport, setTransport] = React.useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     Aos.init({duration:700});
     setTour(tourData)
-    console.log(tourData)
     setTransport(transportData)
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll)
 }, [])
   
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
       const position = window.pageYOffset;
       setScrollPosition(position);
-      //console.log(position)
   };
 
-  useEffect(() => {
-      window.addEventListener('scroll', handleScroll, { passive: true });
+  const showDrawer = () => {
+    setOpen(true);
+  };
 
-      return () => {
-          window.removeEventListener('scroll', handleScroll);
-      };
-  }, []);
+  const onClose = () => {
+    setOpen(false);
+  };
 
   return (
+    <>
     <div className='tour-styles' style={{backgroundColor:'white'}} >
       <div className='hero py-4'>
-        {/* Header */}
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
           <Link className='navLink' href='/'>DESTINATION</Link>
@@ -70,198 +71,67 @@ const Product = ({id, tourData, transportData}) => {
       <div>
         <Container className='' data-aos="fade-up">
           <Row className='py-4'>
-            <Col md={7}>
-              <img src={tour.main_image} style={{borderRadius:4, width:'47vw'}}  />
-              <div className='mt-5 fs-30 fw-700'>{tour.title}</div>
-              <span><Rate disabled defaultValue={5} /></span>
-              <span className='mx-3 fs-18'>{"("}3 Reviews{")"}</span>
-              <div className='my-4'>
-                <Row>
-                  <Col >
-                    <span className='info-logo'><IoCalendarSharp/></span>
-                    <span className='info-text'>{tour.availability}</span>
-                  </Col>
-                  <Col >
-                    <span className='info-logo'><GiSandsOfTime/></span>
-                    <span className='info-text'>{tour.duration}</span>
-                  </Col>
-                  <Col >
-                    <span className='info-logo'><AiOutlineClockCircle/></span>
-                    <span className='info-text'>{tour.time_slot}</span>
-                  </Col>
-                  <Col >
-                    <span className='info-logo'><FaShuttleVan/></span>
-                    <span className='info-text'>{tour.transport}</span>
-                  </Col>
-                </Row>
-                <Row className='mt-5'>
-                  <Col>
-                    <Row>
-                      <Col md={2}><span className='info-logo bt-2'><IoFlashSharp/></span></Col>
-                      <Col><span className='info-text'>{tour.confirmation}</span></Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                    <Row>
-                      <Col md={2}><span className='info-logo bt-2'><RiExchangeFundsLine/></span></Col>
-                      <Col><span className='info-text'>Refund {tour.refund}</span></Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                    <Row>
-                      <Col md={2}><span className='info-logo bt-2'><AiOutlinePrinter/></span></Col>
-                      <Col><span className='info-text'>{tour.voucher}</span></Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                    <Row>
-                      <Col md={2}><span className='info-logo bt-2'><TbLanguageHiragana /></span></Col>
-                      <Col><span className='info-text'>{tour.lang}</span></Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </div>
-              <hr/>
-              <div className='my-5'>
-                <h3 className='my-4'>Tour Detail</h3>
-                <p className='fs-18'>
-                  {tour.tour_detail}
-                </p>
-              </div>
-              <hr/>
-              <div className='my-5'>
-                <h3 className='my-4'>Inclusions</h3>
-                {
-                  tour.inclusions.split("//").map((x, i)=>{
-                    return(
-                    <p className='fs-18' key={i}>
-                      <AiOutlineCheckCircle className='mx-3 mb-1' color='green' />
-                      {x}
-                    </p>
-                    )
-                  })
-                }
-              </div>
-              <hr/>
-              <div className='my-5'>
-                <h3 className='my-4'>Why Should I go for This?</h3>
-                {tour.why_shoulds.split("//").map((x, i)=>{
-                  return(
-                  <Row key={i}>
-                    <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
-                    <Col><p className='fs-18'>{x}</p></Col>
-                  </Row>
-                  )
-                })}
-              </div>
-              <hr/>
-              <div className='my-5'>
-                <h3 className='my-4'>More Pictures</h3>
-                  <Carasoul images={tour.more_images}/>
-              </div>
-              <hr/>
-              <div className='my-5 py-2'>
-                <h3 className='my-4'>{tour.title} Timings</h3>
-                <Table responsive="sm" style={{border:'1px solid #5184c8'}}>
-                  <thead>
-                    <tr style={{textAlign:'center'}}>
-                      <th>Duration</th>
-                      <th>Departure Point</th>
-                      <th>Reporting Point</th>
-                      <th style={{minWidth:130}}>Tour Language</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style={{textAlign:'center'}}>
-                      <td style={{maxWidth:150}}>{tour.duration}</td>
-                      <td style={{maxWidth:150}}>{tour.departure}</td>
-                      <td style={{maxWidth:150}}>{tour.reporting}</td>
-                      <td style={{maxWidth:150}}>{tour.lang}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </div>
-              <hr/>
-              <div className='my-5'>
-                <h3 className='my-4'>Important Information</h3>
-                {
-                  tour.imp_infos.split("//").map((x, i)=>{
-                    return(
-                  <Row key={i}>
-                    <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
-                    <Col><p className='fs-18'>{x}</p></Col>
-                  </Row>
-                    )
-                  })
-                }
-              </div>
-              <hr/>
-              <div className='my-5'>
-                <h3 className='my-4'>Booking Policy</h3>
-                {
-                  tour.policies.split("//").map((x, i)=>{
-                    return(
-                    <Row key={i}>
-                      <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
-                      <Col><p className='fs-18'>{x}</p></Col>
-                    </Row>
-                    )
-                  })
-                }
-              </div>
-              <hr/>
-              <div className='my-5'>
-
-                <h3 className='my-4'>Terms & Conditions</h3>
-                {
-                  tour.terms_conditions.split("//").map((x, i)=>{
-                    return(
-                    <Row key={i}>
-                      <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
-                      <Col><p className='fs-18'>{x}</p></Col>
-                    </Row>
-                    )
-                  })
-                }
-              </div>
-              <hr/>
-              <div className='my-5'>
-
-                <h3 className='my-4'>Cancellation Policies</h3>
-                {
-                  tour.cancellation_polices.split("//").map((x, i)=>{
-                    return(
-                    <Row key={i}>
-                      <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1' color='green' /></Col>
-                      <Col><p className='fs-18'>{x}</p></Col>
-                    </Row>
-                    )
-                  })
-                }
-              </div>
+            <Col md={8}>
+              <Details tour={tour} />
             </Col>
-            <Col md={5}>
-              <div className='booking-form'>
-                <div className='fw-300 fs-15'>Cateory</div>
-                <p className='fw-600 fs-20'>{tour.category}</p>
-                <div className=''><span className='fw-400 fs-18 grey-txt'>Starting From</span></div>
-                {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
-                  {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
-                </s>}
-                <p className='fw-600 fs-30'><AiFillTags/>
-                  {(tour.adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
-                </p>
-                <Book tour={tour} transport={transport} />
-              </div>
+            <Col md={4} >
             </Col>
           </Row>
         </Container>
+        <div className={`book ${scrollPosition>450?' fixed-book':'normal-book'}`}>
+          <div className='booking-form'>
+            <p className='fw-600 fs-20'>{tour.category}</p>
+            <div className=''><span className='fw-400 fs-18 grey-txt'>Starting From</span></div>
+            {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
+              {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
+            </s>}
+            <p className='fw-600 fs-30'><AiFillTags/>
+              {(tour.adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
+            </p>
+            <div className='my-2'>
+              <span className='info-logo'><IoCalendarSharp/></span>
+              <span className='info-text'>Availability: {tour.availability}</span><br/>
+              <span className='info-logo'><GiSandsOfTime/></span>
+              <span className='info-text'>Duration: {tour.duration}</span><br/>
+              <span className='info-logo'><AiOutlineClockCircle/></span>
+              <span className='info-text'>{tour.time_slot}</span><br/>
+              {tour.transport &&<>
+                <span className='info-logo'><FaShuttleVan/></span>
+                <span className='info-text'>{tour.transport}</span>
+                <br/>
+              </>}
+              
+              <span className='info-logo'><IoFlashSharp/></span>
+              <span className='info-text'>{tour.confirmation}</span><br/>
+              <span className='info-logo bt-2'><RiExchangeFundsLine/></span>
+              <span className='info-text'>Refund: {tour.refund}</span><br/>
+              <span className='info-logo bt-2'><AiOutlinePrinter/></span>
+              <span className='info-text'>{tour.voucher}</span><br/>
+            </div>
+
+            {/* <Book tour={tour} transport={transport} /> */}
+
+            <div className="wrapper mt-4" onClick={showDrawer}>
+              <div className='a'><span>BOOK NOW</span></div>
+            </div>
+
+            <Drawer style={{padding:'', margin:0, width:450, position:'relative', right:70}}
+              title={`${tour.title} Options`}
+              placement={"right"}
+              onClose={onClose}
+              open={open}
+            >
+              <Book tour={tour} transport={transport} />
+            </Drawer>
+          </div>
+        </div>
       </div>
       }
       {
         Object.keys(tour).length==0 && <div>Please wait...</div>
       }
     </div>
+    </>
   )
 }
 
