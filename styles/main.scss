@@ -328,10 +328,9 @@ body {
 }
 
 .date-list-boundary{
-  border: 1px solid silver;
+  border-bottom: 1px solid rgb(94, 94, 94);
   margin: 3px;
   padding-top: 9px;
-  border-radius: 5px;
 }
 
 .date-list-boundary:hover{
@@ -619,4 +618,8 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 .inc-dec:hover{
   color: #3e73c8;
+}
+
+.bgc-01{
+  background-color: #e5f0fc;
 }

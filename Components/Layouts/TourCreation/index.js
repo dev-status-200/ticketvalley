@@ -4,7 +4,6 @@ import { reducerFunctions, initialState, baseValues } from './states';
 import { Row, Col, Table } from 'react-bootstrap';
 import CreateOrEdit from './CreateOrEdit';
 import { EditOutlined } from '@ant-design/icons';
-import BulkCreate from './BulkCreate';
 
 export default function TourCreation({productData}) {
 
@@ -17,7 +16,6 @@ export default function TourCreation({productData}) {
         fieldName: 'records',
         payload: productData.result
       });
-
   }, [])
   
   return (
@@ -88,7 +86,6 @@ export default function TourCreation({productData}) {
         footer={[]}
       >
         {!state.bulk && <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} />}
-        {state.bulk && <BulkCreate state={state} dispatch={dispatch} />}
       </Modal>
     </div>
   );

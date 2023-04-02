@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { IoStar } from 'react-icons/io5';
 import { HiArrowLongRight } from 'react-icons/hi2';
@@ -9,6 +9,11 @@ const TourCardOne = ({tour, height, info, font}) => {
     
     const router = useRouter();
     const conversion = useSelector((state) => state.currency.conversion);
+
+    useEffect(() => {
+      console.log(tour)
+    }, [])
+    
 
   return (
     <div className='hover-shadow'
@@ -55,7 +60,7 @@ const TourCardOne = ({tour, height, info, font}) => {
         {info &&
         <div style={{minHeight:70, backgroundColor:'#29717c'}} className="p-3">
             <div style={{float:'left'}}>
-                <h4 style={{color:'white'}}>{(tour.adult_price*conversion.rate).toFixed(2)} {conversion.currency}</h4>
+                <h4 style={{color:'white'}}>{(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency}</h4>
             </div>
             <div style={{float:'right'}}>
                 <button className='custom-btn-02' onClick={()=>router.push(`/product/${tour.id}`)}>

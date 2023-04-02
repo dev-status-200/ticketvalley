@@ -4,7 +4,6 @@ import ImageUpload from './ImageUpload';
 import React, {useEffect} from 'react';
 import DetailsOne from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
-import DetailsThree from "./DetailsThree";
 import { Tabs } from 'antd';
 import Router from 'next/router';
 import axios from 'axios';
@@ -87,11 +86,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         {
           ...data,
           packages:state.packages,
-          timed:state.timed,
-          timeSlots:makeString(state.timeSlots),
           stock:state.stock,
-          dated:state.dated,
-          dates:state.dates,
           status:state.status,
           main_image:cover==null?"a":cover,
           more_images:values.length>0? values.toString():"a",
@@ -155,12 +150,8 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
         {
           ...data,
-          timed:state.timed,
           packages:state.packages,
-          timeSlots:makeString(state.timeSlots),
           stock:state.stock,
-          dated:state.dated,
-          dates:state.dates,
           prev_img:prev_img,
           status:state.status,
           deleted_images:state.deleted_images,
@@ -199,11 +190,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
             label: `Packages Info`,
             key: '5',
             children:<PackagesInfo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-          },
-          {
-            label: `Dates/Stock`,
-            key: '2',
-            children:<DetailsThree state={state} setValues={setValues} dispatch={dispatch} />
           },
           {
             label: `Description`,

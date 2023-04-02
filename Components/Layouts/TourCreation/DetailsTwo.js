@@ -37,12 +37,6 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
     <Col className='px-0 mx-4' md={1}>
         <InputComp  register={register} name='prevPrice' control={control} label='Old price' />
     </Col>
-    <Col className='px-0 mx-4' md={1}>
-        <InputComp  register={register} name='adult_price' control={control} label='Adult price' />
-    </Col>
-    <Col className='px-0 mx-4' md={1}>
-        <InputComp  register={register} name='child_price' control={control} label='Child Price' />
-    </Col>
     <Col className='mx-1 mt-3' md={1}>
         <div>Active</div>
         <Switch checked={state.status=="1"?true:false} onChange={()=>{

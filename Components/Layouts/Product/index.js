@@ -56,7 +56,7 @@ const Product = ({id, tourData, transportData}) => {
           <div className='dropdown mx-2'>
             <span className='navLink dropbtn'>ACTIVITIES</span>
             <div className="dropdown-content">
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Park'}}}>Theme Parks</Link>
+                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
                 <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
                 <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
                 <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
@@ -80,13 +80,13 @@ const Product = ({id, tourData, transportData}) => {
         </Container>
         <div className={`book ${scrollPosition>450?' fixed-book':'normal-book'}`}>
           <div className='booking-form'>
-            <p className='fw-600 fs-20'>{tour.category}</p>
-            <div className=''><span className='fw-400 fs-18 grey-txt'>Starting From</span></div>
+            {/* <p className='fw-600 fs-20'>{tour.category}</p> */}
+            <div className=''><span className='fw-400 fs-14 grey-txt'>Starting From</span></div>
             {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
               {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
             </s>}
             <p className='fw-600 fs-30'><AiFillTags/>
-              {(tour.adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
+              {(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
             </p>
             <div className='my-2'>
               <span className='info-logo'><IoCalendarSharp/></span>

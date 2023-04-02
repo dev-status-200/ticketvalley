@@ -7,9 +7,8 @@ const VideoComp = () => {
   return (
     <div style={{width:'100%' , position:'relative', left:0, top:0}}>
         <video autoPlay loop muted style={{ width:'100%' }}>
-            <source src="/videos/video3.mp4" />
+            <source src="/videos/video3.mp4"  />
         </video>
-
         <div className='navBar' 
             style={{
                 position:'absolute',
@@ -87,7 +86,6 @@ const VideoComp = () => {
               </Col>
             </Row>
         </div>
-
     </div>
   )
 }
