@@ -144,7 +144,7 @@ const Home = () => {
             /> */}
             <div className='blue-txt px-3' style={{letterSpacing:7}}>CHOOSE YOUR PLACE</div>
             <h1 className='fw-700 px-3'><span className='black-txt'>BEST</span> <span className='blue-txt'>SELLING ACTIVITIES</span></h1>
-            {/* {bestSelling.length>0 && 
+            {bestSelling.length>0 && 
             <div>
                 <Row className='px-3'>
                     <Col md={8} data-aos='fade-right'>
@@ -174,14 +174,14 @@ const Home = () => {
                 </Swiper>
                 </Row>
             </div>
-            } */}
+            }
             {bestSelling.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
             </Container>
         </div>
         
         {/* <Slider/> */}
         <div className='py-5 bg-02' style={{backgroundColor:"white"}}>
-        {/* <Container className='my-5' data-aos='fade-up'>
+        <Container className='my-5' data-aos='fade-up'>
             <h1 className='mt-3 fw-700 px-4'>ADVENTURES &<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
             <Swiper slidesPerView={3} spaceBetween={30} 
                 modules={[Navigation]}
@@ -201,9 +201,9 @@ const Home = () => {
                 })}
             </Swiper>
             {adventures.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
-        </Container> */}
+        </Container>
 
-        {/* <Container className='my-0 py-3' data-aos='fade-up'>
+        <Container className='my-0 py-3' data-aos='fade-up'>
             <h1 className='mt-3 fw-700 px-4'>COMBO<span className='blue-txt'> TOUR ACTIVITIES</span></h1>
             <Swiper slidesPerView={3} spaceBetween={30} 
                 modules={[Navigation]}
@@ -223,7 +223,7 @@ const Home = () => {
                 })}
             </Swiper>
             {combos.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
-        </Container> */}
+        </Container>
 
         </div>
     </div>
