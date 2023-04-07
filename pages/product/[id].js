@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useRouter } from 'next/router';
 import Product from '../../Components/Layouts/Product';
 import axios from "axios";
@@ -23,7 +24,7 @@ export async function getStaticProps(context) {
   
     if (!tourData.id) {
       return {
-        notFound: true
+        hasError: true
       }
     }
     return {
