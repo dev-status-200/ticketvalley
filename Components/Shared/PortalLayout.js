@@ -25,7 +25,8 @@ const PortalLayout = ({children}) => {
             } else if(x.key=='2'){ Router.push('/productCreation')
             } else if(x.key=='3'){ Router.push('/transport')
             } else if(x.key=='4'){ Router.push('/promos')
-            } else if(x.key=='5'){ Router.push('/bookings') }
+            } else if(x.key=='5'){ Router.push('/bookings') 
+            } else if(x.key=='6'){ Router.push('/inventory') }
           }}
           items={[
             {
@@ -52,6 +53,11 @@ const PortalLayout = ({children}) => {
               key: '5',
               icon: <CreditCardOutlined />,
               label: 'Bookings',
+            },
+            {
+              key: '6',
+              icon: <TagsOutlined />,
+              label: 'Inventory',
             },
           ]}
         />

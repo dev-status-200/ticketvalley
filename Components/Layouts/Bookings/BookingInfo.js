@@ -1,96 +1,107 @@
-import React from 'react';
+import { CheckOutlined, DiffOutlined } from "@ant-design/icons";
 import { Col, Row } from 'react-bootstrap';
+import React, { useEffect } from 'react';
 import moment from 'moment';
+import Details from "./Details";
+import axios from "axios";
+import Router from "next/router"
 
 const BookingInfo = ({state, dispatch}) => {
 
-    const showPromoInfo = (data) => {
-        const val = JSON.parse(data)
-        return(
-            <div style={{color:'#d37945'}}>
-                <span >{val.byPercentage==true?`${val.price}%`:`${val.price}`}</span>
-                <span className='mx-2'>{"( "}{val.name}{" )"}</span>
-            </div>
-        )
+    // useEffect(() => {
+    //   console.log(state.selectedRecord);
+    // }, [state.selectedRecord])
+
+    const assignTicket = async(data) => {
+        console.log(data)
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,data)
+        .then((x)=>{
+            if(x.data.result[0]==1){
+                Router.push("/bookings");
+            }
+        })
     }
 
   return (
     <div className='p-3'>
-        <h4>Booking Details</h4>
-        <hr/>
+        <h4>Booking Details</h4><hr/>
         <Row>
-            <Col md={6}>
+            <Col md={4}>
             <h6>Booking Info</h6>
-                <Row>
-                    <>
-                        <Col md={4} className='fw-500'>Name :</Col>
-                        <Col md={8} className=' grey-txt'>{state.selectedRecord.name}</Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Email :</Col>
-                        <Col md={8} className=' grey-txt'>{state.selectedRecord['email']}</Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Base Price :</Col>
-                        <Col md={8} className=' grey-txt'>{state.selectedRecord.base_price}.00 AED</Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Discount :</Col>
-                        <Col md={8} className=' grey-txt'>
-                            {state.selectedRecord.promo=='none'?'No':showPromoInfo(state.selectedRecord.promo)}
-                        </Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Final Price :</Col>
-                        <Col md={8} className=' grey-txt'>{state.selectedRecord.final_price} AED</Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Created At :</Col>
-                        <Col md={8} className=' grey-txt'>{moment(state.selectedRecord.createdAt).format("DD/MM/YY  hh:mm")}</Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Stripe PI :</Col>
-                        <Col md={8} className=' grey-txt'>{state.selectedRecord.payment_intent}</Col>
-                    </>
-                    <>
-                        <Col md={4} className='fw-500'>Cl Secret :</Col>
-                        <Col md={8} className=' grey-txt'>{state.selectedRecord.payment_intent_client_secret}</Col>
-                    </>
-                </Row>
+                <Details state={state} />
             </Col>
-            <Col md={6}>
-                <h6>Tours Info</h6>
-                <Row>
-                    {
-                        state.selectedRecord.BookedTours.map((x, i)=>{
-                            return(
-                                <>
-                                    <Col md={12} className='grey-txt tour-booking-list'>
-                                        <span className='fw-500'>Name:</span> <span>{x.name}</span><br/>
-                                        <span className='fw-500'>Adults:</span> <span>{x.adults}</span>
-                                        <span className='mx-2'>
-                                            <span className='fw-500'>Childs:</span> <span>{x.childs}</span>
-                                        </span>
-                                        <span className=''>
-                                            <span className='fw-500 '>Infants:</span> <span>{x.infant}</span>
-                                        </span>
-                                        <br/>
-                                        <span className=''>
-                                            <span className='fw-500 '>Pickup:</span>
-                                            <br/>
-                                            <span>{x.address}</span>
-                                        </span>
-                                        <br/>
-                                        <span className=''>
-                                            <span className='fw-500 '>Date:</span>
-                                            <span> {moment(x.date).format("DD/MM/YY")}</span>
-                                        </span>
-                                    </Col>
-                                </>
-                            )
-                        })
-                    }
+            <Col md={8}>
+            <h6>Tours Info</h6>
+            <Row>{
+                state.selectedRecord.BookedTours.map((x, i)=>{
+                return(<>
+                <Col md={12} className='grey-txt tour-booking-list'>
+                <Row className='px-1 py-2'>
+                    <Col md={2}>
+                        <img src={x.image} height={50} width={90} />
+                    </Col>
+                    <Col md={10}>
+                    <span className='fw-500 fs-17'>{x.name}</span> <br/>
+                    <div>Options</div>
+                    </Col>
+                    <Col md={12} >
+                    {x.BookedToursOptions.map((y, j)=>{
+                    return(<div key={j+'a'}>
+                        <hr className='my-2' />
+                        <div>
+                            <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
+                            <div className='mx-5 fw-500 right'>
+                                {y.assigned=="0" &&<>
+                                <div>
+                                    {parseInt(y.adult) + parseInt(y.child)} Required 
+                                </div>
+                                <div style={{color:y.inventory.length>=parseInt(y.adult) + parseInt(y.child)?"green":'red'}}>
+                                    {y.inventory.length} In-Stock 
+                                </div>
+                                {(y.inventory.length>=parseInt(y.adult) + parseInt(y.child) && y.assigned=="0" ) &&
+                                <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y)}> 
+                                    <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
+                                </div>
+                                }
+                                </>}
+                                {y.assigned=="1" &&<>
+                                <div style={{color:'green'}}> 
+                                    <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
+                                </div>
+                                </>}
+                            </div>
+                        </div>
+                        <div className='px-3 mt-2'>
+                        <span className='fw-500'>Adults:</span> <span>{y.adult}</span>
+                        <span className='mx-3'>
+                            <span className='fw-500'>Childs:</span> <span>{y.child}</span>
+                        </span>
+                        <span className=''>
+                            <span className='fw-500'>Infants:</span> <span>{y.infant}</span>
+                        </span>
+                        <span className='mx-3'>
+                            <span className='fw-500'>Transfer:</span> <span>{y.transfer}</span>
+                        </span>
+                        <br/>
+                        {y.transfer!="No" &&
+                        <Row className=''>
+                            <Col style={{maxWidth:69}}>Pickup:</Col>
+                            
+                            <Col md={8}>{y.address}</Col>
+                        </Row>
+                        }
+                        <span className=''>
+                            <span className='fw-500'>Tour Date:</span>
+                            <span> {moment(y.date).format("DD/MM/YY")}</span>
+                        </span>
+                        </div>
+                    </div>)
+                    })}
+                    </Col>
                 </Row>
+                </Col>
+                </>)})
+            }</Row>
             </Col>
         </Row>
     </div>

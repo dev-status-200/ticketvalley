@@ -24,7 +24,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
       state.policies = tempState.policies.split("//");
-      state.timeSlots = tempState.timeSlots.split("//");
+      //state.timeSlots = tempState.timeSlots.split("//");
       state.imp_infos = tempState.imp_infos.split("//");
       state.why_shoulds = tempState.why_shoulds.split("//");
       state.inclusions = tempState.inclusions.split("//");

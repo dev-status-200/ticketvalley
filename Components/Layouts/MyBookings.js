@@ -6,6 +6,7 @@ import { AiFillCar } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import moment from 'moment';
+import Router from 'next/router';
 
 const MyBookings = () => {
 
@@ -20,7 +21,6 @@ const MyBookings = () => {
             email:data
         }).then((x)=>{
             setBookings(x.data.result)
-            console.log(x.data.result)
         })
     }
 
@@ -52,24 +52,26 @@ const MyBookings = () => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
+            <h1 className='text-center mt-3 ' style={{color:"white", fontWeight:700}}>Bookings Page</h1>
         </div>
         </div>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
         <Container className='my-5 px-5'>
-        <h3 className='mb-4'>My All Bookings</h3>
+        <h4 className='mb-4'>Following is the list of all your bookings made</h4>
         {bookings.map((y, j)=>{
             return(
-            <Row key={j}>
+            <div key={j}>
+            <hr className='mb-2 mt-2' />
+            <Row  className='booking-row' onClick={()=>Router.push(`/ticketPage?id=${y.id}`)}>
             <Col md={12}>
-            <hr className='mb-3 mt-0' />
             {y.BookedTours.map((x, i)=>{
             return(
-                <Row key={i} className="cart-item my-2">
-                    <Col md={2} className=""><img src={x.image} height={100} width={170} style={{borderRadius:5}} /></Col>
-                    <Col className="" md={10} >
-                    <div style={{float:'right'}}>
+                <Row key={i} className="cart-item">
+                    <Col className="" md={12} >
+                    <div>
                     {i==0 &&
-                        <div>
+                        <Row>
+                            <Col>
                             <div>Date :  <span className='grey-txt'>{moment(y.moment).format('DD/MM/YY')}</span></div>
                             <div>Booking No. :  <b className='grey-txt'>{y.id}</b></div>
                             <div className='mt-2'>
@@ -87,29 +89,25 @@ const MyBookings = () => {
                                     }
                                 </span>
                             </div>
+                            </Col>
+                            <Col>
+                            <div style={{float:'right'}}>
                             <h4 className='mt-2'>Total Price :  
                                 {" "}<b className='grey-txt'>{(y.final_price*conversion.rate).toFixed(2)}</b> {conversion.currency}
-                            </h4>
-                        </div>
+                            </h4>    
+                            <h6 style={{color:'#2b55bf'}}>Click To View Tickets {">"}</h6>
+                            </div>
+                            </Col>
+                        </Row>
                     }
                     <br/>
                     </div>
-                    <h5 className='fw-500'>{x.name}</h5>
-                    {x.BookedToursOptions.map((y, j)=>{
-                    return(
-                    <div key={j+i}>
-                        <div className=''>
-                            Option: {y.name} {"("}{`${y.adult} Adult`}{y.child>0?`, ${y.child} Child`:""} {y.infant>0?`, Infant ${y.infant}`:""}{" )"}
-                        </div>
-                        <div>Transfer Type: {y.transfer}</div>
-                        <div>{y.transfer!="No"?`Pickup Location: ${y.address} `:""}</div>
-                    </div>
-                    )})}
                     </Col>
                 </Row>
             )})}
             </Col>
             </Row>
+            </div>
         )})}
         {bookings.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div> }
         </Container>

@@ -30,11 +30,9 @@ body {
     border-radius: 25px;
 }
 
-.custom-btn:hover > .ico{
+.custom-btn:hover {
     transition-duration: 300ms;
-    display: inline-block;
-    margin-left: 20px;
-    
+    background-color: rgb(20, 94, 121);
 }
 
 .shade{
@@ -622,4 +620,53 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 
 .bgc-01{
   background-color: #e5f0fc;
+}
+
+.time-box{
+  display: inline-block;
+  margin: 4px 14px 4px 4px;
+  padding: 4px 14px 4px 14px;
+  color: white;
+  font-weight: 500;
+  background-color: #3e73c8d3;
+  cursor: pointer;
+}
+.selected-time-box{
+  background-color: rgba(201, 139, 25, 0.842);
+}
+.time-box:hover{
+  transition-duration: 300ms;
+  background-color: rgba(201, 139, 25, 0.842);
+}
+.booking-row{
+  cursor: pointer;
+  margin: 3px;
+  padding: 12px 10px;
+  background-color: rgba(230, 211, 151, 0.274);
+}
+.booking-row:hover{
+  transition-duration: 300ms;
+  background-color: rgba(206, 184, 112, 0.445);
+  border-radius: 5px;
+}
+.copy-tag{
+  color: silver;
+}
+.copy-tag:hover{
+  color: grey;
+}
+.ticket-row{
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+}
+.selected-ticket-row{
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  background-color: #1f478836;
+}
+.ticket-row:hover{
+  transition-duration: 300ms;
+  background-color: #1f478836;
 }

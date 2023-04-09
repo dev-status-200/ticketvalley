@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../../../functions/cartFunction';
-import PayComp from './PayComp';
 import { Row, Col, Container, Spinner } from 'react-bootstrap';
 import { Modal, Empty, Input } from 'antd';
 import { AiFillCar } from 'react-icons/ai';
@@ -14,6 +13,7 @@ import Router from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import PayComp from './PayComp';
 
 const Cart = () => {
 
@@ -192,10 +192,11 @@ const Cart = () => {
                                 <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
                                 <Col md={6} style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
                             </Row>
+                            <hr className='my-0 mt-2' />
                             <Row className='mt-3'>
                                 <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
                                 <Col md={6} style={{color:'#dd9613'}}><s > {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency}</Col>
-                                <Col md={12}><hr/></Col>
+                                <Col md={12}><hr className='mt-2 mb-3' /></Col>
                             </Row>
                         </h5>
                         }
@@ -216,7 +217,12 @@ const Cart = () => {
             </Col>
             <Col md={4} className="pay-screen p-5">
             {cart.length>0 &&
-                <>{session && <> {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} />} </> }
+                <>  
+                    {session && 
+                    <> 
+                        {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} />} 
+                    </> 
+                    }
                     {!session &&
                     <div className='text-center'>
                         <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>

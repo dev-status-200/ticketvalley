@@ -33,7 +33,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       }).then((x)=>{
         dispatch(addProduct([]));
         destroyCart();
-        Cookies.remove("promoDiscount", { path: '' })
+        Cookies.remove("promoDiscount", { path: '' });
         Router.push("/");
       })
     }
@@ -59,7 +59,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       let reserve = {};
       cartData = await retrieveCart();
       let disc = await Cookies.get('promoDiscount');
-
+      console.log(cartData)
       reserve.promo = disc==undefined?'none':disc;
       reserve.base_price = priceCalc(cartData, disc).base_price;
       reserve.final_price = priceCalc(cartData, disc).final_price;

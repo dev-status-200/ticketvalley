@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/activities' ||
         router.pathname =='/myBookings' ||
         router.pathname =='/about' ||
+        router.pathname =='/ticketPage' ||
         router.pathname =='/paySuccess'
       ) &&
         <>
@@ -63,6 +64,7 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/productCreation'|| 
         router.pathname =='/transport'|| 
         router.pathname =='/bookings'|| 
+        router.pathname =='/inventory'|| 
         router.pathname =='/promos' 
       ) &&
         <PortalLayout>

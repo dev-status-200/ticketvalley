@@ -11,6 +11,7 @@ export default function TourCreation({productData}) {
   const { records, visible, edit } = state;
 
   useEffect(() => {
+    console.log(productData)
       dispatch({
         type: 'field',
         fieldName: 'records',
@@ -39,8 +40,8 @@ export default function TourCreation({productData}) {
         </Row>
         </Col>
       </Row>
-      <div style={{ maxHeight:700, overflowY:'auto', overflowX:'hidden'}}>
-        <Row >
+      <div style={{ maxHeight:"70vh", overflowY:'auto', overflowX:'hidden'}}>
+        <Row>
           {
           records.filter((x)=>{
             if(
@@ -55,7 +56,7 @@ export default function TourCreation({productData}) {
             }
           }).map((x, i)=>{
             return(
-            <Col md={3} className="mx-1 my-3" key={i} onClick={()=>{
+            <Col md={3} className="my-3" key={i} onClick={()=>{
               dispatch({type:'edit', payload:x})
             }}>
             <Card
@@ -66,10 +67,7 @@ export default function TourCreation({productData}) {
                 cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}
               >
                 <Card.Meta title={x.title} />
-                <p className='card-cntnt mt-2'>{x.tour_detail.slice(0,35)} .....</p>
-                {!x.dated &&<div style={{float:'right'}}>Stock: <strong>{x.stock}</strong></div>}
-                {x.dated &&<div style={{float:'right'}}><strong>{" "}</strong></div>}
-                <div>AED. {x.adult_price}</div>
+                <p className='card-cntnt mt-2'>{x.tour_detail.slice(0,65)} .....</p>
               </Card>
             </Col>
             )

@@ -37,6 +37,7 @@ const baseValues = {
 
 const initialState = {
     records: [],
+    inventory: [],
     load:false,
     visible:false,
     edit:false,
@@ -50,7 +51,30 @@ const Bookings = ({bookingsData}) => {
 
     const [ state, dispatch ] = useReducer(recordsReducer, initialState);
 
-    useEffect(()=>dispatch({type:'toggle', fieldName:'records', payload:bookingsData}), [])
+    const getInventoryTickets = (id, data) => {
+      let result = [];
+      data.forEach((x)=>{
+        if(x.TourOptionId==id){
+          result.push(x)
+        }
+      })
+      return result
+    }
+
+    useEffect(()=>{
+      let tempValues = bookingsData.result;
+      tempValues.forEach((x)=>{
+        x.BookedTours.forEach((y)=>{
+          y.BookedToursOptions.forEach((z)=>{
+            z.inventory=getInventoryTickets(z.tourOptId, bookingsData.resultTwo)
+          })
+        })
+      })
+      dispatch({type:'toggle', fieldName:'records', payload:tempValues});
+      dispatch({type:'toggle', fieldName:'inventory', payload:bookingsData.resultTwo});
+      //console.log(bookingsData.resultTwo)
+      console.log(tempValues)
+    }, [])
 
   return (
     <div>
@@ -98,7 +122,7 @@ const Bookings = ({bookingsData}) => {
     <Modal
       open={state.visible}
       onOk={()=>dispatch({ type: 'modalOff' })} onCancel={()=>dispatch({ type: 'modalOff' })}
-      width={750} footer={false} centered={false}
+      width={1000} footer={false} centered={false}
     >
        <BookingInfo state={state} dispatch={dispatch} />
     </Modal>

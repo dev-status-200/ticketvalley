@@ -9,6 +9,7 @@ import { FaShuttleVan } from "react-icons/fa";
 import { IoFlashSharp } from "react-icons/io5";
 import { RiExchangeFundsLine } from "react-icons/ri";
 import { TbLanguageHiragana } from "react-icons/tb";
+import Router from 'next/router';
 import Aos from 'aos';
 import Book from './Book';
 import { useSelector } from 'react-redux';
@@ -16,10 +17,14 @@ import Details from './Details';
 
 const Product = ({id, tourData, transportData}) => {
 
+  const cart = useSelector((state) => state.cart.value);
   const conversion = useSelector((state) => state.currency.conversion);
   const [tour, setTour] = React.useState({});
   const [transport, setTransport] = React.useState([]);
   const [open, setOpen] = useState(false);
+
+  const [cartIndex, setCartIndex] = useState(0);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     Aos.init({duration:700});
@@ -28,6 +33,16 @@ const Product = ({id, tourData, transportData}) => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll)
 }, [])
+
+useEffect(() => {
+  cart.forEach((x, i)=>{
+    if(x.tourId==tourData.id){
+        setAdded(true);
+        setCartIndex(i)
+    }
+  })
+}, [cart])
+
   
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
@@ -111,17 +126,24 @@ const Product = ({id, tourData, transportData}) => {
 
             {/* <Book tour={tour} transport={transport} /> */}
 
-            <div className="wrapper mt-4" onClick={showDrawer}>
+            {!added && <div className="wrapper mt-4" onClick={showDrawer}>
               <div className='a'><span>BOOK NOW</span></div>
-            </div>
+            </div>}
+            {added && 
+                <div>
+                    <h6 className='mt-4'>Product Already Added!</h6>
+                    <button className='already-in-cart' onClick={()=>Router.push("/cart")}>Go To Cart</button>
+                </div>
+            }
 
-            <Drawer style={{padding:'', margin:0, width:450, position:'relative', right:70}}
+            <Drawer style={{padding:'', margin:0, width:550, position:'relative', right:70}}
               title={`${tour.title} Options`}
               placement={"right"}
               onClose={onClose}
               open={open}
+              width={470}
             >
-              <Book tour={tour} transport={transport} />
+              <Book tour={tour} transport={transport} setOpen={setOpen} />
             </Drawer>
           </div>
         </div>

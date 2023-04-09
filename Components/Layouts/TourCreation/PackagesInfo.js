@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
 import { Input, InputNumber, Switch, message } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
-import { CloseCircleOutlined, DeleteOutlined } from '@ant-design/icons';
-import InputComp from '../../Shared/Form/InputComp';
-import InputAreaComp from '../../Shared/Form/InputAreaComp';
+import { CloseCircleOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons';
 
 const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
-    //package:{ name:"", child_price:0.00, adult_price:0.00 },
 
     useEffect(() => {
         console.log(state.packages);
@@ -15,7 +12,6 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
 
   return (
     <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
-
         <Row>
         <Col md={10}>
             <h3 className='mx-2'>Tour Options</h3>
@@ -33,6 +29,9 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
         state.packages.map((x, i)=>{
             return(
             <Row key={i} className='m-2 p-3 bgc-01'>
+            <Col md={12}>
+            <div className='cur copy-tag' onClick={()=>{navigator.clipboard.writeText(`i${x.id}`)}}>Copy <CopyOutlined /></div>
+            </Col>
             <Col md={4}>
                 <div className='mt-2'>Option Name #{i+1}</div>    
                 <Input className='mb-2' value={x.name} 
