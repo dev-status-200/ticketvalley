@@ -32,6 +32,7 @@ const Login = ({sessionData}) => {
             Cookies.set('token', x.data.token, { expires: 1 });
             Cookies.set('username', token.username, { expires: 1 });
             Cookies.set('loginId', token.loginId, { expires: 1 });
+            Cookies.set('email', token.email, { expires: 1 });
             Router.push('/portal');
           }else if(x.data.message=='Invalid'){
             setLoad(false);

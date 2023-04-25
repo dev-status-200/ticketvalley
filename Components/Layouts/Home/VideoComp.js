@@ -52,39 +52,20 @@ const VideoComp = () => {
           style={{
               position:'absolute',
               width:"100%",
-              bottom:-70
+              textAlign:'center',
+              bottom:100
           }}>
-            <Row className="text-center">
-              <Col md={1} className="text-center">
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Theme Parks'}}}>
-                <img src='/icons/5.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Water Parks'}}}>
-                <img src='/icons/3.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'City Tours'}}}>
-                <img src='/icons/1.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>
-                <img src='/icons/4.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Adventure'}}}>
-                <img src='/icons/2.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={1} className="text-center">
-              </Col>
-            </Row>
+            <div className='home-search-bar'>
+              <Row>
+                <Col md={3}></Col>
+                <Col md={6} className=''>
+                  <div className='bar'>
+                    Search
+                  </div>
+                </Col>
+                <Col md={3}></Col>
+              </Row>
+            </div>
         </div>
     </div>
   )

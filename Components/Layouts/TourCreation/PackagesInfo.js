@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Input, InputNumber, Switch, message } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
-import { CloseCircleOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, DeleteOutlined, CopyOutlined, ReloadOutlined } from '@ant-design/icons';
+import {  } from 'antd';
 
 const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
 
@@ -25,12 +26,16 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
             }}>Add</div>
         </Col>
         </Row>
-        {
-        state.packages.map((x, i)=>{
+        {state.packages.map((x, i)=>{
             return(
-            <Row key={i} className='m-2 p-3 bgc-01'>
+            <Row key={i} className={`m-2 p-3 ${x.status=="1"?"bgc-01":"bgc-02"}`}>
             <Col md={12}>
-            <div className='cur copy-tag' onClick={()=>{navigator.clipboard.writeText(`i${x.id}`)}}>Copy <CopyOutlined /></div>
+            <div className='cur copy-tag' 
+                onClick={()=>{ 
+                    navigator.clipboard.writeText(`i${x.id}`);
+                    message.info(`Tour Id Copied`)
+                }}
+            >Copy <CopyOutlined /></div>
             </Col>
             <Col md={4}>
                 <div className='mt-2'>Option Name #{i+1}</div>    
@@ -91,13 +96,25 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
             }
             </Col>
             <Col md={1} className="my-1">
-                {x.id!="" && 
-                <DeleteOutlined className='cross-icon mt-4' style={{fontSize:20}}
-                    onClick={()=>{
-                        let tempState = [...state.packages];
-                        tempState[i].status=tempState[i].status=="1"?"0":"1";
-                        dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
-                    }}/>
+                {x.id!="" && <>
+                    {x.status=="1"?
+                        <DeleteOutlined className='cross-icon mt-4' style={{fontSize:20}}
+                        onClick={()=>{
+                            let tempState = [...state.packages];
+                            tempState[i].status="0";
+                            console.log(tempState[i])
+                            dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
+                        }}/>:
+                        <ReloadOutlined className='cross-icon mt-4' style={{fontSize:20}}
+                        onClick={()=>{
+                            let tempState = [...state.packages];
+                            tempState[i].status="1";
+                            console.log(tempState[i])
+                            dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
+                        }}/>
+                    }
+                </>
+
                 }
             </Col>
             {x.dated &&
@@ -204,8 +221,7 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
             }
             </Row>
             )
-        })
-        }
+        })}
     </div>
   )
 }

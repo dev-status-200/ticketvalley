@@ -77,7 +77,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     let values=[];
 
     cover = await uploadImage(state.main_image);
-    for(let i = 0; i<state.more_images.length; i++){
+    for(let i=0; i<state.more_images.length; i++){
       value = await uploadImage(state.more_images[i]);
       values.push(value)
     }
@@ -110,6 +110,9 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   }
 
   const onEdit = async(data) => {
+    // state.packages.forEach((x)=>{
+    //   console.log(x.name, x.status)
+    // })
     dispatch({type:'field', fieldName:'load', payload:true});
     let prev_img = "";
     let value;
@@ -146,6 +149,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       values = tempMages;
       console.log(values)
     }
+    
     setTimeout(
       await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
         {

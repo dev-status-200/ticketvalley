@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../../../functions/cartFunction';
 import { Row, Col, Container, Spinner } from 'react-bootstrap';
 import { Modal, Empty, Input } from 'antd';
-import { AiFillCar } from 'react-icons/ai';
 import { CloseCircleOutlined, ExclamationCircleFilled, LeftCircleOutlined } from '@ant-design/icons';
 import { addProduct } from '../../../redux/cart/cartSlice';
 import { useSession, signIn } from 'next-auth/react';
@@ -30,11 +29,8 @@ const Cart = () => {
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    useEffect(() => { Aos.init({duration:500});}, []);
-    useEffect(()=> {
-        setPrice(parseFloat(getTotalPrice(cart)).toFixed(2))
-        console.log(cart)
-    }, [cart]);
+    useEffect(() => { Aos.init({duration:500}); console.log(cart) }, []);
+    useEffect(()=> { setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)) }, [cart]);
 
     const getTotalPrice = (val) => {
         let discount = Cookies.get("promoDiscount");
@@ -124,10 +120,8 @@ const Cart = () => {
                 <div className='mt-3'>
                 <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:24}}>
                     <LeftCircleOutlined style={{position:'relative', bottom:0}} />
-                    {/* <span className='mx-2'> Go Back</span> */}
                 </Link>
                 </div>
-                {/* <h3 className='mb-1'><strong>Your Cart</strong></h3> */}
                 {cart.length>0 &&
                 <>
                 {cart.map((x, i)=>{

@@ -76,7 +76,7 @@ const PortalLayout = ({children}) => {
             }}
           >Logout</span>
         </Header>
-        <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280, background: colorBgContainer }}>
+        <Content style={{ margin: '24px 16px', padding: 24, minHeight: "70%", background: colorBgContainer }}>
           {children}
         </Content>
       </Layout>

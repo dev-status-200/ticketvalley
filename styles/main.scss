@@ -621,6 +621,11 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 .bgc-01{
   background-color: #e5f0fc;
 }
+.bgc-02{
+  background-color: #8f8f8f2f;
+}
+
+
 
 .time-box{
   display: inline-block;
@@ -669,4 +674,59 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 .ticket-row:hover{
   transition-duration: 300ms;
   background-color: #1f478836;
+}
+
+.inventory-opt-list{
+  background-color: #e5f0fc83;
+  margin-top: 10px;
+  border-radius: 25px;
+  padding: 2px;
+  border:1px solid rgba(41, 41, 100, 0.251);
+}
+
+.curr-off{
+  cursor:not-allowed;
+  background-color: rgb(193, 193, 193)!important;
+  color: rgb(44, 44, 44);
+}
+
+.curr-off:hover{
+  background-color: rgb(193, 193, 193)!important;
+}
+
+.flag-box{
+  border: 1px solid rgb(187, 187, 187);
+  margin-top: 17px!important;
+  padding-top: 5px;
+  border-radius: 5px;
+}
+
+.history-list{
+  border-bottom: 1px solid silver;
+  //border-radius: 14px;
+  padding: 10px;
+}
+
+.stock-number{
+  background-color: rgb(95, 212, 95);
+  color: white;
+  border: 5px solid green;
+  border-radius: 200px;
+  text-align: center;
+  height: 33px;
+  width: 33px;
+}
+
+.invert{
+  filter: invert(100);
+}
+
+.home-search-bar{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+.bar {
+  background-color: rgb(245, 245, 245);
+  border: 1px solid grey;
 }

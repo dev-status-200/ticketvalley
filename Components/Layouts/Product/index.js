@@ -19,6 +19,7 @@ const Product = ({id, tourData, transportData}) => {
 
   const cart = useSelector((state) => state.cart.value);
   const conversion = useSelector((state) => state.currency.conversion);
+
   const [tour, setTour] = React.useState({});
   const [transport, setTransport] = React.useState([]);
   const [open, setOpen] = useState(false);
@@ -34,15 +35,14 @@ const Product = ({id, tourData, transportData}) => {
     return () => window.removeEventListener('scroll', handleScroll)
 }, [])
 
-useEffect(() => {
-  cart.forEach((x, i)=>{
-    if(x.tourId==tourData.id){
-        setAdded(true);
-        setCartIndex(i)
-    }
-  })
-}, [cart])
-
+  useEffect(() => {
+    cart.forEach((x, i)=>{
+      if(x.tourId==tourData.id){
+          setAdded(true);
+          setCartIndex(i)
+      }
+    })
+  }, [cart])
   
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {

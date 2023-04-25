@@ -22,9 +22,9 @@ export default function TourCreation({productData}) {
   return (
     <div className=''>
       <Row>
-        <Col className='py-3' md={3}><h5>Product</h5></Col>
+        <Col className='' md={3}><h5>Product</h5></Col>
         <Col>
-        <Row >
+        <Row>
           <Col md={4}></Col>
             <Col md={4}>
             <Input value={state.search} placeholder="Search Packages"
@@ -40,14 +40,15 @@ export default function TourCreation({productData}) {
         </Row>
         </Col>
       </Row>
-      <div style={{ maxHeight:"70vh", overflowY:'auto', overflowX:'hidden'}}>
+      <div style={{ maxHeight:"60vh", overflowY:'auto', overflowX:'hidden'}}>
         <Row>
           {
           records.filter((x)=>{
             if(
-              x.title.toLowerCase().includes(state.search.toLowerCase())||
-              x.adult_price.toLowerCase().includes(state.search.toLowerCase())||
-              x.tour_detail.toLowerCase().includes(state.search.toLowerCase())
+              x.title.toLowerCase().includes(state.search.toLowerCase())
+              // ||
+              // x.adult_price.toLowerCase().includes(state.search.toLowerCase())||
+              // x.tour_detail.toLowerCase().includes(state.search.toLowerCase())
             ){
               return x
             }
