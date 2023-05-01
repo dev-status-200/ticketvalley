@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Row, Col } from 'react-bootstrap';
 import Router from 'next/router';
+import TourSearchBar from '../../Shared/TourSearchBar';
 
 const VideoComp = () => {
   return (
@@ -53,18 +54,10 @@ const VideoComp = () => {
               position:'absolute',
               width:"100%",
               textAlign:'center',
-              bottom:100
+              bottom:"40%"
           }}>
             <div className='home-search-bar'>
-              <Row>
-                <Col md={3}></Col>
-                <Col md={6} className=''>
-                  <div className='bar'>
-                    Search
-                  </div>
-                </Col>
-                <Col md={3}></Col>
-              </Row>
+              <TourSearchBar/>
             </div>
         </div>
     </div>

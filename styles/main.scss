@@ -6,6 +6,7 @@
 @import 'CustomerLogin.scss';
 @import 'Cart-styles.scss';
 @import 'sliderCSS.scss';
+@import 'SearchBar.scss';
 
 html,
 body {
@@ -16,10 +17,12 @@ body {
 .cur{
     cursor: pointer;
 }
+
 .ico{
     transition-duration: 300ms;
     margin-bottom: 3px;
 }
+
 .custom-btn{
     transition-duration: 300ms;
     border: none;
@@ -40,6 +43,7 @@ body {
     -webkit-box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75);
 }
+
 .text-shade{
     text-shadow: 4px 4px 10px rgba(0,0,0,0.6);
 }
@@ -121,6 +125,7 @@ body {
   text-align: left;
   width: 60%;
 }
+
 .login-inp:focus{
   outline: #215c7100;
   border-bottom: 3px solid rgba(27, 141, 156, 0.687);
@@ -143,6 +148,7 @@ body {
   color: white;
   width: 60%;
 }
+
 .login-btn:hover{
   transition-duration: 300ms;
   background-color: rgb(6, 150, 172)!important;
@@ -162,6 +168,7 @@ body {
   border-radius: 15px;
   border: none;
 }
+
 .btn-custom:hover{
   transition-duration: 300ms;
   background-color: rgb(6, 121, 139)!important;
@@ -197,6 +204,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .cross-icon:hover{
   cursor: pointer;
   transition-duration: 300ms;
@@ -247,6 +255,7 @@ body {
   text-decoration: none;
   display: block;
 }
+
 .dropdown-content Link {
   text-decoration: none;
   display: block;
@@ -263,6 +272,7 @@ body {
 .img-box{
   cursor: pointer;
 }
+
 .img-cross{
   opacity: 0.5;
   color: rgb(190, 65, 65);
@@ -273,6 +283,7 @@ body {
   font-size: 38px;
   border-radius: 50px;
 }
+
 .img-box:hover > .img-cross{
   opacity: 1;
 }
@@ -303,18 +314,22 @@ body {
   border: none;
   width: 100%;
 }
+
 .cart-btn:hover{
   transition-duration: 300ms;
   background-color: rgb(99, 31, 13)!important;
 }
+
 .cart-btn:disabled{
   background-color: silver!important;
 }
+
 .cart-price{
   color: rgb(34, 50, 113);
   font-weight: 600;
   font-size: 23px;
 }
+
 .already-in-cart{
   width: 100%;
   background-color: rgba(139, 200, 139, 0.655);
@@ -355,6 +370,7 @@ body {
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+
 div.react-datepicker-wrapper > div > input{
   background-color: white;
   width: 80%;
@@ -367,6 +383,7 @@ div.react-datepicker-wrapper > div > input{
 .dark-placeholder::placeholder{
   color: grey;
 }
+
 body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content > div > div > form > div:nth-child(3) > div > div > div > div.css-1hwfws3 > div.css-1wa3eu0-placeholder{
   color: white;
 }
@@ -380,6 +397,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   font-size: 12px;
   border-radius: 5px;
 }
+
 .time-slot:hover{
   transition-duration: 300ms;
   background-color: antiquewhite;
@@ -406,6 +424,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   right:-3px!important;
   width: 45px;
 }
+
 .swiper-button-prev {
   position: relative;
   left: -2px!important;
@@ -433,12 +452,14 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   font-size: 170%;
   font-weight: 700;
 }
+
 .overlay-btm-line{
   background-color: white;
   height: 2px;
   width: 100px;
   margin-top: 10px;
 }
+
 .full-overlay-line{
   position: absolute;
   background-color: white;
@@ -450,6 +471,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 .hover-shadow{
   cursor: pointer;
 }
+
 .hover-shadow:hover{
   transition-duration: 300ms;
   box-shadow: 10px 10px 13px -5px rgba(0,0,0,0.75);
@@ -458,7 +480,6 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 
 @media screen and (min-width: 1200px) {
-
   .mySwiper{
     margin-top: -10px;
     padding-left: 28px!important;
@@ -529,6 +550,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
     font-size: 100px;
   }
 }
+
 @media screen and (min-width: 1499px) {
   .top-text{ top:7vh; }
   .hero-txt-1{
@@ -569,6 +591,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   border-radius: 2px;
   padding: 3px;
 }
+
 .flag-hov:hover{
   transition-duration: 300ms;
   border: 1px solid rgb(121, 164, 220);
@@ -581,6 +604,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   border: 2px solid rgb(255, 255, 255);
   padding: 5px 15px 5px 15px;
 }
+
 .custom-btn-02:hover{
   transition-duration: 400ms;
   background-color: rgb(163, 14, 14);
@@ -614,6 +638,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   color: #61a7c8;
   cursor: pointer;
 }
+
 .inc-dec:hover{
   color: #3e73c8;
 }
@@ -621,11 +646,10 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 .bgc-01{
   background-color: #e5f0fc;
 }
+
 .bgc-02{
   background-color: #8f8f8f2f;
 }
-
-
 
 .time-box{
   display: inline-block;
@@ -636,41 +660,50 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   background-color: #3e73c8d3;
   cursor: pointer;
 }
+
 .selected-time-box{
   background-color: rgba(201, 139, 25, 0.842);
 }
+
 .time-box:hover{
   transition-duration: 300ms;
   background-color: rgba(201, 139, 25, 0.842);
 }
+
 .booking-row{
   cursor: pointer;
   margin: 3px;
   padding: 12px 10px;
   background-color: rgba(230, 211, 151, 0.274);
 }
+
 .booking-row:hover{
   transition-duration: 300ms;
   background-color: rgba(206, 184, 112, 0.445);
   border-radius: 5px;
 }
+
 .copy-tag{
   color: silver;
 }
+
 .copy-tag:hover{
   color: grey;
 }
+
 .ticket-row{
   padding: 10px;
   cursor: pointer;
   border-radius: 15px;
 }
+
 .selected-ticket-row{
   padding: 10px;
   cursor: pointer;
   border-radius: 15px;
   background-color: #1f478836;
 }
+
 .ticket-row:hover{
   transition-duration: 300ms;
   background-color: #1f478836;
@@ -726,6 +759,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   width: 100%;
   text-align: center;
 }
+
 .bar {
   background-color: rgb(245, 245, 245);
   border: 1px solid grey;
