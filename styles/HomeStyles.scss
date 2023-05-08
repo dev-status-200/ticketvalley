@@ -9,6 +9,7 @@
     //     background-size: cover;
     // }
 
+    .activity-bg{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/images/search-activities-bg.jpg"); }
     .theme{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/theme.jpg"); }
     .about-us{ background:linear-gradient(0deg, rgba(34, 39, 77, 0), rgba(93, 14, 60, 0.434)), url("../public/images/aboutmain.jpg"); }
     .water{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/water.jpg"); }
@@ -158,5 +159,15 @@
       background-color: rgb(52, 99, 179);
       padding: 8px 18px 8px 18px;
       border-radius: 25px;
+    }
+
+    .tour-filters{
+      background-color: rgba(219, 219, 219, 0.895);
+      padding: 25px 30px;
+      font-size: 18px;
+      color: rgb(35, 35, 35);
+    }
+    .tour-fltr-locate{
+      background-color: white;
     }
 }

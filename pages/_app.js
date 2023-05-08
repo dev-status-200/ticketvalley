@@ -28,14 +28,15 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         // <div className='text-center' style={{marginTop:"25%"}}> Unexpected Server Error Occured </div>
     <> 
     { (
-        router.pathname =='/' ||
-        router.pathname =='/product' ||
-        router.pathname =='/product/[id]' ||
-        router.pathname =='/cart' ||
-        router.pathname =='/activities' ||
-        router.pathname =='/myBookings' ||
-        router.pathname =='/about' ||
-        router.pathname =='/ticketPage' ||
+        router.pathname =='/'            ||
+        router.pathname =='/product'     ||
+        router.pathname =='/product/[id]'||
+        router.pathname =='/cart'        ||
+        router.pathname =='/activities'  ||
+        router.pathname =='/myBookings'  ||
+        router.pathname =='/about'       ||
+        router.pathname =='/ticketPage'  ||
+        router.pathname =='/search'      ||
         router.pathname =='/paySuccess'
       ) &&
         <>

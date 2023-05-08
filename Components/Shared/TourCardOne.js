@@ -10,11 +10,6 @@ const TourCardOne = ({tour, height, info, font}) => {
     const router = useRouter();
     const conversion = useSelector((state) => state.currency.conversion);
 
-    useEffect(() => {
-      console.log(tour)
-    }, [])
-    
-
   return (
     <div className='hover-shadow'
         onClick={()=>{

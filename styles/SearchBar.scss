@@ -64,7 +64,7 @@
         z-index: 20;
         background-color: white;
         border: 1px solid rgb(232, 232, 232);
-        border-radius: 8px;
+        //border-radius: 8px;
         position: absolute;
         width: 44%;
         text-align: left;
@@ -85,9 +85,9 @@
         transition-duration: 200ms;
         letter-spacing: 0.001px;
         cursor: pointer;
-        padding: 2px;
+        //padding-top: 5px;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 12px;
         margin-bottom: 8px;
         color: silver;
     }
@@ -99,7 +99,7 @@
         cursor: pointer;
         filter: brightness(50%);
         color: white!important;
-        border-radius: 8px;
+        //border-radius: 8px;
     }
     .dropdown-cont:hover > .dropdown-img{
         transition-duration: 200ms;

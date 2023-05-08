@@ -59,6 +59,8 @@ body {
 .lt-blue-txt{ color: #61c7c8!important; }
 .yellow-txt{ color: #ebf13c!important; }
 
+.fs-10 { font-size: 10px!important; }
+.fs-11 { font-size: 11px!important; }
 .fs-12 { font-size: 12px!important; }
 .fs-13 { font-size: 13px!important; }
 .fs-15 { font-size: 15px!important; }
@@ -98,6 +100,11 @@ body {
 
 .right{ float: right; }
 .error-line{ color:'red'!important }
+
+.rel-btm-2{
+  position: relative;
+  bottom: 2px;
+}
 
 .bg-signin{
   background-image: url("../public/loginBg.png");
@@ -763,4 +770,10 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 .bar {
   background-color: rgb(245, 245, 245);
   border: 1px solid grey;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
