@@ -777,3 +777,50 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+
+.search-tour-box{
+  //border: 1px solid grey;
+  cursor: pointer;
+  padding-bottom: 50px;
+}
+.search-box-container{
+  transition-duration: 300ms;
+  border-radius: 10px 10px 10px 10px;
+}
+.search-box-container:hover{
+  transition-duration: 300ms;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+}
+.search-box-img {
+  border-radius: 10px 10px 0px 0px;
+}
+.search-bob-bottom{
+  background-color: white;
+  height: 130px;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.search-page{
+  cursor: pointer;
+  //display: inline-block;
+  margin: 10px 10px;
+  background-color: #1795c3ea;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  color: white;
+  border-radius: 100%;
+  border: none;
+}
+.search-page:hover{
+  transition-duration: 300ms;
+  background-color: #147ba1ea;
+}
+.search-box-btn{
+  background-color: #147ba1ea;
+  color: white;
+  border-radius: 7px;
+  font-size: 12px;
+}
