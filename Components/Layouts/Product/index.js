@@ -61,7 +61,7 @@ const Product = ({id, tourData, transportData}) => {
   return (
     <>
     <div className='tour-styles' style={{backgroundColor:'white'}} >
-      <div className='hero py-4'>
+      <div className='hero pt-4'>
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
           <Link className='navLink' href='/'>DESTINATION</Link>
@@ -80,12 +80,12 @@ const Product = ({id, tourData, transportData}) => {
           </div>
           <Link className='navLink' href='/about'>ABOUT US</Link>
         </div>
-        <div className='my-5 py-3'></div>
+        <div className='my-5 py-2'></div>
       </div>
       {Object.keys(tour).length>0 &&
       <div>
         <Container className='' data-aos="fade-up">
-          <Row className='py-4'>
+          <Row className='p'>
             <Col md={8}>
               <Details tour={tour} />
             </Col>

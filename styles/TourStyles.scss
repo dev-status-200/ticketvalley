@@ -1,12 +1,11 @@
 .tour-styles{
   .hero{
-      background: url("../public/images/tour-top-img-1.png");
-       
-
-      /* Center and scale the image nicely */
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+    background:linear-gradient(0deg, rgba(29, 55, 110, 0.73), rgba(8, 41, 57, 0.566)), url("../public/images/tour-top-img-1.png"); 
+    //background: url("../public/images/tour-top-img-1.png");       
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .navBar{
     text-align: center;
@@ -51,7 +50,7 @@
   }
   .info-logo{
     margin-right: 15px;
-    color: rgb(37, 70, 117);
+    color: rgb(14, 73, 101);
     font-size: 18px;
   }
   .info-text{
@@ -150,6 +149,14 @@
   }
 }
 
+.img-hover{
+  cursor: pointer;
+}
+.img-hover:hover{
+  box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+}
 
 // BTN CSS
 .wrapper{
@@ -185,7 +192,7 @@
   left: 0;
   width: 0;
   height: 100%;
-  background: #ff6a00;
+  background: #18858f;
   transition: all .35s;
 }
 

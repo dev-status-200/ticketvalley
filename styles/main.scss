@@ -789,11 +789,11 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   padding-bottom: 50px;
 }
 .search-box-container{
-  transition-duration: 100ms;
+  transition-duration: 200ms;
   border-radius: 10px 10px 10px 10px;
 }
 .search-box-container:hover{
-  transition-duration: 100ms;
+  transition-duration: 200ms;
   box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
@@ -828,6 +828,10 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   color: white;
   border-radius: 5px;
   font-size: 12px;
+}
+.search-box-btn:hover{
+  transition-duration: 100ms;
+  background-color: #063a4dea;
 }
 
 .signin-bg{

@@ -27,7 +27,7 @@ const Tours = ({records, index, pages, pagination, price, category}) => {
                     <span className='fs-10 silver-txt'>{"("}100+ reviews{")"}</span>
                     <div className='px-2'>
                     <div className='mt-3' style={{float:'left', fontWeight:900, fontSize:18}}>{parseFloat(x.price).toFixed(2)} AED</div>
-                    <Link href={`/product/${x.id}`} className='mt-3 search-box-btn px-3 py-2' style={{float:'right'}}
+                    <Link href={`/product/${x.id}`} className='mt-3 search-box-btn px-3 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
                         //onClick={()=>router.push(`/product/${x.id}`)}
                     >BOOK NOW</Link>
                     </div>
