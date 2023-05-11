@@ -11,14 +11,14 @@ const TourSearchBar = () => {
     const [ date, setDate ] = useState("");
     const cities = {
         uae:[
-            {name:"Abu Dhabi", img:"dropdowns/Abu-Dhabi.PNG"},
-            {name:"Dubai City", img:"dropdowns/Dubai-City.PNG"},
-            {name:"Fujairah", img:"dropdowns/Fujairah.PNG"},
-            {name:"Rais-Al-Khaimah", img:"dropdowns/Rais-Al-Khaimah.PNG"},
-            {name:"Sharjah", img:"dropdowns/Sharjah.PNG"},
-            {name:"Ajman", img:"dropdowns/Ajman.PNG"},
+            {name:"Abu Dhabi", img:"dropdowns/Abu-Dhabi.png"},
+            {name:"Dubai City", img:"dropdowns/Dubai-City.png"},
+            {name:"Fujairah", img:"dropdowns/Fujairah.png"},
+            {name:"Rais-Al-Khaimah", img:"dropdowns/Rais-Al-Khaimah.png"},
+            {name:"Sharjah", img:"dropdowns/Sharjah.png"},
+            {name:"Ajman", img:"dropdowns/Ajman.png"},
         ],
-        eur:[{name:"Paris", img:"dropdowns/Paris.PNG"}]
+        eur:[{name:"Paris", img:"dropdowns/Paris.png"}]
     }
 
     const DropShow = () => {
