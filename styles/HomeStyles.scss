@@ -1,173 +1,176 @@
 .home-styles{
-    // .hero{
-    //     background: url("../public/images/hero.png");
-    //     height: 96vh; 
 
-    //     /* Center and scale the image nicely */
-    //     background-position: center;
-    //     background-repeat: no-repeat;
-    //     background-size: cover;
-    // }
-
-    .activity-bg{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/images/search-activities-bg.jpg"); }
-    .theme{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/theme.jpg"); }
-    .about-us{ background:linear-gradient(0deg, rgba(34, 39, 77, 0), rgba(93, 14, 60, 0.434)), url("../public/images/aboutmain.jpg"); }
-    .water{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/water.jpg"); }
-    .city{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/city.jpg"); }
-    .luxury{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/luxury.jpeg"); }
-    .adv{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/adventure.jpg"); }
-    .activity{
-        height: 33vh; 
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    .empty-bg{
-        height: 32vh; 
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
-      
-      bottom: -5px;
-    }
-    .navBar{
-      text-align: center;
-    }
-    .navLink{
-      display: inline-block;
-      min-width: 100px;
-      text-decoration: none;
-      color: white;
+  .activity-bg{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/images/search-activities-bg.jpg"); }
+  .theme{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/theme.jpg"); }
+  .about-us{ background:linear-gradient(0deg, rgba(34, 39, 77, 0), rgba(93, 14, 60, 0.434)), url("../public/images/aboutmain.jpg"); }
+  .water{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/water.jpg"); }
+  .city{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/city.jpg"); }
+  .luxury{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/luxury.jpeg"); }
   
-      font-size: 16px;
-      font-weight: 600;
+  .adv{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/adventure.jpg"); }
+  .search-bg{ 
+    height: 150vh; 
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.73), rgba(255, 255, 255, 0.746)), url("../public/activity-bgs/search-bg.PNG"); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .activity{
+    height: 33vh; 
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .empty-bg{
+    height: 32vh; 
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {  
+    bottom: -5px;
+  }
+
+  .navBar{
+    text-align: center;
+  }
+
+  .navLink{
+    display: inline-block;
+    min-width: 100px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.52);
+  }
+
+  .dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    min-width: 100px;
+    max-width: 100px;
+    font-weight: 600;
+  }
+
+  .dropbtn:hover{
+    color: rgb(156, 156, 156);
+  }
+    
+  .dropup {
+    position: relative;
+    display: inline-block;
+  }
   
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.52);
-    }
+  .dropup-content {
+    display: none;
+    position: absolute;
+    background-color: #211c1c;
+    min-width: 180px;
+    z-index: 1;
+    left: 20px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+  }
+  
+  .dropup-content .links {
+    color: white;
+    padding-left: 20px;
+    padding-top: 5px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .links:hover{
+    cursor: pointer;
+    color: grey;
+  }
+  
+  .dropup:hover .dropup-content {
+    display: block;
+  }
 
+  .hero-cont{
+    padding-top: 100px;
+    padding-right: 30px;
+  }
 
-    .dropbtn {
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        background-color: rgba(255, 255, 255, 0);
-        min-width: 100px;
-        max-width: 100px;
-        font-weight: 600;
-    }
-    .dropbtn:hover{
-        color: rgb(156, 156, 156);
-    }
-      
-      .dropup {
-        position: relative;
-        display: inline-block;
-      }
-      
-      .dropup-content {
-        display: none;
-        position: absolute;
-        background-color: #211c1c;
-        min-width: 180px;
-        z-index: 1;
-        left: 20px;
-        padding-bottom: 10px;
-        padding-top: 5px;
-      }
-      
-      .dropup-content .links {
-        color: white;
-        padding-left: 20px;
-        padding-top: 5px;
-        text-align: left;
-        text-decoration: none;
-        display: block;
-      }
-      .links:hover{
-        cursor: pointer;
-        color: grey;
-      }
-      
-      .dropup:hover .dropup-content {
-        display: block;
-      }
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+    
+  .swiper-slide {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-      .hero-cont{
-        padding-top: 100px;
-        padding-right: 30px;
-      }
+  .swiper-slide img {
+    zoom: 100%;
+  }
+  
+  .card-heading{
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(49, 49, 49);
+  }
+  
+  .card-price{
+    float: right;
+    font-weight: 700;
+    font-size: 25px;
+    color: #424141;
+  }
+  
+  .gold{
+    color: goldenrod;
+  }
 
-    .swiper {
-        width: 100%;
-        height: 100%;
-    }
-      
-    .swiper-slide {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .swiper-slide img {
-        zoom: 100%;
-    }
-      
-    .card-slide{
-    }
-    .card-heading{
-        font-weight: 700;
-        font-size: 20px;
-        color: rgb(49, 49, 49);
-    }
-    .card-price{
-        float: right;
-        font-weight: 700;
-        font-size: 25px;
-        color: #424141;
-    }
-    .gold{
-        color: goldenrod;
-    }
-    .border-btm{
-        border-bottom: 8px solid rgb(13, 109, 107);
-    }
+  .border-btm{
+    border-bottom: 8px solid rgb(13, 109, 107);
+  }
 
-    .why-us-section{
-      //TOUR
-      background: url("../public/images/bg-004.png");
-      height: 100%;
+  .why-us-section{
+    //TOUR
+    background: url("../public/images/bg-004.png");
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
-      /* Center and scale the image nicely */
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    .section-bg{
-      //TOUR
-      background: url("../public/images/bg-001.png");
+  .section-bg{
+    //TOUR
+    background: url("../public/images/bg-001.png");
+    /* Center and scale the image nicely */
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
-      /* Center and scale the image nicely */
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+  .detail-btn{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(52, 99, 179);
+    padding: 8px 18px 8px 18px;
+    border-radius: 25px;
+  }
 
-    .detail-btn{
-      text-decoration: none;
-      color: white;
-      background-color: rgb(52, 99, 179);
-      padding: 8px 18px 8px 18px;
-      border-radius: 25px;
-    }
+  .tour-filters{
+    background-color: rgba(17, 99, 112, 0.483);
+    padding: 15px 30px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+  }
 
-    .tour-filters{
-      background-color: rgba(219, 219, 219, 0.895);
-      padding: 25px 30px;
-      font-size: 18px;
-      color: rgb(35, 35, 35);
-    }
-    .tour-fltr-locate{
-      background-color: white;
-    }
+  .tour-fltr-locate{
+    background-color: white;
+  }
 }

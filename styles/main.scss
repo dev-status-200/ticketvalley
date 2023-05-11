@@ -84,6 +84,7 @@ body {
 .fs-33 { font-size: 33px!important; }
 .fs-34 { font-size: 34px!important; }
 .fs-35 { font-size: 35px!important; }
+.fs-40 { font-size: 40px!important; }
 .fs-45 { font-size: 45px!important; }
 .fs-55 { font-size: 55px!important; }
 .fs-60 { font-size: 60px!important; }
@@ -442,6 +443,10 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   -webkit-filter: contrast(111%);
   -webkit-filter: saturate(2.5);
 }
+.filter-2{
+  -webkit-filter: contrast(99%);
+  -webkit-filter: saturate(1.7);
+}
 
 .overlay
 {
@@ -784,14 +789,14 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   padding-bottom: 50px;
 }
 .search-box-container{
-  transition-duration: 300ms;
+  transition-duration: 100ms;
   border-radius: 10px 10px 10px 10px;
 }
 .search-box-container:hover{
-  transition-duration: 300ms;
+  transition-duration: 100ms;
   box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
--webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
 }
 .search-box-img {
   border-radius: 10px 10px 0px 0px;
@@ -806,7 +811,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   cursor: pointer;
   //display: inline-block;
   margin: 10px 10px;
-  background-color: #1795c3ea;
+  background-color: #0d6788ea;
   height: 50px;
   width: 50px;
   text-align: center;
@@ -816,11 +821,28 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 .search-page:hover{
   transition-duration: 300ms;
-  background-color: #147ba1ea;
+  background-color: #094c64ea;
 }
 .search-box-btn{
-  background-color: #147ba1ea;
+  background-color: #0d6788ea;
   color: white;
-  border-radius: 7px;
+  border-radius: 5px;
   font-size: 12px;
+}
+
+.signin-bg{
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background-color: rgb(18, 44, 148);
+  //text-align: center;
+  color: white;
+}
+.subscribe-btn{
+  color: white;
+  background-color: rgb(11, 28, 95);
+  padding: 20px;
+  font-size: 25px;
+  font-weight: bolder;
+  text-align: center;
+  cursor: pointer;
 }

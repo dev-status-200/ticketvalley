@@ -12,9 +12,9 @@ const Footer = () => {
                     <Col className='px-3'>
                         <h6 className='heading'>CONTACT INFO</h6>
                         <div className='my-4 mt-5 wh-txt'>
-                        <span className=''><FaPhoneAlt/></span><span className='fs-18 mx-3'>+41-21-634-05-05</span>
+                        <span className=''><FaPhoneAlt style={{position:'relative', bottom:2}}/></span><span className='fs-18 mx-2'>+41-21-634-05-05</span>
                         <div className='mb-4'> 
-                            <span className=''><MdEmail/></span><span className='fs-18 mx-3'>Booking@ticketvalley.com</span>
+                            <span className=''><MdEmail style={{position:'relative', bottom:2}}/></span><span className='fs-18 mx-2'>info@ticketvalley.com</span>
                         </div>
                         <div>
                             <p className='grey-txt fs-18'>

@@ -2,32 +2,24 @@ import React,{ useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CiLocationOn } from "react-icons/ci";
-import { IoLocation } from "react-icons/io5";
-import { Rate, ConfigProvider, Button, Select } from 'antd';
-import { useRouter } from 'next/router';
+import { ConfigProvider, Slider, Select, Checkbox } from 'antd';
+import aos from "aos";
+import SignUp from '../../Shared/SignUp';
+import Tours from './Tours';
 
 const Search = ({destination, city, date, tourData}) => {
   
-  const router  = useRouter();
   const [records, setRecords] = useState([]);
   const [index, setIndex] = useState(1);
   const [pages, setPages] = useState(0);
   const [pagination, setPagination] = useState(false);
+  const [price, setPrice] = useState(3000);
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
-    setRecords(tourData.result);
-    if(tourData.result.length>9){
-      setPagination(true)
-      let total = tourData.result.length/9;
-      if(total > parseInt(total)){
-        total= parseInt(total) + 1;
-      }
-      setPages(total);
-    }else {
-      setPagination(false)
-    }
-  }, [])
-  
+    aos.init({duration:300})
+    setRange(price, category);
+  }, [price, category])
   const cities = {
     uae:[
         {name:"Abu Dhabi", img:"dropdowns/Abu-Dhabi.PNG"},
@@ -39,10 +31,45 @@ const Search = ({destination, city, date, tourData}) => {
     ],
     eur:[{name:"Paris", img:"dropdowns/Paris.PNG"}]
   }
-
-  const handleChange = () => {
+  const setRange = (gottenPrice, cat) => {
+    //console.log(tourData.result)
+    let tempTours = [];
+    tourData.result.forEach((x)=>{
+      if(parseFloat(gottenPrice) >= parseFloat(x.TourOptions[0].adult_price)){
+        if(cat!=''){
+          if(x.category==cat){
+            console.log('Inside Cat')
+            tempTours.push({...x, price:parseFloat(x.TourOptions[0].adult_price)})
+          }
+        }else{
+          console.log('Outside Cat')
+          tempTours.push({...x, price:parseFloat(x.TourOptions[0].adult_price)})
+          //console.log(x.category)
+        }
+      }
+    });
+    Object.keys(category).forEach((x)=>{
+      tempTours = tempTours.filter((y)=>{
+        return tempTours
+      })
+    })
+    setRecords(tempTours);
+    if(tempTours.length>9){
+      setPagination(true)
+      let total = tempTours.length/9;
+      if(total > parseInt(total)){
+        total= parseInt(total) + 1;
+      }
+      setPages(total);
+    }else {
+      setPagination(false)
+    }
+    setIndex(1)
   }
-
+  const adjustCategory = (cat) => {
+    setCategory(category==cat?'':cat)
+  } 
+  
   return (
     <div className='home-styles'>
     <div className={`activity-bg activity py-4`}>
@@ -72,138 +99,155 @@ const Search = ({destination, city, date, tourData}) => {
       </div>
       <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>SEARCH ACTIVITIES</h1>
     </div>
-    <div className='py-5'>
-        <Container>
-            <Row>
-                <Col md={3} className="px-4">
-                    <div className='tour-filters'>
-                        <div><b>Select Location</b></div>
-                        <Row className='tour-fltr-locate px-0 py-3 my-2'>
-                            <Col md={2}><CiLocationOn className='' size={25} style={{position:'relative', top:5}} /></Col>
-                            <Col md={10} className='fs-12'>
-                              <div><b>Destination</b></div>
-                                <ConfigProvider
-                                  theme={{
-                                    token: {
-                                      colorPrimary: '#147ba1ea',
-                                      borderRadius:0
-                                    },
-                                  }}
-                                >
-                                  <Select style={{minWidth:140}} defaultValue={destination} size='small'
-                                    options={[
-                                      {
-                                        value: 'uae',
-                                        label: 'UAE',
-                                      },
-                                      {
-                                        value: 'eur',
-                                        label: 'EUR',
-                                      }
-                                    ]} 
-                                    onChange={(e)=>{
-                                      router.push({
-                                        pathname: '/search',
-                                        query: { destination:e, city:city, date:date }
-                                      })
-                                    }}
-                                    />
-                                </ConfigProvider>
-                            </Col>
-                            <Col md={2} className='mt-3'><CiLocationOn className='' size={25} style={{position:'relative', top:5}} /></Col>
-                            <Col md={10} className='mt-3 fs-12'>
-                              <div><b>City</b></div>
-                                <ConfigProvider
-                                  theme={{
-                                    token: {
-                                      colorPrimary: '#147ba1ea',
-                                      borderRadius:0
-                                    },
-                                  }}
-                                >
-                                  <Select  style={{minWidth:140}} defaultValue={city} size='small'
-                                    onChange={(e)=>{
-                                      router.push({
-                                        pathname: '/search',
-                                        query: { destination:destination, city:e, date:date }
-                                      })
-                                    }}
-                                    options={[
-                                      {
-                                        value: 'Abu Dhabi',
-                                        label: 'Abu Dhabi',
-                                      },
-                                      {
-                                        value: 'Dubai City',
-                                        label: 'Dubai City',
-                                      },
-                                      {
-                                        value: 'Fujairah',
-                                        label: 'Fujairah',
-                                      },
-                                      {
-                                        value: 'Rais-Al-Khaimah',
-                                        label: 'Rais-Al-Khaimah'
-                                      },
-                                      {
-                                        value: 'Sharjah',
-                                        label: 'Sharjah'
-                                      },
-                                      {
-                                        value: 'Ajman',
-                                        label: 'Ajman'
-                                      },
-                                    ]} />
-                                </ConfigProvider>
-                            </Col>
-                        </Row>
-                    </div>
-                </Col>
-                <Col md={9} style={{height:1100}}>
-                  {records.length>0 &&<>
-                  <Row>
-                    {records.slice(((index-1)*9), index*9).map((x, i)=>{
-                      return(
-                      <Col md={4} className='px-1 search-tour-box'>
-                        <div className='search-box-container mx-1'>
-                          <img className='search-box-img' src={x.main_image} height={150} width={"100%"} />
-                          <div className='p-2 search-bob-bottom'>
-                            <div className='fs-15 py-1'><IoLocation style={{position:'relative', bottom:3}} /> <b>{x.title}</b></div>
-                            <hr className='px-5 mt-1 mb-0' />
-                            <Rate disabled  defaultValue={4.5} style={{color:'#f0a800', cursor:'pointer', fontSize:12}} className='mx-2' /> 
-                            <span className='fs-10 silver-txt'>{"("}100+ reviews{")"}</span>
-                            <div className='px-2'>
-                              <div className='mt-3' style={{float:'left', fontWeight:900, fontSize:18}}>{parseFloat(x.TourOptions[0].adult_price).toFixed(2)} AED</div>
-                              <div className='mt-3 search-box-btn px-3 py-1' style={{float:'right'}}>BOOK NOW</div>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                      )
-                    })}
-                  </Row>
-                  {pagination &&<>
-                    <hr className='p-0 m-0' />
-                    <hr className='p-0 m-0' />
-                    <div>
-                    <div className='text-center'>
-                      <button className='search-page' onClick={()=>setIndex(index!=1?index-1:1)}>PREV</button>
-                      <button className='search-page'>{index}</button>
-                      <button className='search-page' onClick={()=>setIndex(index!=pages?index+1:pages)}>NEXT</button>
-                    </div>
-                    </div>
-                  </>}
-                  </>}
-                  {records.length==0 && 
-                  <div style={{backgroundColor:'white', color:'grey'}} className='p-5'>
-                    <h3>No Similar Activity Found !</h3>
-                    <p>Try search something different</p>
+    <div className='py-5 search-bg' data-aos="fade-up">
+      <Container className='px-1 pt-3'>
+        <Row>
+          <Col md={3} className="" style={{paddingRight:10}}>
+              <div className='tour-filters'>
+                  <div className=''>
+                    <b><CiLocationOn className='' size={25} style={{position:'relative', bottom:2}} /> Select Location</b>
                   </div>
-                  }
-                </Col>
-            </Row>
-        </Container>
+                  <div className=''>
+                  <Row className='tour-fltr-locate px-3 py-3 my-2'>
+                      <Col md={12} className='fs-12 '>
+                        <div><b>Destination</b></div>
+                          <ConfigProvider
+                            theme={{
+                              token: {
+                                colorPrimary: '#147ba1ea',
+                                borderRadius:0
+                              },
+                            }}
+                          >
+                            <Select style={{minWidth:"100%"}} defaultValue={destination} 
+                              options={[
+                                {
+                                  value: 'uae',
+                                  label: 'UAE',
+                                },
+                                {
+                                  value: 'eur',
+                                  label: 'EUR',
+                                }
+                              ]} 
+                              onChange={(e)=>{
+                                router.push({
+                                  pathname: '/search',
+                                  query: { destination:e, city:city, date:date }
+                                })
+                              }}
+                              />
+                          </ConfigProvider>
+                      </Col>
+                      <Col md={12} className='mt-3 fs-12'>
+                        <div><b>City</b></div>
+                          <ConfigProvider
+                            theme={{
+                              token: {
+                                colorPrimary: '#147ba1ea',
+                                borderRadius:0
+                              },
+                            }}
+                          >
+                            <Select  style={{minWidth:"100%"}} defaultValue={city} 
+                              onChange={(e)=>{
+                                router.push({
+                                  pathname: '/search',
+                                  query: { destination:destination, city:e, date:date }
+                                })
+                              }}
+                              options={[
+                                {
+                                  value: 'Abu Dhabi',
+                                  label: 'Abu Dhabi',
+                                },
+                                {
+                                  value: 'Dubai City',
+                                  label: 'Dubai City',
+                                },
+                                {
+                                  value: 'Fujairah',
+                                  label: 'Fujairah',
+                                },
+                                {
+                                  value: 'Rais-Al-Khaimah',
+                                  label: 'Rais-Al-Khaimah'
+                                },
+                                {
+                                  value: 'Sharjah',
+                                  label: 'Sharjah'
+                                },
+                                {
+                                  value: 'Ajman',
+                                  label: 'Ajman'
+                                },
+                              ]} />
+                          </ConfigProvider>
+                      </Col>
+                  </Row>
+                  </div>
+
+              </div>
+              <div>
+              <h5 className='mt-4 mb-0 blue-txt px-1'><b>Price</b></h5>
+              <h6 className='mt-1 px-1'>0 - {price}</h6>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: '#147ba1ea',
+                    borderRadius:0
+                  },
+                }}
+              >
+                <Slider className='' defaultValue={price} max={3000} onChange={(e)=>setPrice(e)} />
+              </ConfigProvider>
+              </div>
+              <div className='px-1'>
+              <h5 className='mt-4 mb-2 blue-txt'><b>Duration</b></h5>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: '#147ba1ea',
+                    padding:50,
+                    height:40,
+                    borderRadius:0,
+                    size:'large'
+                  },
+                }}
+              >
+                <Checkbox><h6>Upto 1 hour</h6></Checkbox><br/>
+                <Checkbox><h6>1 to 4 hours</h6></Checkbox><br/>
+                <Checkbox><h6>4 hours to 1 day</h6></Checkbox><br/>
+              </ConfigProvider>
+              </div>
+              <div className='px-1'>
+              <h5 className='mt-4 mb-2 blue-txt'><b>Category</b></h5>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: '#147ba1ea',
+                    padding:50,
+                    height:40,
+                    borderRadius:0,
+                    size:'large'
+                  },
+                }}
+              >
+                <Checkbox checked={category=="Theme Parks"?true:false}  onChange={()=>adjustCategory("Theme Parks")}><h6>Theme Parks</h6></Checkbox><br/>
+                <Checkbox checked={category=="City Tours"?true:false}   onChange={()=>adjustCategory("City Tours")}><h6>City Tours</h6></Checkbox><br/>
+                <Checkbox checked={category=="Luxury Tours"?true:false} onChange={()=>adjustCategory("Luxury Tours")}><h6>Luxury Tours</h6></Checkbox><br/>
+                <Checkbox checked={category=="Adventure"?true:false}    onChange={()=>adjustCategory("Adventure")}><h6>Adventure</h6></Checkbox><br/>
+                <Checkbox checked={category=="Water Parks"?true:false}  onChange={()=>adjustCategory("Water Parks")}><h6>Water Parks</h6></Checkbox><br/>
+              </ConfigProvider>
+              </div>
+          </Col>
+          <Col md={9} style={{height:1100}}>
+              <Tours records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} />
+          </Col>
+        </Row>
+      </Container>
     </div>
+    <SignUp/>
     </div>
   )
 }
