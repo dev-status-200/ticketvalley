@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Spinner } from 'react-bootstrap';
+import PackagesInfo from "./PackagesInfo";
 import ImageUpload from './ImageUpload';
 import React, {useEffect} from 'react';
 import DetailsOne from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
-import { Tabs } from 'antd';
 import Router from 'next/router';
+import { Tabs } from 'antd';
 import axios from 'axios';
-import PackagesInfo from "./PackagesInfo";
 
 const CreateOrEdit = ({state, dispatch, baseValues}) => {
 
@@ -43,7 +43,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       fieldName: field, 
       payload: value
     })
-  }
+  };
 
   function uploadImage(x){
     let value = ''
@@ -60,7 +60,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         .catch(err => {});
 
     return value;
-  }
+  };
 
   const makeString = (data) => {
     let result = "";
@@ -68,7 +68,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         result = i==0?result+`${x}` :result + "//" + `${x}`
     })
     return result
-}
+  };
 
   const onSubmit = async(data) => {
     dispatch({type:'field', fieldName:'load', payload:true})
@@ -107,7 +107,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         dispatch({type:'field', fieldName:'load', payload:false})
         dispatch({type: 'modalOff'})
       }), 3000)
-  }
+  };
 
   const onEdit = async(data) => {
     // state.packages.forEach((x)=>{
@@ -214,5 +214,4 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     </div>
   )
 }
-
 export default CreateOrEdit

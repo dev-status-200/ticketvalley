@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { Container, Row, Col, Table  } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
 import { Rate, Affix, Drawer } from 'antd';
-import { IoCalendarSharp } from "react-icons/io5";
+import { IoCalendarSharp ,IoBagCheckOutline } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
+import { MdShoppingCart } from "react-icons/md";
 import { FaShuttleVan } from "react-icons/fa";
 import { IoFlashSharp } from "react-icons/io5";
 import { RiExchangeFundsLine } from "react-icons/ri";
-import { TbLanguageHiragana } from "react-icons/tb";
+import { TbArrowBackUp } from "react-icons/tb";
 import Router from 'next/router';
 import Aos from 'aos';
 import Book from './Book';
@@ -80,7 +81,7 @@ const Product = ({id, tourData, transportData}) => {
           </div>
           <Link className='navLink' href='/about'>ABOUT US</Link>
         </div>
-        <div className='my-5 py-2'></div>
+        <div className='my-2 py-2'></div>
       </div>
       {Object.keys(tour).length>0 &&
       <div>
@@ -125,15 +126,27 @@ const Product = ({id, tourData, transportData}) => {
             </div>
 
             {/* <Book tour={tour} transport={transport} /> */}
-
-            {!added && <div className="wrapper mt-4" onClick={showDrawer}>
+            {!added && 
+            <div className="wrapper mt-4" onClick={showDrawer}>
               <div className='a'><span>BOOK NOW</span></div>
-            </div>}
+            </div>
+            }
             {added && 
-                <div>
-                    <h6 className='mt-4'>Product Already Added!</h6>
-                    <button className='already-in-cart' onClick={()=>Router.push("/cart")}>Go To Cart</button>
-                </div>
+            <Row> 
+              <hr/>
+              <Col>
+                <button className='view-more' onClick={()=>Router.push("/cart")}>
+                  <TbArrowBackUp style={{position:'relative', bottom:1}} size={18} />
+                  <span className='mx-1'>View More</span>
+                </button>
+              </Col>
+              <Col>
+                <button className='checkout-now' onClick={()=>Router.push("/cart")}>
+                  <MdShoppingCart style={{position:'relative', bottom:2}} />
+                  <span className='mx-1'>Checkout Now</span>
+                </button>
+              </Col> 
+            </Row>
             }
 
             <Drawer style={{padding:'', margin:0, width:550, position:'relative', right:70}}
@@ -142,8 +155,7 @@ const Product = ({id, tourData, transportData}) => {
               onClose={onClose}
               open={open}
               width={470}
-            >
-              <Book tour={tour} transport={transport} setOpen={setOpen} />
+            ><Book tour={tour} transport={transport} setOpen={setOpen} />
             </Drawer>
           </div>
         </div>

@@ -7,13 +7,14 @@
 @import 'Cart-styles.scss';
 @import 'sliderCSS.scss';
 @import 'SearchBar.scss';
-
+@import 'svg.scss';
+*{
+  font-family: 'Jost', sans-serif;
+}
 html,
 body {
-  font-family: 'Alata', sans-serif!important;
   overflow-x: hidden;
 }
-
 .cur{
     cursor: pointer;
 }
@@ -52,7 +53,9 @@ body {
 
 .wh-txt{ color: white!important; }
 .grey-txt{ color: rgb(85, 85, 85)!important; }
-.black-txt{ color: rgb(30, 30, 30)!important; }
+.black-txt{ color: rgb(63, 63, 63)!important; }
+.silver-2-txt{ color: rgb(158, 158, 158)!important; }
+.silver-3-txt{ color: rgb(130, 130, 130)!important; }
 .silver-txt{ color: silver!important; }
 .wh-txt{ color: white!important; }
 .blue-txt{ color: rgb(13, 109, 107)!important; }
@@ -338,14 +341,34 @@ body {
   font-size: 23px;
 }
 
-.already-in-cart{
+.view-more{
   width: 100%;
-  background-color: rgba(139, 200, 139, 0.655);
-  border: 1px solid green;
-  padding: 10px;
+  background-color: rgb(0, 50, 158);
+  border: 1px solid rgb(9, 37, 99);
+  padding: 10px 5px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 4px;
+  color:white;
+}
+.view-more:hover{
+  transition-duration: 300ms;
+  background-color: rgb(11, 40, 103);
+}
+
+.checkout-now{
+  width: 100%;
+  background-color: rgba(6, 152, 26, 0.655);
+  border: 1px solid rgb(8, 78, 8);
+  padding: 10px 5px;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 4px;
+  color:white;
+}
+.checkout-now:hover{
+  transition-duration: 300ms;
+  background-color: rgba(0, 91, 12, 0.655);
 }
 
 .date-list-boundary{
@@ -601,13 +624,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   font-size: 20px;
   border: 1px solid white;
   border-radius: 2px;
-  padding: 3px;
-}
-
-.flag-hov:hover{
-  transition-duration: 300ms;
-  border: 1px solid rgb(121, 164, 220);
-  background-color: rgba(176, 209, 253, 0.322);
+  //padding: 3px;
 }
 
 .custom-btn-02{
@@ -803,7 +820,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 .search-bob-bottom{
   background-color: white;
-  height: 130px;
+  height: 120px;
   border-radius: 0px 0px 10px 10px;
 }
 

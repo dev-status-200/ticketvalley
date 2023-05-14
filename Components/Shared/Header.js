@@ -42,23 +42,22 @@ const Header = () => {
 
   const adjustCurrency = (curr) => {
     dispatch(changeCurrency({currency:curr, rate:currencyList[`${curr}`]}));
-    console.log(currencyList);
   }
 
   return (
-    <div className='header-styles'>
-        <Row className='px-5 pt-2 m-0 white-bg' style={{paddingBottom:12}}>
+    <div className='header-styles silver-3-txt'>
+        <Row className='px-5 pt-1 m-0 white-bg' style={{paddingBottom:5}}>
             <Col md={6}>
-                <div>
-                    <span style={{fontSize:13}}><FaPhoneAlt/></span>
+                <div style={{fontSize:11}}>
+                    <span ><FaPhoneAlt/></span>
                     <span className='mx-2' style={{position:'relative', top:2}}>+41 21 634 05 05</span>
                     <span style={{marginLeft:1, marginRight:10, position:'relative', top:1}}>|</span>
-                    <span style={{fontSize:13, position:'relative', bottom:2}}><FaRegEnvelopeOpen/></span>
-                    <span className=' mx-2' style={{position:'relative', top:1}}>booking@ticketsvalley.com</span>
+                    <span style={{position:'relative', bottom:0}}><FaRegEnvelopeOpen/></span>
+                    <span className=' mx-2' style={{position:'relative', top:2}}>booking@ticketsvalley.com</span>
                 </div>
             </Col>
             <Col md={6}>
-                <div style={{float:'right'}}>
+                <div style={{float:'right', fontSize:11}}>
                     <Popover placement="bottom" content={
                         <div className='text-center' style={{minHeight:60}}>
                             <div>Select Currency</div>
@@ -70,13 +69,13 @@ const Header = () => {
                             <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span className="fi fi-in"></span></span>
                         </div>
                     } trigger="click">
-                        <span className='cur mx-2' style={{fontSize:15}}><GrCurrency/></span>
+                        <span className='cur mx-2'><GrCurrency size={15} color='yellow'/></span>
                     </Popover>
-                    <span className='cur mx-1' style={{fontSize:15}} onClick={()=>router.push("/cart")}><HiShoppingCart/></span>
-                    <span className='mx-2' style={{fontSize:15}}> | </span>
-                    <span className='cur mx-1' style={{fontSize:13}}><SiFacebook/></span>
-                    <span className='cur mx-1' style={{fontSize:13}}><SiInstagram/></span>
-                    <span className='cur mx-1' style={{fontSize:13}}><SiTwitter/></span>
+                    <span className='cur mx-1'onClick={()=>router.push("/cart")}><HiShoppingCart size={15}/></span>
+                    <span className='mx-2'> | </span>
+                    <span className='cur mx-1'><SiFacebook/></span>
+                    <span className='cur mx-1'><SiInstagram/></span>
+                    <span className='cur mx-1'><SiTwitter/></span>
                     {!session &&
                     <span className='cur mx-2' style={{position:'relative', top:2}}
                         onClick={()=>{
@@ -106,8 +105,8 @@ const Header = () => {
                     </span>
                     </>
                     }
-                    {!session && <span className=''>|</span>}
-                    {!session && <Link className='cur black-txt mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href="/login">Agent Login</Link>}
+                    {!session && <span className='' style={{position:'relative', top:2}}>|</span>}
+                    {!session && <Link className='cur silver-3-txt mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href="/login">Agent Login</Link>}
                 </div>
             </Col>
         </Row>

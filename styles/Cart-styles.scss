@@ -10,13 +10,9 @@
     }
     .cart-item{
         margin-bottom: 5px;
-        padding: 10px;
         cursor: pointer;
-        border-radius: 15px;
-    }
-    .cart-item:hover{
-        transition-duration: 300ms;
-        background-color: rgba(197, 196, 196, 0.121);
+        border-radius: 5px;
+        border: 1px solid rgb(210, 210, 210);
     }
     .close-cart-btn{
         color: rgb(159, 40, 40);
@@ -32,6 +28,10 @@
         background-color: rgb(159, 40, 40);
     }
     .pay-screen{
-        background-color: bisque;
+        border-left: 2px solid rgb(222, 222, 222);
+    }
+
+    .cart-item-name{
+        color: rgb(16, 125, 125);
     }
 }

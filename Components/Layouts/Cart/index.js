@@ -113,135 +113,129 @@ const Cart = () => {
     };
   return (
     <div className='cart-styles' style={{borderTop:"1px solid silver"}}>
-        <Container className='cart-box' fluid>
-        <Row>
-            <Col md={8} className="pt-4">
-            <Container className='px-5'>
-                <div className='mt-3'>
-                <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:24}}>
-                    <LeftCircleOutlined style={{position:'relative', bottom:0}} />
-                </Link>
-                </div>
-                {cart.length>0 &&
-                <>
-                {cart.map((x, i)=>{
-                return(
-                    <Row key={i} className="cart-item">
-                        <Col md={3} className="text-center py-3" style={{borderRight:"1px solid silver"}}>
-                            <img src={x.image} height={100} width={170} style={{borderRadius:5}} />
-                        </Col>
-                        <Col className="" md={9} >
-                        <div style={{float:'right'}}>
-                            <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {showIndivPrice(x.options)}</span>
-                            <CloseCircleOutlined className='close-cart-btn' 
-                                onClick={()=>showConfirm(x)}
-                            />
-                            <br/>
+    <Container className='cart-box' fluid>
+    <Row>
+        <Col md={8} className="pt-4">
+        <Container className='px-5 black-txt'>
+            <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:14}}>{"<"} Go Back</Link>
+            <div className='fs-30 fw-500 black-txt my-2'>Your Cart</div>
+            <p className='m-0 p-0'>{cart.length} Item Added</p>
+            {cart.length>0 &&
+            <>
+            {cart.map((x, i)=>{
+            return(
+                <Row key={i} className="cart-item mx-0">
+                    <Col md={2} className="py-3" >
+                        <img src={x.image} height={100} width={120} style={{borderRadius:5}} />
+                    </Col>
+                    <Col className="px-4 my-3" md={10} >
+                    <div style={{float:'right'}}>
+                        <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {showIndivPrice(x.options)}</span>
+                        <CloseCircleOutlined className='close-cart-btn' 
+                            onClick={()=>showConfirm(x)}
+                        />
+                        <br/>
+                    </div>
+                    <h5 className='fw-500 cart-item-name'>{x.name}</h5>
+                    {x.options.map((y, j)=>{
+                    return(
+                        <div key={j+i} className='fs-13 silver-2-txt'>
+                            <hr className='my-1' />
+                            <div className=''>
+                                Option: {y.name} {"("}{`${y.adult} Adult`}{y.child>0?`, ${y.child} Child`:""} {y.infant>0?`, Infant ${y.infant}`:""}{" )"}
+                            </div>
+                            <div>
+                                Transfer Type: {y.transfer} 
+                            </div>
+                            <div>
+                                {y.transfer!="No"?`Pickup Location: ${y.address} `:""}
+                            </div>
+                            
                         </div>
-                        <h5 className='fw-200'>{x.name}</h5>
-                        {
-                            x.options.map((y, j)=>{
-                                return(
-                                    <div key={j+i}>
-                                        <hr className='my-1' />
-                                        <div className=''>
-                                            Option: {y.name} {"("}{`${y.adult} Adult`}{y.child>0?`, ${y.child} Child`:""} {y.infant>0?`, Infant ${y.infant}`:""}{" )"}
-                                        </div>
-                                        <div>
-                                            Transfer Type: {y.transfer} 
-                                        </div>
-                                        <div>
-                                            {y.transfer!="No"?`Pickup Location: ${y.address} `:""}
-                                        </div>
-                                        
-                                    </div>
-                                )
-                            })
-                        }
+                    )})}
+                    </Col>
+                </Row>
+            )})}
+            <hr/>
+            <div style={{minHeight:90}}>
+                <div className='my-1' style={{float:'right'}}>
+                    <form onSubmit={ApplyPromo}>
+                    <Row>
+                        <Col md={3}>
+                            <button className='btn-custom' type="submit" disabled={load?true:false}>
+                                {load?<Spinner size='sm' className='mx-3' />:"Apply"}
+                            </button>
+                        </Col>
+                        <Col>
+                            <Input className='mx-2' 
+                                placeholder="Enter Promo" required 
+                                value={promo} onChange={(e)=>setPromo(e.target.value)} 
+                            />
                         </Col>
                     </Row>
-                )})}
-                <hr/>
-                <div style={{minHeight:90}}>
-                    <div className='my-1' style={{float:'right'}}>
-                        <form onSubmit={ApplyPromo}>
+                    </form>
+                    <hr/>
+                    {discountPrice>0 && 
+                    <h5 className='text-end'>
                         <Row>
-                            <Col md={3}>
-                                <button className='btn-custom' type="submit" disabled={load?true:false}>
-                                    {load?<Spinner size='sm' className='mx-3' />:"Apply"}
-                                </button>
-                            </Col>
-                            <Col>
-                                <Input className='mx-2' 
-                                    placeholder="Enter Promo" required 
-                                    value={promo} onChange={(e)=>setPromo(e.target.value)} 
-                                />
-                            </Col>
+                            <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
+                            <Col md={6} style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
                         </Row>
-                        </form>
-                        <hr/>
-                        {discountPrice>0 && 
-                        <h5 className='text-end'>
-                            <Row>
-                                <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
-                                <Col md={6} style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
-                            </Row>
-                            <hr className='my-0 mt-2' />
-                            <Row className='mt-3'>
-                                <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
-                                <Col md={6} style={{color:'#dd9613'}}><s > {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency}</Col>
-                                <Col md={12}><hr className='mt-2 mb-3' /></Col>
-                            </Row>
-                        </h5>
-                        }
-                        <h5 className='text-end' style={{fontWeight:400}}>Total {conversion.currency}</h5>
-                        <h2 style={{color:'green'}} className='text-end'>{(price*conversion.rate).toFixed(2)}</h2>
-                    </div>
-                </div>
-                </>
-                }
-                {cart.length==0 && 
-                <div>
-                    <Container className='py-5' data-aos='fade-up'>
-                        <Empty /> <h3 className='text-center fw-200 mt-5'>Cart Is Empty!</h3>
-                    </Container>
-                </div>
-                }
-            </Container>
-            </Col>
-            <Col md={4} className="pay-screen p-5">
-            {cart.length>0 &&
-                <>  
-                    {session && 
-                    <> 
-                        {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} />} 
-                    </> 
-                    }
-                    {!session &&
-                    <div className='text-center'>
-                        <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>
-                        <Row className='mt-4'>
-                            <Col></Col>
-                            <Col><div className='btn-custom' onClick={()=>{
-                                // This Logic sets the redirected URL to get back to this page
-                                if(Object.keys(router.query).length>0){ 
-                                    Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
-                                }
-                                else { 
-                                        Cookies.set("redirect",`${router.pathname}`) 
-                                }
-                                signIn();
-                            }}>Sign In</div></Col>
-                            <Col></Col>
+                        <hr className='my-0 mt-2' />
+                        <Row className='mt-3'>
+                            <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
+                            <Col md={6} style={{color:'#dd9613'}}><s > {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency}</Col>
+                            <Col md={12}><hr className='mt-2 mb-3' /></Col>
                         </Row>
-                    </div>
+                    </h5>
                     }
-                </>
+                    <h5 className='text-end' style={{fontWeight:400}}>Total {conversion.currency}</h5>
+                    <h2 style={{color:'green'}} className='text-end'>{(price*conversion.rate).toFixed(2)}</h2>
+                </div>
+            </div>
+            </>
             }
-            {cart.length==0 &&<div className='cart-logged-in-warning'>Fill up cart to continue Checkout!</div>}
-            </Col>
-        </Row>
+            {cart.length==0 && 
+            <div>
+                <Container className='py-5' data-aos='fade-up'>
+                    <Empty /> <h3 className='text-center fw-200 mt-5'>Cart Is Empty!</h3>
+                </Container>
+            </div>
+            }
         </Container>
+        </Col>
+        <Col md={4} className="pay-screen p-5"> 
+        
+        {cart.length>0 && <>  
+            {session && 
+            <> 
+                {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} />} 
+            </> 
+            }
+            {!session &&
+            <div className='text-center'>
+                <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>
+                <Row className='mt-4'>
+                    <Col></Col>
+                    <Col><div className='btn-custom' onClick={()=>{
+                        // This Logic sets the redirected URL to get back to this page
+                        if(Object.keys(router.query).length>0){ 
+                            Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
+                        }
+                        else { 
+                                Cookies.set("redirect",`${router.pathname}`) 
+                        }
+                        signIn();
+                    }}>Sign In</div></Col>
+                    <Col></Col>
+                </Row>
+            </div>
+            }
+        </>}
+        {cart.length==0 &&<div className='cart-logged-in-warning'>Fill up cart to continue Checkout!</div>}
+        </Col>
+    </Row>
+    </Container>
     </div>
   )
 }

@@ -242,7 +242,7 @@ const Search = ({destination, city, date, tourData}) => {
               </div>
           </Col>
           <Col md={9} style={{height:1100}}>
-              <Tours records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} />
+              <Tours records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} />
           </Col>
         </Row>
       </Container>

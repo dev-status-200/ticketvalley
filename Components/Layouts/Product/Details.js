@@ -13,7 +13,7 @@ const Details = ({tour}) => {
 
   useEffect(() => {
     let tempImages = [...tour.more_images.split(",")];
-    tempImages.push(tour.main_image)
+    tempImages.unshift(tour.main_image)
     setImages(tempImages)
     setMainImage(tour.main_image)
   }, [tour])
@@ -25,7 +25,7 @@ const Details = ({tour}) => {
       <span className='mx-2 fs-12' style={{color:'grey'}}>{"("}3 Reviews{")"}</span> 
       <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> {tour.destination.toUpperCase()}, {tour.city}
       {/* <hr/> */}
-      <img className='my-3' src={mainImage} style={{borderRadius:15, width:'60vw'}} />
+      <img className='my-3' src={mainImage} style={{borderRadius:15, width:'60vw', height:400}} />
       <Row>
         {images.map((x, i)=>{
           return(
@@ -35,42 +35,39 @@ const Details = ({tour}) => {
           )
         })}
       </Row>
-      <div className='my-5'>
-        <h3 className='mt-3 blue-txt'><b>Tour Detail</b></h3>
-        <p className='fs-16 grey-txt'>
+      <div className='mt-4'>
+        <h3 className='blue-txt'><b>Tour Detail</b></h3>
+        <p className='fs-13 grey-txt'>
           {tour.tour_detail}
         </p>
       </div>
       <hr/>
-      <div className='my-5'>
-        <h3 className='mt-4 blue-txt'><b>Inclusions</b></h3>
+      <div className=''>
+        <h3 className='blue-txt'><b>Inclusions</b></h3>
 
         {tour.inclusions.split("//").map((x, i)=>{
           return(
           <Row key={i}>
-            <Col style={{minWidth:30, maxWidth:30}}><FiCheckSquare className='mx-1 mt-2 blue-txt' size={20} /></Col>
-            <Col className='my-1'><div className='fs-16 grey-txt'>{x}</div></Col>
+            <Col style={{minWidth:30, maxWidth:30}}>
+              <FiCheckSquare className='mx-1 mt-2 blue-txt' size={15} style={{position:'relative', bottom:2}} />
+            </Col>
+            <Col className='my-1'><div className='fs-13 grey-txt'>{x}</div></Col>
           </Row>
           )
         })}
       </div>
       <hr/>
-      <div className='my-5'>
-        <h3 className='mt-4 blue-txt'><b>Why Should I go for This?</b></h3>
+      <div className=''>
+        <h3 className=' blue-txt'><b>Why Should I go for This?</b></h3>
         {tour.why_shoulds.split("//").map((x, i)=>{
           return(
           <Row key={i}>
             <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1 blue-txt' size={20} /></Col>
-            <Col className='my-1'><div className='fs-14 grey-txt'>{x}</div></Col>
+            <Col className='my-1'><div className='fs-13 grey-txt'>{x}</div></Col>
           </Row>
           )
         })}
       </div>
-      {/* <hr/>
-      <div className='my-5'>
-        <h3 className='my-4'>More Pictures</h3>
-          <Carasoul images={tour.more_images}/>
-      </div> */}
       <hr/>
       <div className='my-5 py-2'>
         <h3 className='mt-4 blue-txt'><b>Timings</b></h3>
@@ -94,14 +91,15 @@ const Details = ({tour}) => {
         </Table>
       </div>
       <hr/>
-      <div className='my-5'>
-        <h3 className='mt-4 blue-txt'><b>Important Information</b></h3>
+      <div className=''>
+        <h3 className='blue-txt'><b>Important Information</b></h3>
         {
           tour.imp_infos.split("//").map((x, i)=>{
             return(
           <Row key={i}>
-            <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1 blue-txt' size={20} /></Col>
-            <Col className='my-1'><div className='fs-16 grey-txt'>{x}</div></Col>
+            <Col style={{minWidth:30, maxWidth:30}}>
+              <TbPoint className='mx-1 mt-1 blue-txt' size={20} /></Col>
+            <Col className='my-1'><div className='fs-13 grey-txt'>{x}</div></Col>
           </Row>
             )
           })

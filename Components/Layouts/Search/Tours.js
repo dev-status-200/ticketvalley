@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-const Tours = ({records, index, pages, pagination, price, category}) => {
+const Tours = ({records, index, pages, pagination, price, category, setIndex}) => {
   const router  = useRouter();
   return (
     <>
@@ -19,11 +19,11 @@ const Tours = ({records, index, pages, pagination, price, category}) => {
             return(
             <Col md={4} className='px-1 search-tour-box'>
                 <div className='search-box-container mx-1'>
-                <img className='search-box-img filter-2' src={x.main_image} height={190} width={"100%"} />
-                <div className='p-2 search-bob-bottom'>
-                    <div className='fs-15 py-1'><IoLocation style={{position:'relative', bottom:3}} /> <b>{x.title}</b></div>
+                <img className='search-box-img filter-2' src={x.main_image} height={150} width={"100%"} />
+                <div className='px-2 search-bob-bottom'>
+                    <div className='fs-15 py-1'><IoLocation style={{position:'relative', bottom:3}} /> <b>{x.title.slice(0,20)} ...</b></div>
                     <hr className='px-5 mt-1 mb-0' />
-                    <Rate disabled  defaultValue={4.5} style={{color:'#f0a800', cursor:'pointer', fontSize:12}} className='mx-2' /> 
+                    <Rate disabled  defaultValue={4.5} style={{color:'#f0a800', cursor:'pointer', fontSize:10}} className='mx-2' /> 
                     <span className='fs-10 silver-txt'>{"("}100+ reviews{")"}</span>
                     <div className='px-2'>
                     <div className='mt-3' style={{float:'left', fontWeight:900, fontSize:18}}>{parseFloat(x.price).toFixed(2)} AED</div>
