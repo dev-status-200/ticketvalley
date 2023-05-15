@@ -69,8 +69,6 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
       reserve.name = name;
       reserve.email = email;
       reserve.image = image;
-      // console.log(cartData, "Cart Data");
-      // console.log(reserve, "Reservation");
 
       await axios.post(process.env.NEXT_PUBLIC_CREATE_RESERVATION,{
         bookedTours:cartData,

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined, TagsOutlined, SnippetsOutlined, CreditCardOutlined } from '@ant-design/icons';
+import { 
+  MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined,
+  TagsOutlined, SnippetsOutlined, CreditCardOutlined, UsergroupAddOutlined 
+} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
 import Router from 'next/router';
@@ -26,7 +29,8 @@ const PortalLayout = ({children}) => {
             } else if(x.key=='3'){ Router.push('/transport')
             } else if(x.key=='4'){ Router.push('/promos')
             } else if(x.key=='5'){ Router.push('/bookings') 
-            } else if(x.key=='6'){ Router.push('/inventory') }
+            } else if(x.key=='6'){ Router.push('/inventory') 
+            } else if(x.key=='7'){ Router.push('/customers') }
           }}
           items={[
             {
@@ -58,6 +62,11 @@ const PortalLayout = ({children}) => {
               key: '6',
               icon: <TagsOutlined />,
               label: 'Inventory',
+            },
+            {
+              key: '7',
+              icon: <UsergroupAddOutlined />,
+              label: 'Customers',
             },
           ]}
         />

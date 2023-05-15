@@ -186,18 +186,18 @@ const Cart = () => {
                     </Row>
                     </form>
                     {discountPrice>0 && 
-                    <h5>
+                    <h6>
                         <Row>
                             <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
                             <Col md={6} className='text-end' style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
                         </Row>
-                    </h5>
+                    </h6>
                     }
-                    <h5>
+                    <h6>
                     <Row className='mt-3'>
                         <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
                         <Col md={6} className='text-end' style={{color:'#dd9613'}}>
-                            - {(discountPrice*conversion.rate).toFixed(2)} {conversion.currency}
+                            {(discountPrice*conversion.rate).toFixed(2)} {conversion.currency}
                             {/* <s> {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency} */}
                         </Col>
                     </Row>
@@ -210,14 +210,14 @@ const Cart = () => {
                     </Row>
                     <hr/>
                     <Row className='mt-3'>
-                        <Col md={6} style={{fontWeight:400}}><b>Grand Total</b> </Col>
+                        <Col md={6} style={{fontWeight:300}}><b>Grand Total</b> </Col>
                         <Col md={6} className='text-end'>
                         <div className='text-end'>
                             <b>{(price*conversion.rate).toFixed(2)} {conversion.currency}</b>
                         </div>
                         </Col>
                     </Row>
-                    </h5>
+                    </h6>
                 </div>
             </div>
             </>
