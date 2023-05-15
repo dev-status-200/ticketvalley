@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../../../functions/cartFunction';
 import { Row, Col, Container, Spinner } from 'react-bootstrap';
-import { Modal, Empty, Input } from 'antd';
-import { CloseCircleOutlined, ExclamationCircleFilled, LeftCircleOutlined } from '@ant-design/icons';
+import { Modal, Empty, Input, ConfigProvider } from 'antd';
+import { CloseCircleOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import { addProduct } from '../../../redux/cart/cartSlice';
 import { useSession, signIn } from 'next-auth/react';
 import Aos from 'aos';
@@ -15,6 +15,8 @@ import { useRouter } from 'next/router';
 import PayComp from './PayComp';
 
 const Cart = () => {
+
+
 
     const {data:session} = useSession();
     const dispatch = useDispatch();
@@ -158,39 +160,64 @@ const Cart = () => {
             )})}
             <hr/>
             <div style={{minHeight:90}}>
-                <div className='my-1' style={{float:'right'}}>
-                    <form onSubmit={ApplyPromo}>
+                <div className='my-1 mb-5'>
+                    <form onSubmit={ApplyPromo} className='mb-5'>
                     <Row>
-                        <Col md={3}>
-                            <button className='btn-custom' type="submit" disabled={load?true:false}>
-                                {load?<Spinner size='sm' className='mx-3' />:"Apply"}
-                            </button>
-                        </Col>
-                        <Col>
+                        <Col md={4} className='px-0'>
+                        <ConfigProvider
+                            theme={{
+                              token: {
+                                colorPrimary: '#147ba1ea',
+                                borderRadius:3
+                              },
+                            }}
+                          >
                             <Input className='mx-2' 
                                 placeholder="Enter Promo" required 
                                 value={promo} onChange={(e)=>setPromo(e.target.value)} 
                             />
+                          </ConfigProvider>
+                        </Col>
+                        <Col style={{maxWidth:70}}>
+                            <button className='btn-custom-2' type="submit" disabled={load?true:false}>
+                                {load?<Spinner size='sm' className='mx-3' />:"Apply"}
+                            </button>
                         </Col>
                     </Row>
                     </form>
-                    <hr/>
                     {discountPrice>0 && 
-                    <h5 className='text-end'>
+                    <h5>
                         <Row>
                             <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
-                            <Col md={6} style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
-                        </Row>
-                        <hr className='my-0 mt-2' />
-                        <Row className='mt-3'>
-                            <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
-                            <Col md={6} style={{color:'#dd9613'}}><s > {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency}</Col>
-                            <Col md={12}><hr className='mt-2 mb-3' /></Col>
+                            <Col md={6} className='text-end' style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
                         </Row>
                     </h5>
                     }
-                    <h5 className='text-end' style={{fontWeight:400}}>Total {conversion.currency}</h5>
-                    <h2 style={{color:'green'}} className='text-end'>{(price*conversion.rate).toFixed(2)}</h2>
+                    <h5>
+                    <Row className='mt-3'>
+                        <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
+                        <Col md={6} className='text-end' style={{color:'#dd9613'}}>
+                            - {(discountPrice*conversion.rate).toFixed(2)} {conversion.currency}
+                            {/* <s> {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency} */}
+                        </Col>
+                    </Row>
+                    <Row className='mt-3'>
+                        <Col md={6} style={{fontWeight:400}}>Sub Total: </Col>
+                        <Col md={6} className='text-end' style={{fontWeight:400, color:"grey"}}>
+                            {(parseFloat(price*conversion.rate) + parseFloat(discountPrice*conversion.rate)).toFixed(2)}
+                            <span> {conversion.currency} </span>
+                        </Col>
+                    </Row>
+                    <hr/>
+                    <Row className='mt-3'>
+                        <Col md={6} style={{fontWeight:400}}><b>Grand Total</b> </Col>
+                        <Col md={6} className='text-end'>
+                        <div className='text-end'>
+                            <b>{(price*conversion.rate).toFixed(2)} {conversion.currency}</b>
+                        </div>
+                        </Col>
+                    </Row>
+                    </h5>
                 </div>
             </div>
             </>
@@ -209,7 +236,7 @@ const Cart = () => {
         {cart.length>0 && <>  
             {session && 
             <> 
-                {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} />} 
+                {price>0 && <PayComp price={price} email={session?.user.email} name={session?.user.name} image={session?.user.image} />} 
             </> 
             }
             {!session &&
@@ -217,7 +244,7 @@ const Cart = () => {
                 <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>
                 <Row className='mt-4'>
                     <Col></Col>
-                    <Col><div className='btn-custom' onClick={()=>{
+                    <Col><div className='btn-custom-2' onClick={()=>{
                         // This Logic sets the redirected URL to get back to this page
                         if(Object.keys(router.query).length>0){ 
                             Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
@@ -232,7 +259,7 @@ const Cart = () => {
             </div>
             }
         </>}
-        {cart.length==0 &&<div className='cart-logged-in-warning'>Fill up cart to continue Checkout!</div>}
+        {cart.length==0 &&<div className='cart-logged-in-warning fs-13'>Fill up cart to continue Checkout!</div>}
         </Col>
     </Row>
     </Container>

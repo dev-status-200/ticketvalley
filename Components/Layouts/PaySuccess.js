@@ -8,12 +8,14 @@ import Router from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name}) => {
+const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, image}) => {
 
     const {data:session} = useSession();
     const cart = useSelector((state) => state.cart.value);
     const dispatch = useDispatch();
+
     const delay = ms => new Promise(res => setTimeout(res, ms));
+
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -23,8 +25,9 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
 
     const afterPay = async() => {
       await delay(2000);
-      let id = await createReservation()
-      await sendMail(id);
+      console.log(name, email, image)
+      let id = await createReservation();
+      //await sendMail(id);
     }
     
     const sendMail = (id) => {
@@ -53,13 +56,11 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
     }
 
     const createReservation = async() => {
-      
       let booking_id = '';
       let cartData = [];
       let reserve = {};
       cartData = await retrieveCart();
       let disc = await Cookies.get('promoDiscount');
-      console.log(cartData)
       reserve.promo = disc==undefined?'none':disc;
       reserve.base_price = priceCalc(cartData, disc).base_price;
       reserve.final_price = priceCalc(cartData, disc).final_price;
@@ -67,6 +68,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name})
       reserve.payment_intent = payment_intent;
       reserve.name = name;
       reserve.email = email;
+      reserve.image = image;
       // console.log(cartData, "Cart Data");
       // console.log(reserve, "Reservation");
 

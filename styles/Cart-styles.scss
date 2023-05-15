@@ -10,12 +10,11 @@
     }
     .cart-item{
         margin-bottom: 5px;
-        cursor: pointer;
         border-radius: 5px;
         border: 1px solid rgb(210, 210, 210);
     }
     .close-cart-btn{
-        color: rgb(159, 40, 40);
+        color:grey;
         font-size: 20px;
         margin-left: 20px;
         position: relative;
@@ -24,8 +23,7 @@
     .close-cart-btn:hover{
         border-radius: 100%;
         transition-duration: 100ms;
-        color: rgb(255, 255, 255);
-        background-color: rgb(159, 40, 40);
+        color: rgb(159, 40, 40);
     }
     .pay-screen{
         border-left: 2px solid rgb(222, 222, 222);

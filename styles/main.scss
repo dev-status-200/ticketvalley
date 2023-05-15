@@ -185,6 +185,20 @@ body {
   background-color: rgb(6, 121, 139)!important;
 }
 
+.btn-custom-2{
+  cursor: pointer;
+  background-color: rgb(6, 150, 172)!important;
+  color: white;
+  padding: 5px 20px 5px 20px;
+  border-radius: 3px;
+  border: none;
+}
+
+.btn-custom-2:hover{
+  transition-duration: 300ms;
+  background-color: rgb(6, 121, 139)!important;
+}
+
 .tableFixHead thead th {
   transition-duration: 300ms;
   position: sticky;
