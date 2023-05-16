@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import {Row, Col, Container} from 'react-bootstrap';
@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import moment from 'moment';
 import Router from 'next/router';
+import { Empty } from 'antd';
+import Aos from 'aos';
 
 const MyBookings = () => {
 
@@ -15,11 +17,16 @@ const MyBookings = () => {
     const [email, setEmail] = useState('');
     const [bookings, setBookings] = useState([]);
 
+    useEffect(() => {
+        Aos.init({duration:300})
+    }, [])
+
     const retrive = (data) => {
         setEmail(data)
         axios.post(process.env.NEXT_PUBLIC_CREATE_GET_MY_RESERVATIONS,{
             email:data
         }).then((x)=>{
+            console.log(x.data.result)
             setBookings(x.data.result)
         })
     }
@@ -52,12 +59,13 @@ const MyBookings = () => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
-            <h1 className='text-center mt-3 ' style={{color:"white", fontWeight:700}}>Bookings Page</h1>
+            {/* <h1 className='text-center mt-3 ' style={{color:"white", fontWeight:700}}>Bookings Page</h1> */}
         </div>
         </div>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
         <Container className='my-5 px-5'>
-        <h4 className='mb-4'>Following is the list of all your bookings made</h4>
+        <h4 className='mb-4'>Your Bookings</h4>
+        <p>All Your booking info will be diplayed here.</p>
         {bookings.map((y, j)=>{
             return(
             <div key={j}>
@@ -109,7 +117,11 @@ const MyBookings = () => {
             </Row>
             </div>
         )})}
-        {bookings.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div> }
+        {bookings.length==0 && 
+        <Container className='py-5' data-aos='fade-up'>
+            <Empty /> <h3 className='text-center fw-200 mt-5'>Looks like you haven't made any bookings yet!</h3>
+        </Container>
+        }
         </Container>
     </div>
   )

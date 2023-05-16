@@ -15,6 +15,7 @@ import Aos from 'aos';
 import Book from './Book';
 import { useSelector } from 'react-redux';
 import Details from './Details';
+import NavLinks from '../../Shared/NavLinks';
 
 const Product = ({id, tourData, transportData}) => {
 
@@ -72,11 +73,7 @@ const Product = ({id, tourData, transportData}) => {
           <div className='dropdown mx-2'>
             <span className='navLink dropbtn'>ACTIVITIES</span>
             <div className="dropdown-content">
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
-                <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
-                <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
+                <NavLinks/>
             </div>
           </div>
           <Link className='navLink' href='/about'>ABOUT US</Link>

@@ -6,15 +6,18 @@ import { ConfigProvider, Slider, Select, Checkbox } from 'antd';
 import aos from "aos";
 import SignUp from '../../Shared/SignUp';
 import Tours from './Tours';
+import { useRouter } from 'next/router';
+import NavLinks from '../../Shared/NavLinks';
 
-const Search = ({destination, city, date, tourData}) => {
+const Search = ({destination, city, date, category, tourData}) => {
   
+  const router = useRouter();
   const [records, setRecords] = useState([]);
   const [index, setIndex] = useState(1);
   const [pages, setPages] = useState(0);
   const [pagination, setPagination] = useState(false);
   const [price, setPrice] = useState(3000);
-  const [category, setCategory] = useState('');
+  //const [category, setCategory] = useState('');
 
   useEffect(() => {
     aos.init({duration:300})
@@ -67,7 +70,12 @@ const Search = ({destination, city, date, tourData}) => {
     setIndex(1)
   }
   const adjustCategory = (cat) => {
-    setCategory(category==cat?'':cat)
+    //setCategory(category==cat?'':cat)
+    console.log(cat);
+    router.push({
+      pathname: '/search',
+      query: { destination:destination, city:city, date:date, category:cat }
+    })
   } 
   
   return (
@@ -88,11 +96,7 @@ const Search = ({destination, city, date, tourData}) => {
         <div className='dropdown  mx-2'>
           <span className='navLink dropbtn'>ACTIVITIES</span>
           <div className="dropdown-content">
-              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
-              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
-              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
-              <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
-              <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
+            <NavLinks/>
           </div>
         </div>
         <Link className='navLink' href='/about'>ABOUT US</Link>
@@ -124,10 +128,6 @@ const Search = ({destination, city, date, tourData}) => {
                                 {
                                   value: 'uae',
                                   label: 'UAE',
-                                },
-                                {
-                                  value: 'eur',
-                                  label: 'EUR',
                                 }
                               ]} 
                               onChange={(e)=>{
@@ -164,23 +164,7 @@ const Search = ({destination, city, date, tourData}) => {
                                 {
                                   value: 'Dubai City',
                                   label: 'Dubai City',
-                                },
-                                {
-                                  value: 'Fujairah',
-                                  label: 'Fujairah',
-                                },
-                                {
-                                  value: 'Rais-Al-Khaimah',
-                                  label: 'Rais-Al-Khaimah'
-                                },
-                                {
-                                  value: 'Sharjah',
-                                  label: 'Sharjah'
-                                },
-                                {
-                                  value: 'Ajman',
-                                  label: 'Ajman'
-                                },
+                                }
                               ]} />
                           </ConfigProvider>
                       </Col>

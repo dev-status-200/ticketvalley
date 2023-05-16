@@ -7,7 +7,21 @@ const Customers = ({data}) => {
     const [records, setRecords] = useState([]);
 
     useEffect(() => {
-        setRecords(data.result);
+        let temp = [];
+        if(data.result){
+            data.result.forEach((x, i)=>{
+                temp.push({...x})
+                x.BookedTours.forEach((y)=>{
+                    temp[i].bookings = x.BookedTours.length;
+                    // temp[i].tickets = y.BookedToursOptions.length;
+                    // y.BookedToursOptions.forEach((z)=>{
+                    //     temp[i].total = temp[i].total + parseFloat(z.adult) * parseFloat(z.adult_price) + parseFloat(z.child) * parseFloat(z.child_price) + parseFloat(z.transportPrice);
+                    // })
+                })
+            })
+            setRecords(temp);
+        }
+        //setRecords(data.result);
     }, [data])
     
   return (
@@ -30,6 +44,9 @@ const Customers = ({data}) => {
                     </td>
                     <td >{x.name}</td>
                     <td><MailOutlined style={{position:'relative', bottom:3}} className='mx-2' />{x.email}</td>
+                    <td>
+                    Total Bookings: <b style={{color:'green'}}> {x.bookings}</b>
+                    </td>
                 </tr>
                 )
                 })}

@@ -24,9 +24,9 @@ const CustomerLoin = ({providers, signIn}) => {
         <Image src={'/test-logo.png'} className="mb-5" width={150} height={75} alt="Image" />
     <div className='container-custom'>
         <div className='login-box'>
-        <h1 className='text-center my-3 signup'>Login</h1>
-        <hr/>
-        <div className='my-5 py-2'></div>
+        <h1 className='text-center my-3 signup'></h1>
+        Login To continue using <b>ticketsvalley</b>
+        <div className='my-4 py-2'></div>
             {Object.values(providers).map((provider) => (
               <div key={provider.name}>
               <button className='google-btn' onClick={() => signIn(provider.id)}>

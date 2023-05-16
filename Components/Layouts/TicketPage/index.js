@@ -8,6 +8,7 @@ import { Tag } from 'antd';
 import Pdf from "react-to-pdf";
 import Ticket from './Ticket';
 import moment from 'moment';
+import Link from 'next/link';
 
 const ref = React.createRef();
 const TicketPage = ({ticketData}) => {
@@ -16,14 +17,23 @@ const TicketPage = ({ticketData}) => {
     const [fetchedTicket, setFetchedTicket] = useState({});
 
     const selectTour = async(tour, option) => {
-        const ticket = {
-            image:tour.image,
-            title:option.tourOptName,
-            name:tour.customerTitle + " " + tour.customerName,
-            transfer:option.transfer,
-            date:moment(option.date).format("MMM-DD-YYYY"),
-            assigned:option.assigned
-        }
+        //console.log(option)
+        let count = option.codes.split(", ")
+        let ticket = [];
+        //console.log(count);
+        
+        count.forEach((x)=>{
+            ticket.push({
+                image:tour.image,
+                title:option.tourOptName,
+                name:tour.customerTitle + " " + tour.customerName,
+                transfer:option.transfer,
+                date:moment(option.date).format("MMM-DD-YYYY"),
+                assigned:option.assigned,
+                code:x
+            })
+        })
+        
         await setFetchedTicket(ticket);
 	};
 
@@ -36,16 +46,39 @@ const TicketPage = ({ticketData}) => {
         })
         setTickets(temp);
     }, [])
-
-    useEffect(() => {
-      console.log(fetchedTicket)
-    }, [fetchedTicket])
     
-
     const btm = {position:'relative', bottom:3}
 
   return (
     <div style={{minHeight:'50vh', backgroundColor:"white"}}>
+        <div className='home-styles'>
+        <div className='theme empty-bg py-4'>
+            <div className='navBar'>
+            <Link className='navLink' href='/'>HOME</Link>
+            <div className='dropdown'>
+            <div className='navLink dropbtn'>DESTINATION</div>
+            <div className="dropdown-content">
+                <a className='menu-drop-links pb-2'>Dubai</a>
+            </div>
+            </div>
+            <span className="navLink">
+                <img src={'/images/logo.png'} height={100} />
+            </span>
+            <div className='dropdown  mx-2'>
+                <span className='navLink dropbtn'>ACTIVITIES</span>
+                <div className="dropdown-content">
+                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
+                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
+                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
+                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
+                    <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
+                </div>
+            </div>
+            <Link className='navLink' href='/about'>ABOUT US</Link>
+            </div>
+            {/* <h1 className='text-center mt-3 ' style={{color:"white", fontWeight:700}}>Bookings Page</h1> */}
+        </div>
+        </div>
         <Container className='my-5'>
         <h4>Tickets For Booking No: </h4>
         <p className='grey-txt'>Please Select The Tickets to download</p>
@@ -106,18 +139,19 @@ const TicketPage = ({ticketData}) => {
             </Col>
             )})}
             </Row>
-            {fetchedTicket.assigned=="1" && 
+            {fetchedTicket.length>0 && 
             <Pdf targetRef={ref} filename="ticket.pdf">
                 {({ toPdf }) => <button className='custom-btn' onClick={toPdf}>Download</button>}
             </Pdf>
             }
-            {fetchedTicket.assigned=="0" && 
+            {fetchedTicket.length==0 && 
                 <div>The Selected Ticket is pending for arrival</div>
             }
         </Container>
         <div style={{position:'absolute', right:10000}}
         >
-        <div ref={ref} ><Ticket fetchedTicket={fetchedTicket} /></div>
+        
+        <div ref={ref} ><Ticket fetchedTicket={fetchedTicket[0]} /></div>
         </div>
     </div>
   )

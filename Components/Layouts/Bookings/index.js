@@ -3,6 +3,7 @@ import { Row, Col, Table } from 'react-bootstrap';
 import { Modal, Tag } from 'antd';
 import { EditOutlined, HistoryOutlined } from '@ant-design/icons';
 import BookingInfo from './BookingInfo';
+import moment from 'moment';
 
 function recordsReducer(state, action){
     switch (action.type) {
@@ -72,8 +73,6 @@ const Bookings = ({bookingsData}) => {
       })
       dispatch({type:'toggle', fieldName:'records', payload:tempValues});
       dispatch({type:'toggle', fieldName:'inventory', payload:bookingsData.resultTwo});
-      //console.log(bookingsData.resultTwo)
-      console.log(tempValues)
     }, [])
 
   return (
@@ -99,17 +98,20 @@ const Bookings = ({bookingsData}) => {
         <tbody>
         {state.records.map((x, index) => {
           return (
-          <tr key={index} className='f hov-row'
+          <tr key={index} className='hov-row'
             onClick={()=>{
                 dispatch({type:'select', payload:x})
             }}
           >
             <td>{index+1} </td>
-            <td><Tag color="#108ee9" style={{fontSize:15}}><b>{x.id}</b></Tag></td>
+            <td>
+              <div style={{color:"#108ee9"}}>{x.id}</div>
+              {moment(x.createdAt).fromNow()}
+            </td>
             <td>{x.name} </td>
             <td>{x.email} </td>
-            <td className='px-4'><Tag color="#a3592e" style={{fontSize:15}}><b>{x.BookedTours.length}</b></Tag></td>
-            <td> <Tag color="#34762e" style={{fontSize:15}}><b>{x.final_price}</b></Tag></td>
+            <td className='px-4' style={{fontSize:15, color:"#a3592e"}}><b>{x.BookedTours.length}</b></td>
+            <td style={{color:"green"}}><b>{parseFloat(x.final_price).toFixed(2)}</b></td>
             <td style={{color:'grey'}}>{x.payment_intent}</td>
           </tr>
           )
@@ -122,7 +124,7 @@ const Bookings = ({bookingsData}) => {
     <Modal
       open={state.visible}
       onOk={()=>dispatch({ type: 'modalOff' })} onCancel={()=>dispatch({ type: 'modalOff' })}
-      width={1000} footer={false} centered={false}
+      width={1000} footer={false} 
     >
        <BookingInfo state={state} dispatch={dispatch} />
     </Modal>

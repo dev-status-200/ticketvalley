@@ -49,8 +49,8 @@ const Inventory = ({inventoryData}) => {
         //console.log(inventory)
         await axios.post(process.env.NEXT_PUBLIC_CREATE_INVENTORY, {inventory, codes, username})
         .then((x)=>{
-            console.log(x.data)
-            //Router.push("/inventory");
+            //console.log(x.data)
+            Router.push("/inventory");
         })
     }
 

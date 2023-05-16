@@ -8,13 +8,18 @@ import Router from "next/router"
 
 const BookingInfo = ({state, dispatch}) => {
 
-    // useEffect(() => {
-    //   console.log(state.selectedRecord);
-    // }, [state.selectedRecord])
-
-    const assignTicket = async(data) => {
-        console.log(data)
-        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,data)
+    const assignTicket = async(data, count) => {
+        //console.log(data);
+        let tempTickets = [];
+        let i=0;
+        while(tempTickets.length!=4){
+            if(!data.inventory[i].used){
+                tempTickets.push({...data.inventory[i], used:true});
+            }
+            i++;
+        }
+        //console.log(tempTickets)
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{data, tickets:tempTickets})
         .then((x)=>{
             if(x.data.result[0]==1){
                 Router.push("/bookings");
@@ -37,20 +42,13 @@ const BookingInfo = ({state, dispatch}) => {
                 return(<>
                 <Col md={12} className='grey-txt tour-booking-list'>
                 <Row className='px-1 py-2'>
-                    <Col md={2}>
-                        <img src={x.image} height={50} width={90} />
-                    </Col>
-                    <Col md={10}>
-                    <span className='fw-500 fs-17'>{x.name}</span> <br/>
-                    <div>Options</div>
-                    </Col>
                     <Col md={12} >
                     {x.BookedToursOptions.map((y, j)=>{
                     return(<div key={j+'a'}>
-                        <hr className='my-2' />
+                        {j!=0 && <hr className='my-2' />}
                         <div>
                             <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
-                            <div className='mx-5 fw-500 right'>
+                            <div className='fw-500 right'>
                                 {y.assigned=="0" &&<>
                                 <div>
                                     {parseInt(y.adult) + parseInt(y.child)} Required 
@@ -59,7 +57,7 @@ const BookingInfo = ({state, dispatch}) => {
                                     {y.inventory.length} In-Stock 
                                 </div>
                                 {(y.inventory.length>=parseInt(y.adult) + parseInt(y.child) && y.assigned=="0" ) &&
-                                <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y)}> 
+                                <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
                                     <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
                                 </div>
                                 }
@@ -71,7 +69,7 @@ const BookingInfo = ({state, dispatch}) => {
                                 </>}
                             </div>
                         </div>
-                        <div className='px-3 mt-2'>
+                        <div className=' mt-2'>
                         <span className='fw-500'>Adults:</span> <span>{y.adult}</span>
                         <span className='mx-3'>
                             <span className='fw-500'>Childs:</span> <span>{y.child}</span>

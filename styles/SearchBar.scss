@@ -63,7 +63,7 @@
         border: 1px solid rgb(232, 232, 232);
         //border-radius: 8px;
         position: absolute;
-        width: 44%;
+        width: 34%;
         text-align: left;
         padding: 10px;
 
@@ -101,6 +101,6 @@
     .dropdown-cont:hover > .dropdown-img{
         transition-duration: 200ms;
         color: white!important;
-        filter: brightness(100%);
+        filter: brightness(80%);
     }
 }
