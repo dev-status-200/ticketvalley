@@ -18,7 +18,7 @@ const Footer = () => {
                         </div>
                         <div>
                             <p className='grey-txt fs-18'>
-                            © 2014-2022 Peaceland Travel & Tours All Rights Reserved.
+                            © 2014-2022 Tickets Valley All Rights Reserved.
                             </p>
                         </div>
                         </div>
@@ -51,7 +51,7 @@ const Footer = () => {
             </Container>
         </div>
         <div className='bgBt p-3 text-center grey-txt'>
-        COPYRIGHT 2022 PEACELAND, ALL RIGHT RESERVED
+        COPYRIGHT 2022 TICKETSVALLEY, ALL RIGHT RESERVED
         </div>
     </div>
   )

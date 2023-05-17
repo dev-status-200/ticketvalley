@@ -38,7 +38,7 @@ const CustomerLoin = ({providers, signIn}) => {
       </div>
       </div>
     </div>
-    <div className='text-center fs-15'>COPYRIGHT 2022 PEACELAND, ALL RIGHT RESERVED</div>
+    <div className='text-center fs-15'>COPYRIGHT 2022 TICKETSVALLEY ALL RIGHT RESERVED</div>
     </div>
     </div>
     }
