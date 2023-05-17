@@ -13,6 +13,8 @@ const Dashboard = ({sessionData, insights}) => {
     tours:[],
   })
 
+  const [price, setPrice] = useState(0.00)
+
     useEffect(() => {
       if(sessionData.isLoggedIn==true){
         //Router.push('/login')
@@ -26,13 +28,18 @@ const Dashboard = ({sessionData, insights}) => {
       let yes = []
       no = insights.result.booked.filter((x)=> x.assigned=="0")
       yes = insights.result.booked.filter((x)=> x.assigned=="1")
-      console.log(yes);
+      //console.log(yes);
       let dataObj = {
         ...insights.result,
         unassinged:no,
         assinged:yes
       }
       setInsightData(dataObj)
+      let price = 0.00;
+      insights.result.reserves.forEach((x)=>{
+        price = price + parseFloat(x.final_price)
+      })
+      setPrice(price)
     }, [])
 
   return (
@@ -68,6 +75,12 @@ const Dashboard = ({sessionData, insights}) => {
         <div className='insight-box shadow '>
           <h4>Unassigned Tours</h4>
           {insightData.unassinged.length} Unassigned Reservation
+        </div>
+        </Col>
+        <Col md={4} className='my-3'>
+        <div className='insight-box shadow '>
+          <h4>Total Earnings</h4>
+          {price.toFixed(2)} AED
         </div>
         </Col>
       </Row>
