@@ -3,10 +3,10 @@ import axios from 'axios';
 import Cookies from 'cookies';
 import Dashboard from '../../Components/Layouts/Portal/Dashboard';
 
-const portal = ({sessionData}) => {
+const portal = ({sessionData, insights}) => {
   return (
     <div>
-      <Dashboard sessionData={sessionData} />
+      <Dashboard sessionData={sessionData} insights={insights} />
     </div>
   )
 }
@@ -19,7 +19,11 @@ export async function getServerSideProps({req,res}){
     headers:{"x-access-token": `${cookies.get('token')}`}
   }).then((x)=>x.data);
 
+  const insights = await axios.get(process.env.NEXT_PUBLIC_GET_INSIGHTS,{
+    headers:{"x-access-token": `${cookies.get('token')}`}
+  }).then((x)=>x.data);
+
   return{
-      props: { sessionData:sessionRequest }
+      props: { sessionData:sessionRequest, insights:insights }
   }
 }
