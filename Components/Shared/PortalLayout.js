@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined,
-  TagsOutlined, SnippetsOutlined, CreditCardOutlined, UsergroupAddOutlined 
+  TagsOutlined, SnippetsOutlined, CreditCardOutlined, UsergroupAddOutlined,
+  StarOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
@@ -30,7 +31,8 @@ const PortalLayout = ({children}) => {
             } else if(x.key=='4'){ Router.push('/promos')
             } else if(x.key=='5'){ Router.push('/bookings') 
             } else if(x.key=='6'){ Router.push('/inventory') 
-            } else if(x.key=='7'){ Router.push('/customers') }
+            } else if(x.key=='7'){ Router.push('/customers') 
+            } else if(x.key=='8'){ Router.push('/reviews') }
           }}
           items={[
             {
@@ -67,6 +69,11 @@ const PortalLayout = ({children}) => {
               key: '7',
               icon: <UsergroupAddOutlined />,
               label: 'Customers',
+            },
+            {
+              key: '8',
+              icon: <StarOutlined />,
+              label: 'Reviews',
             },
           ]}
         />
