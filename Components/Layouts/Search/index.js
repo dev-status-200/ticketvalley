@@ -8,6 +8,7 @@ import SignUp from '../../Shared/SignUp';
 import Tours from './Tours';
 import { useRouter } from 'next/router';
 import NavLinks from '../../Shared/NavLinks';
+import CircleIcons from '../../Shared/CircleIcons';
 
 const Search = ({destination, city, date, category, tourData}) => {
   
@@ -23,6 +24,7 @@ const Search = ({destination, city, date, category, tourData}) => {
     aos.init({duration:300})
     setRange(price, category);
   }, [price, category])
+
   const cities = {
     uae:[
         {name:"Abu Dhabi", img:"dropdowns/Abu-Dhabi.PNG"},
@@ -34,6 +36,7 @@ const Search = ({destination, city, date, category, tourData}) => {
     ],
     eur:[{name:"Paris", img:"dropdowns/Paris.PNG"}]
   }
+
   const setRange = (gottenPrice, cat) => {
     //console.log(tourData.result)
     let tempTours = [];
@@ -69,6 +72,7 @@ const Search = ({destination, city, date, category, tourData}) => {
     }
     setIndex(1)
   }
+
   const adjustCategory = (cat) => {
     //setCategory(category==cat?'':cat)
     console.log(cat);
@@ -103,7 +107,10 @@ const Search = ({destination, city, date, category, tourData}) => {
       </div>
       <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>SEARCH ACTIVITIES</h1>
     </div>
-    <div className='py-5 search-bg' data-aos="fade-up">
+
+    <div className='pb-5 search-bg' data-aos="fade-up">
+    <CircleIcons/>
+    
       <Container className='px-1 pt-3'>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>

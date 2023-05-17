@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Row, Col, Container } from 'react-bootstrap';
 import Aos from 'aos';
+import CircleIcons from '../Shared/CircleIcons';
 
 const About = () => {
 
@@ -43,7 +44,9 @@ const About = () => {
             </div>
             </div>
         </div>
-        <div className='py-5 why-us-section'>
+
+        <div className='pb-5 why-us-section'>
+        <CircleIcons/>
         <Container className='my-5 py-3'>
             <div>
             <Row  data-aos='fade-up'>

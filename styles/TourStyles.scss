@@ -144,7 +144,8 @@
   }
   .fixed-book{
     position: fixed!important;
-    top: 10px!important;
+    bottom: 50px!important;
+    right: 50px;
   }
 }
 
@@ -161,6 +162,43 @@
 .wrapper{
   cursor: pointer;
 }
+.otherBook-btn{
+  background-color: #18858f;
+  border: none;
+  padding: 20px;
+  color: white;
+  border-radius: 100%;
+}
+
+.tour-features-box{
+  box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+}
+
+.tour-features{
+  background-color: #18858f;
+  color: white;
+  text-align: center;
+}
+
+.tour-features-white{
+  background-color: white;
+  color: #333;
+  text-align: center;
+}
+
+.tour-map-shadow{
+  box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+}
+
+.policies-box{
+  background-color: #0f6269;
+  padding: 20px;
+}
+
 
 .a{
   text-decoration: none;

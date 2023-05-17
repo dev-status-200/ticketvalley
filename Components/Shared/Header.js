@@ -50,10 +50,10 @@ const Header = () => {
             <Col md={6}>
                 <div style={{fontSize:11}}>
                     <span ><FaPhoneAlt/></span>
-                    <span className='mx-2' style={{position:'relative', top:2}}>+41 21 634 05 05</span>
+                    <span className='mx-2' style={{position:'relative', top:2}}>+971 55 998 6370</span>
                     <span style={{marginLeft:1, marginRight:10, position:'relative', top:1}}>|</span>
                     <span style={{position:'relative', bottom:0}}><FaRegEnvelopeOpen/></span>
-                    <span className=' mx-2' style={{position:'relative', top:2}}>booking@ticketsvalley.com</span>
+                    <span className=' mx-2' style={{position:'relative', top:2}}>info@ticketsvalley.com</span>
                 </div>
             </Col>
             <Col md={6}>

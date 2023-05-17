@@ -25,12 +25,12 @@ const Details = ({tour}) => {
       <span className='mx-2 fs-12' style={{color:'grey'}}>{"("}3 Reviews{")"}</span> 
       <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> {tour.destination.toUpperCase()}, {tour.city}
       {/* <hr/> */}
-      <img className='my-3' src={mainImage} style={{borderRadius:15, width:'60vw', height:400}} />
+      <img className='my-3' src={mainImage} style={{borderRadius:23, width:'60vw', height:400}} />
       <Row>
         {images.map((x, i)=>{
           return(
             <Col key={i} md={3}  onClick={()=>setMainImage(x)}>
-              <img src={x} className='img-hover' style={{width:'14vw', borderRadius:10, height:100}} />
+              <img src={x} className='img-hover' style={{width:'14vw', borderRadius:20, height:100}} />
             </Col>
           )
         })}
@@ -68,7 +68,7 @@ const Details = ({tour}) => {
           )
         })}
       </div>
-      <hr/>
+      {/* <hr/>
       <div className='my-5 py-2'>
         <h3 className='mt-4 blue-txt'><b>Timings</b></h3>
         <Table responsive="sm" style={{border:'1px solid #0d6788ea'}}>
@@ -89,7 +89,7 @@ const Details = ({tour}) => {
             </tr>
           </tbody>
         </Table>
-      </div>
+      </div> */}
       <hr/>
       <div className=''>
         <h3 className='blue-txt'><b>Important Information</b></h3>
@@ -105,7 +105,7 @@ const Details = ({tour}) => {
           })
         }
       </div>
-      <hr/>
+      {/* <hr/>
       <div className='my-5'>
         <h3 className='mt-4 blue-txt'><b>Booking Policy</b></h3>
         {
@@ -118,8 +118,8 @@ const Details = ({tour}) => {
             )
           })
         }
-      </div>
-      <hr/>
+      </div> */}
+      {tour.terms_conditions.length>5 && <hr/>}
       {tour.terms_conditions.length>5 && <>
       <div className='my-5'>
         <h3 className='mt-4 blue-txt'><b>Terms & Conditions</b></h3>
@@ -134,9 +134,8 @@ const Details = ({tour}) => {
           })
         }
       </div>
-      <hr/>
       </>}
-      <div className='my-5'>
+      {/* <div className='my-5'>
 
         <h3 className='mt-4 blue-txt'><b>Cancellation Policies</b></h3>
         {
@@ -149,7 +148,7 @@ const Details = ({tour}) => {
             )
           })
         }
-      </div>
+      </div> */}
     </div>
   )
 }

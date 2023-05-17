@@ -16,6 +16,8 @@ import Book from './Book';
 import { useSelector } from 'react-redux';
 import Details from './Details';
 import NavLinks from '../../Shared/NavLinks';
+import { TbPoint } from "react-icons/tb";
+import CircleIcons from '/Components/Shared/CircleIcons';
 
 const Product = ({id, tourData, transportData}) => {
 
@@ -59,10 +61,11 @@ const Product = ({id, tourData, transportData}) => {
   const onClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <>
     <div className='tour-styles' style={{backgroundColor:'white'}} >
+
       <div className='hero pt-4'>
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
@@ -80,20 +83,58 @@ const Product = ({id, tourData, transportData}) => {
         </div>
         <div className='my-2 py-2'></div>
       </div>
+      {/* <CircleIcons/> */}
       {Object.keys(tour).length>0 &&
       <div>
         <Container className='' data-aos="fade-up">
           <Row className='p'>
-            <Col md={8}>
+            <Col md={8} className='pt-5'>
               <Details tour={tour} />
             </Col>
             <Col md={4} >
             </Col>
           </Row>
         </Container>
-        <div className={`book ${scrollPosition>450?' fixed-book':'normal-book'}`}>
+        <Container fluid>
+          <Row className='mt-5'>
+            <Col md={6} className='px-0 policies-box' style={{borderRight:'2px solid white'}}>
+            <div className='pb-4'>
+            <h3 className='my-3 wh-txt text-center'><b>Booking Policies</b></h3>
+            {
+              tour.policies.split("//").map((x, i)=>{
+                return(
+                <Row key={i} className="justify-content-md-center wh-txt">
+                  <Col md={1}></Col>
+                  <Col style={{minWidth:30, maxWidth:30}} md={'auto'}><TbPoint className='mx-1 mt-1 ' size={20} /></Col>
+                  <Col className='my-1'><div className='fs-14'>{x}</div></Col>
+                  <Col md={1}></Col>
+                </Row>
+                )
+              })
+            }
+            </div>
+            </Col>
+            <Col md={6} className='px-0 policies-box' style={{borderRight:'2px solid white'}}>
+            <div className='pb-4'>
+            <h3 className='my-3 wh-txt text-center'><b>Cancellation Policies</b></h3>
+            {
+              tour.cancellation_polices.split("//").map((x, i)=>{
+                return(
+                <Row key={i} className="justify-content-md-center wh-txt">
+                  <Col md={1}></Col>
+                  <Col style={{minWidth:30, maxWidth:30}} md={'auto'}><TbPoint className='mx-1 mt-1 ' size={20} /></Col>
+                  <Col className='my-1'><div className='fs-14'>{x}</div></Col>
+                  <Col md={1}></Col>
+                </Row>
+                )
+              })
+            }
+            </div>
+            </Col>
+          </Row>
+        </Container>
+        <div className='book normal-book'>
           <div className='booking-form'>
-            {/* <p className='fw-600 fs-20'>{tour.category}</p> */}
             <div className=''><span className='fw-400 fs-14 grey-txt'>Starting From</span></div>
             {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
               {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
@@ -145,7 +186,6 @@ const Product = ({id, tourData, transportData}) => {
               </Col> 
             </Row>
             }
-
             <Drawer style={{padding:'', margin:0, width:550, position:'relative', right:70}}
               title={`${tour.title} Options`}
               placement={"right"}
@@ -155,12 +195,65 @@ const Product = ({id, tourData, transportData}) => {
             ><Book tour={tour} transport={transport} setOpen={setOpen} />
             </Drawer>
           </div>
+          <div className='mt-5'>
+            <div className='tour-features pt-3 pb-1'>
+            {/* <h2>{tour.title}</h2> */}
+            <h5>Ticket Info</h5>
+            </div>
+          </div>
+          <div className='tour-features-box my-3'>
+            <div className='tour-features pt-3 pb-1'>
+              <h5>Duration</h5>
+            </div>
+            <div className='tour-features-white pt-3 pb-1'>
+              <h6>{tour.duration} </h6>
+            </div>
+          </div>
+          <div className='tour-features-box my-3'>
+            <div className='tour-features pt-3 pb-1'>
+              <h5>Departure Point</h5>
+            </div>
+            <div className='tour-features-white pt-3 pb-1'>
+              <h6>{tour.departure}</h6>
+            </div>
+          </div>
+          <div className='tour-features-box my-3'>
+            <div className='tour-features pt-3 pb-1'>
+              <h5>Reporting Point</h5>
+            </div>
+            <div className='tour-features-white pt-3 pb-1'>
+              <h6>{tour.reporting}</h6>
+            </div>
+          </div>
+          <div className='tour-features-box my-3'>
+            <div className='tour-features pt-3 pb-1'>
+              <h5>Languages</h5>
+            </div>
+            <div className='tour-features-white pt-3 pb-1'>
+              <h6>{tour.lang}</h6>
+            </div>
+          </div>
+          <div className='tour-map-shadow py-0 my-0'>
+          <iframe className="p-0 m-0"
+            src="
+            https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s
+            " 
+            width="100%" height="480">
+          </iframe>
+          </div>
         </div>
+        {scrollPosition>650 &&
+        <div className='fixed-book'>
+          <button type='button'  onClick={showDrawer} className='otherBook-btn'>
+            <b>            
+              <div className='my-0 py-0'>BOOK</div>
+              <div className='my-0 py-0'>NOW</div>
+            </b>
+          </button>
+        </div>}
       </div>
       }
-      {
-        Object.keys(tour).length==0 && <div>Please wait...</div>
-      }
+      { Object.keys(tour).length==0 && <div>Please wait...</div>}
     </div>
     </>
   )

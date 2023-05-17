@@ -77,8 +77,8 @@ const Bookings = ({bookingsData}) => {
 
   return (
     <div>
-         <Row>
-        <Col><h5>Bookings</h5></Col>
+    <Row>
+      <Col><h5>Bookings</h5></Col>
     </Row>
     <Row style={{maxHeight:'69vh',overflowY:'auto', overflowX:'hidden'}}>
     <Col md={12}>

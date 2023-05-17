@@ -14,6 +14,7 @@ import axios from 'axios';
 import TourCardOne from '../../Shared/TourCardOne';
 import SignUp from '../../Shared/SignUp';
 import { Widget } from "@uploadcare/react-widget";
+import CircleIcons from '/Components/Shared/CircleIcons';
 
 const Home = () => {
 
@@ -48,66 +49,7 @@ const Home = () => {
         <VideoComp/>
         {/* Hot Avtivities */}
         <div style={{backgroundColor:"white"}} className='bg-02'>
-            <Container>
-                <Row className="justify-content-md-center pt-5">
-                    <Col md="auto" className='mx-4'>
-                    <Link href={{pathname:'/activities', query:{id:'Theme Parks'}}}>
-                        <img src='/icons/5.png' style={{height:160}} />
-                    </Link>
-                    </Col>
-                    <Col md="auto" className='mx-4'>
-                    <Link href={{pathname:'/activities', query:{id:'Water Parks'}}}>
-                        <img src='/icons/3.png' style={{height:160}} />
-                    </Link>
-                    </Col>
-                    <Col md="auto" className='mx-4'>
-                    <Link href={{pathname:'/activities', query:{id:'City Tours'}}}>
-                        <img src='/icons/1.png' style={{height:160}} />
-                    </Link>
-                    </Col>
-                    <Col md="auto" className='mx-4'>
-                    <Link href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>
-                        <img src='/icons/4.png' style={{height:160}} />
-                    </Link>
-                    </Col>
-                    <Col md="auto" className='mx-4'>
-                    <Link href={{pathname:'/activities', query:{id:'Adventure'}}}>
-                        <img src='/icons/2.png' style={{height:160}} />
-                    </Link>
-                    </Col>
-                </Row>
-            {/* <Row className="text-center ">
-              <Col md={1} className="text-center">
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Theme Parks'}}}>
-                <img src='/icons/5.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Water Parks'}}}>
-                <img src='/icons/3.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'City Tours'}}}>
-                <img src='/icons/1.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>
-                <img src='/icons/4.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={2} className="text-center">
-              <Link href={{pathname:'/activities', query:{id:'Adventure'}}}>
-                <img src='/icons/2.png' className="hero-icons" />
-              </Link>
-              </Col>
-              <Col md={1} className="text-center">
-              </Col>
-            </Row> */}
-            </Container>
+            <CircleIcons/>
             <Container className='pt-5 px-4'>
             {/* <Widget publicKey='b88855950ae25756154e' id='file' multiple={true}
                 onFileSelect={(file) => {

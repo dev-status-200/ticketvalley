@@ -9,6 +9,7 @@ import moment from 'moment';
 import Router from 'next/router';
 import { Empty } from 'antd';
 import Aos from 'aos';
+import CircleIcons from '../Shared/CircleIcons';
 
 const MyBookings = () => {
 
@@ -26,7 +27,6 @@ const MyBookings = () => {
         axios.post(process.env.NEXT_PUBLIC_CREATE_GET_MY_RESERVATIONS,{
             email:data
         }).then((x)=>{
-            console.log(x.data.result)
             setBookings(x.data.result)
         })
     }
@@ -59,12 +59,17 @@ const MyBookings = () => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
-            {/* <h1 className='text-center mt-3 ' style={{color:"white", fontWeight:700}}>Bookings Page</h1> */}
+            <div className='my-2'>
+                <div className='text-center'>
+                <h1 className='wh-txt hero-txt-1'>My <span className='yellow-txt'>Bookings</span></h1>
+                </div>
+            </div>
         </div>
         </div>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
-        <Container className='my-5 px-5'>
-        <h4 className='mb-4'>Your Bookings</h4>
+        <Container className='mb-5 px-5'>
+            <CircleIcons/>
+        <h4 className='my-4'>Your Bookings</h4>
         <p>All Your booking info will be diplayed here.</p>
         {bookings.map((y, j)=>{
             return(
@@ -86,13 +91,12 @@ const MyBookings = () => {
                                 PROMO :
                                 {" "}
                                 <span className='grey-txt'>
-                                    {
-                                        y.promo=="none"?
+                                    {y.promo=="none"?
                                         'NO':
                                         <>
-                                            <span style={{color:'goldenrod'}}>{JSON.parse(y.promo).name}</span> -
-                                            <span style={{marginLeft:5}}>{JSON.parse(y.promo).price}</span>
-                                            <span className=''>{JSON.parse(y.promo).byPercentage?'%':`${conversion.currency}`} OFF</span>
+                                        <span style={{color:'goldenrod'}}>{JSON.parse(y.promo).name}</span> -
+                                        <span style={{marginLeft:5}}>{JSON.parse(y.promo).price}</span>
+                                        <span className=''>{JSON.parse(y.promo).byPercentage?'%':`${conversion.currency}`} OFF</span>
                                         </>
                                     }
                                 </span>
