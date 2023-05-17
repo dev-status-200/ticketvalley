@@ -10,7 +10,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { fetchCurrencyData } from '../../functions/fetchCurrencyData';
 import { GrLogout } from "react-icons/gr";
 import { HiShoppingCart } from "react-icons/hi";
-import { GrCurrency } from "react-icons/gr";
+import { BsCurrencyExchange } from "react-icons/bs";
 import { Dropdown, Popover  } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCurrency, changeCurrency } from '../../redux/currency/currencySlice';
@@ -21,6 +21,7 @@ const Header = () => {
   const {data:session} = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.value);
 
   const currencyList = useSelector((state) => state.currency.value);
   const conversion = useSelector((state) => state.currency.conversion);
@@ -69,9 +70,9 @@ const Header = () => {
                             <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span className="fi fi-in"></span></span>
                         </div>
                     } trigger="click">
-                        <span className='cur mx-2'><GrCurrency size={15} color='yellow'/></span>
+                        <span className='cur mx-2'>Change Currency <BsCurrencyExchange size={15} color='grey'/></span>
                     </Popover>
-                    <span className='cur mx-1'onClick={()=>router.push("/cart")}><HiShoppingCart size={15}/></span>
+                    <span className='cur mx-1'onClick={()=>router.push("/cart")}>{"("} {cart.length} {")"} <HiShoppingCart size={15}/></span>
                     <span className='mx-2'> | </span>
                     <span className='cur mx-1'><SiFacebook/></span>
                     <span className='cur mx-1'><SiInstagram/></span>

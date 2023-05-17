@@ -6,6 +6,7 @@ const Ticket = ({fetchedTicket}) => {
 
   return (
     <>
+    {fetchedTicket && <>
     <div className='my-5' style={{height:10}}></div>
     <div style={{border:'1px solid grey', width:700}} className='mx-5 my-5 py-5'>
         <Row>
@@ -62,6 +63,7 @@ const Ticket = ({fetchedTicket}) => {
             </Col>
         </Row>
     </div>
+    </>}
     </>
   )
 }

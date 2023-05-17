@@ -25,9 +25,8 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
 
   const afterPay = async() => {
     await delay(2000);
-    console.log(name, email, image)
     let id = await createReservation();
-    //await sendMail(id);
+    await sendMail(id);
   }
   
   const sendMail = (id) => {
@@ -82,14 +81,14 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
 
   return (
     <div style={{backgroundColor:"white", padding:100}}>
-        <div className='text-center' data-aos="fade-in">
-            <img src={"/other-assets/payment_done.png"} height={200} />
-            <h1 style={{color:"#20bf55", fontWeight:700}} className="my-3">Thank You!</h1>
-            <p style={{color:"grey"}}>Payment done successfully</p>
-            <p style={{color:"silver"}}>
-              A confirmation E-mail will be sent in a moment, and you'll be directed towards the home page shortly!
-            </p>
-        </div>
+      <div className='text-center' data-aos="fade-in">
+          <img src={"/other-assets/payment_done.png"} height={200} />
+          <h1 style={{color:"#20bf55", fontWeight:700}} className="my-3">Thank You!</h1>
+          <p style={{color:"grey"}}>Payment done successfully</p>
+          <p style={{color:"silver"}}>
+            A confirmation E-mail will be sent in a moment, and you'll be directed towards the home page shortly!
+          </p>
+      </div>
     </div>
   )
 }

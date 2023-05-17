@@ -372,8 +372,8 @@ body {
 
 .checkout-now{
   width: 100%;
-  background-color: rgba(6, 152, 26, 0.655);
-  border: 1px solid rgb(8, 78, 8);
+  background-color: rgb(224, 120, 16);
+  border: 1px solid rgb(112, 62, 11);
   padding: 10px 5px;
   text-align: center;
   font-weight: 600;
@@ -382,7 +382,7 @@ body {
 }
 .checkout-now:hover{
   transition-duration: 300ms;
-  background-color: rgba(0, 91, 12, 0.655);
+  background-color: rgb(148, 76, 4);
 }
 
 .date-list-boundary{

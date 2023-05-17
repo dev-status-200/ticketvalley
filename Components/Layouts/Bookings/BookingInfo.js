@@ -9,7 +9,7 @@ import Router from "next/router"
 const BookingInfo = ({state, dispatch}) => {
 
     const assignTicket = async(data, count) => {
-        //console.log(data);
+        console.log(state.selectedRecord.id);
         let tempTickets = [];
         let i=0;
         while(tempTickets.length!=4){
@@ -19,7 +19,10 @@ const BookingInfo = ({state, dispatch}) => {
             i++;
         }
         //console.log(tempTickets)
-        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{data, tickets:tempTickets})
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
+            data, tickets:tempTickets, email:state.selectedRecord['email'],
+            ticketId:state.selectedRecord.id
+        })
         .then((x)=>{
             if(x.data.result[0]==1){
                 Router.push("/bookings");

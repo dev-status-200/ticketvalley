@@ -242,7 +242,7 @@ const Product = ({id, tourData, transportData}) => {
           </iframe>
           </div>
         </div>
-        {scrollPosition>650 &&
+        {(scrollPosition>650 && !added ) &&
         <div className='fixed-book'>
           <button type='button'  onClick={showDrawer} className='otherBook-btn'>
             <b>            
@@ -250,7 +250,8 @@ const Product = ({id, tourData, transportData}) => {
               <div className='my-0 py-0'>NOW</div>
             </b>
           </button>
-        </div>}
+        </div>
+        }
       </div>
       }
       { Object.keys(tour).length==0 && <div>Please wait...</div>}

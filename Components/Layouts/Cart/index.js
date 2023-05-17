@@ -13,10 +13,9 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import PayComp from './PayComp';
+import NavLinks from '../../Shared/NavLinks';
 
 const Cart = () => {
-
-
 
     const {data:session} = useSession();
     const dispatch = useDispatch();
@@ -114,6 +113,26 @@ const Cart = () => {
         })
     };
   return (
+    <>
+    <div className='tour-styles' style={{backgroundColor:'white'}} >
+        <div className='hero pt-4'>
+        <div className='navBar'>
+            <Link className='navLink' href='/'>HOME</Link>
+            <Link className='navLink' href='/'>DESTINATION</Link>
+            <span className="navLink">
+            <img src={'/images/logo.png'} height={100} />
+            </span>
+            <div className='dropdown mx-2'>
+            <span className='navLink dropbtn'>ACTIVITIES</span>
+            <div className="dropdown-content">
+                <NavLinks/>
+            </div>
+            </div>
+            <Link className='navLink' href='/about'>ABOUT US</Link>
+        </div>
+        <div className='my-2 py-2'></div>
+        </div>
+    </div>
     <div className='cart-styles' style={{borderTop:"1px solid silver"}}>
     <Container className='cart-box' fluid>
     <Row>
@@ -264,6 +283,7 @@ const Cart = () => {
     </Row>
     </Container>
     </div>
+    </>
   )
 }
 export default Cart

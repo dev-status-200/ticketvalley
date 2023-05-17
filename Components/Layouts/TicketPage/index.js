@@ -9,6 +9,7 @@ import Pdf from "react-to-pdf";
 import Ticket from './Ticket';
 import moment from 'moment';
 import Link from 'next/link';
+import CircleIcons from '../../Shared/CircleIcons';
 
 const ref = React.createRef();
 const TicketPage = ({ticketData}) => {
@@ -17,24 +18,25 @@ const TicketPage = ({ticketData}) => {
     const [fetchedTicket, setFetchedTicket] = useState({});
 
     const selectTour = async(tour, option) => {
-        //console.log(option)
-        let count = option.codes.split(", ")
-        let ticket = [];
-        //console.log(count);
-        
-        count.forEach((x)=>{
-            ticket.push({
-                image:tour.image,
-                title:option.tourOptName,
-                name:tour.customerTitle + " " + tour.customerName,
-                transfer:option.transfer,
-                date:moment(option.date).format("MMM-DD-YYYY"),
-                assigned:option.assigned,
-                code:x
+        if(option.assigned=="1"){
+            let count = option.codes.split(", ")
+            let ticket = [];
+            //console.log(count);
+            
+            count.forEach((x)=>{
+                ticket.push({
+                    image:tour.image,
+                    title:option.tourOptName,
+                    name:tour.customerTitle + " " + tour.customerName,
+                    transfer:option.transfer,
+                    date:moment(option.date).format("MMM-DD-YYYY"),
+                    assigned:option.assigned,
+                    code:x
+                })
             })
-        })
-        
-        await setFetchedTicket(ticket);
+            
+            await setFetchedTicket(ticket);
+        }
 	};
 
     useEffect(() => {
@@ -76,11 +78,16 @@ const TicketPage = ({ticketData}) => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
-            {/* <h1 className='text-center mt-3 ' style={{color:"white", fontWeight:700}}>Bookings Page</h1> */}
+            <div className='my-3'>
+                <div className='text-center'>
+                <h1 className='wh-txt hero-txt-1'>ABOUT <span className='yellow-txt'>US</span></h1>
+                </div>
+            </div>
         </div>
         </div>
-        <Container className='my-5'>
-        <h4>Tickets For Booking No: </h4>
+        <Container className='mb-5'>
+        <CircleIcons/>
+        <h4 className='mt-4'>Tickets For Booking No: </h4>
         <p className='grey-txt'>Please Select The Tickets to download</p>
         <hr/>
             <Row>
