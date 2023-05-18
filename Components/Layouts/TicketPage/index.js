@@ -10,10 +10,11 @@ import Ticket from './Ticket';
 import moment from 'moment';
 import Link from 'next/link';
 import CircleIcons from '../../Shared/CircleIcons';
+import ReactToPrint from 'react-to-print';
 
-const ref = React.createRef();
+//const ref = React.createRef();
 const TicketPage = ({ticketData}) => {
-
+    let inputRef = useRef(null);
     const [tickets, setTickets] = useState([]);
     const [fetchedTicket, setFetchedTicket] = useState({});
 
@@ -34,12 +35,13 @@ const TicketPage = ({ticketData}) => {
                     code:x
                 })
             })
-            
+            console.log(ticket)
             await setFetchedTicket(ticket);
         }
 	};
 
     useEffect(() => {
+        console.log(ticketData)
         let temp = ticketData.result.BookedTours;
         temp.forEach((x, i)=>{
             x.BookedToursOptions.forEach((y, j)=>{
@@ -54,7 +56,7 @@ const TicketPage = ({ticketData}) => {
   return (
     <div style={{minHeight:'50vh', backgroundColor:"white"}}>
         <div className='home-styles'>
-        <div className='theme empty-bg py-4'>
+        <div className='theme py-4'>
             <div className='navBar'>
             <Link className='navLink' href='/'>HOME</Link>
             <div className='dropdown'>
@@ -147,19 +149,35 @@ const TicketPage = ({ticketData}) => {
             )})}
             </Row>
             {fetchedTicket.length>0 && 
-            <Pdf targetRef={ref} filename="ticket.pdf">
-                {({ toPdf }) => <button className='custom-btn' onClick={toPdf}>Download</button>}
-            </Pdf>
+            // <Pdf targetRef={ref} filename="ticket.pdf">
+            //     {({ toPdf }) => <button className='custom-btn' onClick={toPdf}>Download</button>}
+            // </Pdf>
+            <ReactToPrint content={()=>inputRef} trigger={()=><button className='custom-btn'>Get Ticket</button>} />
             }
             {fetchedTicket.length==0 && 
                 <div>The Selected Ticket is pending for arrival</div>
             }
         </Container>
-        <div style={{position:'absolute', right:10000}}
+        {/* <div style={{position:'absolute', right:10000}}
         >
         
         <div ref={ref} ><Ticket fetchedTicket={fetchedTicket[0]} /></div>
+        </div> */}
+        {fetchedTicket.length>0 &&
+        <div 
+        style={{display:"none"}}
+        >
+        <div ref={(response) => (inputRef = response)} >
+            {fetchedTicket.map((x, i)=>{
+                return(
+                    <div key={i} className=''>
+                        <div className='my-5'></div>
+                        <Ticket fetchedTicket={x} i={i} />
+                    </div>
+                )
+            })}
         </div>
+        </div>}
     </div>
   )
 }

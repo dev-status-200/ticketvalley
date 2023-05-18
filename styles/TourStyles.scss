@@ -153,6 +153,7 @@
   cursor: pointer;
 }
 .img-hover:hover{
+  transition-duration: 200ms;
   box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
 -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
@@ -171,9 +172,9 @@
 }
 
 .tour-features-box{
-  box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
 }
 
 .tour-features{
@@ -189,9 +190,11 @@
 }
 
 .tour-map-shadow{
-  box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  
+  padding: 0px;
+  box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
 }
 
 .policies-box{

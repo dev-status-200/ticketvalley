@@ -2,14 +2,33 @@ import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import QRCode from "react-qr-code";
 
-const Ticket = ({fetchedTicket}) => {
+const Ticket = ({fetchedTicket, i}) => {
 
   return (
     <>
-    {fetchedTicket && <>
-    <div className='my-5' style={{height:10}}></div>
-    <div style={{border:'1px solid grey', width:700}} className='mx-5 my-5 py-5'>
-        <Row>
+    {fetchedTicket && <div className={` ${i>0?"pt-5":""}`}>
+        <div className='home-styles'>
+        <div style={{height:1000, width:700}} className='mx-5 ticket-bg ticket-bg'>
+        <QRCode style={{position:'relative', left:500, top:90}}
+            value={fetchedTicket.code}
+            scale={0.6} 
+            size={150}
+            level='Q'
+            viewBox={`0 0 200 200`}
+        />
+            <div style={{position:'relative', left:500, top:90}}><h6>{fetchedTicket.code}</h6></div>
+        </div>
+        </div>
+        {/* <div >
+        <QRCode style={{position:'absolute'}}
+            value={fetchedTicket.code}
+            scale={0.6} 
+            size={150}
+            level='Q'
+            viewBox={`0 0 200 200`}
+        />
+        </div> */}
+        {/* <Row>
             <Col className='mx-4'>
                 <h4>Ticket Valley</h4>
                 <p>www.ticketsvalley.com</p>
@@ -61,9 +80,8 @@ const Ticket = ({fetchedTicket}) => {
                 <li>Re-booking an alternate same-day time slot will be based on availability with no guarantee</li>
             </ul>
             </Col>
-        </Row>
-    </div>
-    </>}
+        </Row> */}
+    </div>}
     </>
   )
 }

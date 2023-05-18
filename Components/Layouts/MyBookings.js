@@ -35,7 +35,7 @@ const MyBookings = () => {
     <div style={{backgroundColor:'white'}}>
         <hr className='my-0' />
         <div className='home-styles'>
-        <div className='theme empty-bg py-4'>
+        <div className='theme py-4'>
             <div className='navBar'>
             <Link className='navLink' href='/'>HOME</Link>
             <div className='dropdown'>

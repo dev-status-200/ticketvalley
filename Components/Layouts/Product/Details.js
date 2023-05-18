@@ -25,12 +25,12 @@ const Details = ({tour}) => {
       <span className='mx-2 fs-12' style={{color:'grey'}}>{"("}3 Reviews{")"}</span> 
       <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> {tour.destination.toUpperCase()}, {tour.city}
       {/* <hr/> */}
-      <img className='my-3' src={mainImage} style={{borderRadius:23, width:'60vw', height:400}} />
+      <img className='my-3' src={mainImage} style={{borderRadius:23, width:'100%', height:350}} />
       <Row>
         {images.map((x, i)=>{
           return(
-            <Col key={i} md={3}  onClick={()=>setMainImage(x)}>
-              <img src={x} className='img-hover' style={{width:'14vw', borderRadius:20, height:100}} />
+            <Col key={i} md={3} onClick={()=>setMainImage(x)}>
+              <img src={x} className='img-hover' style={{width:'100%', borderRadius:20, height:100}} />
             </Col>
           )
         })}

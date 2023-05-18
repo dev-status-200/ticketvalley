@@ -7,6 +7,14 @@
   .city{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/city.jpg"); }
   .luxury{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/luxury.jpeg"); }
   
+  .ticket-bg{
+    background: url("../public/images/ticket.png"); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  
   .adv{ background:linear-gradient(0deg, rgba(34, 39, 77, 0.516), rgba(93, 14, 60, 0.434)), url("../public/activity-bgs/adventure.jpg"); }
   .search-bg{ 
     height: 1400px; 

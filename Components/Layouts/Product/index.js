@@ -65,7 +65,6 @@ const Product = ({id, tourData, transportData}) => {
   return (
     <>
     <div className='tour-styles' style={{backgroundColor:'white'}} >
-
       <div className='hero pt-4'>
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
@@ -86,12 +85,111 @@ const Product = ({id, tourData, transportData}) => {
       {/* <CircleIcons/> */}
       {Object.keys(tour).length>0 &&
       <div>
-        <Container className='' data-aos="fade-up">
+        <Container className='' >
           <Row className='p'>
-            <Col md={8} className='pt-5'>
-              <Details tour={tour} />
+            <Col md={8} className=''>
+              <Details tour={tour} data-aos="fade-right" />
             </Col>
-            <Col md={4} >
+            <Col md={4} data-aos="fade-up">
+            <div className='pt-5'>
+              <div className='booking-form mt-4'>
+                <div className=''><span className='fw-400 fs-14 grey-txt'>Starting From</span></div>
+                {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
+                  {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
+                </s>}
+                <p className='fw-600 fs-30'><AiFillTags/>
+                  {(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
+                </p>
+                <div className='my-2'>
+                  <span className='info-logo'><IoCalendarSharp/></span>
+                  <span className='info-text'>Availability: {tour.availability}</span><br/>
+                  <span className='info-logo'><GiSandsOfTime/></span>
+                  <span className='info-text'>Duration: {tour.duration}</span><br/>
+                  <span className='info-logo'><AiOutlineClockCircle/></span>
+                  <span className='info-text'>{tour.time_slot}</span><br/>
+                  {tour.transport &&<>
+                    <span className='info-logo'><FaShuttleVan/></span>
+                    <span className='info-text'>{tour.transport}</span>
+                    <br/>
+                  </>}
+                  
+                  <span className='info-logo'><IoFlashSharp/></span>
+                  <span className='info-text'>{tour.confirmation}</span><br/>
+                  <span className='info-logo bt-2'><RiExchangeFundsLine/></span>
+                  <span className='info-text'>Refund: {tour.refund}</span><br/>
+                  <span className='info-logo bt-2'><AiOutlinePrinter/></span>
+                  <span className='info-text'>{tour.voucher}</span><br/>
+                </div>
+                {!added && 
+                <div className="wrapper mt-4" onClick={showDrawer}>
+                  <div className='a'><span>BOOK NOW</span></div>
+                </div>
+                }
+                {added && 
+                <Row> 
+                  <hr/>
+                  <Col>
+                    <button className='view-more' onClick={()=>Router.push("/cart")}>
+                      <TbArrowBackUp style={{position:'relative', bottom:1}} size={18} />
+                      <span className='mx-1'>View More</span>
+                    </button>
+                  </Col>
+                  <Col>
+                    <button className='checkout-now' onClick={()=>Router.push("/cart")}>
+                      <MdShoppingCart style={{position:'relative', bottom:2}} />
+                      <span className='mx-1'>Checkout Now</span>
+                    </button>
+                  </Col> 
+                </Row>
+                }
+                <Drawer style={{padding:'', margin:0, width:550, position:'relative', right:70}}
+                  title={`${tour.title} Options`}
+                  placement={"right"}
+                  onClose={onClose}
+                  open={open}
+                  width={470}
+                ><Book tour={tour} transport={transport} setOpen={setOpen} />
+                </Drawer>
+              </div>
+              <div className='tour-features-box my-4 mt-5'>
+                <div className='tour-features pt-3 pb-1'>
+                  <h5>Duration</h5>
+                </div>
+                <div className='tour-features-white pt-3 pb-1  px-5'>
+                  <h6>{tour.duration} </h6>
+                </div>
+              </div>
+              <div className='tour-features-box my-4'>
+                <div className='tour-features pt-3 pb-1'>
+                  <h5>Departure Point</h5>
+                </div>
+                <div className='tour-features-white pt-3 pb-1 px-5'>
+                  <h6>{tour.departure}</h6>
+                </div>
+              </div>
+              <div className='tour-features-box my-4'>
+                <div className='tour-features pt-3 pb-1'>
+                  <h5>Reporting Point</h5>
+                </div>
+                <div className='tour-features-white pt-3 pb-1  px-5'>
+                  <h6>{tour.reporting}</h6>
+                </div>
+              </div>
+              <div className='tour-features-box my-4'>
+                <div className='tour-features pt-3 pb-1'>
+                  <h5>Languages</h5>
+                </div>
+                <div className='tour-features-white pt-3 pb-1  px-5'>
+                  <h6>{tour.lang}</h6>
+                </div>
+              </div>
+              <iframe className="p-0 m-0 tour-map-shadow"
+                src="
+                https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s
+                " 
+                width="100%" height="480">
+              </iframe>
+            </div>
             </Col>
           </Row>
         </Container>
@@ -133,115 +231,7 @@ const Product = ({id, tourData, transportData}) => {
             </Col>
           </Row>
         </Container>
-        <div className='book normal-book'>
-          <div className='booking-form'>
-            <div className=''><span className='fw-400 fs-14 grey-txt'>Starting From</span></div>
-            {tour.prevPrice && <s className='fw-400 fs-20' style={{color:"#af302c"}}>
-              {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
-            </s>}
-            <p className='fw-600 fs-30'><AiFillTags/>
-              {(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
-            </p>
-            <div className='my-2'>
-              <span className='info-logo'><IoCalendarSharp/></span>
-              <span className='info-text'>Availability: {tour.availability}</span><br/>
-              <span className='info-logo'><GiSandsOfTime/></span>
-              <span className='info-text'>Duration: {tour.duration}</span><br/>
-              <span className='info-logo'><AiOutlineClockCircle/></span>
-              <span className='info-text'>{tour.time_slot}</span><br/>
-              {tour.transport &&<>
-                <span className='info-logo'><FaShuttleVan/></span>
-                <span className='info-text'>{tour.transport}</span>
-                <br/>
-              </>}
-              
-              <span className='info-logo'><IoFlashSharp/></span>
-              <span className='info-text'>{tour.confirmation}</span><br/>
-              <span className='info-logo bt-2'><RiExchangeFundsLine/></span>
-              <span className='info-text'>Refund: {tour.refund}</span><br/>
-              <span className='info-logo bt-2'><AiOutlinePrinter/></span>
-              <span className='info-text'>{tour.voucher}</span><br/>
-            </div>
-
-            {/* <Book tour={tour} transport={transport} /> */}
-            {!added && 
-            <div className="wrapper mt-4" onClick={showDrawer}>
-              <div className='a'><span>BOOK NOW</span></div>
-            </div>
-            }
-            {added && 
-            <Row> 
-              <hr/>
-              <Col>
-                <button className='view-more' onClick={()=>Router.push("/cart")}>
-                  <TbArrowBackUp style={{position:'relative', bottom:1}} size={18} />
-                  <span className='mx-1'>View More</span>
-                </button>
-              </Col>
-              <Col>
-                <button className='checkout-now' onClick={()=>Router.push("/cart")}>
-                  <MdShoppingCart style={{position:'relative', bottom:2}} />
-                  <span className='mx-1'>Checkout Now</span>
-                </button>
-              </Col> 
-            </Row>
-            }
-            <Drawer style={{padding:'', margin:0, width:550, position:'relative', right:70}}
-              title={`${tour.title} Options`}
-              placement={"right"}
-              onClose={onClose}
-              open={open}
-              width={470}
-            ><Book tour={tour} transport={transport} setOpen={setOpen} />
-            </Drawer>
-          </div>
-          <div className='mt-5'>
-            <div className='tour-features pt-3 pb-1'>
-            {/* <h2>{tour.title}</h2> */}
-            <h5>Ticket Info</h5>
-            </div>
-          </div>
-          <div className='tour-features-box my-3'>
-            <div className='tour-features pt-3 pb-1'>
-              <h5>Duration</h5>
-            </div>
-            <div className='tour-features-white pt-3 pb-1'>
-              <h6>{tour.duration} </h6>
-            </div>
-          </div>
-          <div className='tour-features-box my-3'>
-            <div className='tour-features pt-3 pb-1'>
-              <h5>Departure Point</h5>
-            </div>
-            <div className='tour-features-white pt-3 pb-1'>
-              <h6>{tour.departure}</h6>
-            </div>
-          </div>
-          <div className='tour-features-box my-3'>
-            <div className='tour-features pt-3 pb-1'>
-              <h5>Reporting Point</h5>
-            </div>
-            <div className='tour-features-white pt-3 pb-1'>
-              <h6>{tour.reporting}</h6>
-            </div>
-          </div>
-          <div className='tour-features-box my-3'>
-            <div className='tour-features pt-3 pb-1'>
-              <h5>Languages</h5>
-            </div>
-            <div className='tour-features-white pt-3 pb-1'>
-              <h6>{tour.lang}</h6>
-            </div>
-          </div>
-          <div className='tour-map-shadow py-0 my-0'>
-          <iframe className="p-0 m-0"
-            src="
-            https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s
-            " 
-            width="100%" height="480">
-          </iframe>
-          </div>
-        </div>
+ 
         {(scrollPosition>650 && !added ) &&
         <div className='fixed-book'>
           <button type='button'  onClick={showDrawer} className='otherBook-btn'>
