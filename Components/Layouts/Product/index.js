@@ -129,7 +129,7 @@ const Product = ({id, tourData, transportData}) => {
                 <Row> 
                   <hr/>
                   <Col>
-                    <button className='view-more' onClick={()=>Router.push("/cart")}>
+                    <button className='view-more' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City&category=Theme+Parks")}>
                       <TbArrowBackUp style={{position:'relative', bottom:1}} size={18} />
                       <span className='mx-1'>View More</span>
                     </button>

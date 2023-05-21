@@ -30,14 +30,16 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
   }
   
   const sendMail = (id) => {
-    axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
-      user:email, booking_id:id
-    }).then((x)=>{
-      dispatch(addProduct([]));
-      destroyCart();
-      Cookies.remove("promoDiscount", { path: '' });
-      Router.push("/");
-    })
+    if(id){
+      axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
+        user:email, booking_id:id
+      }).then((x)=>{
+      })
+    }
+    dispatch(addProduct([]));
+    destroyCart();
+    Cookies.remove("promoDiscount", { path: '' });
+    Router.push("/");
   }
 
   const priceCalc = (cartData, disc) => {

@@ -715,15 +715,19 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 
 .booking-row{
   cursor: pointer;
-  margin: 3px;
+  background-color: white;
+  border: 1px solid silver;
+  border-radius: 5px;
   padding: 12px 10px;
-  background-color: rgba(230, 211, 151, 0.274);
+  box-shadow: 0px 0px 16px -17px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 16px -17px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 16px -17px rgba(0,0,0,0.75);
+  margin: 0px;
 }
 
 .booking-row:hover{
   transition-duration: 300ms;
-  background-color: rgba(206, 184, 112, 0.445);
-  border-radius: 5px;
+  background-color: rgba(242, 234, 206, 0.445);
 }
 
 .copy-tag{
@@ -735,13 +739,13 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 
 .ticket-row{
-  padding: 10px;
+  padding: 20px 10px 20px 10px;
   cursor: pointer;
   border-radius: 15px;
 }
 
 .selected-ticket-row{
-  padding: 10px;
+  padding: 20px 10px 20px 10px;
   cursor: pointer;
   border-radius: 15px;
   background-color: #1f478836;
@@ -891,4 +895,62 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 
 .row-hover:hover{
   background-color: rgb(224, 224, 224);
+}
+
+.reservs-cont{
+  background-color: rgba(192, 192, 192, 0.225);
+  border-radius: 15px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.tickets-cont{
+  background-color: rgb(230, 230, 230);
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.ticket-cont-wh-bg{
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px 20px;
+  box-shadow: 0px 0px 15px -7px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 15px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 15px -7px rgba(0,0,0,0.75);
+}
+
+.cropped { 
+  width: 276px; 
+  height: 430px; 
+  object-fit: cover;
+  object-position: 25% 25%;
+  border-radius: 25px; 
+} 
+.left-ticket-box {
+  background-color:rgb(50, 141, 25); 
+  border-radius:25px;
+  height:430px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.tictet-field{
+  color: yellow;
+}
+.tictet-icon{
+  color: yellow!important;
+  position: relative;
+  bottom: 1px;
+}
+.ticket-line{
+  background-color: white;
+  width: 100%;
+  height: 1px;
+  margin-top: 10px;
+}
+
+.bg-green{
+  background-color: rgba(173, 238, 173, 0.763);
 }

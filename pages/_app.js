@@ -43,9 +43,7 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         { loading && 
           <SessionProvider session={session}>
             <Provider store={store}>
-              <ClientLayout>
-                <Loader/> 
-                </ClientLayout>
+              <Loader/> 
             </Provider>
           </SessionProvider>
         }

@@ -59,23 +59,18 @@ const MyBookings = () => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
-            <div className='my-2'>
-                <div className='text-center'>
-                <h1 className='wh-txt hero-txt-1'>My <span className='yellow-txt'>Bookings</span></h1>
-                </div>
-            </div>
         </div>
         </div>
+        <CircleIcons/>
+                <hr className='mb-0 mt-5' />
+        <div className='tickets-cont pb-5'>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
-        <Container className='mb-5 px-5'>
-            <CircleIcons/>
-        <h4 className='my-4'>Your Bookings</h4>
-        <p>All Your booking info will be diplayed here.</p>
+        <h1 className='mt-4 grey-txt'>My Bookings</h1>
+        <div className='mb-4'>All Your booking info will be diplayed here.</div>
         {bookings.map((y, j)=>{
             return(
-            <div key={j}>
-            <hr className='mb-2 mt-2' />
-            <Row  className='booking-row' onClick={()=>Router.push(`/ticketPage?id=${y.id}`)}>
+            <div key={j} className='booking-row p-3'>
+            <Row className='' onClick={()=>Router.push(`/ticketPage?id=${y.id}`)}>
             <Col md={12}>
             {y.BookedTours.map((x, i)=>{
             return(
@@ -84,15 +79,15 @@ const MyBookings = () => {
                     <div>
                     {i==0 &&
                         <Row>
-                            <Col>
-                            <div>Date :  <span className='grey-txt'>{moment(y.moment).format('DD/MM/YY')}</span></div>
-                            <div>Booking No. :  <b className='grey-txt'>{y.id}</b></div>
+                            <Col className=''>
+                            <div className='grey-txt fs-20 fw-500'>Booking#: {y.id}</div>
+                            <div className='silver-2-txt'><span >{moment(y.moment).format('DD-MMM-YYYY, hh:ss a')}</span></div>
                             <div className='mt-2'>
                                 PROMO :
                                 {" "}
                                 <span className='grey-txt'>
                                     {y.promo=="none"?
-                                        'NO':
+                                        <>NO</>:
                                         <>
                                         <span style={{color:'goldenrod'}}>{JSON.parse(y.promo).name}</span> -
                                         <span style={{marginLeft:5}}>{JSON.parse(y.promo).price}</span>
@@ -101,18 +96,17 @@ const MyBookings = () => {
                                     }
                                 </span>
                             </div>
+                            <h6 className='mt-2'>Total Price :  
+                                {" "}<span className='grey-txt fw-600'>{(y.final_price*conversion.rate).toFixed(2)}</span> {conversion.currency}
+                            </h6>    
                             </Col>
-                            <Col>
-                            <div style={{float:'right'}}>
-                            <h4 className='mt-2'>Total Price :  
-                                {" "}<b className='grey-txt'>{(y.final_price*conversion.rate).toFixed(2)}</b> {conversion.currency}
-                            </h4>    
-                            <h6 style={{color:'#2b55bf'}}>Click To View Tickets {">"}</h6>
-                            </div>
+                            <Col style={{textAlign:'end'}}>
+                            <img src={'/icons/reservation.png'} height={90} />
+                            
+                            <div style={{color:'#2b55bf'}} className='mt-3'>Click To View Tickets {">"}</div>
                             </Col>
                         </Row>
                     }
-                    <br/>
                     </div>
                     </Col>
                 </Row>
@@ -121,12 +115,9 @@ const MyBookings = () => {
             </Row>
             </div>
         )})}
-        {bookings.length==0 && 
-        <Container className='py-5' data-aos='fade-up'>
-            <Empty /> <h3 className='text-center fw-200 mt-5'>Looks like you haven't made any bookings yet!</h3>
-        </Container>
-        }
-        </Container>
+        {bookings.length==0 && <Container className='py-5' data-aos='fade-up'><Empty /> <h3 className='text-center fw-200 mt-5'>Looks like you haven't made any bookings yet!</h3></Container>}
+
+        </div>
     </div>
   )
 }

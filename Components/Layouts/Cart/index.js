@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import PayComp from './PayComp';
 import NavLinks from '../../Shared/NavLinks';
+import CircleIcons from '../../Shared/CircleIcons';
 
 const Cart = () => {
 
@@ -130,15 +131,15 @@ const Cart = () => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
         </div>
-        <div className='my-2 py-2'></div>
+        <div className='mt-2 pt-2'></div>
         </div>
     </div>
-    <div className='cart-styles' style={{borderTop:"1px solid silver"}}>
+    <div style={{backgroundColor:'white', paddingBottom:30}}><CircleIcons/></div>
+    <div className='cart-styles' style={{borderTop:'1px solid silver'}} >
     <Container className='cart-box' fluid>
     <Row>
         <Col md={8} className="pt-4">
         <Container className='px-5 black-txt'>
-            <Link href="/" style={{color:'grey', textDecoration:'none', fontSize:14}}>{"<"} Go Back</Link>
             <div className='fs-30 fw-500 black-txt my-2'>Your Cart</div>
             <p className='m-0 p-0'>{cart.length} Item Added</p>
             {cart.length>0 &&
@@ -146,10 +147,10 @@ const Cart = () => {
             {cart.map((x, i)=>{
             return(
                 <Row key={i} className="cart-item mx-0">
-                    <Col md={2} className="py-3" >
-                        <img src={x.image} height={100} width={120} style={{borderRadius:5}} />
+                    <Col md={3} className="py-3" >
+                        <img src={x.image} height={100} width={150} style={{borderRadius:5}} />
                     </Col>
-                    <Col className="px-4 my-3" md={10} >
+                    <Col className="px-4 my-3" md={9} >
                     <div style={{float:'right'}}>
                         <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {showIndivPrice(x.options)}</span>
                         <CloseCircleOutlined className='close-cart-btn' 

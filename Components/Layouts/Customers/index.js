@@ -34,7 +34,7 @@ const Customers = ({data}) => {
                     <td className='fs-16' style={{maxWidth:1}}>
                         {index+1}
                     </td>
-                    <td className='fs-16' style={{maxWidth:20}}>
+                    <td className='fs-16' style={{maxWidth:30}}>
                         <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40} />
                     </td>
                     <td >{x.name}</td>

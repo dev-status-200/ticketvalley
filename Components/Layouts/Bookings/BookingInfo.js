@@ -9,16 +9,14 @@ import Router from "next/router"
 const BookingInfo = ({state, dispatch}) => {
 
     const assignTicket = async(data, count) => {
-        console.log(state.selectedRecord.id);
-        let tempTickets = [];
-        let i=0;
-        while(tempTickets.length!=4){
+        let tempTickets = [], i=0;
+        console.log(data)
+        while(tempTickets.length!=count){
             if(!data.inventory[i].used){
                 tempTickets.push({...data.inventory[i], used:true});
             }
             i++;
         }
-        //console.log(tempTickets)
         await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
             data, tickets:tempTickets, email:state.selectedRecord['email'],
             ticketId:state.selectedRecord.id

@@ -1,19 +1,16 @@
 import React, { useEffect, useState, useRef, createRef } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import {
-    CheckCircleOutlined,
-    ClockCircleOutlined
-  } from '@ant-design/icons';
-import { Tag } from 'antd';
-import Pdf from "react-to-pdf";
+import { Row, Col } from 'react-bootstrap';
+import { Input, Rate } from 'antd';
 import Ticket from './Ticket';
 import moment from 'moment';
 import Link from 'next/link';
 import CircleIcons from '../../Shared/CircleIcons';
 import ReactToPrint from 'react-to-print';
+import axios from 'axios';
+import Router from 'next/router'
+const { TextArea } = Input;
 
-//const ref = React.createRef();
-const TicketPage = ({ticketData}) => {
+const TicketPage = ({ticketData, bookingNo}) => {
     let inputRef = useRef(null);
     const [tickets, setTickets] = useState([]);
     const [fetchedTicket, setFetchedTicket] = useState({});
@@ -22,7 +19,6 @@ const TicketPage = ({ticketData}) => {
         if(option.assigned=="1"){
             let count = option.codes.split(", ")
             let ticket = [];
-            //console.log(count);
             
             count.forEach((x)=>{
                 ticket.push({
@@ -35,22 +31,30 @@ const TicketPage = ({ticketData}) => {
                     code:x
                 })
             })
-            console.log(ticket)
             await setFetchedTicket(ticket);
         }
 	};
 
+    const submitReview = async(data) => {
+        console.log(data.id, data.rating, data.review)
+        await axios.post(process.env.NEXT_PUBLIC_POST_CUSTOMER_REVIEW,{
+            id:data.id, review:data.review, rating:data.rating
+        }).then((x)=>Router.push(`/ticketPage?id=${bookingNo}`))
+    }
+
     useEffect(() => {
-        console.log(ticketData)
         let temp = ticketData.result.BookedTours;
         temp.forEach((x, i)=>{
             x.BookedToursOptions.forEach((y, j)=>{
                 y.check = false;
+                y.reviewCheck = false;
+                y.rating = y.rating==null?0:parseInt(y.rating) ;
             })
         })
+        //console.log(temp);
+        //
         setTickets(temp);
     }, [])
-    
     const btm = {position:'relative', bottom:3}
 
   return (
@@ -80,22 +84,20 @@ const TicketPage = ({ticketData}) => {
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
             </div>
-            <div className='my-3'>
-                <div className='text-center'>
-                <h1 className='wh-txt hero-txt-1'>ABOUT <span className='yellow-txt'>US</span></h1>
-                </div>
-            </div>
         </div>
         </div>
-        <Container className='mb-5'>
+        <div className=''>
         <CircleIcons/>
-        <h4 className='mt-4'>Tickets For Booking No: </h4>
-        <p className='grey-txt'>Please Select The Tickets to download</p>
-        <hr/>
-            <Row>
+        <hr className='mb-0 mt-5' />
+        <div className='tickets-cont pb-5'>
+            <h1 className='mt-4 grey-txt'>My Tickets </h1>
+            <span className='grey-txt'>For Booking #{bookingNo},</span>
+            <span className='grey-txt'> please select the ticket to interact</span>
+            <Row className='ticket-cont-wh-bg my-3'>
             {tickets.map((x, i)=>{
             return(
             <Col md={12} key={i}>
+                {i!==0 && <hr className='my-0 py-0' />}
                 {x.BookedToursOptions.map((y, j)=>{
                 return(
                 <Row className={y.check?'selected-ticket-row':'ticket-row'} key={"a"+j} 
@@ -112,10 +114,10 @@ const TicketPage = ({ticketData}) => {
                     }}
                 >
                     <Col md={2}>
-                        <img className='my-3' src={x.image} height={100} width={170} style={{borderRadius:5}} />
+                        <img className='' src={x.image} height={100} width={140} style={{borderRadius:5}} />
                     </Col>
                     <Col md={6}>
-                    <h2>{y.tourOptName}</h2>
+                    <h5>{y.tourOptName}</h5>
                     <div className='mx-1'>
                         <span className=''>Adults:       <span style={{color:'grey'}}>{y.adult}  </span> </span>
                         <span className='mx-2'>Children: <span style={{color:'grey'}}>{y.child}  </span> </span>
@@ -123,49 +125,85 @@ const TicketPage = ({ticketData}) => {
                     </div>
                     <div className='mx-1'>
                         <span className=''>Transfer:   <span style={{color:'grey'}}>{y.transfer} </span> </span>
-                        {y.transfer!="No" && <div><span className=''>Pick-up:</span><br/><span style={{color:'grey'}}>{y.address}</span></div>}
+                        {y.transfer!="No" && <div><span className=''>Pick-up:</span>    <span style={{color:'grey'}}>{y.address}</span></div>}
                     </div>
                     </Col>
                     <Col md={4} >
                         <div style={{float:'right', height:"100%"}}>
-                            <div>
-                                <span className='mx-1'>Status:{" "}</span>
+                            <div className=' text-end '>
+                                <div className='mx-3'>{" "}</div>
                                 {
                                 y.assigned=="1"?
-                                <Tag icon={<CheckCircleOutlined style={btm} />} color="#5db163">Available</Tag>:
-                                <Tag icon={<ClockCircleOutlined style={btm} />} color="default">Pending</Tag>
+                                <>
+                                <div className='mx-3 fs-18'>Available</div>
+                                <img src={'/icons/ticket-available.png'} height={50} />
+                                </>:
+                                <>
+                                <div className='mx-3 fs-18'>Pending</div>
+                                <img src={'/icons/ticket-pending.png'} height={50} />
+                                </>
                                 }
                             </div>
                             {y.assigned=="0" &&<div style={{position:'relative', top:"50%"}}>
                             </div>}
                         </div>
                     </Col>
-                    <Col md={12}></Col>
+                    {y.reviewed=="0" &&<>
+                    {moment().diff(moment(y.date)) >= 0 && 
+                    <Col md={12} className='mt-3'>
+                        <div
+                          onClick={()=>{
+                            let tempTickets = [...tickets];
+                            tempTickets[i].BookedToursOptions[j].reviewCheck = true;
+                            //console.log(tempTickets[i].BookedToursOptions[j])
+                            setTickets(tempTickets)
+                        }}>
+                        <div className='fs-12'>Leave A Review </div>
+                        <Rate allowHalf defaultValue={0} value={y.rating} style={{fontSize:14}} 
+                            onChange={(e)=>{
+                                let temp = [...tickets];
+                                temp[i].BookedToursOptions[j].rating = e;
+                                setTickets(temp);
+                            }}
+                        />
+                        {y.reviewCheck &&
+                        <>
+                            <TextArea className='mt-3' rows={2} placeholder="300 Characters Max" maxLength={300}
+                                value={y.review}
+                                onChange={(e)=>{
+                                    let temp = [...tickets];
+                                    temp[i].BookedToursOptions[j].review = e.target.value;
+                                    setTickets(temp);
+                                }}
+                            />
+                            <div className='text-end'>
+                            <button className='btn-custom mt-2'
+                                onClick={()=>submitReview(y)}
+                            >Submit</button>
+                            </div>
+                        </>
+                        }
+                        </div>
+                    </Col>}
+                    </>}
                 </Row>
                 )
                 })}
-                <hr/>
             </Col>
             )})}
             </Row>
-            {fetchedTicket.length>0 && 
-            // <Pdf targetRef={ref} filename="ticket.pdf">
-            //     {({ toPdf }) => <button className='custom-btn' onClick={toPdf}>Download</button>}
-            // </Pdf>
+            {fetchedTicket.length>0 &&
             <ReactToPrint content={()=>inputRef} trigger={()=><button className='custom-btn'>Get Ticket</button>} />
             }
             {fetchedTicket.length==0 && 
                 <div>The Selected Ticket is pending for arrival</div>
             }
-        </Container>
-        {/* <div style={{position:'absolute', right:10000}}
-        >
-        
-        <div ref={ref} ><Ticket fetchedTicket={fetchedTicket[0]} /></div>
-        </div> */}
+        </div>
+        </div>
+
         {fetchedTicket.length>0 &&
         <div 
-        style={{display:"none"}}
+            style={{display:"none"}}
         >
         <div ref={(response) => (inputRef = response)} >
             {fetchedTicket.map((x, i)=>{

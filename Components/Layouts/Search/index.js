@@ -111,7 +111,7 @@ const Search = ({destination, city, date, category, tourData}) => {
     <div className='pb-5 search-bg' data-aos="fade-up">
     <CircleIcons/>
     
-      <Container className='px-1 pt-3'>
+      <Container className='px-1 pt-5'>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>
               <div className='tour-filters'>
