@@ -2,14 +2,9 @@ import React, { useEffect } from 'react';
 import { Input, InputNumber, Switch, message } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
 import { CloseCircleOutlined, DeleteOutlined, CopyOutlined, ReloadOutlined } from '@ant-design/icons';
-import {  } from 'antd';
+import DatePicker from "react-multi-date-picker"
 
-const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
-
-    useEffect(() => {
-        console.log(state.packages);
-    }, [state.selectedRecord])
-    
+const PackagesInfo = ({register, control, state, setValues, dispatch}) => {    
 
   return (
     <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
@@ -132,14 +127,15 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                             }}
                         >Add Date</div>
                     </Col>
-                    {x.dates && <div className='mt-1' style={{maxHeight:400, overflowY:"auto"}}>
+                    {x.dates && 
+                    <div className='mt-1' style={{maxHeight:400, overflowY:"auto"}}>
                     {x.dates.map((y, j)=>{  
                     return(
                     <Row key={j}>
                     <Col md={9} className="date-list-boundary py-1 px-2">
                         <Row>
                             <Col md={2}>
-                            <Form.Control type='date' size="sm" value={y.date} 
+                            {/* <Form.Control type='date' multiple={true} size="sm" value={y.date} 
                                 onChange={(e)=>{
                                     let temp = [...state.packages];
                                     let exist = false;
@@ -150,6 +146,21 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                                     });
                                     !exist?temp[i].dates[j].date=e.target.value: message.error(`Date ${e.target.value} Already Exists`);
                                     dispatch({type:'field', fieldName:"packages", payload:temp})
+                                }}
+                            /> */}
+                            <DatePicker 
+                                multiple
+                                value={[
+                                    '2023/05/03',
+                                    '2023/05/02',
+                                    '2023/05/01'
+                                ]} 
+                                dateSeparator=", " 
+                                onChange={(a,b)=>{
+                                    //console.log(b);
+                                    b.validatedValue.forEach((x)=>{
+                                        console.log(x)
+                                    })
                                 }}
                             />
                             </Col>

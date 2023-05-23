@@ -30,7 +30,8 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       state.prev_images = tempState.more_images.split(",");
       state.stock = tempState.stock;
       state.dated = tempState.dated;
-      state.dates = tempState.dated?JSON.parse(tempState.dates):[{"date":"","stock":0}]
+      //state.dates = tempState.dated?JSON.parse(tempState.dates):[{"date":""}]
+      console.log(tempState.TourOptions)
       reset(tempState);
     }
     if(!state.edit){ reset(baseValues) }
