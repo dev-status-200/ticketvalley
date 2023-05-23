@@ -106,7 +106,6 @@ const initialState = {
     cancellation_polices:[],
 
     term_condition:"",
-    terms_conditions:[],
 
     dated:false,
     dates:[{date:'', stock:0}],

@@ -18,7 +18,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   useEffect(() => {
     if(state.edit){
       let tempState = {...state.selectedRecord};
-      state.terms_conditions = tempState.terms_conditions.split("//");
       state.cancellation_polices = tempState.cancellation_polices.split("//");
       state.status = tempState.status;
       state.packages = tempState.TourOptions;
@@ -95,7 +94,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
           imp_infos:makeString(state.imp_infos),
           policies:makeString(state.policies),
           cancellation_polices:makeString(state.cancellation_polices),
-          terms_conditions:makeString(state.terms_conditions),
         }
       ).then((x)=>{
         if(x.data.status=='success'){
@@ -165,7 +163,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
           imp_infos:makeString(state.imp_infos),
           policies:makeString(state.policies),
           cancellation_polices:makeString(state.cancellation_polices),
-          terms_conditions:makeString(state.terms_conditions),
         }
       ).then((x)=>{
         if(x.data.status=='success'){

@@ -10,42 +10,6 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
     <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
     <Row >
     <Col className='px-4'>
-        <div className='mt-4'>Terms & Conditions</div>
-        <Row>
-        <Col md={9}>
-        <Input className='mb-2' placeholder="Type Terms & Conditions" value={state.term_condition} 
-            onChange={(e)=>setValues(e.target.value,'term_condition')} 
-        />
-        </Col>
-        <Col md={3}>
-        <div className='btn-custom text-center'
-            onClick={()=>{
-            if(state.term_condition!=""){
-                let tempState = [...state.terms_conditions];
-                tempState.push(state.term_condition)
-                console.log(tempState)
-                dispatch({type: 'field', fieldName: 'terms_conditions', payload: tempState });
-                setValues("",'term_condition')
-            }}}>Add</div>
-        </Col>
-        </Row>
-        {
-        state.terms_conditions.map((x, i)=>{
-            return(
-            <Row key={i} className='m-2'>
-            <Col className='list-items'>{x}</Col>
-            <Col md={1}>
-                <CloseCircleOutlined className='cross-icon' 
-                onClick={()=>{
-                    let tempState = [...state.terms_conditions];
-                    tempState.splice(i,1);
-                    dispatch({ type: 'field', fieldName: 'terms_conditions', payload: tempState })
-                }}/>
-            </Col>
-            </Row>
-            )
-        })
-        }
         <hr className='my-4' />
         <div className='mt-4'>Inclusions</div>
         <Row>
