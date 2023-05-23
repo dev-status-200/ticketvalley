@@ -2,7 +2,7 @@ import React,{ useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CiLocationOn } from "react-icons/ci";
-import { ConfigProvider, Slider, Select, Checkbox } from 'antd';
+import { ConfigProvider, Slider, Select, Checkbox, Input } from 'antd';
 import aos from "aos";
 import SignUp from '../../Shared/SignUp';
 import Tours from './Tours';
@@ -13,6 +13,7 @@ import CircleIcons from '../../Shared/CircleIcons';
 const Search = ({destination, city, date, category, tourData}) => {
   
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
   const [records, setRecords] = useState([]);
   const [index, setIndex] = useState(1);
   const [pages, setPages] = useState(0);
@@ -25,20 +26,7 @@ const Search = ({destination, city, date, category, tourData}) => {
     setRange(price, category);
   }, [price, category])
 
-  const cities = {
-    uae:[
-        {name:"Abu Dhabi", img:"dropdowns/Abu-Dhabi.PNG"},
-        {name:"Dubai City", img:"dropdowns/Dubai-City.PNG"},
-        {name:"Fujairah", img:"dropdowns/Fujairah.PNG"},
-        {name:"Rais-Al-Khaimah", img:"dropdowns/Rais-Al-Khaimah.PNG"},
-        {name:"Sharjah", img:"dropdowns/Sharjah.PNG"},
-        {name:"Ajman", img:"dropdowns/Ajman.PNG"},
-    ],
-    eur:[{name:"Paris", img:"dropdowns/Paris.PNG"}]
-  }
-
   const setRange = (gottenPrice, cat) => {
-    //console.log(tourData.result)
     let tempTours = [];
     tourData.result.forEach((x)=>{
       if(parseFloat(gottenPrice) >= parseFloat(x.TourOptions[0].adult_price)){
@@ -48,12 +36,28 @@ const Search = ({destination, city, date, category, tourData}) => {
             tempTours.push({...x, price:parseFloat(x.TourOptions[0].adult_price)})
           }
         }else{
-          console.log('Outside Cat')
           tempTours.push({...x, price:parseFloat(x.TourOptions[0].adult_price)})
-          //console.log(x.category)
         }
       }
     });
+
+    tempTours.forEach((x)=>{
+      x.reviews = 0;
+      x.rating = 0;
+      tourData.options.forEach((y)=>{
+        if(x.id==y.tourId){
+          x.reviews = x.reviews + y.BookedToursOptions.length;
+          y.BookedToursOptions.forEach((z)=>{
+            x.rating = x.rating + parseFloat(z.rating);
+          })
+        }
+      })
+      if(x.rating == 0){
+        x.rating = 5
+      }else{
+        x.rating = x.rating / x.reviews;
+      }
+    })
     Object.keys(category).forEach((x)=>{
       tempTours = tempTours.filter((y)=>{
         return tempTours
@@ -114,7 +118,21 @@ const Search = ({destination, city, date, category, tourData}) => {
       <Container className='px-1 pt-5'>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>
-              <div className='tour-filters'>
+          <div>
+              <h5 className='mt-4 mb-0 blue-txt px-1'><b>Search</b></h5>
+                <ConfigProvider
+                  theme={{
+                      token: {
+                      colorPrimary: '#147ba1ea',
+                      borderRadius:0
+                      },
+                  }}
+                  >
+                    <Input placeholder='Search item' value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} />
+                </ConfigProvider>
+              </div>
+              <div className='tour-filters mt-4'>
+
                   <div className=''>
                     <b><CiLocationOn className='' size={25} style={{position:'relative', bottom:2}} /> Select Location</b>
                   </div>
@@ -179,6 +197,7 @@ const Search = ({destination, city, date, category, tourData}) => {
                   </div>
 
               </div>
+
               <div>
               <h5 className='mt-4 mb-0 blue-txt px-1'><b>Price</b></h5>
               <h6 className='mt-1 px-1'>0 - {price}</h6>
@@ -233,7 +252,7 @@ const Search = ({destination, city, date, category, tourData}) => {
               </div>
           </Col>
           <Col md={9} style={{height:1100}}>
-              <Tours records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} />
+              <Tours records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} searchTerm={searchTerm} />
           </Col>
         </Row>
       </Container>
