@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
-import { Container, Row, Col, Table  } from 'react-bootstrap';
-import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter, AiOutlineCheckCircle } from "react-icons/ai";
+import { Container, Row, Col } from 'react-bootstrap';
+import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter } from "react-icons/ai";
 import { Rate, Affix, Drawer } from 'antd';
-import { IoCalendarSharp ,IoBagCheckOutline } from "react-icons/io5";
+import { IoCalendarSharp } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { MdShoppingCart } from "react-icons/md";
 import { FaShuttleVan } from "react-icons/fa";
@@ -17,14 +17,15 @@ import { useSelector } from 'react-redux';
 import Details from './Details';
 import NavLinks from '../../Shared/NavLinks';
 import { TbPoint } from "react-icons/tb";
-import CircleIcons from '/Components/Shared/CircleIcons';
+import axios from 'axios';
 
-const Product = ({id, tourData, transportData}) => {
+const Product = ({tourData, id}) => {
 
   const cart = useSelector((state) => state.cart.value);
   const conversion = useSelector((state) => state.currency.conversion);
 
   const [tour, setTour] = React.useState({});
+  const [detail, setDetail] = React.useState({});
   const [transport, setTransport] = React.useState([]);
   const [open, setOpen] = useState(false);
 
@@ -32,12 +33,22 @@ const Product = ({id, tourData, transportData}) => {
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
+    fetchData();
     Aos.init({duration:700});
-    setTour(tourData)
-    setTransport(transportData)
+    setTour(tourData);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll)
 }, [])
+
+  const fetchData = async() => {
+    let detailData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_DETAIL_BY_ID,{
+      headers:{ "id": `${id}` }
+    }).then((x)=>x.data.result);
+    console.log(detailData)
+    setDetail(detailData);
+    let transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result);
+    setTransport(transportData);
+  }
 
   useEffect(() => {
     cart.forEach((x, i)=>{
@@ -88,7 +99,7 @@ const Product = ({id, tourData, transportData}) => {
         <Container className='' >
           <Row className='p'>
             <Col md={8} className=''>
-              <Details tour={tour} data-aos="fade-right" />
+              <Details tour={tour} detail={detail} data-aos="fade-right" />
             </Col>
             <Col md={4} data-aos="fade-up">
             <div className='pt-5'>
@@ -193,13 +204,14 @@ const Product = ({id, tourData, transportData}) => {
             </Col>
           </Row>
         </Container>
+        {Object.keys(detail).length>0 &&
         <Container fluid>
           <Row className='mt-5'>
             <Col md={6} className='px-0 policies-box' style={{borderRight:'2px solid white'}}>
             <div className='pb-4'>
             <h3 className='my-3 wh-txt text-center'><b>Booking Policies</b></h3>
             {
-              tour.policies.split("//").map((x, i)=>{
+              detail.policies.split("//").map((x, i)=>{
                 return(
                 <Row key={i} className="justify-content-md-center wh-txt">
                   <Col md={1}></Col>
@@ -216,7 +228,7 @@ const Product = ({id, tourData, transportData}) => {
             <div className='pb-4'>
             <h3 className='my-3 wh-txt text-center'><b>Cancellation Policies</b></h3>
             {
-              tour.cancellation_polices.split("//").map((x, i)=>{
+              detail.cancellation_polices.split("//").map((x, i)=>{
                 return(
                 <Row key={i} className="justify-content-md-center wh-txt">
                   <Col md={1}></Col>
@@ -230,7 +242,7 @@ const Product = ({id, tourData, transportData}) => {
             </div>
             </Col>
           </Row>
-        </Container>
+        </Container>}
  
         {(scrollPosition>650 && !added ) &&
         <div className='fixed-book'>

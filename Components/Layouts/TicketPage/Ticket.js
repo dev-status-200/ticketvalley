@@ -9,7 +9,7 @@ const Ticket = ({fetchedTicket, i}) => {
     <>
     {fetchedTicket && <div className={` ${i>0?"pt-5":""}`}>
         <div className='home-styles'>
-        <div style={{height:1000, width:700}} className='mx-5 ticket-bg ticket-bg'>
+        <div style={{height:1000, width:700}} className='mx-5 ticket-bg'>
             
             <QRCode style={{position:'relative', left:470, top:80}}
                 value={fetchedTicket.code}
