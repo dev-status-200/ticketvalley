@@ -2,7 +2,7 @@ import React from 'react';
 import Desktop from './Desktop';
 import Mobile from './Mobile';
 
-const Home = () => {
+const Footer = () => {
   return (
     <div className=''>
     <div className="desktop" >
@@ -15,4 +15,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Footer

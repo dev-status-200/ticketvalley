@@ -2,7 +2,6 @@ import React,{ useState } from 'react';
 import '/styles/globals.css';
 import '/styles/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from '/Components/Shared/Header';
 import 'aos/dist/aos.css';
 
 import Loader from '../Components/Shared/Loader'; 

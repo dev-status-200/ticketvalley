@@ -48,16 +48,16 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   function uploadImage(x){
     let value = ''
     const data = new FormData();
-    data.append("file", x)
-    data.append("upload_preset", "g4hjcqh7")
-    data.append("cloud_name", "abdullah7c")
-    value = fetch(`https://api.cloudinary.com/v1_1/abdullah7c/image/upload`, {
+    data.append("file", x);
+    data.append("upload_preset", "fy9voxjt");
+    data.append("cloud_name", "ddkosqihs");
+    value = fetch(`https://api.cloudinary.com/v1_1/ddkosqihs/image/upload`, {
         method: "post",
         body: data
     })
-        .then(resp => resp.json())
-        .then(data => data.url)
-        .catch(err => {});
+      .then(resp => resp.json())
+      .then(data => data.url)
+      .catch(err => {});
 
     return value;
   };
@@ -109,9 +109,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   };
 
   const onEdit = async(data) => {
-    // state.packages.forEach((x)=>{
-    //   console.log(x.name, x.status)
-    // })
     dispatch({type:'field', fieldName:'load', payload:true});
     let prev_img = "";
     let value;

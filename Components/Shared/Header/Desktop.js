@@ -7,13 +7,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Cookies from "js-cookie";
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { fetchCurrencyData } from '../../functions/fetchCurrencyData';
+import { fetchCurrencyData } from '/functions/fetchCurrencyData';
 import { GrLogout } from "react-icons/gr";
 import { HiShoppingCart } from "react-icons/hi";
 import { BsCurrencyExchange } from "react-icons/bs";
 import { Dropdown, Popover  } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCurrency, changeCurrency } from '../../redux/currency/currencySlice';
+import { addCurrency, changeCurrency } from '/redux/currency/currencySlice';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const Header = () => {

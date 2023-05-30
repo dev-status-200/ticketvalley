@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-const Footer = () => {
+const Desktop = () => {
   return (
     <div className='footer-styles'>
         <div className='bgTop p-5'>
@@ -57,4 +57,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Desktop

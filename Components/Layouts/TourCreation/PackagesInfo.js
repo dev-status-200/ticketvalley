@@ -3,6 +3,7 @@ import { Input, InputNumber, Switch, message } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
 import { CloseCircleOutlined, DeleteOutlined, CopyOutlined, ReloadOutlined } from '@ant-design/icons';
 import DatePicker from "react-multi-date-picker"
+import DatePanel from "react-multi-date-picker/plugins/date_panel"
 
 const PackagesInfo = ({register, control, state, setValues, dispatch}) => {    
 
@@ -135,38 +136,23 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                     <Col md={9} className="date-list-boundary py-1 px-2">
                         <Row>
                             <Col md={2}>
-                            {/* <Form.Control type='date' multiple={true} size="sm" value={y.date} 
-                                onChange={(e)=>{
-                                    let temp = [...state.packages];
-                                    let exist = false;
-                                    x.dates.forEach((z)=>{
-                                        if(z.date==e.target.value){
-                                            exist = true;
-                                        }
-                                    });
-                                    !exist?temp[i].dates[j].date=e.target.value: message.error(`Date ${e.target.value} Already Exists`);
-                                    dispatch({type:'field', fieldName:"packages", payload:temp})
-                                }}
-                            /> */}
                             <DatePicker 
                                 multiple
-                                value={[
-                                    '2023/05/03',
-                                    '2023/05/02',
-                                    '2023/05/01'
-                                ]} 
+                                range
+                                value={[]}
+                                plugins={[
+                                    <DatePanel />
+                                   ]}
                                 dateSeparator=", " 
                                 onChange={(a,b)=>{
-                                    //console.log(b);
-                                    b.validatedValue.forEach((x)=>{
+                                    b.validatedValue.split(", ").forEach((x)=>{
                                         console.log(x)
                                     })
                                 }}
                             />
                             </Col>
-                            <Col md={5} className="specific-date my-1 fs-16"><b>{y.date}</b></Col>
                             
-                            <Col className='pt-1'>
+                            <Col md={10} className='pt-1'>
                             <CloseCircleOutlined className='close-icon' style={{float:"right"}}
                                 onClick={()=>{
                                     let temp = [...state.packages];

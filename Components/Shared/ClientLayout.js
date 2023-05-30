@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from './Header/';
+import Footer from './Footer/';
 import { Layout } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct } from '../../redux/cart/cartSlice';

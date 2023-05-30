@@ -11,7 +11,6 @@ export default function TourCreation({productData}) {
   const { records, visible, edit } = state;
 
   useEffect(() => {
-    console.log(productData)
       dispatch({
         type: 'field',
         fieldName: 'records',
