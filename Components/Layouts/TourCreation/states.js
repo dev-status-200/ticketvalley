@@ -108,7 +108,7 @@ const initialState = {
     term_condition:"",
 
     dated:false,
-    dates:[{date:'', stock:0}],
+    dates:[],
 
     timed:false,
     timeSlots:[],

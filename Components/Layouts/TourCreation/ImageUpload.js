@@ -8,11 +8,8 @@ const ImageUpload = ({state, setValues, dispatch}) => {
     <div style={{minHeight:542}}>
     <Row>
       <Col md={12}>
-
           <p className=''><strong>Upload Cover Image</strong></p>
-
           {!state.main_image &&<>{state.edit && <img src={state.selectedRecord.main_image} className="mb-2" height={120} />}<br/></>}
-          
           <input type="file" 
           onChange={(e) => {
               setValues(e.target.files[0], 'main_image')

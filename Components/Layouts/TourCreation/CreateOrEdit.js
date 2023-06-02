@@ -109,7 +109,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   };
 
   const onEdit = async(data) => {
-    dispatch({type:'field', fieldName:'load', payload:true});
+    //dispatch({type:'field', fieldName:'load', payload:true});
     let prev_img = "";
     let value;
     let values=[];
@@ -145,30 +145,30 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       values = tempMages;
       console.log(values)
     }
-    
-    setTimeout(
-      await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
-        {
-          ...data,
-          packages:state.packages,
-          stock:state.stock,
-          prev_img:prev_img,
-          status:state.status,
-          deleted_images:state.deleted_images,
-          more_images:values.toString(),
-          inclusions:makeString(state.inclusions),
-          why_shoulds:makeString(state.why_shoulds),
-          imp_infos:makeString(state.imp_infos),
-          policies:makeString(state.policies),
-          cancellation_polices:makeString(state.cancellation_polices),
-        }
-      ).then((x)=>{
-        if(x.data.status=='success'){
-          dispatch({type:'modalOff'});
-          Router.push("/productCreation")
-          //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
-      }
-    }), 3000)
+    console.log(state.packages)
+    // setTimeout(
+    //   await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
+    //     {
+    //       ...data,
+    //       packages:state.packages,
+    //       stock:state.stock,
+    //       prev_img:prev_img,
+    //       status:state.status,
+    //       deleted_images:state.deleted_images,
+    //       more_images:values.toString(),
+    //       inclusions:makeString(state.inclusions),
+    //       why_shoulds:makeString(state.why_shoulds),
+    //       imp_infos:makeString(state.imp_infos),
+    //       policies:makeString(state.policies),
+    //       cancellation_polices:makeString(state.cancellation_polices),
+    //     }
+    //   ).then((x)=>{
+    //     if(x.data.status=='success'){
+    //       dispatch({type:'modalOff'});
+    //       Router.push("/productCreation")
+    //       //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
+    //   }
+    // }), 3000)
   };
 
   const onError = async(data) => { };
