@@ -13,7 +13,7 @@ import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
 import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail } from './states';
 
-const Book = ({tour, transport, setOpen}) => {
+const Book = ({tour, transport, category, setOpen}) => {
 
     const dispatch = useDispatch();
     const [messageApi, contextHolder] = message.useMessage();
@@ -26,7 +26,7 @@ const Book = ({tour, transport, setOpen}) => {
 
     useEffect(() => {
         aos.init({duration:300})
-        setTour(tour, dispatchReducer);
+        setTour(tour, dispatchReducer, category);
     }, [])
 
     const showMessage = (msg) =>messageApi.info(msg);
@@ -37,19 +37,22 @@ const Book = ({tour, transport, setOpen}) => {
     }
 
     const addToCart = async() => {
+        console.log(state.booking)
+        state.booking.forEach((x)=>{
+            if(x.transfer!="No" && x.address==""){
+                showMessage("Please Select Pick Up Location!");
+                return
+            }
+        })
         if(!validateDate(state.booking)){
             showMessage("Please Select A Valid Date Please!");
             return
         }
-        // if(!ValidateEmail(state.email)){
-        //     showMessage("You have entered an invalid email address!");
-        //     return
-        // }
         if(!validateName(state.name.length)){
             showMessage("Enter A Valid Full Name !");
             return
         }
-        
+
         setLoad(true);
         await delay(500);
         let cartValues = {
@@ -96,25 +99,31 @@ const Book = ({tour, transport, setOpen}) => {
             <Row style={{color:x.check?"black":"silver"}}>
                 <Col style={{maxWidth:30}} 
                     onClick={()=>{
+                        if(category!="Combo Tours"){
+                            let temp = [...state.booking];
+                            temp[i].check = !temp[i].check
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        }
+                    }}
+                >
+                    <Checkbox className='' disabled={category=="Combo Tours"?true:false} checked={x.check}/>
+                </Col>
+                <Col md={7} className='cur' onClick={()=>{
+                    if(category!="Combo Tours"){
                         let temp = [...state.booking];
                         temp[i].check = !temp[i].check
                         dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                    }}
-                >
-                    <Checkbox className='' checked={x.check}/>
-                </Col>
-                <Col md={7} className='cur' onClick={()=>{
-                    let temp = [...state.booking];
-                    temp[i].check = !temp[i].check
-                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                    }
                 }}>
                     <h6>{'#'+(i+1)+' '+x.name}</h6>
                 </Col>
                 <Col md={4} className='cur'
                     onClick={()=>{
-                        let temp = [...state.booking];
-                        temp[i].check = !temp[i].check
-                        dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        if(category!="Combo Tours"){
+                            let temp = [...state.booking];
+                            temp[i].check = !temp[i].check
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        }
                     }}>
                         <h6 className='text-end' style={{color:x.check?"#075ca2":"silver"}}>{x.price.toFixed(2)} AED</h6>
                 </Col>
@@ -138,9 +147,8 @@ const Book = ({tour, transport, setOpen}) => {
                     onChange={(e)=>{
                         let temp = [...state.booking];
                         temp[i].transfer = e;
-
-                        if(e=="Shared"){ 
-                            temp[i].transportPrice = parseFloat(transport[0].price);
+                        if(e=="Shared"){
+                            temp[i].transportPrice = x.transport?0.00:parseFloat(transport[0].price)
                         } else if(e=="Private"){ 
                             temp[i].transportPrice = parseFloat(transport[1].price);
                         } else if(e=="No"){ 
@@ -157,7 +165,7 @@ const Book = ({tour, transport, setOpen}) => {
                         }
                     }}
                     options={[
-                        { value: 'No', label: 'No'},
+                        { value: 'No', label: 'No', disabled:x.transport},
                         { value: 'Shared', label: 'Shared'},
                         { value: 'Private', label: 'Private'},
                     ]}
@@ -182,6 +190,7 @@ const Book = ({tour, transport, setOpen}) => {
                     </Row>
 
                 </Col>
+                {x.transport==true && <Col md={12} className='px-3 mt-1' style={{color:'silver'}}> {"("}Shared Transfer is included in ticket{")"} </Col>}
                 {x.timed &&<Col md={12} className='mt-2 mx-1' >
                 <div>Time Slots</div>
                 {

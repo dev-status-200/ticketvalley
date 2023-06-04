@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Input, InputNumber, Switch, message } from 'antd';
+import { Input, InputNumber, Switch, message, Popover } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
-import { CloseCircleOutlined, DeleteOutlined, CopyOutlined, ReloadOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, DeleteOutlined, CopyOutlined, ReloadOutlined, FieldTimeOutlined } from '@ant-design/icons';
 import DatePicker, { DateObject, getAllDatesInRange } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import moment from "moment"
 
-const PackagesInfo = ({register, control, state, setValues, dispatch}) => {    
-
-    const [dates, setDates] = useState([]);
-    const [allDates, setAllDates] = useState([]);
-    
-    useEffect(() => {
-        dates.forEach((x)=>{
-            console.log(x)
-        })
-    }, [dates])
-    
+const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
 
   return (
     <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
@@ -78,8 +68,7 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                 <div>Dated</div>
                 <Switch checked={x.dated} onChange={()=>{
                     let tempState = [...state.packages];
-                    tempState[i].dated = !tempState[i].dated
-                    console.log(tempState[i])
+                    tempState[i].dated = !tempState[i].dated;
                     dispatch({type:'field', fieldName:"packages", payload:tempState})
                 }} />
             </Col>
@@ -88,6 +77,15 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                 <Switch checked={x.timed} onChange={()=>{
                     let tempState = [...state.packages];
                     tempState[i].timed = !tempState[i].timed
+                    console.log(tempState[i])
+                    dispatch({type:'field', fieldName:"packages", payload:tempState})
+                }} />
+            </Col>
+            <Col className="my-2">
+                <div>Transport</div>
+                <Switch checked={x.transport} onChange={()=>{
+                    let tempState = [...state.packages];
+                    tempState[i].transport = !tempState[i].transport
                     console.log(tempState[i])
                     dispatch({type:'field', fieldName:"packages", payload:tempState})
                 }} />
@@ -121,7 +119,6 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                         }}/>
                     }
                 </>
-
                 }
             </Col>
             {x.dated &&
@@ -129,9 +126,13 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                 <div>Set Dates</div>
                 <DatePicker 
                     multiple
-                    value={['2023/06/02', '2023/06/07']}
+                    value={x.dates}
                     dateSeparator=","
-                    onChange={(x)=>console.log(x)}
+                    onChange={(x,y)=>{
+                        let temp = [...state.packages];
+                        temp[i].dates=y.validatedValue;
+                        dispatch({type:'field', fieldName:"packages", payload:temp})
+                    }}
                     plugins={[
                         <DatePanel />
                     ]}
@@ -151,6 +152,61 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                                 dispatch({type:'field', fieldName:"packages", payload:temp})
                             }}
                         >Add Time Slot</div>
+                    </Col>
+                    <Col>
+                    <Popover placement="topLeft" content={
+                        <div>
+                            Starting Time
+                            <Form.Control size="sm" type="time" value={state.timeStart}
+                                onChange={(e)=>{
+                                    dispatch({type:'field', fieldName:"timeStartWithDate", payload:moment(`2012/10/09 ${e.target.value}`)})
+                                    dispatch({type:'field', fieldName:"timeStart", payload:e.target.value})
+                                }} />
+                            <br/>
+                            {state.timeStart!="" && 
+                            <>
+                                <Form.Control size="sm" type="time" value={state.timeEnd} 
+                                Ending Time
+                                onChange={(e)=>{
+                                    dispatch({type:'field', fieldName:"timeEndWithDate", payload:moment(`2012/10/09 ${e.target.value}`)})
+                                    dispatch({type:'field', fieldName:"timeEnd", payload:e.target.value})
+                                }}
+                                />
+                                <InputNumber className='mt-3' value={state.minutes} min={0} max={60} 
+                                    onChange={(e)=>dispatch({type:'field', fieldName:"minutes", payload:e})}
+                                />
+                                <br/>
+                                <button className='mt-3 btn-custom'
+                                    onClick={()=>{
+                                        var start = new Date(state.timeStartWithDate);
+                                        var end = new Date(state.timeEndWithDate);
+
+                                        var slices = [];
+                                        var count = 0;
+
+                                        while (end > start) {
+                                        if(count==0){
+                                            start = new Date(start.getTime());
+                                        }else{
+                                            start = new Date(start.getTime() + (parseInt(state.minutes) * 60 * 1000));
+                                        }
+                                        slices.push({
+                                            slot:`${moment(start).format("HH:mm")}`//start
+                                        });
+                                        count++;
+                                        }
+                                        slices.pop()
+                                        let temp = [...state.packages]
+                                        temp[i].timeSlots = slices;
+                                        dispatch({type:'field', fieldName:"packages", payload:temp})
+                                    }}
+                                >Set Time Slots</button>
+                            </>
+                            }
+                      </div>
+                    } title="Title" trigger="click">
+                        <FieldTimeOutlined/>
+                    </Popover>
                     </Col>
                     {x.timeSlots && <div className='mt-1' style={{maxHeight:400, overflowY:"auto"}}>
                     {x.timeSlots.map((y, j)=>{  

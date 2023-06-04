@@ -1,0 +1,26 @@
+.bar-styles{
+    .barz{
+        border: 2px solid rgb(24, 121, 128);
+        background-color: white;
+        border-radius: 25px;
+        width: 200px;
+        box-shadow: 7px 7px 9px -9px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 7px 7px 9px -9px rgba(0,0,0,0.75);
+        -moz-box-shadow: 7px 7px 9px -9px rgba(0,0,0,0.75);
+        margin: 20px;
+        font-size: 18px;
+    }
+    .barz:hover{
+        transition-duration: 300ms;
+        background-color: rgb(211, 255, 240);
+    }
+    .barz-icon{
+
+    }
+    .barz-end{
+        text-align: end;
+    }
+    .barz-name{
+        text-align: center;
+    }
+}

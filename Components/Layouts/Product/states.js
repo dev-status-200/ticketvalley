@@ -46,7 +46,8 @@ const initialState = {
   ]
 };
 
-const setTour = (tour, dispatchReducer) => {
+const setTour = (tour, dispatchReducer, category) => {
+  console.log(category)
   let tempBook = [];
   if(tour.TourOptions!=undefined){
     tour.TourOptions.forEach((x, i)=>{
@@ -65,10 +66,11 @@ const setTour = (tour, dispatchReducer) => {
         });
       }
       tempBook.push({
-        id:x.id, tour:x.TourId, name:x.name, check:i==0?true:false, adult_price:parseFloat(x.adult_price),
-        child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:"No", 
-        date:'', dates:tempDates, dated:x.dated, timed:x.timed, timeSlots:tempTimes, timeSlot:tempTimes.length>0? tempTimes[0].slot:null,
-        price:parseFloat(x.adult_price), transportPrice:0.00, address:""
+        id:x.id, tour:x.TourId, name:x.name, check:i==0?true:category=="Combo Tours"?true:false, adult_price:parseFloat(x.adult_price),
+        child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:x.transport?"Shared":"No", 
+        date:'', dates:tempDates, dated:x.dated, timed:x.timed, timeSlots:tempTimes, 
+        timeSlot:tempTimes.length>0?tempTimes[0].slot:null, price:parseFloat(x.adult_price),
+        transportPrice:0.00, address:"", transport:x.transport
       })
     })
     dispatchReducer({ type: 'field', fieldName:'booking', payload: tempBook });

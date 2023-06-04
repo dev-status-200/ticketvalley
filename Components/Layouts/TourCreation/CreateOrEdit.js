@@ -8,6 +8,7 @@ import DetailsTwo from './DetailsTwo';
 import Router from 'next/router';
 import { Tabs } from 'antd';
 import axios from 'axios';
+import moment from "moment";
 
 const CreateOrEdit = ({state, dispatch, baseValues}) => {
 
@@ -17,9 +18,19 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
 
   useEffect(() => {
     if(state.edit){
+      //console.log(state.selectedRecord)
       let tempState = {...state.selectedRecord};
       state.cancellation_polices = tempState.cancellation_polices.split("//");
       state.status = tempState.status;
+      tempState.TourOptions.forEach((x)=>{
+          if(x.dated){
+            let newDates = [];
+            x.dates.forEach((y)=>{
+              newDates.push(`${moment(y.date).add(1, 'days').format("YYYY/MM/DD")}`)
+            })
+            x.dates = newDates
+          }
+        })
       state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
       state.policies = tempState.policies.split("//");
@@ -75,41 +86,45 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     let cover = "a";
     let value;
     let values=[];
-
     cover = await uploadImage(state.main_image);
     for(let i=0; i<state.more_images.length; i++){
       value = await uploadImage(state.more_images[i]);
       values.push(value)
     }
+    let tempPackages = [...state.packages];
+    tempPackages.forEach((x)=>{
+      let newDates = [];
+      x.dates.forEach((y)=>{
+        newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+      })
+      x.dates = newDates;
+    })
     setTimeout(
-      await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT,
-        {
-          ...data,
-          packages:state.packages,
-          stock:state.stock,
-          status:state.status,
-          main_image:cover==null?"a":cover,
-          more_images:values.length>0? values.toString():"a",
-          inclusions:makeString(state.inclusions),
-          why_shoulds:makeString(state.why_shoulds),
-          imp_infos:makeString(state.imp_infos),
-          policies:makeString(state.policies),
-          cancellation_polices:makeString(state.cancellation_polices),
-        }
-      ).then((x)=>{
-        if(x.data.status=='success'){
-          let tempState = [...state.records];
-          tempState.unshift(x.data.result);
-          dispatch({type:'field', fieldName:'records', payload:tempState})
-          reset(baseValues)
-        }
-        dispatch({type:'field', fieldName:'load', payload:false})
-        dispatch({type: 'modalOff'})
-      }), 3000)
+      await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT, {
+        ...data,
+        packages:tempPackages,//state.packages,
+        stock:state.stock,
+        status:state.status,
+        main_image:cover==null?"a":cover,
+        more_images:values.length>0? values.toString():"a",
+        inclusions:makeString(state.inclusions),
+        why_shoulds:makeString(state.why_shoulds),
+        imp_infos:makeString(state.imp_infos),
+        policies:makeString(state.policies),
+        cancellation_polices:makeString(state.cancellation_polices)
+      }).then((x)=>{
+      if(x.data.status=='success'){
+        let tempState = [...state.records];
+        tempState.unshift(x.data.result);
+        dispatch({type:'field', fieldName:'records', payload:tempState})
+        reset(baseValues)
+      }
+      dispatch({type:'field', fieldName:'load', payload:false})
+      dispatch({type: 'modalOff'})
+    }), 3000)
   };
 
   const onEdit = async(data) => {
-    //dispatch({type:'field', fieldName:'load', payload:true});
     let prev_img = "";
     let value;
     let values=[];
@@ -145,36 +160,43 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       values = tempMages;
       console.log(values)
     }
-    console.log(state.packages)
-    // setTimeout(
-    //   await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
-    //     {
-    //       ...data,
-    //       packages:state.packages,
-    //       stock:state.stock,
-    //       prev_img:prev_img,
-    //       status:state.status,
-    //       deleted_images:state.deleted_images,
-    //       more_images:values.toString(),
-    //       inclusions:makeString(state.inclusions),
-    //       why_shoulds:makeString(state.why_shoulds),
-    //       imp_infos:makeString(state.imp_infos),
-    //       policies:makeString(state.policies),
-    //       cancellation_polices:makeString(state.cancellation_polices),
-    //     }
-    //   ).then((x)=>{
-    //     if(x.data.status=='success'){
-    //       dispatch({type:'modalOff'});
-    //       Router.push("/productCreation")
-    //       //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
-    //   }
-    // }), 3000)
+    let tempPackages = [...state.packages];
+    tempPackages.forEach((x)=>{
+      let newDates = [];
+      x.dates.forEach((y)=>{
+        newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+      })
+      x.dates = newDates;
+    })
+    setTimeout(
+      await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
+        {
+          ...data,
+          packages:tempPackages,//state.packages,
+          stock:state.stock,
+          prev_img:prev_img,
+          status:state.status,
+          deleted_images:state.deleted_images,
+          more_images:values.toString(),
+          inclusions:makeString(state.inclusions),
+          why_shoulds:makeString(state.why_shoulds),
+          imp_infos:makeString(state.imp_infos),
+          policies:makeString(state.policies),
+          cancellation_polices:makeString(state.cancellation_polices),
+        }
+      ).then((x)=>{
+        if(x.data.status=='success'){
+          dispatch({type:'modalOff'});
+          Router.push("/productCreation")
+          //openNotification('Success', `Job For ${x.data.result.Client.name} Updated!`, 'green')
+      }
+    }), 3000)
   };
 
   const onError = async(data) => { };
 
   return (
-    <div className=''>
+    <div>
       <form onSubmit={handleSubmit(state.edit?onEdit:onSubmit, onError)}>
       <Tabs
         defaultActiveKey="1"

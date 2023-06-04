@@ -44,7 +44,6 @@ const Product = ({tourData, id}) => {
     let detailData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_DETAIL_BY_ID,{
       headers:{ "id": `${id}` }
     }).then((x)=>x.data.result);
-    console.log(detailData)
     setDetail(detailData);
     let transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result);
     setTransport(transportData);
@@ -159,7 +158,7 @@ const Product = ({tourData, id}) => {
                   onClose={onClose}
                   open={open}
                   width={470}
-                ><Book tour={tour} transport={transport} setOpen={setOpen} />
+                ><Book tour={tour} transport={transport} category={detail.advCategory} setOpen={setOpen} />
                 </Drawer>
               </div>
               <div className='tour-features-box my-4 mt-5'>

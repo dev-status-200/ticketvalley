@@ -110,6 +110,14 @@ const initialState = {
     dated:false,
     dates:[],
 
+    timeStart:'',
+    timeEnd:'',
+
+    timeStartWithDate:'',
+    timeEndWithDate:'',
+
+    minutes:0.0,
+
     timed:false,
     timeSlots:[],
 
