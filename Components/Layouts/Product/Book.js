@@ -37,13 +37,16 @@ const Book = ({tour, transport, category, setOpen}) => {
     }
 
     const addToCart = async() => {
-        console.log(state.booking)
+        let notValidAddress = false
         state.booking.forEach((x)=>{
             if(x.transfer!="No" && x.address==""){
-                showMessage("Please Select Pick Up Location!");
-                return
+                notValidAddress = true
             }
         })
+        if(notValidAddress){
+            showMessage("Please Select Pick Up Location!");
+            return
+        }
         if(!validateDate(state.booking)){
             showMessage("Please Select A Valid Date Please!");
             return

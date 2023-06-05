@@ -42,7 +42,6 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
       state.stock = tempState.stock;
       state.dated = tempState.dated;
       //state.dates = tempState.dated?JSON.parse(tempState.dates):[{"date":""}]
-      console.log(tempState.TourOptions)
       reset(tempState);
     }
     if(!state.edit){ reset(baseValues) }
@@ -125,6 +124,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
   };
 
   const onEdit = async(data) => {
+    dispatch({type:'field', fieldName:'load', payload:true})
     let prev_img = "";
     let value;
     let values=[];

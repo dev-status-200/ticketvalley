@@ -18,7 +18,10 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
         <div className='mt-2 btn-custom text-center'
             onClick={()=>{
                 let tempState = [...state.packages];
-                tempState.push({ id:"", name:"", child_price:0.00, adult_price:0.00, status:"1" , stock:"20", timed:false, dated:false, dates:[], timeSlots:[]})
+                tempState.push({ 
+                    id:"", name:"", child_price:0.00, adult_price:0.00, status:"1",
+                    stock:"20", timed:false, dated:false, dates:[], timeSlots:[], manual:false, transport:false
+                })
                 dispatch({type: 'field', fieldName: 'packages', payload: tempState });
             }}>Add</div>
         </Col>
@@ -72,34 +75,31 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                     dispatch({type:'field', fieldName:"packages", payload:tempState})
                 }} />
             </Col>
-            <Col className="my-2">
+            <Col className="my-2" style={{maxWidth:70}}>
                 <div>Timed</div>
                 <Switch checked={x.timed} onChange={()=>{
                     let tempState = [...state.packages];
                     tempState[i].timed = !tempState[i].timed
-                    console.log(tempState[i])
                     dispatch({type:'field', fieldName:"packages", payload:tempState})
                 }} />
             </Col>
-            <Col className="my-2">
+            <Col className="my-2" style={{maxWidth:100}}>
                 <div>Transport</div>
                 <Switch checked={x.transport} onChange={()=>{
                     let tempState = [...state.packages];
                     tempState[i].transport = !tempState[i].transport
-                    console.log(tempState[i])
                     dispatch({type:'field', fieldName:"packages", payload:tempState})
                 }} />
             </Col>
-            <Col md={1} className="my-1">
-            {x.id=="" && 
-                <CloseCircleOutlined className='cross-icon mt-4' style={{fontSize:20}}
-                onClick={()=>{
+            <Col className="my-2" style={{maxWidth:100}}>
+                <div>Manual</div>
+                <Switch checked={x.manual} onChange={()=>{
                     let tempState = [...state.packages];
-                    tempState.splice(i,1);
-                    dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
-                }}/>
-            }
+                    tempState[i].manual = !tempState[i].manual
+                    dispatch({type:'field', fieldName:"packages", payload:tempState})
+                }} />
             </Col>
+            
             <Col md={1} className="my-1">
                 {x.id!="" && <>
                     {x.status=="1"?
@@ -119,6 +119,14 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                         }}/>
                     }
                 </>
+                }
+                {x.id=="" && 
+                <CloseCircleOutlined className='cross-icon mt-4' style={{fontSize:20}}
+                onClick={()=>{
+                    let tempState = [...state.packages];
+                    tempState.splice(i,1);
+                    dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
+                }}/>
                 }
             </Col>
             {x.dated &&

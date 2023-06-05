@@ -26,7 +26,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
   const afterPay = async() => {
     await delay(2000);
     let id = await createReservation();
-    await sendMail(id);
+    //await sendMail(id);
   }
   
   const sendMail = (id) => {
@@ -36,10 +36,10 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
       }).then((x)=>{
       })
     }
-    dispatch(addProduct([]));
-    destroyCart();
-    Cookies.remove("promoDiscount", { path: '' });
-    Router.push("/");
+    // dispatch(addProduct([]));
+    // destroyCart();
+    // Cookies.remove("promoDiscount", { path: '' });
+    // Router.push("/");
   }
 
   const priceCalc = (cartData, disc) => {
