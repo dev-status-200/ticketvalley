@@ -29,7 +29,7 @@ const Search = ({destination, city, date, category, tourData}) => {
   const setRange = (gottenPrice, cat) => {
     let tempTours = [];
     tourData.result.forEach((x)=>{
-      if(parseFloat(gottenPrice) >= parseFloat(x.TourOptions[0].adult_price)){
+      if(parseFloat(gottenPrice) >= parseFloat(x.TourOptions[0]?.adult_price)){
         if(cat!=''){
           if(x.category==cat){
             console.log('Inside Cat')
@@ -118,8 +118,8 @@ const Search = ({destination, city, date, category, tourData}) => {
       <Container className='px-1 pt-5'>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>
-          <div>
-              <h5 className='mt-4 mb-0 blue-txt px-1'><b>Search</b></h5>
+              {/* <div>
+                <h5 className='mt-4 mb-0 blue-txt px-1'><b>Search</b></h5>
                 <ConfigProvider
                   theme={{
                       token: {
@@ -130,7 +130,7 @@ const Search = ({destination, city, date, category, tourData}) => {
                   >
                     <Input placeholder='Search item' value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} />
                 </ConfigProvider>
-              </div>
+              </div> */}
               <div className='tour-filters mt-4'>
 
                   <div className=''>

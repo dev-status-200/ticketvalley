@@ -92,11 +92,13 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
     }
     let tempPackages = [...state.packages];
     tempPackages.forEach((x)=>{
-      let newDates = [];
-      x.dates.forEach((y)=>{
-        newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
-      })
-      x.dates = newDates;
+      if(x.dated){
+        let newDates = [];
+        x.dates.forEach((y)=>{
+          newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+        })
+        x.dates = newDates;
+      }
     })
     setTimeout(
       await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT, {
@@ -158,15 +160,16 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         })
       })
       values = tempMages;
-      console.log(values)
     }
     let tempPackages = [...state.packages];
     tempPackages.forEach((x)=>{
-      let newDates = [];
-      x.dates.forEach((y)=>{
-        newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
-      })
-      x.dates = newDates;
+      if(x.dated){
+        let newDates = [];
+        x.dates.forEach((y)=>{
+          newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+        })
+        x.dates = newDates;
+      }
     })
     setTimeout(
       await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,

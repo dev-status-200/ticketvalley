@@ -24,7 +24,7 @@ const BookingInfo = ({state, dispatch}) => {
         })
         .then((x)=>{
             if(x.data.result[0]==1){
-                //Router.push("/bookings");
+                Router.push("/bookings");
             }
         })
     }
@@ -39,82 +39,81 @@ const BookingInfo = ({state, dispatch}) => {
             </Col>
             <Col md={8}>
             <h6>Tours Info</h6>
-            <Row>{
-                state.selectedRecord.BookedTours.map((x, i)=>{
-                return(<>
-                <Col md={12} className='grey-txt tour-booking-list'>
-                <Row className='px-1 py-2'>
-                    <Col md={12} >
-                    {x.BookedToursOptions.map((y, j)=>{
-                    return(<div key={j+'a'}>
-                        {j!=0 && <hr className='my-2' />}
-                        <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
-                        {!y.TourOption.manual &&
-                        <div>
-                            <div className='fw-500 right text-end'>
-                                {y.assigned=="0" &&<>
-                                <div>
-                                    {parseInt(y.adult) + parseInt(y.child)} Required 
-                                </div>
-                                <div style={{color:y.inventory.length>=parseInt(y.adult) + parseInt(y.child)?"green":'red'}}>
-                                    {y.inventory.length} In-Stock 
-                                </div>
-                                {(y.inventory.length>=parseInt(y.adult) + parseInt(y.child) && y.assigned=="0" ) &&
-                                <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
-                                    <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
-                                </div>
-                                }
-                                </>}
-                                {y.assigned=="1" &&<>
-                                <div style={{color:'green'}}> 
-                                    <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
-                                </div>
-                                </>}
+            <Row>{state.selectedRecord.BookedTours.map((x, i)=>{
+            return(<>
+            <Col md={12} className='grey-txt tour-booking-list'>
+            <Row className='px-1 py-2'>
+                <Col md={12} >
+                {x.BookedToursOptions.map((y, j)=>{
+                return(<div key={j+'a'}>
+                    {j!=0 && <hr className='my-2' />}
+                    <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
+                    {!y.TourOption.manual &&
+                    <div>
+                        <div className='fw-500 right text-end'>
+                            {y.assigned=="0" &&<>
+                            <div>
+                                {parseInt(y.adult) + parseInt(y.child)} Required 
                             </div>
-                        </div>
-                        }
-                        {y.TourOption.manual &&
-                        <div>
-                            <div className='fw-500 right text-end'>
-                                {y.assigned=="0" &&<>
-                                <div>
-                                    {parseInt(y.adult) + parseInt(y.child)} Required 
-                                <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
-                                    <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
-                                </div>
-                                </div>
-                                </>}
-                                {y.assigned=="1" &&<>
-                                <div style={{color:'green'}}> 
-                                    <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
-                                </div>
-                                </>}
+                            <div style={{color:y.inventory.length>=parseInt(y.adult) + parseInt(y.child)?"green":'red'}}>
+                                {y.inventory.length} In-Stock 
                             </div>
+                            {(y.inventory.length>=parseInt(y.adult) + parseInt(y.child) && y.assigned=="0" ) &&
+                            <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
+                                <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
+                            </div>
+                            }
+                            </>}
+                            {y.assigned=="1" &&<>
+                            <div style={{color:'green'}}> 
+                                <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
+                            </div>
+                            </>}
                         </div>
-                        }
-                        <div className=' mt-2'>
-                        <span className='fw-500'>Adults:</span> <span>{y.adult}</span>
-                        <span className='mx-3'><span className='fw-500'>Childs:</span> <span>{y.child}</span></span>
-                        <span><span className='fw-500'>Infants:</span> <span>{y.infant}</span></span>
-                        <span className='mx-3'><span className='fw-500'>Transfer:</span> <span>{y.transfer}</span></span>
-                        <br/>
-                        {y.transfer!="No" &&
-                        <Row className='text-start'>
-                            <Col style={{maxWidth:70}}><span className='fw-500'>Pickup:</span></Col>
-                            <Col md={8}>{y.address}</Col>
-                        </Row>
-                        }
-                        <span className=''>
-                            <span className='fw-500'>Tour Date:</span>
-                            <span> {moment(y.date).format("DD/MM/YY")}</span>
-                        </span>
+                    </div>
+                    }
+                    {y.TourOption.manual &&
+                    <div>
+                        <div className='fw-500 right text-end'>
+                            {y.assigned=="0" &&<>
+                            <div>
+                                {parseInt(y.adult) + parseInt(y.child)} Required 
+                            <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
+                                <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
+                            </div>
+                            </div>
+                            </>}
+                            {y.assigned=="1" &&<>
+                            <div style={{color:'green'}}> 
+                                <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
+                            </div>
+                            </>}
                         </div>
-                    </div>)
-                    })}
-                    </Col>
-                </Row>
+                    </div>
+                    }
+                    <div className=' mt-2'>
+                    <span className='fw-500'>Adults:</span> <span>{y.adult}</span>
+                    <span className='mx-3'><span className='fw-500'>Childs:</span> <span>{y.child}</span></span>
+                    <span><span className='fw-500'>Infants:</span> <span>{y.infant}</span></span>
+                    <span className='mx-3'><span className='fw-500'>Transfer:</span> <span>{y.transfer}</span></span>
+                    <br/>
+                    {y.transfer!="No" &&
+                    <Row className='text-start'>
+                        <Col style={{maxWidth:70}}><span className='fw-500'>Pickup:</span></Col>
+                        <Col md={8}>{y.address}</Col>
+                    </Row>
+                    }
+                    <span className=''>
+                        <span className='fw-500'>Tour Date:</span>
+                        <span> {moment(y.date).format("DD/MM/YY")}</span>
+                    </span>
+                    </div>
+                </div>)
+                })}
                 </Col>
-                </>)})
+            </Row>
+            </Col>
+            </>)})
             }</Row>
             </Col>
         </Row>

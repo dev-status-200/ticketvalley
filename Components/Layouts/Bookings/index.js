@@ -72,7 +72,6 @@ const Bookings = ({bookingsData}) => {
         })
       })
       dispatch({type:'toggle', fieldName:'records', payload:tempValues});
-      console.log(tempValues)
       dispatch({type:'toggle', fieldName:'inventory', payload:bookingsData.resultTwo});
     }, [])
 
