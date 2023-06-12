@@ -25,21 +25,21 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
 
   const afterPay = async() => {
     await delay(2000);
-    let id = await createReservation();
-    //await sendMail(id);
+    let {id, no} = await createReservation();
+    await sendMail(id,no);
   }
   
-  const sendMail = (id) => {
+  const sendMail = async(id, no) => {
     if(id){
-      axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
-        user:email, booking_id:id
+      await axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
+        user:email, booking_id:id, booking_no:no
       }).then((x)=>{
       })
     }
-    // dispatch(addProduct([]));
-    // destroyCart();
-    // Cookies.remove("promoDiscount", { path: '' });
-    // Router.push("/");
+    await dispatch(addProduct([]));
+    await destroyCart();
+    await Cookies.remove("promoDiscount", { path: '' });
+    Router.push("/");
   }
 
   const priceCalc = (cartData, disc) => {

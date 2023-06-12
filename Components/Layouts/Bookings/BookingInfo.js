@@ -10,20 +10,21 @@ const BookingInfo = ({state, dispatch}) => {
 
     const assignTicket = async(data, count) => {
         let tempTickets = [], i=0;
-        console.log(data)
-        while(tempTickets.length!=count){
-            if(!data.inventory[i].used){
-                tempTickets.push({...data.inventory[i], used:true});
+        if(!data.TourOption.manual){
+            while(tempTickets.length!=count){
+                if(!data.inventory[i].used){
+                    tempTickets.push({...data.inventory[i], used:true});
+                }
+                i++;
             }
-            i++;
         }
         await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
             data, tickets:tempTickets, email:state.selectedRecord['email'],
-            ticketId:state.selectedRecord.id
+            ticketId:state.selectedRecord.id, manual:data.TourOption.manual
         })
         .then((x)=>{
             if(x.data.result[0]==1){
-                Router.push("/bookings");
+                //Router.push("/bookings");
             }
         })
     }
@@ -47,9 +48,10 @@ const BookingInfo = ({state, dispatch}) => {
                     {x.BookedToursOptions.map((y, j)=>{
                     return(<div key={j+'a'}>
                         {j!=0 && <hr className='my-2' />}
+                        <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
+                        {!y.TourOption.manual &&
                         <div>
-                            <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
-                            <div className='fw-500 right'>
+                            <div className='fw-500 right text-end'>
                                 {y.assigned=="0" &&<>
                                 <div>
                                     {parseInt(y.adult) + parseInt(y.child)} Required 
@@ -70,22 +72,35 @@ const BookingInfo = ({state, dispatch}) => {
                                 </>}
                             </div>
                         </div>
+                        }
+                        {y.TourOption.manual &&
+                        <div>
+                            <div className='fw-500 right text-end'>
+                                {y.assigned=="0" &&<>
+                                <div>
+                                    {parseInt(y.adult) + parseInt(y.child)} Required 
+                                <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
+                                    <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
+                                </div>
+                                </div>
+                                </>}
+                                {y.assigned=="1" &&<>
+                                <div style={{color:'green'}}> 
+                                    <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
+                                </div>
+                                </>}
+                            </div>
+                        </div>
+                        }
                         <div className=' mt-2'>
                         <span className='fw-500'>Adults:</span> <span>{y.adult}</span>
-                        <span className='mx-3'>
-                            <span className='fw-500'>Childs:</span> <span>{y.child}</span>
-                        </span>
-                        <span className=''>
-                            <span className='fw-500'>Infants:</span> <span>{y.infant}</span>
-                        </span>
-                        <span className='mx-3'>
-                            <span className='fw-500'>Transfer:</span> <span>{y.transfer}</span>
-                        </span>
+                        <span className='mx-3'><span className='fw-500'>Childs:</span> <span>{y.child}</span></span>
+                        <span><span className='fw-500'>Infants:</span> <span>{y.infant}</span></span>
+                        <span className='mx-3'><span className='fw-500'>Transfer:</span> <span>{y.transfer}</span></span>
                         <br/>
                         {y.transfer!="No" &&
-                        <Row className=''>
-                            <Col style={{maxWidth:69}}>Pickup:</Col>
-                            
+                        <Row className='text-start'>
+                            <Col style={{maxWidth:70}}><span className='fw-500'>Pickup:</span></Col>
                             <Col md={8}>{y.address}</Col>
                         </Row>
                         }

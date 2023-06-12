@@ -45,6 +45,6 @@ export async function getStaticProps(context) {
   
     return {
       paths,
-      fallback: true
+      fallback: false
     }
   }

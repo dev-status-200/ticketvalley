@@ -67,11 +67,12 @@ const Bookings = ({bookingsData}) => {
       tempValues.forEach((x)=>{
         x.BookedTours.forEach((y)=>{
           y.BookedToursOptions.forEach((z)=>{
-            z.inventory=getInventoryTickets(z.tourOptId, bookingsData.resultTwo)
+            z.inventory=getInventoryTickets(z.TourOptionId, bookingsData.resultTwo)
           })
         })
       })
       dispatch({type:'toggle', fieldName:'records', payload:tempValues});
+      console.log(tempValues)
       dispatch({type:'toggle', fieldName:'inventory', payload:bookingsData.resultTwo});
     }, [])
 
