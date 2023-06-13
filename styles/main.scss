@@ -930,7 +930,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   border-radius: 25px; 
 } 
 .left-ticket-box {
-  background-color:rgb(50, 141, 25); 
+  background-color:rgb(16, 195, 195); 
   border-radius:25px;
   height:430px;
   padding-left: 20px;
@@ -938,16 +938,17 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   padding-top: 20px;
 }
 .tictet-field{
-  color: yellow;
+  color: rgb(14, 83, 9);
 }
 .tictet-icon{
-  color: yellow!important;
+  color: rgb(14, 83, 9)!important;
   position: relative;
   bottom: 1px;
 }
 .ticket-line{
   background-color: white;
   width: 100%;
+  font-weight: 800!important;
   height: 1px;
   margin-top: 10px;
 }

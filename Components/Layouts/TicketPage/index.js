@@ -19,7 +19,6 @@ const TicketPage = ({ticketData, bookingNo}) => {
         if(option.assigned=="1"){
             let count = option.codes.split(", ")
             let ticket = [];
-            
             count.forEach((x)=>{
                 ticket.push({
                     image:tour.image,
@@ -36,7 +35,6 @@ const TicketPage = ({ticketData, bookingNo}) => {
 	};
 
     const submitReview = async(data) => {
-        console.log(data.id, data.rating, data.review)
         await axios.post(process.env.NEXT_PUBLIC_POST_CUSTOMER_REVIEW,{
             id:data.id, review:data.review, rating:data.rating
         }).then((x)=>Router.push(`/ticketPage?id=${bookingNo}`))
@@ -51,8 +49,6 @@ const TicketPage = ({ticketData, bookingNo}) => {
                 y.rating = y.rating==null?0:parseInt(y.rating) ;
             })
         })
-        //console.log(temp);
-        //
         setTickets(temp);
     }, [])
     const btm = {position:'relative', bottom:3}
@@ -102,15 +98,17 @@ const TicketPage = ({ticketData, bookingNo}) => {
                 return(
                 <Row className={y.check?'selected-ticket-row':'ticket-row'} key={"a"+j} 
                     onClick={()=>{
-                        let temp = [...tickets];
-                        temp.forEach((l)=>{
-                            l.BookedToursOptions.forEach((m)=>{
-                                m.check=false
+                        if(!y.TourOption.manual){
+                            let temp = [...tickets];
+                            temp.forEach((l)=>{
+                                l.BookedToursOptions.forEach((m)=>{
+                                    m.check=false
+                                })
                             })
-                        })
-                        temp[i].BookedToursOptions[j].check=true;
-                        setTickets(temp)
-                        selectTour(x, y);
+                            temp[i].BookedToursOptions[j].check=true;
+                            setTickets(temp)
+                            selectTour(x, y);
+                        }
                     }}
                 >
                     <Col md={2}>
@@ -135,10 +133,12 @@ const TicketPage = ({ticketData, bookingNo}) => {
                                 {
                                 y.assigned=="1"?
                                 <>
-                                <div className='mx-3 fs-18'>Available</div>
+                                <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
+                                <div className='mx-3 fs-18'>{y.TourOption.manual?<>Check your E-mail Inbox</>:"Select & Download"}</div>
                                 <img src={'/icons/ticket-available.png'} height={50} />
                                 </>:
                                 <>
+                                <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>Pending</div>
                                 <img src={'/icons/ticket-pending.png'} height={50} />
                                 </>
@@ -155,7 +155,6 @@ const TicketPage = ({ticketData, bookingNo}) => {
                           onClick={()=>{
                             let tempTickets = [...tickets];
                             tempTickets[i].BookedToursOptions[j].reviewCheck = true;
-                            //console.log(tempTickets[i].BookedToursOptions[j])
                             setTickets(tempTickets)
                         }}>
                         <div className='fs-12'>Leave A Review </div>

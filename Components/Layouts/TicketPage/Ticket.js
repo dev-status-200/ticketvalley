@@ -25,19 +25,19 @@ const Ticket = ({fetchedTicket, i}) => {
                     <Col style={{maxWidth:300}}>
                         <div className='left-ticket-box'>
                             <div className='tictet-field mt-4'><MdShareLocation className='tictet-icon' color='yellow' /> Tour Name</div>
-                            <div className='wh-txt' style={{paddingLeft:18}}>{fetchedTicket.title}</div>
+                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.title}</div>
                             <div className='ticket-line'></div>
                             <div className='tictet-field mt-2'><MdShareLocation className='tictet-icon' color='yellow' /> Customer Name</div>
-                            <div className='wh-txt' style={{paddingLeft:18}}>{fetchedTicket.name}</div>
+                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.name}</div>
                             <div className='ticket-line'></div>
                             <div className='tictet-field mt-2'><MdShareLocation className='tictet-icon' color='yellow' /> Transfer</div>
-                            <div className='wh-txt' style={{paddingLeft:18}}>{fetchedTicket.transfer}</div>
+                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.transfer}</div>
                             <div className='ticket-line'></div>
                             <div className='tictet-field mt-2'><MdShareLocation className='tictet-icon' color='yellow' /> Tour Date</div>
-                            <div className='wh-txt' style={{paddingLeft:18}}>{fetchedTicket.date}</div>
+                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.date}</div>
                             <div className='ticket-line'></div>
                             <div className='tictet-field mt-2'><MdShareLocation className='tictet-icon' color='yellow' /> Time Slot</div>
-                            <div className='wh-txt' style={{paddingLeft:18}}>{fetchedTicket.timeSlot==null?'Any':fetchedTicket.timeSlot}</div>
+                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.timeSlot==null?'Any':fetchedTicket.timeSlot}</div>
                             <div className='ticket-line'></div>
                         </div>
                     </Col>

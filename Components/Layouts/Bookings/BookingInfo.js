@@ -23,6 +23,7 @@ const BookingInfo = ({state, dispatch}) => {
             ticketId:state.selectedRecord.id, manual:data.TourOption.manual
         })
         .then((x)=>{
+            console.log(x.data)
             if(x.data.result[0]==1){
                 Router.push("/bookings");
             }
