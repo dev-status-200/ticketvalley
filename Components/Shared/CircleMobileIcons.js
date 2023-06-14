@@ -10,7 +10,7 @@ const CircleIcons = () => {
     }
     const navStyles = {textDecoration:"none", color:'black'}
   return (
-    <Container className='bar-styles'>
+    <Container className='bar-styles' style={{backgroundColor:'white'}}>
         <Row className='justify-content-xs-center'>
             <Col className='barz-mobile'>
             <Link 
@@ -60,37 +60,6 @@ const CircleIcons = () => {
             <Col className='text-center' style={{lineHeight:1, fontSize:10}}>City Based Tours</Col>
             <Col className='text-center' style={{lineHeight:1, fontSize:10}}>Luxury Tours</Col>
         </Row>
-        {/* <Row className="justify-content-md-center mt-4">
-
-            <Col md={2} xs={2} className='barz'>
-            <Link 
-                style={{textDecoration:"none", color:'black'}}
-            >
-                  height={height} width={width} style={imgStyle} /> Water Parks
-            </Link>
-            </Col>
-            <Col  className='barz'>
-            <Link 
-                style={{textDecoration:"none", color:'black'}}
-            >
-                  height={height} width={width} style={imgStyle} /> Adventure
-            </Link>
-            </Col>
-            <Col className='barz'>
-            <Link 
-                style={{textDecoration:"none", color:'black'}}
-            >
-                 height={height} width={width} style={imgStyle} /> City Tours
-            </Link>
-            </Col>
-            <Col  className='barz'>
-            <Link 
-                style={{textDecoration:"none", color:'black'}}
-            >
-                  height={height} width={width} style={imgStyle} /> Luxury Tours
-            </Link>
-            </Col>
-        </Row> */}
     </Container>
   )
 }

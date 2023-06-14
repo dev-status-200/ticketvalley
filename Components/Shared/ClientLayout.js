@@ -37,10 +37,10 @@ const MainLayout = ({children}) => {
           borderRadius:"100%",
           position:'fixed',
           bottom:23,
-          right:65,
-          boxShadow: "10px 10px 14px -6px rgba(0,0,0,0.75)",
-          WebkitBoxShadow:"10px 10px 14px -6px rgba(0,0,0,0.75)",
-          MozBoxShadow:"10px 10px 14px -6px rgba(0,0,0,0.75)"
+          right:"5%",
+          boxShadow: "10px 10px 14px -6px rgba(0,1,0,0.35)",
+          WebkitBoxShadow:"10px 10px 14px -6px rgba(0,1,0,0.35)",
+          MozBoxShadow:"10px 10px 14px -6px rgba(0,0,1,0.35)"
         }}
       ><WhatsAppOutlined style={{color:'white', fontSize:20}} />
       </a>
