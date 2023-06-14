@@ -8,7 +8,6 @@ const ticketPage = ({ticketData, bookingNo}) => {
   )
 }
 export async function getServerSideProps(context) {
-  console.log(context.query.id);
   const bookingNo = context.query.id
     const ticketData = await axios.get(process.env.NEXT_PUBLIC_GET_TICKET_INFO,{
       headers:{ "id": `${context.query.id}` }

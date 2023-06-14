@@ -27,7 +27,8 @@ const MyBookings = () => {
         axios.post(process.env.NEXT_PUBLIC_CREATE_GET_MY_RESERVATIONS,{
             email:data
         }).then((x)=>{
-            setBookings(x.data.result)
+            setBookings(x.data.result);
+            console.log(x.data.result)
         })
     }
 
@@ -80,7 +81,7 @@ const MyBookings = () => {
                     {i==0 &&
                         <Row>
                             <Col className=''>
-                            <div className='grey-txt fs-20 fw-500'>Booking#: {y.id}</div>
+                            <div className='grey-txt fs-20 fw-500'>Booking#: {y.booking_no}</div>
                             <div className='silver-2-txt'><span >{moment(y.moment).format('DD-MMM-YYYY, hh:ss a')}</span></div>
                             <div className='mt-2'>
                                 PROMO :

@@ -93,6 +93,7 @@ const Bookings = ({bookingsData}) => {
             <th>No. Of Tickets</th>
             <th>Price</th>
             <th>Stripe PI</th>
+            <th>Time</th>
           </tr>
         </thead>
         <tbody>
@@ -105,14 +106,18 @@ const Bookings = ({bookingsData}) => {
           >
             <td>{index+1} </td>
             <td>
-              <div style={{color:"#108ee9"}}>{x.id}</div>
-              {moment(x.createdAt).fromNow()}
+              <div style={{color:"#108ee9"}}><b>#{x.booking_no}</b></div>
             </td>
             <td>{x.name} </td>
             <td>{x.email} </td>
             <td className='px-4' style={{fontSize:15, color:"#a3592e"}}><b>{x.BookedTours.length}</b></td>
             <td style={{color:"green"}}><b>{parseFloat(x.final_price).toFixed(2)}</b></td>
             <td style={{color:'grey'}}>{x.payment_intent}</td>
+            <td style={{color:'grey'}}>
+              {moment(x.createdAt).format("DD - MMM - YYYY")}
+              <br/>
+              {moment(x.createdAt).fromNow()} 
+            </td>
           </tr>
           )
         })}

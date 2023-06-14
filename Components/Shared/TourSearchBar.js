@@ -64,13 +64,13 @@ const TourSearchBar = () => {
         <Col md={2}></Col>
         <Col md={8} className='px-0'>
         <div style={{textAlign:'left'}}>
-            <h1
+            <h3
                 style={{
                     fontWeight:600,
                     color:"white",
                     textShadow:"3px 5px 2px #474747 "
                 }}
-            >Search Now</h1>
+            >Search Now</h3>
         </div>
         <Row className='bar-bg'>
         <Col md={6} className='px-0 py-0' 

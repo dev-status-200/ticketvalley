@@ -43,7 +43,7 @@ const VideoComp = () => {
               width:"100vw"
           }}>
             <div className='text-center'>
-            <h1 className='wh-txt hero-txt-1'>TICKETS <span className='yellow-txt'>VALLEY</span></h1>
+            <h3 className='wh-txt hero-txt-1'>TICKETS <span className='yellow-txt'>VALLEY</span></h3>
             </div>
         </div>
         <div

@@ -30,6 +30,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     code:x
                 })
             })
+            console.log(option);
             await setFetchedTicket(ticket);
         }
 	};
@@ -86,9 +87,8 @@ const TicketPage = ({ticketData, bookingNo}) => {
         <CircleIcons/>
         <hr className='mb-0 mt-5' />
         <div className='tickets-cont pb-5'>
-            <h1 className='mt-4 grey-txt'>My Tickets </h1>
-            <span className='grey-txt'>For Booking #{bookingNo},</span>
-            <span className='grey-txt'> please select the ticket to interact</span>
+            <h3 className='mt-4 grey-txt'>Tickets for booking #  {ticketData?.result?.booking_no}</h3>
+            <span className='grey-txt'> Please select the ticket to interact</span>
             <Row className='ticket-cont-wh-bg my-3'>
             {tickets.map((x, i)=>{
             return(
@@ -106,7 +106,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
                                 })
                             })
                             temp[i].BookedToursOptions[j].check=true;
-                            setTickets(temp)
+                            setTickets(temp);
                             selectTour(x, y);
                         }
                     }}

@@ -2,8 +2,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 
 const CircleIcons = () => {
-    const height = 20;
-    const width = 25;
+    const height = 15;
+    const width = 15;
     const imgStyle = {
         position:"relative",
         bottom:2
@@ -11,56 +11,63 @@ const CircleIcons = () => {
   return (
     <Container className='bar-styles'>
         <Row className="justify-content-md-center mt-4">
-            <Col md="auto" className='barz'>
+            <Col md={1}></Col>
+            <Col md={2} xs={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Theme Parks' }}}
                 style={{textDecoration:"none", color:'black'}}
             >
-                <Row className="justify-content-md-center">
+                <img src={"/icons/new-circle (4).png"}  height={height} width={width} style={imgStyle} /> Theme Parks
+                {/* <Row className="justify-content-md-center">
                     <Col md={2}><img src={"/icons/new-circle (4).png"}  height={height} width={width} style={imgStyle} /></Col>
                     <Col md={10} className='px-4'>Theme Parks</Col>
-                </Row>
+                </Row> */}
             </Link>
             </Col>
-            <Col md="auto" className='barz'>
+            <Col md={2} xs={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}}
                 style={{textDecoration:"none", color:'black'}}
             >
-                <Row className="justify-content-md-center">
+                <img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} /> Water Parks
+                {/* <Row className="justify-content-md-center">
                     <Col md={2}><img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} /></Col>
                     <Col md={10} className='px-4'>Water Parks</Col>
-                </Row>
+                </Row> */}
             </Link>
             </Col>
-            <Col md="auto" className='barz'>
+            <Col md={2} xs={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Adventure' }}}
                 style={{textDecoration:"none", color:'black'}}
             >
-                <Row className="justify-content-md-center">
+                <img src={"/icons/new-circle (1).png"}  height={height} width={width} style={imgStyle} /> Adventure
+                {/* <Row className="justify-content-md-center">
                     <Col md={2}><img src={"/icons/new-circle (1).png"}  height={height} width={width} style={imgStyle} /></Col>
                     <Col md={10} className='px-4'>Adventure</Col>
-                </Row>
+                </Row> */}
             </Link>
             </Col>
-            <Col md="auto" className='barz'>
+            <Col md={2} xs={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'City Tours' }}}
                 style={{textDecoration:"none", color:'black'}}
             >
-                <Row className="justify-content-md-center">
+                <img src={"/icons/new-circle (2).png"}  height={height} width={width} style={imgStyle} /> City Tours
+                {/* <Row className="justify-content-md-center">
                     <Col md={2}><img src={"/icons/new-circle (2).png"}  height={height} width={width} style={imgStyle} /></Col>
                     <Col md={10} className='px-4'>City Tours</Col>
-                </Row>
+                </Row> */}
             </Link>
             </Col>
-            <Col md="auto" className='barz'>
+            <Col md={2} xs={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Luxury Tours' }}}
                 style={{textDecoration:"none", color:'black'}}
             >
-                <Row className="justify-content-md-center">
+                <img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} /> Luxury Tours
+                {/* <Row className="justify-content-md-center">
                     <Col md={2}><img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} /></Col>
                     <Col md={10} className='px-4'>Luxury Tours</Col>
-                </Row>
+                </Row> */}
             </Link>
             </Col>
+            <Col md={1}></Col>
         </Row>
     {/* <Row className="justify-content-md-center">
         <Col md="auto" className='mx-4'> 

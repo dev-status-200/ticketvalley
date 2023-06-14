@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import QRCode from "react-qr-code";
 import { MdShareLocation } from 'react-icons/md'
 
 const Ticket = ({fetchedTicket, i}) => {
+
+    useEffect(() => {
+      console.log(fetchedTicket)
+    }, [fetchedTicket])
+    
 
   return (
     <>
