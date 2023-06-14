@@ -16,33 +16,11 @@ import SignUp from '../../Shared/SignUp';
 import { Widget } from "@uploadcare/react-widget";
 import CircleIcons from '/Components/Shared/CircleIcons';
 
-const Desktop = () => {
-
-    const router = useRouter();
-    const [bestSelling, setBestSelling] = useState([])
-    const [adventures, setAdventures] = useState([])
-    const [combos, setCombos] = useState([])
+const Desktop = ({combos, adventures, bestSelling}) => {
 
     useEffect(() => {
         Aos.init({duration:700});
-        getData();
     }, [])
-
-    const getData = async() => {
-          await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-            headers:{ "category": "Best Selling" }
-          }).then((x)=>{
-            setBestSelling(x.data.result);
-            axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-                headers:{ "category": "Adventure Tours" }
-              }).then((x)=>{
-                setAdventures(x.data.result);
-                axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-                    headers:{ "category": "Combo Tours" }
-                  }).then((x)=>setCombos(x.data.result))
-            })
-        })
-    }
 
     return (
     <div className='home-styles' data-aos="fade-in">
