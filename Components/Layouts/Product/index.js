@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
 import { Container, Row, Col } from 'react-bootstrap';
 import { AiFillTags, AiOutlineClockCircle, AiOutlinePrinter } from "react-icons/ai";
-import { Rate, Affix, Drawer } from 'antd';
+import { Rate, Drawer } from 'antd';
 import { IoCalendarSharp } from "react-icons/io5";
 import { GiSandsOfTime } from "react-icons/gi";
 import { MdShoppingCart } from "react-icons/md";
@@ -18,6 +18,7 @@ import Details from './Details';
 import NavLinks from '../../Shared/NavLinks';
 import { TbPoint } from "react-icons/tb";
 import axios from 'axios';
+import moment from 'moment';
 
 const Product = ({tourData, id}) => {
 
@@ -31,12 +32,18 @@ const Product = ({tourData, id}) => {
 
   const [cartIndex, setCartIndex] = useState(0);
   const [added, setAdded] = useState(false);
+  const [reviews, setReviws] = useState([]);
 
   useEffect(() => {
     fetchData();
     Aos.init({duration:700});
     setTour(tourData);
     window.addEventListener('scroll', handleScroll, { passive: true });
+    axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
+      headers:{'id':`${id}`}
+    }).then((x)=>{
+        x.data.result.length>0?setReviws(x.data.result):null
+    })
     return () => window.removeEventListener('scroll', handleScroll)
 }, [])
 
@@ -203,6 +210,34 @@ const Product = ({tourData, id}) => {
             </Col>
           </Row>
         </Container>
+        <div>
+        <Container  className='py-5 px-3' style={{backgroundColor:'white'}}>
+          <h4 style={{color:'silver'}}>Reviews</h4>
+            <hr className='my-0' />
+            {reviews.length==0 && <div className='mt-3' style={{color:'grey'}}>No Review yet</div>}
+            {reviews.length>0 && 
+            <div className='mt-3'>
+                {reviews.map((x, i)=>{
+                return(
+                <Row key={i}>
+                    <Col md={1}>
+                        <img src={x['BookedToursOptions.BookedTour.Customer.image']} height={50} width={50} style={{borderRadius:'100%'}} />
+                    </Col>
+                    <Col md={11} style={{backgroundColor:'white'}}>
+                        <div style={{fontSize:16, display:'inline-block'}}>{x['BookedToursOptions.BookedTour.Customer.name']}</div>
+                        <div className='mx-5' style={{fontSize:13, color:'silver', display:'inline-block'}}>{moment(x['BookedToursOptions.BookedTour.createdAt']).fromNow()}</div>
+                        <br/><Rate allowHalf disabled defaultValue={parseFloat(x['BookedToursOptions.rating'])} />
+                    </Col>
+                    <Col md={12} style={{color:'grey'}} className='mt-3'>
+                        {x['BookedToursOptions.review']}
+                        <hr/>
+                    </Col>
+                </Row>
+                )})}
+            </div>
+            }
+        </Container>
+        </div>
         {Object.keys(detail).length>0 &&
         <Container fluid>
           <Row className='mt-5'>

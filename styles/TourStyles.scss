@@ -144,8 +144,12 @@
   }
   .fixed-book{
     position: fixed!important;
-    bottom: 50px!important;
+    bottom: 80px!important;
     right: 50px;
+    border-radius: 100%;
+    box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
   }
 }
 
@@ -155,8 +159,8 @@
 .img-hover:hover{
   transition-duration: 200ms;
   box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
--webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
 }
 
 // BTN CSS
