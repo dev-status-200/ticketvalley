@@ -76,6 +76,7 @@ const initialState = {
     activeTab:'1',
     load:false,
     search:"",
+    categorySearch:"",
     //form values
     values:baseValues,
     stock:0,

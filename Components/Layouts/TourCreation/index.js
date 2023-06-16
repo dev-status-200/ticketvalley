@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { Modal, Card, Input } from 'antd';
+import { Modal, Card, Input, Select } from 'antd';
 import { reducerFunctions, initialState, baseValues } from './states';
 import { Row, Col, Table } from 'react-bootstrap';
 import CreateOrEdit from './CreateOrEdit';
@@ -16,15 +16,40 @@ export default function TourCreation({productData}) {
         fieldName: 'records',
         payload: productData.result
       });
-  }, [])
+    }, [])
+    
+  const onChange = (e) => {
+    dispatch({
+      type: 'field',
+      fieldName: 'categorySearch',
+      payload: e
+    }); 
+  }
   
   return (
     <div className=''>
       <Row>
         <Col className='' md={3}><h5>Product</h5></Col>
         <Col>
-        <Row>
-          <Col md={4}></Col>
+        <Row className='pb-2'>
+          <Col md={2}></Col>
+          <Col md={1}></Col>
+          <Col md={3}>
+          <Select
+            allowClear
+            style={{width:'100%'}}
+            placeholder="Select Category"
+            optionFilterProp="children"
+            onChange={onChange}
+            options={[
+              {value:'Theme Parks',  label:'Theme Parks' },
+              {value:'Water Parks',  label:'Water Parks' },
+              {value:'City Tours',   label:'City Tours'  },
+              {value:'Luxury Tours', label:'Luxury Tours'},
+              {value:'Adventure',    label:'Adventure'   },
+            ]}
+          />
+          </Col>
             <Col md={4}>
             <Input value={state.search} placeholder="Search Packages"
             onChange={(e)=>dispatch({
@@ -43,14 +68,15 @@ export default function TourCreation({productData}) {
         <Row>
           {
           records.filter((x)=>{
-            if(
-              x.title.toLowerCase().includes(state.search.toLowerCase())
-              // ||
-              // x.adult_price.toLowerCase().includes(state.search.toLowerCase())||
-              // x.tour_detail.toLowerCase().includes(state.search.toLowerCase())
-            ){
+            if(x.category.toLowerCase().includes(state.categorySearch?.toLowerCase())){
+              return x
+            }else if(state.categorySearch=="" || state.categorySearch==null){
               return x
             }
+          }).filter((x)=>{
+            if(x.title.toLowerCase().includes(state.search.toLowerCase())
+              // || x.adult_price.toLowerCase().includes(state.search.toLowerCase())
+            ){ return x }
             if(state.search==""){
               return x
             }
