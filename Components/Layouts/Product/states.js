@@ -47,22 +47,20 @@ const initialState = {
 };
 
 const setTour = (tour, dispatchReducer, category) => {
-  console.log(category)
   let tempBook = [];
   if(tour.TourOptions!=undefined){
     tour.TourOptions.forEach((x, i)=>{
       let tempDates = [];
       if(x.dated && x.dates.length>0){
         x.dates.forEach((x)=>{
-            let tempDate = moment(x.date).add(1, 'days')
-            //console.log()
-            tempDates.push(new Date(`${moment(tempDate).format('YYYY-MM-DD')}`))
+          let tempDate = moment(x.date).add(1, 'days')
+          tempDates.push(new Date(`${moment(tempDate).format('YYYY-MM-DD')}`))
         });
       }
       let tempTimes = [];
       if(x.timed && x.timeSlots.length>0){
         x.timeSlots.forEach((x)=>{
-            tempTimes.push({slot:moment(x.slot, "HH:mm:ss").format("hh:mm A")})
+          tempTimes.push({slot:moment(x.slot, "HH:mm:ss").format("hh:mm A")})
         });
       }
       tempBook.push({

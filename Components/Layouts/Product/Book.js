@@ -31,11 +31,6 @@ const Book = ({tour, transport, category, setOpen}) => {
 
     const showMessage = (msg) =>messageApi.info(msg);
 
-    const getFlagCode = (code) => {
-        console.log(code)
-        return "+ 971"
-    }
-
     const addToCart = async() => {
         let notValidAddress = false
         state.booking.forEach((x)=>{

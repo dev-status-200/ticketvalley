@@ -25,19 +25,22 @@ const Product = ({tourData, id}) => {
   const cart = useSelector((state) => state.cart.value);
   const conversion = useSelector((state) => state.currency.conversion);
 
-  const [tour, setTour] = React.useState({});
+  const [tour, setTour] = React.useState({
+    TourOptions:[{adult_price:0}],
+    destination:""
+  });
   const [detail, setDetail] = React.useState({});
   const [transport, setTransport] = React.useState([]);
   const [open, setOpen] = useState(false);
 
   const [cartIndex, setCartIndex] = useState(0);
   const [added, setAdded] = useState(false);
+  const [book, setBook] = useState(false);
   const [reviews, setReviws] = useState([]);
 
   useEffect(() => {
     fetchData();
     Aos.init({duration:700});
-    setTour(tourData);
     window.addEventListener('scroll', handleScroll, { passive: true });
     axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
       headers:{'id':`${id}`}
@@ -51,9 +54,13 @@ const Product = ({tourData, id}) => {
     let detailData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_DETAIL_BY_ID,{
       headers:{ "id": `${id}` }
     }).then((x)=>x.data.result);
-    setDetail(detailData);
+    let tempDetail = detailData;
+    setTour({...tourData, TourOptions:tempDetail.TourOptions});
+    delete tempDetail.TourOptions
+    setDetail(tempDetail);
     let transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result);
     setTransport(transportData);
+    setBook(true);
   }
 
   useEffect(() => {
@@ -100,7 +107,7 @@ const Product = ({tourData, id}) => {
         <div className='my-2 py-2'></div>
       </div>
       {/* <CircleIcons/> */}
-      {Object.keys(tour).length>0 &&
+      {book &&
       <div>
         <Container className='' >
           <Row className='p'>
@@ -115,7 +122,7 @@ const Product = ({tourData, id}) => {
                   {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
                 </s>}
                 <p className='fw-600 fs-30'><AiFillTags/>
-                  {(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
+                  {(tour.TourOptions[0]?.adult_price*conversion.rate).toFixed(2)} {conversion.currency} <span className='fw-400 fs-18 mx-2 grey-txt'>Per Person</span>
                 </p>
                 <div className='my-2'>
                   <span className='info-logo'><IoCalendarSharp/></span>
@@ -200,12 +207,9 @@ const Product = ({tourData, id}) => {
                   <h6>{tour.lang}</h6>
                 </div>
               </div>
-              <iframe className="p-0 m-0 tour-map-shadow"
-                src="
-                https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s
-                " 
-                width="100%" height="480">
-              </iframe>
+              <iframe className="p-0 m-0 tour-map-shadow" width="100%" height="480"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s" 
+              ></iframe>
             </div>
             </Col>
           </Row>

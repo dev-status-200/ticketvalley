@@ -4,11 +4,7 @@ import axios from "axios";
 
 const product = ({id, tourData}) => {
   return (
-    <Product 
-      tourData={tourData} 
-      id={id} 
-      //transportData={transportData} 
-    />
+    <Product tourData={tourData} id={id} />
   )
 
 }
@@ -28,9 +24,9 @@ export async function getStaticProps(context) {
     return {
       props: {
         id:params.id,
-        tourData: tourData //, transportData:transportData
+        tourData: tourData
       },
-      revalidate: 20,
+      revalidate: 10,
     }
   }
   
