@@ -10,7 +10,7 @@ import Router, { useRouter  } from 'next/router';
 
 import ClientLayout from '../Components/Shared/ClientLayout';
 import PortalLayout from '../Components/Shared/PortalLayout';
-import {SessionProvider} from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 
 import { store } from '/redux/store';
 import { Provider } from 'react-redux';

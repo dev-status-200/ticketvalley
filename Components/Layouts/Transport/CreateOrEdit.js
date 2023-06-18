@@ -3,8 +3,10 @@ import { useForm, useWatch, useFormContext } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputNumComp from '../../Shared/Form/InputNumComp';
+import CheckGroupComp from '../../Shared/Form/CheckGroupComp';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import axios from "axios";
+import InputComp from '../../Shared/Form/InputComp';
 
 const SignupSchema = yup.object().shape({
     name: yup.string().required('Required'),
@@ -74,9 +76,9 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         <form onSubmit={handleSubmit(state.edit?onEdit:onSubmit, onError)}>
         <Row>
             <Col md={6} className='py-1'>
-                {/* <InputComp  register={register} name='name' control={control} label='Name' /> */}
-                <div className='mt-3'>Name</div>
-                <div style={{border:"1px solid silver", paddingTop:4, paddingBottom:4, paddingLeft:10, borderRadius:6}}>{name}</div>
+                <InputComp  register={register} name='name' control={control} label='Name' />
+                {/* <div className='mt-3'>Name</div>
+                <div style={{border:"1px solid silver", paddingTop:4, paddingBottom:4, paddingLeft:10, borderRadius:6}}>{name}</div> */}
                 {errors.name && <div className='error-line'>{errors.name.message}*</div>}
             </Col>
             <Col md={6} className='py-1'>

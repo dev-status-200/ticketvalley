@@ -823,6 +823,7 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
   //border: 1px solid grey;
   cursor: pointer;
   padding-bottom: 50px;
+  
 }
 .search-box-container{
   transition-duration: 200ms;
@@ -836,11 +837,17 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 .search-box-img {
   border-radius: 10px 10px 0px 0px;
+  border: 1px solid rgb(203, 203, 203);
+}
+.my-custom-paragraph{
+  margin: 0px;
+  margin-left: 5px;
 }
 .search-bob-bottom{
   background-color: white;
   height: 120px;
   border-radius: 0px 0px 10px 10px;
+  border: 1px solid rgb(203, 203, 203);
 }
 
 .search-page{
@@ -955,4 +962,9 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 
 .bg-green{
   background-color: rgba(173, 238, 173, 0.763);
+}
+
+.row-hov:hover{
+  cursor: pointer;
+  background-color: #61a7c834;
 }

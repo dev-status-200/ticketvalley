@@ -19,6 +19,7 @@ import NavLinks from '../../Shared/NavLinks';
 import { TbPoint } from "react-icons/tb";
 import axios from 'axios';
 import moment from 'moment';
+import Loader from '../../Shared/Loader';
 
 const Product = ({tourData, id}) => {
 
@@ -59,6 +60,7 @@ const Product = ({tourData, id}) => {
     delete tempDetail.TourOptions
     setDetail(tempDetail);
     let transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result);
+    //transportData.unshift({id:"1", name:"No", price:0.00})
     setTransport(transportData);
     setBook(true);
   }
@@ -107,7 +109,8 @@ const Product = ({tourData, id}) => {
         <div className='my-2 py-2'></div>
       </div>
       {/* <CircleIcons/> */}
-      {book &&
+      {!book && <Loader/>}
+      { book &&
       <div>
         <Container className='' >
           <Row className='p'>

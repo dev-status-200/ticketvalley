@@ -14,10 +14,10 @@ const Tours = ({records, index, pages, pagination, price, category, setIndex, se
             <Col md={12} className=''>
                 <h5><b>{records.length} Activities Found</b></h5>
             </Col>
-            <hr className='p-0  mb-3 mx-0'/>
+            <hr className='p-0 mb-3 mx-0'/>
             {records.filter((x)=>{
             return x.price <= price
-            }).slice(((index-1)*9), index*9).map((x, i)=>{
+            }).slice(0, index*9).map((x, i)=>{
             return(
             <Col md={4} className='px-1 search-tour-box' key={i}>
                 <div className='search-box-container mx-1'>
@@ -39,7 +39,7 @@ const Tours = ({records, index, pages, pagination, price, category, setIndex, se
             )
             })}
         </Row>
-        {pagination &&<>
+        {/* {pagination &&<>
             <hr className='p-0 m-0' />
             <div>
             <div className='text-center'>
@@ -48,7 +48,7 @@ const Tours = ({records, index, pages, pagination, price, category, setIndex, se
             <button className='search-page' onClick={()=>setIndex(index!=pages?index+1:pages)}>NEXT</button>
             </div>
             </div>
-        </>}
+        </>} */}
         </>}
         {records.length==0 && 
         <div style={{color:'grey', border:'1px solid silver'}} className='p-5'>

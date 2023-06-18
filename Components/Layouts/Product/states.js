@@ -8,6 +8,12 @@ function reducerFunctions(state, action) {
         [action.fieldName]: action.payload,
       };
     }
+    case 'set': {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
     case 'open': {
       return {
         ...state,

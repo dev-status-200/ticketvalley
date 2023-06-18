@@ -138,51 +138,64 @@ const Book = ({tour, transport, category, setOpen}) => {
                     <IncDec type={"infant"} count={x.infant} index={i} state={state} dispatchReducer={dispatchReducer} />
                 </Col>
                 <Col className='mt-3' style={{ maxWidth:230, marginLeft:4}}>
-                <span>Transfer: </span>
-                {" "}
-                
-                <Select defaultValue="Yes" value={x.transfer} style={{width:100}}
+                <span style={{marginRight:10}}>Transfer: </span>
+                <Select defaultValue="Yes" value={x.transfer} style={{width:140}}
                     onChange={(e)=>{
                         let temp = [...state.booking];
                         temp[i].transfer = e;
-                        if(e=="Shared"){
-                            temp[i].transportPrice = x.transport?0.00:parseFloat(transport[0].price)
-                        } else if(e=="Private"){ 
-                            temp[i].transportPrice = parseFloat(transport[1].price);
-                        } else if(e=="No"){ 
+                         // <- iF e==1? means no transfer option selected
+                        // let temp = [...state.booking];
+                        // temp[i].transfer = e;
+                        // if(e=="Shared"){
+                        //     temp[i].transportPrice = x.transport?0.00:parseFloat(transport[0].price)
+                        // } else if(e=="Private"){ 
+                        //     temp[i].transportPrice = parseFloat(transport[1].price);
+                        // } else if(e=="No"){ 
+                        //     temp[i].transportPrice = 0.00; 
+                        // }
+                        let tempAddress = "";
+                        if(e!="1"){
+                            transport.forEach((y)=>{
+                                if(y.id==e){
+                                    if(e=="845610848208257025"){
+                                        temp[i].transportPrice = x.transport?0.00:parseFloat(y.price);
+                                    }else{
+                                        temp[i].transportPrice = parseFloat(y.price)
+                                    }
+                                }
+                            })
+                            temp[i].price = temp[i].adult*temp[i].adult_price + temp[i].child*temp[i].child_price + temp[i].transportPrice;
+                            tempAddress = "";
+                        } else {
+                            tempAddress = "none"
                             temp[i].transportPrice = 0.00; 
                         }
-
-                        temp[i].price = temp[i].adult*temp[i].adult_price + temp[i].child*temp[i].child_price + temp[i].transportPrice;
-                        dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-
-                        if(e=="No"){ 
-                            dispatchReducer({ type: 'field', fieldName: 'address', payload: "none" })
-                        } else { 
-                            dispatchReducer({ type: 'field', fieldName: 'address', payload: "" }) 
-                        }
+                        // dispatchReducer({ type: 'field', fieldName: 'address', payload: tempAddress }) 
+                        // dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        dispatchReducer({type: 'set', payload:{booking:temp, address:tempAddress}});
                     }}
-                    options={[
-                        { value: 'No', label: 'No', disabled:x.transport},
-                        { value: 'Shared', label: 'Shared'},
-                        { value: 'Private', label: 'Private'},
-                    ]}
+                    // options={[
+                    //     { value: 'No', label: 'No', disabled:x.transport},
+                    //     { value: 'Shared', label: 'Shared'},
+                    //     { value: 'Private', label: 'Private'},
+                    // ]}
+                    options={[{value:"1", label:"No", disabled:x.transport},...transport.filter((y)=>{if(y.status=="1"){return x}}).map((y)=>{  return { value:y.id, label:y.name } }) ]}
                 />
                 </Col>
                 <Col className='text-center mt-3' >
                     <Row>
                         <Col md={1} className='pt-1'><span>Date: </span> </Col>
                         <Col>
-                        <DatePicker 
-                        selected={x.date}
-                        onChange={(date) => {
-                            let temp = [...state.booking];
-                            temp[i].date = date;
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }}
-                        minDate={new Date()}
-                        includeDates={x.dated?x.dates:false}
-                        dateFormat="yyyy - MMM - dd"
+                        <DatePicker
+                            selected={x.date}
+                            onChange={(date) => {
+                                let temp = [...state.booking];
+                                temp[i].date = date;
+                                dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                            }}
+                            minDate={new Date()}
+                            includeDates={x.dated?x.dates:false}
+                            dateFormat="yyyy - MMM - dd"
                         /> 
                         </Col>
                     </Row>
@@ -216,7 +229,6 @@ const Book = ({tour, transport, category, setOpen}) => {
                                 temp[i].address = res.label;
                                 //console.log(temp[i].address)
                                 dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                                console.log(temp)
                             },
                             placeholder: 'Pick up Address',
                             components : {
@@ -255,14 +267,15 @@ const Book = ({tour, transport, category, setOpen}) => {
                 <Select  defaultValue="Select Country"
                     style={{width:"100%"}}
                     onChange={(e)=>{
+                        let tempContact = ""
                         codes.forEach((x)=>{
                             if(x.value==e){
-                                //console.log(x)
-                                dispatchReducer({ type: 'field', fieldName:'contact', payload: x.code+" " });
+                                tempContact = x.code+" "
+                                //dispatchReducer({ type: 'field', fieldName:'contact', payload: x.code+" " });
                                 return
                             }
                         })
-                        dispatchReducer({ type: 'field', fieldName:'code', payload: e })
+                        dispatchReducer({ type:'set', payload:{ code:e, contact:tempContact }})
                     }}
                     showSearch
                     optionFilterProp="children"
