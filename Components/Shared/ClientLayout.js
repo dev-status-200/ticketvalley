@@ -24,7 +24,7 @@ const MainLayout = ({children}) => {
           <p>Have A Question?</p>
         </div>
       )}>
-      <a href="https://wa.me/923360222373" target="_blank"
+      <a href="https://wa.me/971559986370" target="_blank"
         style={{
           backgroundColor:"green",
           width:50,
