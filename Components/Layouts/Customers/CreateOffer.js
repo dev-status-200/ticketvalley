@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
 import Paragraph from '@tiptap/extension-paragraph';
-import { Modal, Input } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Table, Row, Col } from 'react-bootstrap';
 import { MailOutlined } from '@ant-design/icons';
+import StarterKit from '@tiptap/starter-kit';
+import { Modal, Input } from 'antd';
+import axios from "axios";
 
 const CreateOffer = ({content, setContent, records}) => {
 
-  const [select, setSelect] = useState(false);
   const [visible, setVisible] = useState(false);
+  const partyDetail = { height:80, overflowY:'auto', padding:0 }
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Paragraph.configure({ HTMLAttributes:{ class:'my-custom-paragraph'} })
+      Paragraph.configure({ HTMLAttributes:{
+        style:'margin: 0px; margin-left: 5px;'
+      }})
     ],
     content: content,
     onUpdate({ editor }) {
@@ -21,13 +24,11 @@ const CreateOffer = ({content, setContent, records}) => {
     },
   }, [])
 
-  const partyDetail = { height:80, overflowY:'auto', padding:0 }
-
-  const NextStep = ({records}) => {
-
+  const NextStep = ({records, content}) => {
     const [search, setSearch] = useState("");
     const [select, setSelect] = useState(false);
-    const [customRecords, setCustomRecords] = useState([])
+    const [customRecords, setCustomRecords] = useState([]);
+
     useEffect(() => {
       let tempRecords = [...records];
       tempRecords.forEach((x)=>{
@@ -54,7 +55,6 @@ const CreateOffer = ({content, setContent, records}) => {
         <Input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder='Search' />
         </Col>
       </Row>
-
       <hr/>
       <div className='table-sm-1' style={{maxHeight:"60vh", overflowY:'auto', overflowX:'hidden'}}>
       <Table className='tableFixHead'>
@@ -88,13 +88,26 @@ const CreateOffer = ({content, setContent, records}) => {
       </tbody>
       </Table>
       </div>
-      <div><button className='btn-custom'>Send</button></div>
+      <div><button className='btn-custom'
+        onClick={async()=>{
+          let tempRecords = [];
+          tempRecords = customRecords.filter((x)=>x.check==true).map((x)=> { return {CustomerId:x.id, email:x.email, name:x.name} })
+          await axios.post(process.env.NEXT_PUBLIC_POST_SEND_OFFER,{
+            content,
+            list:tempRecords
+          }).then((x)=>{
+            console.log(x.data);
+          })
+          // console.log(content);
+          // console.log(customRecords);
+        }}
+      >Send</button></div>
       </>
     )
   }
 
 return(
-  <div>
+  <>
     <div style={{border:'1px solid black'}}>
       <EditorContent editor={editor} style={partyDetail} />
     </div>
@@ -106,9 +119,9 @@ return(
       open={visible}
       onOk={()=>setVisible(false)} onCancel={()=>setVisible(false)}
       width={500} footer={false} 
-    >{visible && <NextStep records={records} />}
+    >{visible && <NextStep content={content} records={records} />}
     </Modal>
-  </div>
+  </>
 )}
 
 export default CreateOffer
