@@ -3,13 +3,22 @@ import { Table, Row, Col } from 'react-bootstrap';
 import { MailOutlined } from '@ant-design/icons';
 import { Modal, Input } from 'antd';
 import CreateOffer from './CreateOffer';
+import moment from "moment";
 
-const Customers = ({data}) => {
+const Customers = ({data, promoData}) => {
 
     const [search, setSearch] = useState("");
-    const [records, setRecords] = useState([]);
+    const [records, setRecords] = useState([{MyOffers:[]}]);
+    const [promos, setPromos] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [content, setContent] = useState('<p>Yo Brotherzzzzz</p>');
+    const [content, setContent] = useState(
+        `
+        <p>Get Flat Discount on your next ticket!</p>
+        <p>Hurry up & grab the offer before.</p>
+        <p></p>
+        <p></p>
+        `
+        );
 
     useEffect(() => {
         let temp = [];
@@ -21,6 +30,7 @@ const Customers = ({data}) => {
                 })
             })
             setRecords(temp);
+            setPromos(promoData.result);
         }
     }, [data])
     
@@ -43,14 +53,14 @@ const Customers = ({data}) => {
             <Table className='tableFixHead'>
             <tbody>
             {records.filter((x)=>{ 
-                if(x.name.toLowerCase().includes(search.toLowerCase()) || x.email.toLowerCase().includes(search.toLowerCase())){
+                if(x.name?.toLowerCase().includes(search.toLowerCase()) || x.email?.toLowerCase().includes(search.toLowerCase())){
                     return x
                 }else if(search=="") {
                     return x
                 }
-            }).map((x, index) => {
+            }).map((x,index) => {
             return (
-            <tr key={index} className=' my-0 py-0'>
+            <tr key={index} className=''>
                 <td className='fs-16' style={{maxWidth:1}}>
                     {index+1}
                 </td>
@@ -62,6 +72,9 @@ const Customers = ({data}) => {
                 <td>
                 Total Bookings: <b style={{color:'green'}}> {x.bookings}</b>
                 </td>
+                <td>
+                {x.MyOffers.length>0?`Last:  ${moment(x.MyOffers[0].createdAt).fromNow()}`:""}
+                </td>
             </tr>
             )
             })}
@@ -71,12 +84,13 @@ const Customers = ({data}) => {
         </Col>
     </Row>
     <Modal
-    title="CREATE AND SEND OFFERS"
+      title="CREATE AND SEND OFFERS"
+      centered
       open={visible}
       onOk={()=>setVisible(false)} onCancel={()=>setVisible(false)}
-      width={800} footer={false} 
+      width={500} footer={false} 
     >
-       <CreateOffer content={content} setContent={setContent} records={records} />
+       <CreateOffer content={content} setContent={setContent} records={records} promos={promos} />
     </Modal>
     </div>
   )

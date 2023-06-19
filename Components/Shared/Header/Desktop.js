@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
 import { SiFacebook, SiInstagram, SiTwitter } from "react-icons/si";
@@ -11,10 +11,11 @@ import { fetchCurrencyData } from '/functions/fetchCurrencyData';
 import { GrLogout } from "react-icons/gr";
 import { HiShoppingCart } from "react-icons/hi";
 import { BsCurrencyExchange } from "react-icons/bs";
-import { Dropdown, Popover  } from 'antd';
+import { Dropdown, Popover, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCurrency, changeCurrency } from '/redux/currency/currencySlice';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import MyOffers from "/Components/Shared/MyOffers"
 
 const Header = () => {
  
@@ -22,7 +23,8 @@ const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
-
+  
+  const [showOffers, setShowOffers] = useState(false);
   const currencyList = useSelector((state) => state.currency.value);
   const conversion = useSelector((state) => state.currency.conversion);
   
@@ -38,7 +40,8 @@ const Header = () => {
     }
 
   const items = [
-    { label: <span className='text-center px-3' onClick={()=>router.push('/myBookings')}>My Bookings</span>, key: '0' },
+    { label: <div className='text-center px-3' onClick={()=>router.push('/myBookings')}>My Bookings</div>, key: '0' },
+    { label: <div className='text-center px-3' onClick={()=>setShowOffers(true)}>My Offers</div>, key: '1' }
   ];
 
   const adjustCurrency = (curr) => {
@@ -111,6 +114,12 @@ const Header = () => {
                 </div>
             </Col>
         </Row>
+        {showOffers &&  <>
+            <Modal title="My Offers" open={showOffers} onCancel={()=>setShowOffers(false)} footer={false} centered>
+                <hr/>
+                <MyOffers selectable={false} email={session?.user.email} />
+            </Modal>
+        </>}
     </div>
   )
 }

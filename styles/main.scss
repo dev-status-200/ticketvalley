@@ -9,6 +9,7 @@
 @import 'SearchBar.scss';
 @import 'svg.scss';
 @import 'bar-styles.scss';
+@import 'my-offers.scss';
 *{
   font-family: 'Jost', sans-serif;
 }
@@ -902,6 +903,9 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 
 .row-hover:hover{
+  background-color: rgb(224, 224, 224);
+}
+.row-selected{
   background-color: rgb(224, 224, 224);
 }
 

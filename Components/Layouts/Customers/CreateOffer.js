@@ -6,10 +6,14 @@ import { MailOutlined } from '@ant-design/icons';
 import StarterKit from '@tiptap/starter-kit';
 import { Modal, Input } from 'antd';
 import axios from "axios";
+import moment from "moment";
+import Router from "next/router";
 
-const CreateOffer = ({content, setContent, records}) => {
+const CreateOffer = ({content, setContent, records, promos}) => {
 
   const [visible, setVisible] = useState(false);
+  const [search, setSearch] = useState("");
+  const [PromoId, setPromoId] = useState("");
   const partyDetail = { height:80, overflowY:'auto', padding:0 }
   const editor = useEditor({
     extensions: [
@@ -24,7 +28,7 @@ const CreateOffer = ({content, setContent, records}) => {
     },
   }, [])
 
-  const NextStep = ({records, content}) => {
+  const NextStep = ({records, content, PromoId}) => {
     const [search, setSearch] = useState("");
     const [select, setSelect] = useState(false);
     const [customRecords, setCustomRecords] = useState([]);
@@ -56,7 +60,7 @@ const CreateOffer = ({content, setContent, records}) => {
         </Col>
       </Row>
       <hr/>
-      <div className='table-sm-1' style={{maxHeight:"60vh", overflowY:'auto', overflowX:'hidden'}}>
+      <div className='table-sm-1' style={{maxHeight:"30vh", overflowY:'auto', overflowX:'hidden'}}>
       <Table className='tableFixHead'>
       <tbody>
       {customRecords.filter((x)=>{ 
@@ -70,7 +74,8 @@ const CreateOffer = ({content, setContent, records}) => {
       <tr key={i} className='my-0 py-0 row-hov'
         onClick={()=>{
           let tempRecords = [...customRecords];
-          tempRecords[i].check = !tempRecords[i].check;
+          let index = tempRecords.findIndex((y) => y.id == x.id);
+          tempRecords[index].check = !tempRecords[index].check;
           setCustomRecords(tempRecords);
       }}>
         <td className='fs-16 pt-3' style={{maxWidth:30}}>
@@ -91,12 +96,17 @@ const CreateOffer = ({content, setContent, records}) => {
       <div><button className='btn-custom'
         onClick={async()=>{
           let tempRecords = [];
-          tempRecords = customRecords.filter((x)=>x.check==true).map((x)=> { return {CustomerId:x.id, email:x.email, name:x.name} })
+          tempRecords = customRecords.filter((x)=>x.check==true).map((x)=> { return {CustomerId:x.id, email:x.email, name:x.name, PromoId:PromoId} })
           await axios.post(process.env.NEXT_PUBLIC_POST_SEND_OFFER,{
             content,
             list:tempRecords
           }).then((x)=>{
-            console.log(x.data);
+            if(x.data.status=="success"){
+              Router.push("/customers");
+            } else{
+              openNotification("Error", "Something Went Wrong", "orange")
+            }
+            //console.log(x.data);
           })
           // console.log(content);
           // console.log(customRecords);
@@ -108,18 +118,47 @@ const CreateOffer = ({content, setContent, records}) => {
 
 return(
   <>
+  <div className='mb-2'>Content</div>
     <div style={{border:'1px solid black'}}>
       <EditorContent editor={editor} style={partyDetail} />
+    </div>
+    <hr/>
+    <div className='mb-1'>Select promo</div>
+    <Input className='mb-2' value={search} onChange={(e)=>setSearch(e.target.value)} style={{width:130}} placeholder='Search Promo' />
+    <div className='table-sm-1' style={{maxHeight:"20vh", overflowY:'auto', overflowX:'hidden'}}>
+      <Table className='tableFixHead'>
+      <tbody>
+      {promos.filter((x)=>{ 
+        if(x.name.toLowerCase().includes(search.toLowerCase()) || x.code.toLowerCase().includes(search.toLowerCase())){
+          return x
+        }else if(search==""){
+          return x
+        }
+      }).map((x,i) => {
+      return (
+      <tr key={i} className={`my-0 py-0 row-hov ${x.id==PromoId?'row-selected':''}`}
+        onClick={()=>setPromoId(x.id)}>
+        <td className='fs-16 pt-2' >{x.name}
+        </td>
+        <td className='fs-16 pt-2'>{x.code}</td>
+        <td className='pt-2'>
+          Expiry: <b>{moment(x.validity).fromNow()}</b>
+        </td>
+      </tr>
+      )})}
+      </tbody>
+      </Table>
     </div>
     <div className='pt-3'>
       <button className='btn-custom' onClick={()=>setVisible(true)}>Next</button>
     </div>
     <Modal
       title="Select Customers"
+      centered
       open={visible}
       onOk={()=>setVisible(false)} onCancel={()=>setVisible(false)}
       width={500} footer={false} 
-    >{visible && <NextStep content={content} records={records} />}
+    >{visible && <NextStep content={content} records={records} PromoId={PromoId} />}
     </Modal>
   </>
 )}
