@@ -31,7 +31,6 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/product'     ||
         router.pathname =='/product/[id]'||
         router.pathname =='/cart'        ||
-        router.pathname =='/activities'  ||
         router.pathname =='/myBookings'  ||
         router.pathname =='/about'       ||
         router.pathname =='/ticketPage'  ||

@@ -5,11 +5,6 @@ import { MdShareLocation } from 'react-icons/md'
 
 const Ticket = ({fetchedTicket, i}) => {
 
-    useEffect(() => {
-      console.log(fetchedTicket)
-    }, [fetchedTicket])
-    
-
   return (
     <>
     {fetchedTicket && <div className={` ${i>0?"pt-5":""}`}>

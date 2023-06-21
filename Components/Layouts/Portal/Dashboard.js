@@ -4,6 +4,7 @@ import { Col, Row, Form, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { Modal } from "antd";
 import moment from 'moment';
+import ExcelConverter from './ExcelConverter';
 
 const Dashboard = ({sessionData, insights}) => {
 
@@ -36,7 +37,6 @@ const Dashboard = ({sessionData, insights}) => {
       let yes = []
       no = insights.result.booked.filter((x)=> x.assigned=="0")
       yes = insights.result.booked.filter((x)=> x.assigned=="1")
-      //console.log(yes);
       let dataObj = {
         ...insights.result,
         unassinged:no,
@@ -48,7 +48,6 @@ const Dashboard = ({sessionData, insights}) => {
         price = price + parseFloat(x.final_price)
       })
       setPrice(price);
-      console.log(insights.result)
     }, [])
 
     const fetchSalesReport = async() => {
@@ -165,6 +164,7 @@ const Dashboard = ({sessionData, insights}) => {
         </tr>
         </tbody>
         </Table>
+        <ExcelConverter jsonData={report} fileName={"records"} />
       </div>
         </>}
 

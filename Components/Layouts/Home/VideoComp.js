@@ -37,22 +37,12 @@ const VideoComp = () => {
           </div>
           <Link className='navLink' href='/about'>ABOUT US</Link>
         </div>
-        <div className='hero-cont top-text'
-          style={{
-              position:'absolute',
-              width:"100vw"
-          }}>
+        <div className='hero-cont top-text' style={{ position:'absolute', width:"100vw" }}>
             <div className='text-center'>
             <h3 className='wh-txt hero-txt-1'>TICKETS <span className='yellow-txt'>VALLEY</span></h3>
             </div>
         </div>
-        <div
-          style={{
-              position:'absolute',
-              width:"100%",
-              textAlign:'center',
-              bottom:"40%"
-          }}>
+        <div style={{ position:'absolute', width:"100%", textAlign:'center', bottom:"40%" }}>
             <div className='home-search-bar'>
               <TourSearchBar/>
             </div>

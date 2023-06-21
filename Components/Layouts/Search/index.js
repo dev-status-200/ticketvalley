@@ -87,7 +87,9 @@ const Search = ({destination, city, date, category, tourData}) => {
     })
   }
 
-  useEffect(() => loadTours(), [inViewport]);
+  useEffect(() => {
+    loadTours();
+  },[inViewport]);
 
   async function loadTours(){
     await delay(3000);

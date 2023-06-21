@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, createRef } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import { Input, Rate } from 'antd';
 import Ticket from './Ticket';
 import moment from 'moment';
@@ -7,11 +7,13 @@ import Link from 'next/link';
 import CircleIcons from '../../Shared/CircleIcons';
 import ReactToPrint from 'react-to-print';
 import axios from 'axios';
-import Router from 'next/router'
+import Router from 'next/router';
+import { delay } from '../../../functions/delay';
 const { TextArea } = Input;
 
 const TicketPage = ({ticketData, bookingNo}) => {
     let inputRef = useRef(null);
+    const [load, setLoad] = useState(false);
     const [tickets, setTickets] = useState([]);
     const [fetchedTicket, setFetchedTicket] = useState({});
 
@@ -41,7 +43,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
         }).then((x)=>Router.push(`/ticketPage?id=${bookingNo}`))
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let temp = ticketData.result.BookedTours;
         temp.forEach((x, i)=>{
             x.BookedToursOptions.forEach((y, j)=>{
@@ -51,8 +53,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
             })
         })
         setTickets(temp);
-    }, [])
-    const btm = {position:'relative', bottom:3}
+    }, []);
 
   return (
     <div style={{minHeight:'50vh', backgroundColor:"white"}}>
@@ -72,11 +73,11 @@ const TicketPage = ({ticketData, bookingNo}) => {
             <div className='dropdown  mx-2'>
                 <span className='navLink dropbtn'>ACTIVITIES</span>
                 <div className="dropdown-content">
-                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Theme Parks'}}}>Theme Parks</Link>
-                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Water Parks'}}}>Water Parks</Link>
-                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'City Tours'}}}>City Tours</Link>
-                    <Link className='menu-drop-links mx-3' href={{pathname:'/activities', query:{id:'Luxury Tours'}}}>Luxury Tours</Link>
-                    <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/activities', query:{id:'Adventure'}}}>Adventure</Link>
+                    <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Theme Parks' }}}  >Theme Parks</Link>
+                    <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}}  >Water Parks</Link>
+                    <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'City Tours'  }}}  >City Tours</Link>
+                    <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Luxury Tours'}}}>Luxury Tours</Link>
+                    <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Adventure'   }}}  >Adventure</Link>
                 </div>
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>
@@ -97,10 +98,11 @@ const TicketPage = ({ticketData, bookingNo}) => {
                 {x.BookedToursOptions.map((y, j)=>{
                 return(
                 <Row className={y.check?'selected-ticket-row':'ticket-row'} key={"a"+j} 
-                    onClick={()=>{
+                    onClick={async()=>{
+                        setLoad(true);
                         if(!y.TourOption.manual){
                             let temp = [...tickets];
-                            temp.forEach((l)=>{
+                            await temp.forEach((l)=>{
                                 l.BookedToursOptions.forEach((m)=>{
                                     m.check=false
                                 })
@@ -109,10 +111,12 @@ const TicketPage = ({ticketData, bookingNo}) => {
                             setTickets(temp);
                             selectTour(x, y);
                         }
+                        await delay(2000);
+                        setLoad(false);
                     }}
                 >
                     <Col md={2}>
-                        <img className='' src={x.image} height={100} width={140} style={{borderRadius:5}} />
+                        <img src={x.image} height={100} width={140} style={{borderRadius:5}} />
                     </Col>
                     <Col md={6}>
                     <h5>{y.tourOptName}</h5>
@@ -192,7 +196,10 @@ const TicketPage = ({ticketData, bookingNo}) => {
             )})}
             </Row>
             {fetchedTicket.length>0 &&
-            <ReactToPrint content={()=>inputRef} trigger={()=><button className='custom-btn'>Get Ticket</button>} />
+            <>
+            {!load && <ReactToPrint content={()=>inputRef} trigger={()=><button className='custom-btn'>Get Ticket</button>} />}
+            {load && <button className='custom-btn'><Spinner size='sm'  className='mx-3' /></button>}
+            </>
             }
             {fetchedTicket.length==0 && 
                 <div>The Selected Ticket is pending for arrival</div>
@@ -201,18 +208,15 @@ const TicketPage = ({ticketData, bookingNo}) => {
         </div>
 
         {fetchedTicket.length>0 &&
-        <div 
-            style={{display:"none"}}
-        >
+        <div style={{display:"none"}}>
         <div ref={(response) => (inputRef = response)} >
             {fetchedTicket.map((x, i)=>{
-                return(
-                    <div key={i} className=''>
-                        <div className='my-5'></div>
-                        <Ticket fetchedTicket={x} i={i} />
-                    </div>
-                )
-            })}
+            return(
+                <div key={i} className=''>
+                    <div className='my-5'></div>
+                    <Ticket fetchedTicket={x} i={i} />
+                </div>
+            )})}
         </div>
         </div>}
     </div>
