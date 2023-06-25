@@ -1,7 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 
-const CircleIcons = () => {
+const CircleIcons = ({bg}) => {
     const height = 15;
     const width = 15;
     const imgStyle = {
@@ -10,7 +10,7 @@ const CircleIcons = () => {
     }
     const navStyles = {textDecoration:"none", color:'black'}
   return (
-    <Container className='bar-styles' style={{backgroundColor:'white'}}>
+    <Container className='bar-styles' style={bg=="none"?{}:{backgroundColor:'white'}}>
         <Row className='justify-content-xs-center'>
             <Col className='barz-mobile'>
             <Link 

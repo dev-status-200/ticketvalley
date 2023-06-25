@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
 import { CgMenuLeft } from "react-icons/cg";
-import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { HiShoppingCart } from "react-icons/hi";
+import { FaUser } from "react-icons/fa6";
+import { SiFacebook, SiInstagram, SiTwitter } from "react-icons/si";
+import { AiOutlineUser } from "react-icons/ai";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Cookies from "js-cookie";
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { fetchCurrencyData } from '/functions/fetchCurrencyData';
+import { GrLogout } from "react-icons/gr";
+import { BsCurrencyExchange } from "react-icons/bs";
+import { Dropdown, Popover, Modal } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCurrency, changeCurrency } from '/redux/currency/currencySlice';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+import MyOffers from "/Components/Shared/MyOffers"
 
 function OffCanvasExample({ name, ...props }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const toggleShow = () => setShow((s) => !s);
-  const navStyles = {color:'white', textDecoration:'none', fontSize:40}
+  const navStyles = {color:'white', textDecoration:'none', fontSize:30}
+   
+  const {data:session} = useSession();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.value);
+  
+  const [showOffers, setShowOffers] = useState(false);
+  const currencyList = useSelector((state) => state.currency.value);
+  const conversion = useSelector((state) => state.currency.conversion);
+
   return (
     <>
     <Container fluid style={{backgroundColor:'#21a69b', color:'white'}}>
@@ -28,13 +51,16 @@ function OffCanvasExample({ name, ...props }) {
     <Container>
       <Row className='py-2'>
         <Col xs={3} className='text-start'>
-          <CgMenuLeft onClick={toggleShow} className='mt-2' style={{fontSize:30, color:'#21a69b'}}/>
+          <CgMenuLeft onClick={toggleShow} style={{fontSize:25, color:'#21a69b', marginTop:11}}/>
         </Col>
         <Col xs={6} className='text-center'>
-        <img src={'/images/logo.png'} height={50} style={{position:'relative', right:10}} />
+        <img src={'/images/logo.png'} height={50} style={{position:'relative', right:10}} onClick={()=>router.push("/")} />
         </Col>
         <Col xs={3} className='text-end'>
-          <HiShoppingCart onClick={toggleShow} className='mt-2' style={{fontSize:30, color:'#21a69b'}}/>
+          <div onClick={()=>router.push("/cart")} style={{color:'#21a69b', marginTop:11}}>
+           <span style={{fontSize:12}} >{`(${cart.length})`}</span><HiShoppingCart size={23} />
+          </div>
+          {/* <FaUser style={{fontSize:16, color:'#21a69b'}}/> */}
         </Col>
       </Row>
     </Container>
@@ -44,13 +70,60 @@ function OffCanvasExample({ name, ...props }) {
       </Offcanvas.Header>
       <Offcanvas.Body style={{backgroundColor:'#21a69b'}}>
         <div className='text-center navBar'>
+          <div className='mt-3'></div>
           <Link style={navStyles} href='/' >Home</Link><br/><br/>
           <Link style={navStyles} href='/' >Activities</Link><br/><br/>
           <Link style={navStyles} href='/' >About</Link><br/><br/>
-          <Link style={navStyles} href='/' >Login</Link>
+          {!session &&
+            <span className='cur mx-2' style={navStyles}
+                onClick={()=>{
+                    // This Logic sets the redirected URL to get back to this page
+                    if(Object.keys(router.query).length>0){ 
+                        Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
+                    }
+                    else { 
+                          Cookies.set("redirect",`${router.pathname}`) 
+                    }
+                    signIn();
+                }}
+            >My Login</span>
+          }
+          {session &&
+            <>
+            {/* <span className='cur mx-2' style={{position:'relative', top:2, }}>
+            <Dropdown menu={{ items }}>
+                <span onClick={(e) => e.preventDefault()}>
+                    <span className='' style={{fontSize:13, marginLeft:10, position:'relative', bottom:2, marginRight:4}}><AiOutlineUser/></span>
+                    {session.user.name}
+                </span>
+            </Dropdown>
+            </span> */}
+            <div style={navStyles} onClick={()=>{}}>
+                My Bookings
+            </div><br/>
+            <div style={navStyles} onClick={async()=>{ await handleClose(); setShowOffers(true)}}>
+                My Offers
+            </div><br/>
+            <div style={navStyles} onClick={()=>signOut()}>
+                Logout
+            </div>
+            </>
+          }
         </div>
       </Offcanvas.Body>
     </Offcanvas>
+    <hr className='p-0 m-0' />
+    {showOffers &&  <>
+      <Modal title="My Offers" 
+      scroll={false} 
+      backdrop={true} 
+      open={showOffers} 
+      centered 
+      onCancel={()=>setShowOffers(false)} footer={false}>
+          <hr/>
+          <MyOffers selectable={false} email={session?.user.email} />
+      </Modal>
+    </>}
     </>
   );
 }

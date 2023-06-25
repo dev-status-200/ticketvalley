@@ -4,6 +4,7 @@ import { IoStar } from 'react-icons/io5';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { Row, Col } from "react-bootstrap";
 
 const MobileCard = ({tour, height, info, font}) => {
     
@@ -31,10 +32,10 @@ const MobileCard = ({tour, height, info, font}) => {
             <div className=''>
                 <div style={{fontSize:font, fontWeight:300, color:'white'}}>
                     {info && 
-                        <FaMapMarkerAlt size={15} style={{}} />
+                        <FaMapMarkerAlt size={15} style={{position:'relative', bottom:2}} />
                     }
                     {" "}
-                    {tour.title.slice(0, 28)}
+                    {tour.title.slice(0, 18)}...
                 </div>
                 <div className='full-overlay-line'></div>
                 <div style={{width:'90%'}}>
@@ -43,7 +44,7 @@ const MobileCard = ({tour, height, info, font}) => {
                     <IoStar color='gold' style={{marginRight:'1%', fontSize:'60%'}} />
                     <IoStar color='gold' style={{marginRight:'1%', fontSize:'60%'}} />
                     <IoStar color='gold' style={{marginRight:'1%', fontSize:'60%'}} />
-                    <span className='' style={{fontSize:10, fontWeight:300, whiteSpace:'nowrap', color:'white'}}>{"("}4 Reviews{")"}</span>
+                    <span className='mx-1' style={{fontSize:10, fontWeight:300, whiteSpace:'nowrap', color:'white'}}>{"("}4 Reviews{")"}</span>
                 </div>
             </div>
         }
@@ -52,6 +53,13 @@ const MobileCard = ({tour, height, info, font}) => {
             <div style={{color:'white'}}>{(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency}</div>
         </div>
         }
+            <Row>
+                <Col md={1}>
+                <button className='custom-btn-mobile-02' onClick={()=>router.push(`/product/${tour.id}`)}>
+                    BOOK NOW
+                </button>
+                </Col>
+            </Row>
         </div>
     </div>
   )

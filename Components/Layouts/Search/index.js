@@ -3,6 +3,7 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useIntersection } from '/functions/useIntersection';
 import {useEffect, useRef, useState, useMemo} from 'react';
 import CircleIcons from '/Components/Shared/CircleIcons';
+import CircleMobileIcons from "/Components/Shared/CircleMobileIcons"
 import NavLinks from '/Components/Shared/NavLinks';
 import SignUp from '/Components/Shared/SignUp';
 import { CiLocationOn } from "react-icons/ci";
@@ -11,9 +12,12 @@ import {useRouter} from 'next/router';
 import Link from 'next/link';
 import Tours from './Tours';
 import aos from "aos";
+import useWindowSize from '/functions/useWindowSize';
 
 const Search = ({destination, city, date, category, tourData}) => {
 
+  const size = useWindowSize();
+  const [search, setSearch] = useState("");
   const ref = useRef();
   const inViewport = useIntersection(ref, '0px');
   const router = useRouter();
@@ -99,6 +103,7 @@ const Search = ({destination, city, date, category, tourData}) => {
 
 return(
   <div className='home-styles'>
+    {size.width>400 &&
     <div className={`activity-bg activity py-4`}>
       {/* Header */}
       <div className='navBar'>
@@ -121,10 +126,10 @@ return(
         <Link className='navLink' href='/about'>ABOUT US</Link>
       </div>
       <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>SEARCH ACTIVITIES</h1>
-    </div>
+    </div>}
     <div className='search-bg m-0 p-0' data-aos="fade-up">
-      <CircleIcons/>
-      <Container className='px-1 pt-5'>
+      { size.width>400? <CircleIcons/> : <CircleMobileIcons bg={"none"} /> }
+      <Container className={`px-${size.width>400?"1":"5"} pt-5`}>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>
             <div className='tour-filters mt-1'>
@@ -169,7 +174,7 @@ return(
               <Checkbox><h6>4 hours to 1 day</h6></Checkbox><br/>
             </ConfigProvider>
             </div>
-            <div className='px-1'>
+            <div className='px-1 mb-5'>
             <h5 className='mt-4 mb-2 blue-txt'><b>Category</b></h5>
             <ConfigProvider theme={{token:{ colorPrimary:'#147ba1ea', padding:50, height:40, borderRadius:0, size:'large' }}}>
               <Checkbox checked={category=="Theme Parks"?true:false}  onChange={()=>adjustCategory("Theme Parks")}><h6>Theme Parks</h6></Checkbox><br/>
@@ -180,19 +185,21 @@ return(
             </ConfigProvider>
             </div>
           </Col>
-          <Col md={9}>
-            <Tours records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} searchTerm={searchTerm} />
+          <Col md={9} className={`${size.width>400?"":"p-0 m-0"}`}>
+            <Tours search={search} size={size} setSearch={setSearch} records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} searchTerm={searchTerm} />
           </Col>
         </Row>
       </Container>
       <Row>
         <Col md={3}></Col>
         <Col md={9} ref={ref}>
-          {!load && <div className='text-center pb-3'><Spinner variant='dark' /></div>}
+          {(!load && records.length!=0 && search=="") &&
+           <div className='text-center pb-3'><Spinner variant='dark' /></div>
+          }
         </Col>
       </Row>
     </div>
-    <SignUp/>
+    <SignUp mobile={size.width>400?false:true} />
   </div>
 )}
 

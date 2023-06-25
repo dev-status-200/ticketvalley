@@ -644,10 +644,18 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 
 .custom-btn-02{
+  font-size: 10px;
   background-color: rgba(255, 255, 255, 0);
   color: rgb(255, 255, 255);
   border: 2px solid rgb(255, 255, 255);
   padding: 5px 15px 5px 15px;
+}
+.custom-btn-mobile-02{
+  width: 100%;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .custom-btn-02:hover{
@@ -682,6 +690,14 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 .inc-dec{
   color: #61a7c8;
   cursor: pointer;
+  border: 1px solid #61a7c8;
+  text-align: center;
+  border-radius: 100%;
+}
+
+div.react-datepicker-wrapper > div > input{
+  width: 89%;
+  border-color: #cacaca;
 }
 
 .inc-dec:hover{

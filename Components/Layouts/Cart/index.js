@@ -15,6 +15,9 @@ import { useRouter } from 'next/router';
 import PayComp from './PayComp';
 import NavLinks from '../../Shared/NavLinks';
 import CircleIcons from '../../Shared/CircleIcons';
+import CircleMobileIcons from "/Components/Shared/CircleMobileIcons"
+import useWindowSize from '/functions/useWindowSize';
+import { IoTrashBinSharp } from "react-icons/io5"
 
 const Cart = () => {
 
@@ -28,6 +31,7 @@ const Cart = () => {
     const [promo, setPromo] = useState("");
     const [discountPrice, setDiscountPrice] = useState(0);
     const [load, setLoad] = useState(false);
+    const size = useWindowSize();
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -116,6 +120,9 @@ const Cart = () => {
   return (
     <>
     <div className='tour-styles' style={{backgroundColor:'white'}} >
+    {
+        size.width>400?
+        <>
         <div className='hero pt-4'>
         <div className='navBar'>
             <Link className='navLink' href='/'>HOME</Link>
@@ -133,8 +140,11 @@ const Cart = () => {
         </div>
         <div className='mt-2 pt-2'></div>
         </div>
-    </div>
-    <div style={{backgroundColor:'white', paddingBottom:30}}><CircleIcons/></div>
+        <div style={{backgroundColor:'white', paddingBottom:30}}><CircleIcons/></div>
+        </>
+        :
+        <div style={{backgroundColor:'white', paddingBottom:20}}><CircleMobileIcons/></div>
+    }
     <div className='cart-styles' style={{borderTop:'1px solid silver'}} >
     <Container className='cart-box' fluid>
     <Row>
@@ -147,18 +157,20 @@ const Cart = () => {
             {cart.map((x, i)=>{
             return(
                 <Row key={i} className="cart-item mx-0">
-                    <Col md={3} className="py-3" >
-                        <img src={x.image} height={100} width={150} style={{borderRadius:5}} />
+                    <Col md={3} xs={12} className="py-3" >
+                        <img src={x.image} height={100} width={size.width>400? 150:"100%"} style={{borderRadius:5}} />
                     </Col>
-                    <Col className="px-4 my-3" md={9} >
-                    <div style={{float:'right'}}>
+                    <Col className={`${size.width>400?"px-4 my-3":"mb-2"}`} md={9} >
+                    {size.width>400 &&<div style={{float:'right'}}>
                         <span className='fs-18 fw-500 grey-txt'>{conversion.currency} {showIndivPrice(x.options)}</span>
                         <CloseCircleOutlined className='close-cart-btn' 
                             onClick={()=>showConfirm(x)}
                         />
                         <br/>
+                    </div>}
+                    <div className='fw-500 cart-item-name' style={size.width<400?{fontSize:"15px"}:{fontSize:"25px"}}>
+                        {x.name}
                     </div>
-                    <h5 className='fw-500 cart-item-name'>{x.name}</h5>
                     {x.options.map((y, j)=>{
                     return(
                         <div key={j+i} className='fs-13 silver-2-txt'>
@@ -175,6 +187,17 @@ const Cart = () => {
                             
                         </div>
                     )})}
+                    {size.width<400 &&
+                    <>
+                    <hr/>
+                    <span className='fs-18 fw-500 grey-txt px-1'>
+                        {conversion.currency} {showIndivPrice(x.options)}
+                    </span>
+                    <span className='px-1' style={{float:'right', color:'crimson'}} onClick={()=>showConfirm(x)}>
+                    <IoTrashBinSharp size={20} />
+                    </span>
+                    </>
+                    }
                     </Col>
                 </Row>
             )})}
@@ -183,24 +206,18 @@ const Cart = () => {
                 <div className='my-1 mb-5'>
                     <form onSubmit={ApplyPromo} className='mb-5'>
                     <Row>
-                        <Col md={4} className='px-0'>
-                        <ConfigProvider
-                            theme={{
-                              token: {
-                                colorPrimary: '#147ba1ea',
-                                borderRadius:3
-                              },
-                            }}
-                          >
-                            <Input className='mx-2' 
-                                placeholder="Enter Promo" required 
+                        <Col md={4} xs={12} className='' >
+                        <ConfigProvider theme={{ token: { colorPrimary:'#147ba1ea', borderRadius:3}}}>
+                            <Input className='' placeholder="Enter Promo" required 
                                 value={promo} onChange={(e)=>setPromo(e.target.value)} 
                             />
                           </ConfigProvider>
                         </Col>
-                        <Col style={{maxWidth:70}}>
-                            <button className='btn-custom-2' type="submit" disabled={load?true:false}>
-                                {load?<Spinner size='sm' className='mx-3' />:"Apply"}
+                        <Col md={2} xs={12}>
+                            <button className={`btn-custom-2 ${size.width>400?"mx-1":"mt-3"}`} 
+                                style={{width:"100%"}}
+                                type="submit" disabled={load?true:false}
+                            >{load?<Spinner size='sm' className='mx-3' />:"Apply"}
                             </button>
                         </Col>
                     </Row>
@@ -208,30 +225,30 @@ const Cart = () => {
                     {discountPrice>0 && 
                     <h6>
                         <Row>
-                            <Col md={6} style={{fontWeight:400}}>Promo Code: </Col>
-                            <Col md={6} className='text-end' style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
+                            <Col md={6} xs={6} style={{fontWeight:400}}>Promo Code: </Col>
+                            <Col md={6} xs={6} className='text-end' style={{fontWeight:400, color:"grey"}}>{promoInfo.name}</Col><br/>
                         </Row>
                     </h6>
                     }
                     <h6>
-                    <Row className='mt-3'>
-                        <Col md={6} style={{fontWeight:400}}>Total Discount: </Col>
-                        <Col md={6} className='text-end' style={{color:'#dd9613'}}>
+                    <Row className='mt-2'>
+                        <Col md={6} xs={6} style={{fontWeight:400}}>Total Discount: </Col>
+                        <Col md={6} xs={6} className='text-end' style={{color:'#dd9613'}}>
                             {(discountPrice*conversion.rate).toFixed(2)} {conversion.currency}
                             {/* <s> {(discountPrice*conversion.rate).toFixed(2)}</s> {conversion.currency} */}
                         </Col>
                     </Row>
-                    <Row className='mt-3'>
-                        <Col md={6} style={{fontWeight:400}}>Sub Total: </Col>
-                        <Col md={6} className='text-end' style={{fontWeight:400, color:"grey"}}>
+                    <Row className='mt-2'>
+                        <Col md={6} xs={6} style={{fontWeight:400}}>Sub Total: </Col>
+                        <Col md={6} xs={6} className='text-end' style={{fontWeight:400, color:"grey"}}>
                             {(parseFloat(price*conversion.rate) + parseFloat(discountPrice*conversion.rate)).toFixed(2)}
                             <span> {conversion.currency} </span>
                         </Col>
                     </Row>
                     <hr/>
                     <Row className='mt-3'>
-                        <Col md={6} style={{fontWeight:300}}><b>Grand Total</b> </Col>
-                        <Col md={6} className='text-end'>
+                        <Col md={6} xs={6} style={{fontWeight:300}}><b>Grand Total</b> </Col>
+                        <Col md={6} xs={6} className='text-end'>
                         <div className='text-end'>
                             <b>{(price*conversion.rate).toFixed(2)} {conversion.currency}</b>
                         </div>
@@ -251,8 +268,7 @@ const Cart = () => {
             }
         </Container>
         </Col>
-        <Col md={4} className="pay-screen p-5"> 
-        
+        <Col md={4} className={`pay-screen ${size.width<400?"p-3":"p-5"}`} style={size.width<400?{borderLeftColor:"white"}:{}}> 
         {cart.length>0 && <>  
             {session && 
             <> 
@@ -261,17 +277,16 @@ const Cart = () => {
             }
             {!session &&
             <div className='text-center'>
-                <div className='cart-logged-in-warning'>Sign-in is required to continue Checkout!</div>
+                <div className={`${size.width>400?"cart-logged-in-warning":"fs-18"}`}>Sign-in is required to continue Checkout!</div>
                 <Row className='mt-4'>
                     <Col></Col>
-                    <Col><div className='btn-custom-2' onClick={()=>{
+                    <Col xs={6}><div className='btn-custom-2' 
+                        onClick={()=>{
                         // This Logic sets the redirected URL to get back to this page
                         if(Object.keys(router.query).length>0){ 
                             Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
                         }
-                        else { 
-                                Cookies.set("redirect",`${router.pathname}`) 
-                        }
+                        else { Cookies.set("redirect",`${router.pathname}`)  }
                         signIn();
                     }}>Sign In</div></Col>
                     <Col></Col>
@@ -283,6 +298,7 @@ const Cart = () => {
         </Col>
     </Row>
     </Container>
+    </div>
     </div>
     </>
   )
