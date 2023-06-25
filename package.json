@@ -30,6 +30,7 @@
     "date-fns": "^2.29.3",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "export-from-json": "^1.7.2",
     "flag-icons": "^6.6.6",
     "html-react-parser": "^4.0.0",
     "js-cookie": "^3.0.1",

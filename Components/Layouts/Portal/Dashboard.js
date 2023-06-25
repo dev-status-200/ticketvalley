@@ -83,31 +83,31 @@ const Dashboard = ({sessionData, insights}) => {
       <hr/> 
       <Row>
         <Col md={4} className='my-3'>
-        <div className='insight-box shadow '>
+        <div className='insight-box shadow' onClick={()=>Router.push("/productCreation")}>
           <h4>Total Tours</h4>
           {insightData.tours.length} Tours
         </div>
         </Col>
         <Col md={4} className='my-3'>
-        <div className='insight-box shadow '>
+        <div className='insight-box shadow' onClick={()=>Router.push("/customers")}>
           <h4>Total Customers</h4>
           {insightData.customs.length} Customers
         </div>
         </Col>
         <Col md={4} className='my-3'>
-        <div className='insight-box shadow '>
+        <div className='insight-box shadow' onClick={()=>Router.push("/bookings")}>
           <h4>Total Reservation</h4>
           {insightData.reserves.length} Reservation
         </div>
         </Col>
         <Col md={4} className='my-3'>
-        <div className='insight-box shadow '>
+        <div className='insight-box shadow' onClick={()=>Router.push("/bookings")}>
           <h4>Assigned Tours</h4>
           {insightData.assinged.length} Assigned Reservation
         </div>
         </Col>
         <Col md={4} className='my-3'>
-        <div className='insight-box shadow '>
+        <div className='insight-box shadow' onClick={()=>Router.push("/bookings")}>
           <h4>Unassigned Tours</h4>
           {insightData.unassinged.length} Unassigned Reservation
         </div>
