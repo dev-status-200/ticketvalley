@@ -72,8 +72,8 @@ function OffCanvasExample({ name, ...props }) {
         <div className='text-center navBar'>
           <div className='mt-3'></div>
           <Link style={navStyles} href='/' >Home</Link><br/><br/>
-          <Link style={navStyles} href='/' >Activities</Link><br/><br/>
-          <Link style={navStyles} href='/' >About</Link><br/><br/>
+          <Link style={navStyles} href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}} >Activities</Link><br/><br/>
+          <Link style={navStyles} href='/about' >About</Link><br/><br/>
           {!session &&
             <span className='cur mx-2' style={navStyles}
                 onClick={()=>{
@@ -90,15 +90,7 @@ function OffCanvasExample({ name, ...props }) {
           }
           {session &&
             <>
-            {/* <span className='cur mx-2' style={{position:'relative', top:2, }}>
-            <Dropdown menu={{ items }}>
-                <span onClick={(e) => e.preventDefault()}>
-                    <span className='' style={{fontSize:13, marginLeft:10, position:'relative', bottom:2, marginRight:4}}><AiOutlineUser/></span>
-                    {session.user.name}
-                </span>
-            </Dropdown>
-            </span> */}
-            <div style={navStyles} onClick={()=>{}}>
+            <div style={navStyles} onClick={()=>router.push('/myBookings')}>
                 My Bookings
             </div><br/>
             <div style={navStyles} onClick={async()=>{ await handleClose(); setShowOffers(true)}}>

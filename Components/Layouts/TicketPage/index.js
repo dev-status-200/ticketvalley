@@ -9,9 +9,13 @@ import ReactToPrint from 'react-to-print';
 import axios from 'axios';
 import Router from 'next/router';
 import { delay } from '../../../functions/delay';
+import CircleMobileIcons from '/Components/Shared/CircleMobileIcons';
+import useWindowSize from '/functions/useWindowSize';
 const { TextArea } = Input;
 
 const TicketPage = ({ticketData, bookingNo}) => {
+
+    const size = useWindowSize();
     let inputRef = useRef(null);
     const [load, setLoad] = useState(false);
     const [tickets, setTickets] = useState([]);
@@ -57,6 +61,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
 
   return (
     <div style={{minHeight:'50vh', backgroundColor:"white"}}>
+        {size.width>400?<>
         <div className='home-styles'>
         <div className='theme py-4'>
             <div className='navBar'>
@@ -84,20 +89,27 @@ const TicketPage = ({ticketData, bookingNo}) => {
             </div>
         </div>
         </div>
-        <div className=''>
         <CircleIcons/>
         <hr className='mb-0 mt-5' />
-        <div className='tickets-cont pb-5'>
-            <h3 className='mt-4 grey-txt'>Tickets for booking #  {ticketData?.result?.booking_no}</h3>
+        </>:
+        <>
+        <CircleMobileIcons/>
+        <hr className='mb-0 mb-0' />
+        </>
+        }
+        <div className={`${size.width>400?"tickets-cont pb-5":"pb-3 px-5"}`}>
+            <h3 className='mt-4 grey-txt'>Booking #{ticketData?.result?.booking_no} Tickets</h3>
             <span className='grey-txt'> Please select the ticket to interact</span>
-            <Row className='ticket-cont-wh-bg my-3'>
+            <Row className='ticket-cont-wh-bg my-3' style={{padding:size.width>400?"20px 20px":"0px"}}>
             {tickets.map((x, i)=>{
             return(
-            <Col md={12} key={i}>
+            <Col md={12} xs={12} key={i} className={`${size.width>400?"":"py-0"}`}>
                 {i!==0 && <hr className='my-0 py-0' />}
                 {x.BookedToursOptions.map((y, j)=>{
                 return(
-                <Row className={y.check?'selected-ticket-row':'ticket-row'} key={"a"+j} 
+                <>
+                {j!=0 &&<hr/>}
+                <Row className={y.check?'selected-ticket-row': size.width>400?'ticket-row':"py-3 px-1"} key={"a"+j}
                     onClick={async()=>{
                         setLoad(true);
                         if(!y.TourOption.manual){
@@ -115,10 +127,10 @@ const TicketPage = ({ticketData, bookingNo}) => {
                         setLoad(false);
                     }}
                 >
-                    <Col md={2}>
-                        <img src={x.image} height={100} width={140} style={{borderRadius:5}} />
+                    <Col md={2} xs={12}>
+                        <img src={x.image} height={size.width>400?100:150} width={size.width>400?140:"100%"} style={{borderRadius:5}} />
                     </Col>
-                    <Col md={6}>
+                    <Col md={6} className={`${size.width>400?"":"mt-1"}`}>
                     <h5>{y.tourOptName}</h5>
                     <div className='mx-1'>
                         <span className=''>Adults:       <span style={{color:'grey'}}>{y.adult}  </span> </span>
@@ -130,33 +142,37 @@ const TicketPage = ({ticketData, bookingNo}) => {
                         {y.transfer!="No" && <div><span className=''>Pick-up:</span>    <span style={{color:'grey'}}>{y.address}</span></div>}
                     </div>
                     </Col>
-                    <Col md={4} >
-                        <div style={{float:'right', height:"100%"}}>
-                            <div className=' text-end '>
+                    {size.width<400 && <Col xs={12}><hr/></Col>}
+                    <Col md={4} xs={12}>
+                        <div style={size.width>400?{float:'right', height:"100%"}:{}}>
+                            <div className={`${size.width>400? "text-end":""}`}>
                                 <div className='mx-3'>{" "}</div>
                                 {
                                 y.assigned=="1"?
                                 <>
                                 <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>{y.TourOption.manual?<>Check your E-mail Inbox</>:"Select & Download"}</div>
-                                <img src={'/icons/ticket-available.png'} height={50} />
+                                <img src={'/icons/ticket-available.png'} className={`${size.width>400?"":"mx-2"}`} height={50} />
                                 </>:
                                 <>
                                 <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>Pending</div>
-                                <img src={'/icons/ticket-pending.png'} height={50} />
+                                <img src={'/icons/ticket-pending.png'} className={`${size.width>400?"":"mx-3"}`} height={50} />
                                 </>
+                                }
+                                {(y.reviewed=="1" && size.width>400) &&
+                                <div className={"mx-2"} style={{color:'green'}}>Review Sent</div>
                                 }
                             </div>
                             {y.assigned=="0" &&<div style={{position:'relative', top:"50%"}}>
                             </div>}
                         </div>
                     </Col>
-                    {y.reviewed=="0" &&<>
+                    {(y.reviewed=="0" && y.assigned=="1") &&<>
                     {moment().diff(moment(y.date)) >= 0 && 
                     <Col md={12} className='mt-3'>
                         <div
-                          onClick={()=>{
+                        onClick={()=>{
                             let tempTickets = [...tickets];
                             tempTickets[i].BookedToursOptions[j].reviewCheck = true;
                             setTickets(tempTickets)
@@ -189,7 +205,11 @@ const TicketPage = ({ticketData, bookingNo}) => {
                         </div>
                     </Col>}
                     </>}
+                    {(y.reviewed=="1" && size.width<400) &&
+                    <div className={"mx-2"} style={{color:'green'}}>Review Sent</div>
+                    }
                 </Row>
+                </>
                 )
                 })}
             </Col>
@@ -197,14 +217,13 @@ const TicketPage = ({ticketData, bookingNo}) => {
             </Row>
             {fetchedTicket.length>0 &&
             <>
-            {!load && <ReactToPrint content={()=>inputRef} trigger={()=><button className='custom-btn'>Get Ticket</button>} />}
+            {!load && <ReactToPrint content={()=>inputRef} trigger={()=><button className={`custom-btn ${size.width>400?"":"mt-3"}`}>Get Ticket</button>} />}
             {load && <button className='custom-btn'><Spinner size='sm'  className='mx-3' /></button>}
             </>
             }
             {fetchedTicket.length==0 && 
                 <div>The Selected Ticket is pending for arrival</div>
             }
-        </div>
         </div>
 
         {fetchedTicket.length>0 &&

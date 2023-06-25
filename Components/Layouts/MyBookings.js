@@ -10,6 +10,8 @@ import Router from 'next/router';
 import { Empty } from 'antd';
 import Aos from 'aos';
 import CircleIcons from '../Shared/CircleIcons';
+import CircleMobileIcons from '../Shared/CircleMobileIcons';
+import useWindowSize from '/functions/useWindowSize';
 
 const MyBookings = () => {
 
@@ -18,22 +20,27 @@ const MyBookings = () => {
     const [email, setEmail] = useState('');
     const [bookings, setBookings] = useState([]);
 
+    const size = useWindowSize();
+
     useEffect(() => {
-        Aos.init({duration:300})
+        Aos.init({duration:300});
+        //retrive("sabdullah369@gmail.com")
+        //retrive(session?.user?.email)
     }, [])
 
-    const retrive = (data) => {
+    const retrive = async(data) => {
         setEmail(data)
-        axios.post(process.env.NEXT_PUBLIC_CREATE_GET_MY_RESERVATIONS,{
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_GET_MY_RESERVATIONS,{
             email:data
         }).then((x)=>{
             setBookings(x.data.result);
-            console.log(x.data.result)
         })
     }
 
   return (
     <div style={{backgroundColor:'white'}}>
+        {size.width>400?
+        <>
         <hr className='my-0' />
         <div className='home-styles'>
         <div className='theme py-4'>
@@ -63,32 +70,38 @@ const MyBookings = () => {
         </div>
         </div>
         <CircleIcons/>
-                <hr className='mb-0 mt-5' />
-        <div className='tickets-cont pb-5'>
+        <hr className='mb-0 mt-5' />
+        </>:
+        <>
+        <CircleMobileIcons className="" />
+        <hr className='pb-0 mb-0' />
+        </>
+        }
+        <div className={`${size.width>400?"tickets-cont":"px-3"} pb-5`}>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
         <h1 className='mt-4 grey-txt'>My Bookings</h1>
         <div className='mb-4'>All Your booking info will be diplayed here.</div>
+        {bookings.length!=0 &&<>
         {bookings.map((y, j)=>{
             return(
             <div key={j} className='booking-row p-3'>
             <Row className='' onClick={()=>Router.push(`/ticketPage?id=${y.id}`)}>
-            <Col md={12}>
+            <Col md={12} xs={12}>
             {y.BookedTours.map((x, i)=>{
             return(
                 <Row key={i} className="cart-item">
-                    <Col className="" md={12} >
-                    <div>
+                    <Col md={12} xs={12}>
                     {i==0 &&
                         <Row>
-                            <Col className=''>
-                            <div className='grey-txt fs-20 fw-500'>Booking#: {y.booking_no}</div>
-                            <div className='silver-2-txt'><span >{moment(y.moment).format('DD-MMM-YYYY, hh:ss a')}</span></div>
+                            <Col xs={6}>
+                            <div className={`grey-txt fs-${size.width>400?"20":"15"} fw-500`}>Booking #{y.booking_no}</div>
+                            <div className={`${size.width>400?'silver-2-txt':'silver-2-txt fs-12'}`}><span >{moment(y.moment).format('DD-MMM-YYYY, hh:ss a')}</span></div>
                             <div className='mt-2'>
-                                PROMO :
+                                Discount:
                                 {" "}
                                 <span className='grey-txt'>
                                     {y.promo=="none"?
-                                        <>NO</>:
+                                        <>No</>:
                                         <>
                                         <span style={{color:'goldenrod'}}>{JSON.parse(y.promo).name}</span> -
                                         <span style={{marginLeft:5}}>{JSON.parse(y.promo).price}</span>
@@ -97,18 +110,18 @@ const MyBookings = () => {
                                     }
                                 </span>
                             </div>
-                            <h6 className='mt-2'>Total Price :  
+                            <div className='mt-2'>Total Price :
+                                {size.width?<br/>:<></>}
                                 {" "}<span className='grey-txt fw-600'>{(y.final_price*conversion.rate).toFixed(2)}</span> {conversion.currency}
-                            </h6>    
+                            </div>    
                             </Col>
-                            <Col style={{textAlign:'end'}}>
-                            <img src={'/icons/reservation.png'} height={90} />
+                            <Col style={{textAlign:'end'}} xs={6}>
+                            <img src={'/icons/reservation.png'} height={size.width>400? 90: 50} />
                             
-                            <div style={{color:'#2b55bf'}} className='mt-3'>Click To View Tickets {">"}</div>
+                            <div style={{color:'#2b55bf'}} className='mt-3'>Click To View Tickets{">"}</div>
                             </Col>
                         </Row>
                     }
-                    </div>
                     </Col>
                 </Row>
             )})}
@@ -116,6 +129,7 @@ const MyBookings = () => {
             </Row>
             </div>
         )})}
+        </>}
         {bookings.length==0 && <Container className='py-5' data-aos='fade-up'><Empty /> <h3 className='text-center fw-200 mt-5'>Looks like you haven't made any bookings yet!</h3></Container>}
 
         </div>
