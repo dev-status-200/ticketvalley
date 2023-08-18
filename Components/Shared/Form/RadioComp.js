@@ -21,4 +21,4 @@ const RadioComp = (props) => {
   )
 }
 
-export default RadioComp
+export default React.memo(RadioComp)

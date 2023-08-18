@@ -1,3 +1,4 @@
+import React from 'react';
 import { notification } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
@@ -12,4 +13,4 @@ const openNotification = (title, message, color) => {
     });
 };
 
-export default openNotification
+export default React.memo(openNotification)

@@ -34,4 +34,4 @@ const Incrementor = ({value, field, dispatchReducer}) => {
   )
 }
 
-export default Incrementor
+export default React.memo(Incrementor)

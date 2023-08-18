@@ -13,7 +13,7 @@ import SignUp from '../../Shared/SignUp';
 const Mobile = ({combos, adventures, bestSelling}) => {
   return (
     <>
-    <div fluid>
+    <div fluid="true">
       <video autoPlay loop muted style={{ width:'100%' }}>
         <source src="/videos/video3.mp4"  />
       </video>
@@ -67,4 +67,4 @@ const Mobile = ({combos, adventures, bestSelling}) => {
   )
 }
 
-export default Mobile
+export default React.memo(Mobile)

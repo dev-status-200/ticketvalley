@@ -50,4 +50,4 @@ const MainLayout = ({children}) => {
   )
 }
 
-export default MainLayout
+export default React.memo(MainLayout)

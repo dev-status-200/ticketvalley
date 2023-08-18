@@ -1,14 +1,17 @@
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 
 const CircleIcons = ({bg}) => {
-    const height = 15;
-    const width = 15;
+
+    const height = 15, width = 15;
+
     const imgStyle = {
         position:"relative",
         bottom:2
-    }
-    const navStyles = {textDecoration:"none", color:'black'}
+    };
+    const navStyles = {textDecoration:"none", color:'black'};
+
   return (
     <Container className='bar-styles' style={bg=="none"?{}:{backgroundColor:'white'}}>
         <Row className='justify-content-xs-center'>
@@ -64,4 +67,4 @@ const CircleIcons = ({bg}) => {
   )
 }
 
-export default CircleIcons
+export default React.memo(CircleIcons)

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Empty, message } from 'antd';
 import { useState, useEffect } from 'react';
 import {Row, Col, Spinner} from "react-bootstrap";
@@ -85,4 +86,4 @@ const MyOffers = (props) => {
     </>
   );
 };
-export default MyOffers;
+export default React.memo(MyOffers);

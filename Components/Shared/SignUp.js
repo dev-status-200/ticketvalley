@@ -30,4 +30,4 @@ const SignUp = ({mobile}) => {
   )
 }
 
-export default SignUp
+export default React.memo(SignUp)

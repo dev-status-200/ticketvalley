@@ -65,4 +65,4 @@ const MobileCard = ({tour, height, info, font}) => {
   )
 }
 
-export default MobileCard
+export default React.memo(MobileCard)

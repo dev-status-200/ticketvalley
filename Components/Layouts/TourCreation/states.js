@@ -98,13 +98,13 @@ const initialState = {
     imp_infos:[],
 
     policy:"",
-    policies:[],
+    policies:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
 
     package:{ name:"", child_price:"0.00", adult_price:"0.00" },
     packages:[],
 
     cancellation_policy:"",
-    cancellation_polices:[],
+    cancellation_polices:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
 
     term_condition:"",
 

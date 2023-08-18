@@ -99,4 +99,4 @@ const PortalLayout = ({children}) => {
     </Layout>
   );
 };
-export default PortalLayout;
+export default React.memo(PortalLayout);

@@ -8,25 +8,34 @@ import Router from "next/router"
 
 const BookingInfo = ({state, dispatch}) => {
 
-    const assignTicket = async(data, count) => {
-        let tempTickets = [], i=0;
-        if(!data.TourOption.manual){
-            while(tempTickets.length!=count){
-                if(!data.inventory[i].used){
-                    tempTickets.push({...data.inventory[i], used:true});
+    const assignTicket = async(data, count, type) => {
+        if(type!="no"){
+            let tempTickets = [], i=0;
+            if(!data.TourOption.manual){
+                while(tempTickets.length!=count){
+                    if(!data.inventory[i].used){
+                        tempTickets.push({...data.inventory[i], used:true});
+                    }
+                    i++;
                 }
-                i++;
             }
-        }
-        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
-            data, tickets:tempTickets, email:state.selectedRecord['email'],
-            ticketId:state.selectedRecord.id, manual:data.TourOption.manual
-        })
-        .then((x)=>{
-            if(x.data.result[0]==1){
+            await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
+                data, tickets:tempTickets, email:state.selectedRecord['email'],
+                ticketId:state.selectedRecord.id, manual:data.TourOption.manual
+            }).then((x)=>{
+                if(x.data.result[0]==1){
+                    Router.push("/bookings");
+                }
+            })
+        } else {
+            console.log("Un Assigned")
+            await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_REVERSE_TICKET,{
+                id:data.id
+            }).then((x)=>{
                 Router.push("/bookings");
-            }
-        })
+                
+            })
+        }
     }
 
   return (
@@ -52,21 +61,23 @@ const BookingInfo = ({state, dispatch}) => {
                     <div>
                         <div className='fw-500 right text-end'>
                             {y.assigned=="0" &&<>
-                            <div>
-                                {parseInt(y.adult) + parseInt(y.child)} Required 
-                            </div>
+                            <div>{parseInt(y.adult) + parseInt(y.child)} Required</div>
                             <div style={{color:y.inventory.length>=parseInt(y.adult) + parseInt(y.child)?"green":'red'}}>
                                 {y.inventory.length} In-Stock 
                             </div>
-                            {(y.inventory.length>=parseInt(y.adult) + parseInt(y.child) && y.assigned=="0" ) &&
-                            <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
-                                <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
+                            {(y.inventory.length>=parseInt(y.adult) + parseInt(y.child) && y.assigned=="0") &&
+                            <div className="cur" style={{color:"#9b6a08"}} 
+                                onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}
+                            > 
+                                <DiffOutlined style={{position:'relative', bottom:2}} /> Assign
                             </div>
                             }
                             </>}
                             {y.assigned=="1" &&<>
                             <div style={{color:'green'}}> 
-                                <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
+                                <CheckOutlined style={{position:'relative', bottom:2}}
+                                    onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}
+                                /> Assigned
                             </div>
                             </>}
                         </div>
@@ -77,15 +88,19 @@ const BookingInfo = ({state, dispatch}) => {
                         <div className='fw-500 right text-end'>
                             {y.assigned=="0" &&<>
                             <div>
-                                {parseInt(y.adult) + parseInt(y.child)} Required 
-                            <div className="cur" style={{color:'#9b6a08'}} onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}> 
-                                <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
-                            </div>
+                                {parseInt(y.adult) + parseInt(y.child)} Manual Required 
+                                <div className="cur" style={{color:'#9b6a08'}} 
+                                    onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child))}
+                                > 
+                                    <DiffOutlined  style={{position:'relative', bottom:2}} /> Assign
+                                </div>
                             </div>
                             </>}
                             {y.assigned=="1" &&<>
-                            <div style={{color:'green'}}> 
-                                <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned
+                            <div style={{color:'green', cursor:'pointer'}}
+                                onClick={()=>assignTicket(y, parseInt(y.adult) + parseInt(y.child),"no")}
+                            >
+                                <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned Manually
                             </div>
                             </>}
                         </div>

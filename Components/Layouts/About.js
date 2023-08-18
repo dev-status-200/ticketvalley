@@ -5,6 +5,7 @@ import Aos from 'aos';
 import CircleIcons from '../Shared/CircleIcons';
 import CircleMobileIcons from '../Shared/CircleMobileIcons';
 import useWindowSize from '/functions/useWindowSize';
+import Router from 'next/router';
 
 const About = () => {
 
@@ -30,7 +31,7 @@ const About = () => {
                 <img src={'/images/logo.png'} height={100} />
             </span>
             <div className='dropdown  mx-2'>
-                <span className='navLink dropbtn'>ACTIVITIES</span>
+                <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
                 <div className="dropdown-content">
                     <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Theme Parks' }}}>Theme Parks</Link>
                     <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}}>Water Parks</Link>

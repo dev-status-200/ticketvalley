@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { InputNumber  } from "antd";
 import { Controller } from "react-hook-form";
 
@@ -28,4 +29,4 @@ const InputNumComp = (props) => {
   )
 }
 
-export default InputNumComp
+export default React.memo(InputNumComp)

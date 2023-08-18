@@ -30,7 +30,7 @@ const VideoComp = () => {
             <img src={'/images/logo.png'} height={100} />
           </span>
           <div className='dropdown mx-2'>
-            <span className='navLink dropbtn'>ACTIVITIES</span>
+            <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
             <div className="dropdown-content">
               <NavLinks/>
             </div>
@@ -51,4 +51,4 @@ const VideoComp = () => {
   )
 }
 
-export default VideoComp
+export default React.memo(VideoComp)

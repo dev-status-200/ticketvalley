@@ -43,4 +43,4 @@ return(
     />
 )}
 
-export default SelectSearchComp
+export default React.memo(SelectSearchComp)

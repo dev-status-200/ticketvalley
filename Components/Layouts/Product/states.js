@@ -40,8 +40,8 @@ const initialState = {
   title:"Mr.",
   name:"",
   email:"",
-  code:"",
-  contact:"",
+  code:"ae",
+  contact:"+971 ",
   address:"none",
   booking:[
     {

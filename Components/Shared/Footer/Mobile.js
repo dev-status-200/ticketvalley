@@ -31,4 +31,4 @@ const Mobile = () => {
   )
 }
 
-export default Mobile
+export default React.memo(Mobile)

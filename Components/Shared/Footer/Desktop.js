@@ -57,4 +57,4 @@ const Desktop = () => {
   )
 }
 
-export default Desktop
+export default React.memo(Desktop)

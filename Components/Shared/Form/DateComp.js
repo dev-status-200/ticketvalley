@@ -1,3 +1,4 @@
+import React from 'react';
 import { Form, DatePicker } from 'antd';
 import { Controller  } from "react-hook-form";
 
@@ -19,4 +20,4 @@ const DateComp = (props) => {
   </>
   )
 }
-export default DateComp
+export default React.memo(DateComp)

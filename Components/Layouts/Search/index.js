@@ -9,6 +9,7 @@ import SignUp from '/Components/Shared/SignUp';
 import { CiLocationOn } from "react-icons/ci";
 import { delay } from '/functions/delay';
 import {useRouter} from 'next/router';
+import Router from 'next/router';
 import Link from 'next/link';
 import Tours from './Tours';
 import aos from "aos";
@@ -118,7 +119,7 @@ return(
           <img src={'/images/logo.png'} height={100} />
         </span>
         <div className='dropdown  mx-2'>
-          <span className='navLink dropbtn'>ACTIVITIES</span>
+          <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
           <div className="dropdown-content">
             <NavLinks/>
           </div>

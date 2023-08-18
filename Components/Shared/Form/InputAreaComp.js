@@ -1,4 +1,4 @@
-
+import React from 'react'
 import { Input } from "antd";
 import { Controller } from "react-hook-form";
 
@@ -25,4 +25,4 @@ const InputAreaComp = (props) => {
   )
 }
 
-export default InputAreaComp
+export default React.memo(InputAreaComp)

@@ -86,6 +86,10 @@ const Book = ({tour, transport, category, setOpen}) => {
         return result
     }
 
+    useEffect(() => {
+      console.log(state.booking)
+    }, [state.booking])
+    
   return (
     <>
     {contextHolder}
@@ -211,30 +215,32 @@ const Book = ({tour, transport, category, setOpen}) => {
                     })   
                 }
                 </Col>}
-                {x.transfer!="No" && <Col md={12}><hr className='my-2' /></Col> }
                 {x.transfer!="No" &&
-                <Col md={12} className="mt-1 px-4">
-                    <GooglePlacesAutocomplete
-                        apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
-                        selectProps={{
-                            onChange: (res)=> {
-                                let temp = [...state.booking];
-                                temp[i].address = res.label;
-                                //console.log(temp[i].address)
-                                dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                            },
-                            placeholder: 'Pick up Address',
-                            components : {
-                                IndicatorSeparator: () => null,
-                                DropdownIndicator: () => 
-                                <>
-                                    <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
-                                    <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
-                                </>
-                            },
-                        }}
-                    />
-                </Col>
+                <>
+                    <Col md={12}><hr className='my-2' /></Col>
+                    <Col md={12} className="mt-1 px-4">
+                        <GooglePlacesAutocomplete
+                            apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
+                            selectProps={{
+                                onChange: (res)=> {
+                                    let temp = [...state.booking];
+                                    temp[i].address = res.label;
+                                    //console.log(temp[i].address)
+                                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                                },
+                                placeholder: 'Pick up Address',
+                                components : {
+                                    IndicatorSeparator: () => null,
+                                    DropdownIndicator: () => 
+                                    <>
+                                        <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
+                                        <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
+                                    </>
+                                },
+                            }}
+                        />
+                    </Col>
+                </>
                 }
                 </>
                 }
@@ -257,14 +263,13 @@ const Book = ({tour, transport, category, setOpen}) => {
                     />
                 </Col>
                 <Col md={5} className='mt-3'>
-                <Select  defaultValue="Select Country"
+                <Select  defaultValue="United Arab Emirates"
                     style={{width:"100%"}}
                     onChange={(e)=>{
                         let tempContact = ""
                         codes.forEach((x)=>{
                             if(x.value==e){
                                 tempContact = x.code+" "
-                                //dispatchReducer({ type: 'field', fieldName:'contact', payload: x.code+" " });
                                 return
                             }
                         })

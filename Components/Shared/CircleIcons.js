@@ -1,3 +1,4 @@
+import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 
@@ -50,4 +51,4 @@ const CircleIcons = () => {
   )
 }
 
-export default CircleIcons
+export default React.memo(CircleIcons)

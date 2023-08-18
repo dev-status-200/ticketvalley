@@ -38,7 +38,7 @@ function OffCanvasExample({ name, ...props }) {
 
   return (
     <>
-    <Container fluid style={{backgroundColor:'#21a69b', color:'white'}}>
+    <Container fluid="true" style={{backgroundColor:'#21a69b', color:'white'}}>
     <Row style={{fontSize:12}} className='pb-1'>
         <Col xs={6}>
         <FaPhoneAlt style={{position:'relative', top:1, fontSize:10}}/><span className='mx-1' style={{position:'relative', top:2}}>+971 55 998 6370</span>

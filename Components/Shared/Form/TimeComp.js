@@ -19,4 +19,4 @@ const TimeComp = (props) => {
   </>
   )
 }
-export default TimeComp
+export default React.memo(TimeComp)

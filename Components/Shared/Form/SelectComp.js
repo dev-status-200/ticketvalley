@@ -1,3 +1,4 @@
+import React from 'react'
 import { Select } from "antd";
 import { Controller } from "react-hook-form";
 
@@ -35,4 +36,4 @@ const SelectComp = (props) => {
   )
 }
 
-export default SelectComp
+export default React.memo(SelectComp)

@@ -128,4 +128,4 @@ const Desktop = ({combos, adventures, bestSelling}) => {
   )
 }
 
-export default Desktop
+export default React.memo(Desktop)

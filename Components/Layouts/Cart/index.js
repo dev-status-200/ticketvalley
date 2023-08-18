@@ -131,7 +131,7 @@ const Cart = () => {
             <img src={'/images/logo.png'} height={100} />
             </span>
             <div className='dropdown mx-2'>
-            <span className='navLink dropbtn'>ACTIVITIES</span>
+            <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
             <div className="dropdown-content">
                 <NavLinks/>
             </div>
@@ -146,7 +146,7 @@ const Cart = () => {
         <div style={{backgroundColor:'white', paddingBottom:20}}><CircleMobileIcons/></div>
     }
     <div className='cart-styles' style={{borderTop:'1px solid silver'}} >
-    <Container className='cart-box' fluid>
+    <Container className='cart-box' fluid="true">
     <Row>
         <Col md={8} className="pt-4">
         <Container className='px-5 black-txt'>
@@ -202,6 +202,14 @@ const Cart = () => {
                 </Row>
             )})}
             <hr/>
+            <Row>
+                <Col md={4}>
+                <div className='cart-note'>
+                    <h4>Note:</h4>
+                    <hr className='mt-0 pt-0' />
+                </div>
+                </Col>
+            </Row>
             <div style={{minHeight:90}}>
                 <div className='my-1 mb-5'>
                     <form onSubmit={ApplyPromo} className='mb-5'>
