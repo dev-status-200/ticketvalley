@@ -65,6 +65,7 @@ const baseValues = {
 
   category:"",
   advCategory:"",
+  city:"",
 }
 
 const initialState = {

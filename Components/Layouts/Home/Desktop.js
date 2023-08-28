@@ -42,7 +42,7 @@ const Desktop = ({combos, adventures, bestSelling}) => {
             /> */}
             <div className='blue-txt px-3' style={{letterSpacing:7}}>CHOOSE YOUR PLACE</div>
             <h1 className='fw-700 px-3'><span className='black-txt'>BEST</span> <span className='blue-txt'>SELLING ACTIVITIES</span></h1>
-            {bestSelling.length>0 && 
+            {bestSelling?.length>0 && 
             <div>
                 <Row className='px-3'>
                     <Col md={8} data-aos='fade-right'>
@@ -73,7 +73,7 @@ const Desktop = ({combos, adventures, bestSelling}) => {
                 </Row>
             </div>
             }
-            {bestSelling.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
+            {bestSelling?.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
             </Container>
         </div>
         {/* <Slider/> */}
@@ -97,7 +97,7 @@ const Desktop = ({combos, adventures, bestSelling}) => {
                     )
                 })}
             </Swiper>
-            {adventures.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
+            {adventures?.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
         </Container>
 
         <Container className='my-0 py-3' data-aos='fade-up'>
@@ -119,7 +119,7 @@ const Desktop = ({combos, adventures, bestSelling}) => {
                     )
                 })}
             </Swiper>
-            {combos.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
+            {combos?.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
         </Container>
 
         </div>

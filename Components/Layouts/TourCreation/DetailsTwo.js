@@ -11,11 +11,18 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
     <div style={{minHeight:542}}>
     <Row className=''><Col style={{maxWidth:100, color:"silver"}}>Basic Info</Col><Col><div><hr /></div></Col></Row>
     <Row>
-    <Col className='px-4' md={5}>
+    <Col className='' md={4}>
         <InputComp  register={register} name='title' control={control} label='Title' />
     </Col>
-    <Col className='px-4' md={3}>
-        <SelectComp register={register} name='category' control={control} label='Category' width={"100%"}
+    <Col className='' md={2}>
+        <SelectComp register={register} name='city' control={control} label='City' width={"100%"}
+          options={[
+            {id:'Dubai City', name:'Dubai City'},
+            {id:'Abu Dhabi',  name:'Abu Dhabi' },
+        ]}/>
+    </Col>
+    <Col className='' md={2}>
+        <SelectComp register={register} name='category' control={control} label='Sub Category' width={"100%"}
           options={[
             {id:'Theme Parks', name:'Theme Parks'},
             {id:'Water Parks', name:'Water Parks'},
@@ -24,7 +31,7 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
             {id:'Adventure', name:'Adventure'},
         ]}/>
     </Col>
-    <Col className='px-4' md={3}>
+    <Col className='' md={3}>
         <SelectComp register={register} name='advCategory' control={control} label='Advanced Category' width={"100%"}
           options={[  
             {id:'Best Selling', name:'Best Selling'},

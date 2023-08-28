@@ -126,7 +126,7 @@ const Cart = () => {
         <div className='hero pt-4'>
         <div className='navBar'>
             <Link className='navLink' href='/'>HOME</Link>
-            <Link className='navLink' href='/'>DESTINATION</Link>
+            <Link className='navLink' href='/search?destination=uae&city=Dubai+City'>DESTINATION</Link>
             <span className="navLink">
             <img src={'/images/logo.png'} height={100} />
             </span>

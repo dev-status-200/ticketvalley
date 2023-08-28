@@ -1,8 +1,16 @@
-export default function Loader() {
-    return (
+import React, { useEffect } from 'react';
+import Aos from 'aos';
+
+const Loader = () => {
+
+    useEffect(() => {
+        Aos.init({duration:300})
+      }, [])
+
+  return (
     <div className='svg-styles'> 
         <div className="text-center">
-            <div className="container">
+            <div className="container" data-aos="zoom-in">
             <svg className="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
                 <circle cx="170" cy="170" r="160" stroke="#00e5fa"/>
                 <circle cx="170" cy="170" r="135" stroke="#0096a3"/>
@@ -12,5 +20,7 @@ export default function Loader() {
             </div>
         </div>
     </div>
-    )
+  )
 }
+
+export default Loader

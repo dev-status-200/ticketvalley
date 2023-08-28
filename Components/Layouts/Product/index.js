@@ -147,7 +147,13 @@ const Product = ({tourData, id}) => {
       {size.width>400 &&<div className='hero pt-4'>
         <div className='navBar'>
           <Link className='navLink' href='/'>HOME</Link>
-          <Link className='navLink' href='/'>DESTINATION</Link>
+          <div className='dropdown'>
+            <div className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>DESTINATION</div>
+            <div className="dropdown-content">
+              <a className='menu-drop-links pb-2' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>Dubai</a>
+              <a className='menu-drop-links pb-2' onClick={()=>Router.push("/search?destination=uae&city=Abu+Dhabi")}>Abu Dhabi</a>
+            </div>
+          </div>
           <span className="navLink">
             <img src={'/images/logo.png'} height={100} />
           </span>

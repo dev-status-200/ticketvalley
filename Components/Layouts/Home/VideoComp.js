@@ -21,9 +21,10 @@ const VideoComp = () => {
         >
         <Link className='navLink' href='/'>HOME</Link>
         <div className='dropdown'>
-        <div className='navLink dropbtn'>DESTINATION</div>
+        <div className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>DESTINATION</div>
         <div className="dropdown-content">
-            <a className='menu-drop-links pb-2'>Dubai</a>
+          <a className='menu-drop-links pb-2' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>Dubai</a>
+          <a className='menu-drop-links pb-2' onClick={()=>Router.push("/search?destination=uae&city=Abu+Dhabi")}>Abu Dhabi</a>
         </div>
         </div>
           <span className="navLink">
