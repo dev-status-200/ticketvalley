@@ -49,7 +49,7 @@ const Header = () => {
   }
 
   return (
-    <div className='header-styles silver-3-txt'>
+    <div className='header-styles blue-txt'>
         <Row className='px-5 pt-1 m-0 white-bg' style={{paddingBottom:5}}>
             <Col md={6}>
                 <div style={{fontSize:11}}>
@@ -73,7 +73,7 @@ const Header = () => {
                             <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span className="fi fi-in"></span></span>
                         </div>
                     } trigger="click">
-                        <span className='cur mx-2'>Change Currency <BsCurrencyExchange size={15} color='grey'/></span>
+                        <span className='cur mx-2'>Change Currency <BsCurrencyExchange size={15} className='blue-txt' /></span>
                     </Popover>
                     <span className='cur mx-1'onClick={()=>router.push("/cart")}>{"("} {cart.length} {")"} <HiShoppingCart size={15}/></span>
                     <span className='mx-2'> | </span>
