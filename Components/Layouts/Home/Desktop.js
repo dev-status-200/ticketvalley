@@ -89,7 +89,7 @@ const Desktop = ({combos, adventures, bestSelling}) => {
                     disableOnInteraction: false,
                 }}
             >
-                {adventures.map((x, i)=>{
+                {adventures?.map((x, i)=>{
                     return(
                         <SwiperSlide className='' key={i}>
                             <TourCardOne tour={x} height={220} info={true} font={18} />

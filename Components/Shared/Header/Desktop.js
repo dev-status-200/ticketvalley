@@ -109,8 +109,15 @@ const Header = () => {
                     </span>
                     </>
                     }
-                    {!session && <span className='' style={{position:'relative', top:2}}>|</span>}
-                    {!session && <Link className='cur silver-3-txt mx-2' style={{position:'relative', top:2, textDecoration:'none'}} href="/login">Agent Login</Link>}
+                    {/* {!session && <span className='' style={{position:'relative', top:2}}>|</span>}
+                    {!session && 
+                        <Link className='cur silver-3-txt mx-2' 
+                            style={{position:'relative', top:2, textDecoration:'none'}} 
+                            href="/login"
+                        >
+                            Agent Login
+                        </Link>
+                    } */}
                 </div>
             </Col>
         </Row>
