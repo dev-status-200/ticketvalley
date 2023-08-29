@@ -77,9 +77,9 @@ const Header = () => {
                     </Popover>
                     <span className='cur mx-1'onClick={()=>router.push("/cart")}>{"("} {cart.length} {")"} <HiShoppingCart size={15}/></span>
                     <span className='mx-2'> | </span>
-                    <span className='cur mx-1'><SiFacebook/></span>
-                    <span className='cur mx-1'><SiInstagram/></span>
-                    <span className='cur mx-1'><SiTwitter/></span>
+                    <span className='cur mx-1' style={{color:'#2b67b6'}}><SiFacebook/></span>
+                    <span className='cur mx-1' style={{color:'#e425b4'}}><SiInstagram/></span>
+                    <span className='cur mx-1' style={{color:'#25a1e4'}}><SiTwitter/></span>
                     {!session &&
                     <span className='cur mx-2' style={{position:'relative', top:2}}
                         onClick={()=>{
@@ -109,15 +109,6 @@ const Header = () => {
                     </span>
                     </>
                     }
-                    {/* {!session && <span className='' style={{position:'relative', top:2}}>|</span>}
-                    {!session && 
-                        <Link className='cur silver-3-txt mx-2' 
-                            style={{position:'relative', top:2, textDecoration:'none'}} 
-                            href="/login"
-                        >
-                            Agent Login
-                        </Link>
-                    } */}
                 </div>
             </Col>
         </Row>
