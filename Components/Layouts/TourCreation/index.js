@@ -25,7 +25,7 @@ export default function TourCreation({productData}) {
       payload: e
     }); 
   }
-  
+
   return (
     <div className=''>
       <Row>

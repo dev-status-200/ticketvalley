@@ -28,12 +28,10 @@ const BookingInfo = ({state, dispatch}) => {
                 }
             })
         } else {
-            console.log("Un Assigned")
             await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_REVERSE_TICKET,{
                 id:data.id
             }).then((x)=>{
                 Router.push("/bookings");
-                
             })
         }
     }

@@ -38,6 +38,20 @@ function reducerFunctions(state, action) {
           visible: false,
           edit: false,
           bulk: false,
+          load:false
+        };
+      }
+      case 'modalOffAndTourUpdate': {
+        return {
+          ...state,
+          selectedRecord:{},
+          records:action.payload,
+          main_image:"",
+          show_image:"",
+          visible: false,
+          edit: false,
+          bulk: false,
+          load:false
         };
       }
       default:

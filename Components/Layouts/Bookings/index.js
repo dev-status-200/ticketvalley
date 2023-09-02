@@ -68,6 +68,7 @@ const Bookings = ({bookingsData}) => {
     }
 
     useEffect(()=>{
+      console.log(bookingsData.result)
       let tempValues = bookingsData.result;
       tempValues.forEach((x)=>{
         x.assigningLeft = 0;

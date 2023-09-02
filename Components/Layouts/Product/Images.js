@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { FiCheckSquare } from "react-icons/fi";
 import { IoLocationSharp } from "react-icons/io5";
 import { Rate } from 'antd';
-import { TbPoint } from "react-icons/tb";
 import useWindowSize from '/functions/useWindowSize';
 
 const Images = ({tour, detail}) => {
+
   const [images, setImages] = useState([]);
   const [mainImage, setMainImage] = useState('');
   const size = useWindowSize();
@@ -27,7 +26,7 @@ const Images = ({tour, detail}) => {
       <span><Rate disabled defaultValue={5} style={{fontSize:12, color:'orange'}} /></span>
       <span className='mx-2 fs-12' style={{color:'grey'}}>{"("}3 Reviews{")"}</span> 
         <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> 
-        {tour.destination.toUpperCase()}, {tour.city}
+        {tour.destination?.toUpperCase()}, {tour.city}
       <img className='my-3' src={mainImage} 
         style={{borderRadius:size.width<400?10:23, width:'100%', height:size.width<400?220:"100%"}}  alt="Tour"
       />
