@@ -24,7 +24,7 @@ const Desktop = () => {
                         </div>
                     </Col>
                     <Col className='px-3'>
-                        <h6 className='heading'>ABOUT US</h6>
+                        <div className='heading'>ABOUT US</div>
 
                         <p className='mt-5 wh-txt'>Our Story</p>
                         <hr className='my-0' style={{backgroundColor:'silver'}} />
@@ -34,7 +34,7 @@ const Desktop = () => {
                         <hr className='my-0' style={{backgroundColor:'silver'}} />
                     </Col>
                     <Col className='px-3'>
-                        <h6 className='heading'>SUPPORT</h6>
+                        <div className='heading'>SUPPORT</div>
 
                         <p className='mt-5 wh-txt'>Customer Support</p>
                         <hr className='my-0' style={{backgroundColor:'silver'}} />
@@ -42,7 +42,7 @@ const Desktop = () => {
                         <hr className='my-0' style={{backgroundColor:'silver'}} />
                     </Col>
                     <Col className='px-3'>
-                        <h6 className='heading'>PAY SAFELY WITH US</h6>
+                        <div className='heading'>PAY SAFELY WITH US</div>
 
                         <p className='mt-5 wh-txt'>The payment is encrypted and transmitted securely with an SSL protocol.</p>
                         <img src='/images/creditcard-logo.png' />

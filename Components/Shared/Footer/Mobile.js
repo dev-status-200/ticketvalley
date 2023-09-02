@@ -17,7 +17,7 @@ const Mobile = () => {
             </div>
           </Col>
           <Col md={12} className='py-3 px-5 text-center'>
-            <h6 className='heading'>PAY SAFELY WITH US</h6>
+            <div className='heading'>PAY SAFELY WITH US</div>
 
             <p className='wh-txt'>The payment is encrypted and transmitted securely with an SSL protocol.</p>
             <img src='/images/creditcard-logo.png' />
