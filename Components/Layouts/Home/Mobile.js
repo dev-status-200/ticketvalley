@@ -10,6 +10,9 @@ import "swiper/css/bundle";
 import MobileCard from '../../Shared/MobileCard';
 import SignUp from '../../Shared/SignUp';
 import dynamic from 'next/dynamic';
+const MobileVideo = dynamic(() => import('./MobileVideo'), {
+  loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
+})
 const Adventures = dynamic(() => import('./AdventureTours'), {
   loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
 })
@@ -21,9 +24,7 @@ const Mobile = ({combos, adventures, bestSelling}) => {
   return (
     <>
     <div fluid="true">
-      <video autoPlay loop muted style={{ width:'100%' }}>
-        <source src="/videos/video3.mp4"  />
-      </video>
+      <MobileVideo/>
       <CircleMobileIcons/>
     </div>
     <div className=' bg-02' style={{backgroundColor:"white"}}>

@@ -7,12 +7,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper";
 import "swiper/css/bundle";
-import VideoComp from './VideoComp';
+//import VideoComp from './VideoComp';
 import TourCardOne from '../../Shared/TourCardOne';
 import SignUp from '../../Shared/SignUp';
 import { Widget } from "@uploadcare/react-widget";
 import CircleIcons from '/Components/Shared/CircleIcons';
 import dynamic from 'next/dynamic'
+const VideoComp = dynamic(() => import('./VideoComp'), {
+  loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
+})
 const BestSelling = dynamic(() => import('./BestSelling'), {
   loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
 })

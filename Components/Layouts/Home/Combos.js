@@ -17,6 +17,7 @@ const Combos = () => {
             if(x.data.status=="success"){
                 setAdventures(x.data.result);
             }
+            console.log(x.data)
         })
     }, [])
 
