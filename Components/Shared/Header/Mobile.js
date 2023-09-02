@@ -26,20 +26,20 @@ function OffCanvasExample({ name, ...props }) {
   const handleClose = () => setShow(false);
   const toggleShow = () => setShow((s) => !s);
   const navStyles = {color:'white', textDecoration:'none', fontSize:30}
-   
+  
   const {data:session} = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
-  
+
   const [showOffers, setShowOffers] = useState(false);
   const currencyList = useSelector((state) => state.currency.value);
   const conversion = useSelector((state) => state.currency.conversion);
 
   return (
     <>
-    <Container fluid="true" style={{backgroundColor:'#21a69b', color:'white'}}>
-    <Row style={{fontSize:12}} className='pb-1'>
+    <Container fluid="true" style={{backgroundColor:'rgb(8, 78, 77)', color:'white'}}>
+    <Row style={{fontSize:12}} className='pb-1 px-2'>
         <Col xs={6}>
         <FaPhoneAlt style={{position:'relative', top:1, fontSize:10}}/><span className='mx-1' style={{position:'relative', top:2}}>+971 55 998 6370</span>
         </Col>

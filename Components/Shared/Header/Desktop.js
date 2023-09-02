@@ -49,7 +49,7 @@ const Header = () => {
   }
 
   return (
-    <div className='header-styles blue-txt'>
+    <div className='header-styles '>
         <Row className='px-5 pt-1 m-0 white-bg' style={{paddingBottom:5}}>
             <Col md={6}>
                 <div style={{fontSize:11}}>
@@ -75,7 +75,7 @@ const Header = () => {
                     } trigger="click">
                         <span className='cur mx-2'>Change Currency <BsCurrencyExchange size={15} className='blue-txt' /></span>
                     </Popover>
-                    <span className='cur mx-1'onClick={()=>router.push("/cart")}>{"("} {cart.length} {")"} <HiShoppingCart size={15}/></span>
+                    <span className='cur mx-1'onClick={()=>router.push("/cart")}>{"("} {cart.length} {")"} <HiShoppingCart size={15} className='blue-txt' /></span>
                     <span className='mx-2'> | </span>
                     <span className='cur mx-1' style={{color:'#2b67b6'}}><SiFacebook/></span>
                     <span className='cur mx-1' style={{color:'#e425b4'}}><SiInstagram/></span>
