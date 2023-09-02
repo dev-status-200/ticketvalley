@@ -74,7 +74,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
             </div>
             </div>
             <span className="navLink">
-                <img src={'/images/logo.png'} height={100} />
+                <img src={'/images/logo.png'} height={100} alt="Logo" />
             </span>
             <div className='dropdown  mx-2'>
                 <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -129,7 +129,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     }}
                 >
                     <Col md={2} xs={12}>
-                        <img src={x.image} height={size.width>400?100:150} width={size.width>400?140:"100%"} style={{borderRadius:5}} />
+                        <img src={x.image} height={size.width>400?100:150} width={size.width>400?140:"100%"} style={{borderRadius:5}} alt="Tour" />
                     </Col>
                     <Col md={6} className={`${size.width>400?"":"mt-1"}`}>
                     <h5>{y.tourOptName}</h5>
@@ -153,12 +153,12 @@ const TicketPage = ({ticketData, bookingNo}) => {
                                 <>
                                 <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>{y.TourOption.manual?<>Check your E-mail Inbox</>:"Select & Download"}</div>
-                                <img src={'/icons/ticket-available.png'} className={`${size.width>400?"":"mx-2"}`} height={50} />
+                                <img src={'/icons/ticket-available.png'} className={`${size.width>400?"":"mx-2"}`} height={50} alt="Ticket" />
                                 </>:
                                 <>
                                 <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>Pending</div>
-                                <img src={'/icons/ticket-pending.png'} className={`${size.width>400?"":"mx-3"}`} height={50} />
+                                <img src={'/icons/ticket-pending.png'} className={`${size.width>400?"":"mx-3"}`} height={50} alt="Pending" />
                                 </>
                                 }
                                 {(y.reviewed=="1" && size.width>400) &&

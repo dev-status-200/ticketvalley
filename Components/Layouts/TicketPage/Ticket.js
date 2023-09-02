@@ -43,7 +43,7 @@ const Ticket = ({fetchedTicket, i}) => {
                     </Col>
                     <Col style={{maxWidth:300}}>
                         <div >
-                            <img src={fetchedTicket.image} className='cropped ' />
+                            <img src={fetchedTicket.image} className='cropped ' alt="Tour" />
                         </div>
                     </Col>
                 </Row>

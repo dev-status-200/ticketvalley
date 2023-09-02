@@ -84,7 +84,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
   return (
     <div style={{backgroundColor:"white", padding:100}}>
       <div className='text-center' data-aos="fade-in">
-          <img src={"/other-assets/payment_done.png"} height={200} />
+          <img src={"/other-assets/payment_done.png"} height={200}  alt="Success"/>
           <h1 style={{color:"#20bf55", fontWeight:700}} className="my-3">Thank You!</h1>
           <p style={{color:"grey"}}>Payment done successfully</p>
           <p style={{color:"silver"}}>

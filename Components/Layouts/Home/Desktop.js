@@ -14,16 +14,16 @@ import { Widget } from "@uploadcare/react-widget";
 import CircleIcons from '/Components/Shared/CircleIcons';
 import dynamic from 'next/dynamic'
 const VideoComp = dynamic(() => import('./VideoComp'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
+  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
 })
 const BestSelling = dynamic(() => import('./BestSelling'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
+  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
 })
 const Adventures = dynamic(() => import('./AdventureTours'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
+  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
 })
 const Combos = dynamic(() => import('./Combos'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg' /> </div>,
+  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
 })
 
 const Desktop = () => {

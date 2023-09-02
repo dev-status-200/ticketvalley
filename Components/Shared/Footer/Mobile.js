@@ -20,7 +20,7 @@ const Mobile = () => {
             <div className='heading'>PAY SAFELY WITH US</div>
 
             <p className='wh-txt'>The payment is encrypted and transmitted securely with an SSL protocol.</p>
-            <img src='/images/creditcard-logo.png' />
+            <img src='/images/creditcard-logo.png' alt='credit card' />
           </Col>
         </Row>
       </div>

@@ -18,7 +18,7 @@ const Carasoul = (props) => {
       {props.images.split(",").map((x, i)=>{
         return(
         <SwiperSlide key={i}>
-          <img src={x} alt="" />
+          <img src={x} alt="Tour Gallery" />
         </SwiperSlide>
         )
       })}

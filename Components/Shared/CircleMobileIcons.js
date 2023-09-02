@@ -20,7 +20,7 @@ const CircleIcons = ({bg}) => {
                 href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Theme Parks' }}}
                 style={navStyles}
             >
-                <img src={"/icons/new-circle (4).png"}  height={height} width={width} style={imgStyle} />
+                <img src={"/icons/new-circle (4).png"}  height={height} width={width} style={imgStyle} alt="Theme Parks" />
             </Link>
             </Col>
             <Col className='barz-mobile'>
@@ -28,7 +28,7 @@ const CircleIcons = ({bg}) => {
                 href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}}
                 style={navStyles}
             >
-                <img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} />
+                <img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} alt="Water Parks" />
             </Link>
             </Col>
             <Col className='barz-mobile'>
@@ -36,7 +36,7 @@ const CircleIcons = ({bg}) => {
                 href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Adventure' }}}
                 style={navStyles}
             >
-                <img src={"/icons/new-circle (1).png"}  height={height} width={width} style={imgStyle} />
+                <img src={"/icons/new-circle (1).png"}  height={height} width={width} style={imgStyle}  alt="Adventure"/>
             </Link>
             </Col>
             <Col className='barz-mobile'>
@@ -44,7 +44,7 @@ const CircleIcons = ({bg}) => {
                 href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'City Tours' }}}
                 style={navStyles}
             >
-                <img src={"/icons/new-circle (2).png"}   height={height} width={width} style={imgStyle} />
+                <img src={"/icons/new-circle (2).png"}   height={height} width={width} style={imgStyle} alt="City Tours" />
             </Link>
             </Col>
             <Col className='barz-mobile'>
@@ -52,7 +52,7 @@ const CircleIcons = ({bg}) => {
                 href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Luxury Tours' }}}
                 style={navStyles}
             >
-                <img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} />
+                <img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} alt="Luxury Tours" />
             </Link>
             </Col>
         </Row>

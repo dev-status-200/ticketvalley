@@ -42,7 +42,7 @@ export default function CheckoutForm({email, name, image}) {
     <form id="payment-form" onSubmit={handleSubmit}>
       <Row>
         <Col md={12} className="text-center" >
-        <img src={'/stripe/stripe-logo.png'} height={50} />
+        <img src={'/stripe/stripe-logo.png'} height={50}  alt="Stripe"/>
           <p className="mb-0 pb-0 silver-2-txt">Protected Checkout<CheckCircleOutlined className="mx-2" style={{color:'green', position:'relative', top:1}} /></p>
         </Col>
       </Row>

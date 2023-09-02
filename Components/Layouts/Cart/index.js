@@ -128,7 +128,7 @@ const Cart = () => {
             <Link className='navLink' href='/'>HOME</Link>
             <Link className='navLink' href='/search?destination=uae&city=Dubai+City'>DESTINATION</Link>
             <span className="navLink">
-            <img src={'/images/logo.png'} height={100} />
+            <img src={'/images/logo.png'} height={100}  alt="Logo"/>
             </span>
             <div className='dropdown mx-2'>
             <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -158,7 +158,7 @@ const Cart = () => {
             return(
                 <Row key={i} className="cart-item mx-0">
                     <Col md={3} xs={12} className="py-3" >
-                        <img src={x.image} height={100} width={size.width>400? 150:"100%"} style={{borderRadius:5}} />
+                        <img src={x.image} height={100} width={size.width>400? 150:"100%"} style={{borderRadius:5}}  alt="Tour"/>
                     </Col>
                     <Col className={`${size.width>400?"px-4 my-3":"mb-2"}`} md={9} >
                     {size.width>400 &&<div style={{float:'right'}}>

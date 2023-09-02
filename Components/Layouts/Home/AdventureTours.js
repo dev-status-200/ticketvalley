@@ -40,7 +40,7 @@ const AdventureTours = () => {
                     )
                 })}
             </Swiper>
-            {adventures?.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
+            {adventures?.length==0 && <div className='text-center'> <img src='/loader.svg'  alt="Loader" /> </div>}
         </div>
         <div className="mobile" >
             <Swiper slidesPerView={2} spaceBetween={10} 
@@ -59,7 +59,7 @@ const AdventureTours = () => {
                     </SwiperSlide>
                     )})}
             </Swiper>
-            {adventures?.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
+            {adventures?.length==0 && <div className='text-center'> <img src='/loader.svg' alt="Loader" /> </div>}
         </div>
     </>
   )

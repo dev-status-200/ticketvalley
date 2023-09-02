@@ -29,14 +29,16 @@ const Images = ({tour, detail}) => {
         <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> 
         {tour.destination.toUpperCase()}, {tour.city}
       <img className='my-3' src={mainImage} 
-        style={{borderRadius:size.width<400?10:23, width:'100%', height:size.width<400?220:"100%"}} 
+        style={{borderRadius:size.width<400?10:23, width:'100%', height:size.width<400?220:"100%"}}  alt="Tour"
       />
       <Row className={`${size.width<400?"px-2":""}`}>
         {images.map((x, i)=>{
           return(
             <Col key={i} md={3} xs={3} onClick={()=>setMainImage(x)} className={`${size.width<400?"p-0 px-1":""}`}>
               <img src={x} className='img-hover' 
-                style={{width:'100%', borderRadius:size.width<400?10:20, height:size.width<400?50:100}} />
+                style={{width:'100%', borderRadius:size.width<400?10:20, height:size.width<400?50:100}} 
+                alt="Tour"  
+              />
             </Col>
           )
         })}

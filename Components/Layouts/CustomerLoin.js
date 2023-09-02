@@ -56,7 +56,7 @@ const CustomerLoin = ({providers, signIn}) => {
         height: '100vh'
       }}>
         <div>
-        <img src={'/loader.svg'}  />
+        <img src={'/loader.svg'}  alt="Loader" />
         <p className='text-center silver-txt'>Please Wait...</p>
         </div>
       </div>

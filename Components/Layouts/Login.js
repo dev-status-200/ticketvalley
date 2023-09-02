@@ -45,7 +45,7 @@ const Login = ({sessionData}) => {
     <div className='bg-signin'>
       <Row className='my-5 py-5'>
         <Col md={6} className='p-5'>
-        <img src={'/logistic vector.png'} className='my-5' height={400} />
+        <img src={'/logistic vector.png'} className='my-5' height={400}  alt="CRM"/>
         <p style={{color:'grey', fontSize:30, marginLeft:150}}>Peace Land Travel CRM</p>
         </Col>
         <Col md={6} className='p-5'>
@@ -57,11 +57,11 @@ const Login = ({sessionData}) => {
             </Alert>}
             <div className='mb-4'>
                 <input className='login-inp' required placeholder='Enter your username...' value={username} onChange={(e)=>setUsername(e.target.value)} />
-                <img src={'/username.png'} className='username-img' height={55} />
+                <img src={'/username.png'} className='username-img' height={55}  alt="username"/>
             </div>
             <div className='mt-4'>
                 <input className='login-inp' placeholder='Enter your password...' required type={reveal?'text':'password'} value={password} onChange={(e)=>setPassword(e.target.value)} />
-                <img src={reveal?'/pass.png':'/locked.png'} className='username-img' style={{cursor:'pointer'}} height={55} onClick={()=>setReveal(!reveal)} />
+                <img src={reveal?'/pass.png':'/locked.png'} className='username-img'  alt="password" style={{cursor:'pointer'}} height={55} onClick={()=>setReveal(!reveal)} />
             </div>
             <div className='my-5'>
                 <button type='submit' className='login-btn'>{load?<Spinner animation="border" className='mx-3' size='sm' variant="light" />:'LOGIN'}</button>

@@ -94,7 +94,7 @@ const Inventory = ({inventoryData}) => {
                     <td className='fs-16' >
                         <Row>
                             <Col md={4}>
-                                <img src={x.main_image}  style={{borderRadius:5, maxHeight:80, maxWidth:100, imageRendering:"pixelated"}} />
+                                <img src={x.main_image}  style={{borderRadius:5, maxHeight:80, maxWidth:100, imageRendering:"pixelated"}}  alt="Tour" />
                             </Col>
                             <Col>
                                 <span className=''>{x.title}</span>

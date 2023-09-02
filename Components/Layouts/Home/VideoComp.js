@@ -28,7 +28,7 @@ const VideoComp = () => {
         </div>
         </div>
           <span className="navLink">
-            <img src={'/images/logo.png'} height={100} />
+            <img src={'/images/logo.png'} height={100}  alt="Logo" />
           </span>
           <div className='dropdown mx-2'>
             <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>

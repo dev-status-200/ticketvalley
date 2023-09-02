@@ -65,7 +65,7 @@ const Customers = ({data, promoData}) => {
                     {index+1}
                 </td>
                 <td className='fs-16' style={{maxWidth:30}}>
-                    <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40} />
+                    <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40}  alt="Tour" />
                 </td>
                 <td >{x.name}</td>
                 <td><MailOutlined style={{position:'relative', bottom:3}} className='mx-2' />{x.email}</td>

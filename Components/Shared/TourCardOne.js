@@ -19,9 +19,9 @@ const TourCardOne = ({tour, height, info, font}) => {
         }}
     >
         <div style={{width:'100%' , position:'relative', left:0, top:0}}>
-        <img src={tour.main_image} className="filter" style={{width:'100%', height:height}} />
-        {!info &&<img src={'images/card-overlay.png'} className="overlay" style={{width:'100%'}} />}
-        {info &&<img src={'images/card-overlay-2.png'} className="overlay" style={{width:'100%'}} />}
+        <img src={tour.main_image} className="filter" style={{width:'100%', height:height}} alt='Tour' />
+        {!info &&<img src={'images/card-overlay.png'} className="overlay" style={{width:'100%'}} alt='Overlay' />}
+        {info &&<img src={'images/card-overlay-2.png'} className="overlay" style={{width:'100%'}} alt='Overlay' />}
         {!info &&
         <div className='overlay-text'>
             <div>{tour.title.slice(0,25)}</div>

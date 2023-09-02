@@ -54,7 +54,7 @@ function OffCanvasExample({ name, ...props }) {
           <CgMenuLeft onClick={toggleShow} style={{fontSize:25, color:'#21a69b', marginTop:11}}/>
         </Col>
         <Col xs={6} className='text-center'>
-        <img src={'/images/logo.png'} height={50} style={{position:'relative', right:10}} onClick={()=>router.push("/")} />
+        <img src={'/images/logo.png'} height={50} style={{position:'relative', right:10}} onClick={()=>router.push("/")} alt='logo' />
         </Col>
         <Col xs={3} className='text-end'>
           <div onClick={()=>router.push("/cart")} style={{color:'#21a69b', marginTop:11}}>

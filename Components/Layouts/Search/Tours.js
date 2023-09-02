@@ -43,7 +43,7 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
             return(
             <Col md={4} xs={6} className={`px-${size.width>400?"1":"0"} search-tour-box`} key={i}>
                 <div className={`search-box-container mx-1`}>
-                <img className='search-box-img filter-2' src={x.main_image} height={size.width>400?150:80} width={"100%"} />
+                <img className='search-box-img filter-2' src={x.main_image} height={size.width>400?150:80} width={"100%"} alt="Tour" />
                 <div className='px-2 search-bob-bottom'>
                     <div className={`fs-${size.width>400?"15":"12"} py-1`} style={size.width>400?{}:{minHeight:44}}>
                         {size.width>400?

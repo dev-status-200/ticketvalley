@@ -52,7 +52,7 @@ const BestSelling = () => {
         </Row>
     </>
     }
-    {bestSelling?.length==0 && <div className='text-center'> <img src='/loader.svg' /> </div>}
+    {bestSelling?.length==0 && <div className='text-center'> <img src='/loader.svg'  alt="Loader"/> </div>}
     </>
   )
 }

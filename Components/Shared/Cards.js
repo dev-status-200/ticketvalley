@@ -8,7 +8,7 @@ const Cards = (props) => {
     <Card
         hoverable
         style={{ width: 340 }}
-        cover={<img alt="example" src={props.image} style={{height:200}} />}
+        cover={<img alt="Tour" src={props.image} style={{height:200}}  />}
     >
         <div>
             <h5 className='fw-600'>

@@ -45,7 +45,7 @@ const MyOffers = (props) => {
               <div className="container wh-txt" style={{backgroundColor:"rgb(6, 150, 172)"}}>
                 <Row>
                   <Col md={1} xs={3} style={{paddingTop:12}}>
-                    <img src={'/icons/voucher.png'} className='filter' height={size.width>400?40:30} />
+                    <img src={'/icons/voucher.png'} className='filter' height={size.width>400?40:30} alt='Voucher' />
                   </Col>
                   <Col md={10} xs={8} className={`${size.width>400?"mx-3":"mx-0 px-0"}`}>
                   <h3 className='mt-3'><b>{x.Promo.name}</b></h3> 

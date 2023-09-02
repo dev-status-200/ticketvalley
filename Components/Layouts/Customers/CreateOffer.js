@@ -79,7 +79,7 @@ const CreateOffer = ({content, setContent, records, promos}) => {
           setCustomRecords(tempRecords);
       }}>
         <td className='fs-16 pt-3' style={{maxWidth:30}}>
-            <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40} />
+            <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40}  alt="Offer"/>
         </td>
         <td>
           <span className='mx-2'>{x.name}</span><br/>

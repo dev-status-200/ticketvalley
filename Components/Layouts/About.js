@@ -29,7 +29,7 @@ const About = () => {
             </div>
             </div>
             <span className="navLink">
-                <img src={'/images/logo.png'} height={100} />
+                <img src={'/images/logo.png'} height={100} alt="Logo" />
             </span>
             <div className='dropdown  mx-2'>
                 <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -73,7 +73,7 @@ const About = () => {
                 </Col>
                 <Col md={5} className='py-1' xs={12}>
                     <div style={{float:'right'}}>
-                        <img src={'images/why-us.png'} style={{width:size.width>400?'32vw':320}} />
+                        <img src={'images/why-us.png'} style={{width:size.width>400?'32vw':320}} alt="Why Us" />
                     </div>
                 </Col>
             </Row>
@@ -85,17 +85,17 @@ const About = () => {
             <Container className='my-5 py-1'>
                 <Row>
                     <Col className='text-center px-5 mx-0'>
-                        <img src={'/other-assets/home-1.png'} height={130} />
+                        <img src={'/other-assets/home-1.png'} height={130} alt="EXPERIENCE" />
                         <h4 className='fw-700 my-3 lt-blue-txt'>20 YEARS EXPERIENCES</h4>
                         <p className='black-txt fw-500 fs-18' >Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
                     </Col>
                     <Col className='text-center px-5 mx-0'>
-                        <img src={'/other-assets/home-3.png'} height={130} />
+                        <img src={'/other-assets/home-3.png'} height={130} alt="MOST COMPLETED MAP" />
                         <h4 className='fw-700 my-3 lt-blue-txt'>MOST COMPLETED MAP</h4>
                         <p className='black-txt fw-500 fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
                     </Col>
                     <Col className='text-center px-5 mx-0'>
-                        <img src={'/other-assets/home-2.png'} height={130} />
+                        <img src={'/other-assets/home-2.png'} height={130} alt="PACKING ADVISE" />
                         <h4 className='fw-700 my-3 lt-blue-txt'>PACKING ADVISE</h4>
                         <p className='black-txt fw-500 fs-18'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated.</p>
                     </Col>
@@ -109,7 +109,7 @@ const About = () => {
             <Row  data-aos='fade-up'>
                 {size.width>400 && <Col md={6} className='py-1'>
                     <div className='px-5'>
-                        <img src={'images/about-us.png'} style={{width:'33vw'}} />
+                        <img src={'images/about-us.png'} style={{width:'33vw'}} alt="About Us" />
                     </div>
                 </Col>}
                 <Col className='grey-txt' md={6}>
@@ -157,7 +157,7 @@ const About = () => {
                 </Col>
                 <Col md={5} xs={12} className='py-1'>
                     <div style={{float:'right'}}>
-                        <img src={'images/about-us-1a.png'} style={{width:size.width>400? '32vw':320}} />
+                        <img src={'images/about-us-1a.png'} style={{width:size.width>400? '32vw':320}}  alt="About Us" />
                     </div>
                 </Col>
             </Row>
@@ -215,7 +215,7 @@ const About = () => {
                     {size.width>400 &&
                      <Col md={5} className='py-1'>
                         <div style={{float:'right'}}>
-                            <img src={'images/uae-about-us.PNG'} style={{width:'32vw'}} />
+                            <img src={'images/uae-about-us.PNG'} style={{width:'32vw'}}  alt="About Us" />
                         </div>
                     </Col>}
                 </Row>

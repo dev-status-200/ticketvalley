@@ -155,7 +155,7 @@ const Product = ({tourData, id}) => {
             </div>
           </div>
           <span className="navLink">
-            <img src={'/images/logo.png'} height={100} />
+            <img src={'/images/logo.png'} height={100}  alt="Logo" />
           </span>
           <div className='dropdown mx-2'>
             <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -234,7 +234,7 @@ const Product = ({tourData, id}) => {
                 return(
                 <Row key={i}>
                     <Col md={1}>
-                        <img src={x['BookedToursOptions.BookedTour.Customer.image']} height={50} width={50} style={{borderRadius:'100%'}} />
+                        <img src={x['BookedToursOptions.BookedTour.Customer.image']} height={50} width={50} style={{borderRadius:'100%'}} alt="Tour"/>
                     </Col>
                     <Col md={11} style={{backgroundColor:'white'}}>
                         <div style={{fontSize:16, display:'inline-block'}}>{x['BookedToursOptions.BookedTour.Customer.name']}</div>

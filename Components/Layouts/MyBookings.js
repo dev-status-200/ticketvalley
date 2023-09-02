@@ -54,7 +54,7 @@ const MyBookings = () => {
             </div>
             </div>
             <span className="navLink">
-                <img src={'/images/logo.png'} height={100} />
+                <img src={'/images/logo.png'} height={100}  alt="Logo" />
             </span>
             <div className='dropdown  mx-2'>
                 <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -117,7 +117,7 @@ const MyBookings = () => {
                             </div>    
                             </Col>
                             <Col style={{textAlign:'end'}} xs={6}>
-                            <img src={'/icons/reservation.png'} height={size.width>400? 90: 50} />
+                            <img src={'/icons/reservation.png'} height={size.width>400? 90: 50}  alt="reservation"/>
                             
                             <div style={{color:'#2b55bf'}} className='mt-3'>Click To View Tickets{">"}</div>
                             </Col>

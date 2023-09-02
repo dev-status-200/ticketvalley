@@ -9,7 +9,7 @@ const ImageUpload = ({state, setValues, dispatch}) => {
     <Row>
       <Col md={12}>
           <p className=''><strong>Upload Cover Image</strong></p>
-          {!state.main_image &&<>{state.edit && <img src={state.selectedRecord.main_image} className="mb-2" height={120} />}<br/></>}
+          {!state.main_image &&<>{state.edit && <img src={state.selectedRecord.main_image} className="mb-2" height={120} alt="Tour" />}<br/></>}
           <input type="file" 
           onChange={(e) => {
               setValues(e.target.files[0], 'main_image')
@@ -19,7 +19,7 @@ const ImageUpload = ({state, setValues, dispatch}) => {
           <br/>
           {state.show_image!="" &&
           <div style={{border:'1px solid grey', textAlign:'center', paddingTop:10, paddingBottom:10}}>
-              <img src={state.show_image} height={120} />
+              <img src={state.show_image} height={120} alt="Image" />
           </div>
           }
       </Col>
@@ -39,7 +39,7 @@ const ImageUpload = ({state, setValues, dispatch}) => {
                 }}>
                     <div className='img-box'>
                         <CloseCircleOutlined className="img-cross" />
-                        <img src={x} height={100} width={200} />
+                        <img src={x} height={100} width={200} alt="Tour" />
                     </div>
                 </Col>
                 )
@@ -66,7 +66,7 @@ const ImageUpload = ({state, setValues, dispatch}) => {
               {state.show_images.length>0 &&
                   state.show_images.map((x, i)=>{
                       return(
-                          <img src={x} height={100} className="m-1 " />
+                          <img src={x} height={100} className="m-1 " alt="Image" />
                       )
                   })
               }

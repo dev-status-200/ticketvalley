@@ -16,33 +16,33 @@ const CircleIcons = () => {
             <Col md={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Theme Parks' }}}
                 style={{textDecoration:"none", color:'black'}}
-            ><img src={"/icons/new-circle (4).png"}  height={height} width={width} style={imgStyle} /> Theme Parks
+            ><img src={"/icons/new-circle (4).png"}  height={height} width={width} style={imgStyle} alt='Theme Parks' /> Theme Parks
             </Link>
             </Col>
             <Col md={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}}
                 style={{textDecoration:"none", color:'black'}}
-            ><img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} /> Water Parks
+            ><img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} alt='Water Parks' /> Water Parks
             </Link>
             </Col>
             <Col md={2}  className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Adventure' }}}
                 style={{textDecoration:"none", color:'black'}}
-            ><img src={"/icons/new-circle (1).png"}  height={height} width={width} style={imgStyle} /> Adventure
+            ><img src={"/icons/new-circle (1).png"}  height={height} width={width} style={imgStyle} alt='Adventure' /> Adventure
 
             </Link>
             </Col>
             <Col md={2}  className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'City Tours' }}}
                 style={{textDecoration:"none", color:'black'}}
-            ><img src={"/icons/new-circle (2).png"}  height={height} width={width} style={imgStyle} /> City Tours
+            ><img src={"/icons/new-circle (2).png"}  height={height} width={width} style={imgStyle} alt='City Tours' /> City Tours
 
             </Link>
             </Col>
             <Col md={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Luxury Tours' }}}
                 style={{textDecoration:"none", color:'black'}}
-            ><img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} /> Luxury Tours
+            ><img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} alt='Luxury Tours' /> Luxury Tours
             </Link>
             </Col>
             <Col md={1}></Col>
