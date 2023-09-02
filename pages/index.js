@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from '/Components/Layouts/Home';
+import axios from 'axios';
 
 const index = () => {
   return (
