@@ -10,32 +10,33 @@ const Home = () => {
   const [combos, setCombos] = useState([])
 
   useEffect(() => {
-      getData();
+    //getData();
   }, [])
 
   const getData = async() => {
-        await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-          headers:{ "category": "Best Selling" }
-        }).then((x)=>{
-          setBestSelling(x.data.result);
-          axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-              headers:{ "category": "Adventure Tours" }
-            }).then((x)=>{
-              setAdventures(x.data.result);
-              axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
-                  headers:{ "category": "Combo Tours" }
-                }).then((x)=>setCombos(x.data.result))
-          })
+    await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+      headers:{ "category": "Best Selling" }
+    }).then((x)=>{
+      setBestSelling(x.data.result);
+      axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+        headers:{ "category": "Adventure Tours" }
+      }).then((x)=>{
+        setAdventures(x.data.result);
+        axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
+          headers:{ "category": "Combo Tours" }
+        }).then((x)=>setCombos(x.data.result))
       })
+    })
   }
+
   return (
     <div className=''>
-    <div className="desktop" >
+      <div className="desktop" >
         <Desktop bestSelling={bestSelling} adventures={adventures} combos={combos} />
-    </div>
-    <div className="mobile" >
+      </div>
+      <div className="mobile" >
         <Mobile bestSelling={bestSelling} adventures={adventures} combos={combos} />
-    </div>
+      </div>
     </div>
   )
 }

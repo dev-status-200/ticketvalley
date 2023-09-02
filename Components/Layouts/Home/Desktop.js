@@ -111,7 +111,7 @@ const Desktop = ({combos, adventures, bestSelling}) => {
                     disableOnInteraction: false,
                 }}
             >
-                {combos.map((x, i)=>{
+                {combos?.map((x, i)=>{
                     return(
                         <SwiperSlide className='' key={i}>
                             <TourCardOne tour={x} height={220} info={true} font={18} />
