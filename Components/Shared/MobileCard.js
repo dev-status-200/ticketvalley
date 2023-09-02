@@ -20,7 +20,7 @@ const MobileCard = ({tour, height, info, font}) => {
             }
         }}
     >
-        <img src={tour.main_image} className="filter" style={{width:'100%', height:height}} />
+        <img src={tour.main_image} className="filter" style={{width:'100%', height:height}} alt='Tour' />
         <div className='p-2'>
         {!info &&
         <div className='overlay-text'>
