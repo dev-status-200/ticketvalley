@@ -512,11 +512,11 @@ body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content
 }
 
 .full-overlay-line{
-  position: absolute;
   background-color: white;
   height: 1px;
-  width: 300px;
+  width: 100%;
   margin-top: 3px;
+  margin-bottom: 2px;
 }
 
 .hover-shadow{

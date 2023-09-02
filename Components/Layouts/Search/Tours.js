@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IoLocation } from "react-icons/io5";
 import { Rate} from 'antd';
 import { Row, Col } from 'react-bootstrap';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ConfigProvider, Input } from 'antd';
 
@@ -41,9 +41,9 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
             })
             .slice(0, index*9).map((x, i)=>{
             return(
-            <Col md={4} xs={6} className={`px-${size.width>400?"1":"0"} search-tour-box`} key={i}>
+            <Col md={4} xs={6} className={`px-${size.width>400?"1":"0"} search-tour-box`} key={i} onClick={()=>Router.push(`/product/${x.id}`)}>
                 <div className={`search-box-container mx-1`}>
-                <img className='search-box-img filter-2' src={x.main_image} height={size.width>400?150:80} width={"100%"} alt="Tour" />
+                <img className='search-box-img filter-2' src={x.main_image} height={size.width>400?150:80} width={"100%"} />
                 <div className='px-2 search-bob-bottom'>
                     <div className={`fs-${size.width>400?"15":"12"} py-1`} style={size.width>400?{}:{minHeight:44}}>
                         {size.width>400?
@@ -72,11 +72,11 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
                     </div>
                     <br/>
                     <div className='text-center'>
-                    <Link href={`/product/${x.id}`} 
+                    <div 
                         className='search-box-btn py-1' 
                         style={{textDecoration:'none', color:'white', paddingLeft:"22%", paddingRight:"22%"}}
                         //onClick={()=>router.push(`/product/${x.id}`)}
-                    >BOOK NOW</Link>
+                    >BOOK NOW</div>
                     </div>
                     </div>
                     }

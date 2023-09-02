@@ -37,7 +37,7 @@ const Search = ({destination, city, date, category, tourData}) => {
 
   const setRange = (gottenPrice, cat) => {
     let tempTours = [];
-    tourData.result.forEach((x)=>{
+    tourData?.result?.forEach((x)=>{
       if(parseFloat(gottenPrice) >= parseFloat(x.TourOptions[0]?.adult_price)){
         if(cat!=''){
           if(x.category==cat){
