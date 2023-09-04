@@ -254,7 +254,7 @@ const Product = ({tourData, id}) => {
         {Object.keys(detail).length>0 &&
         <Container fluid="true">
           <Row className='mt-5'>
-            <Col md={6} className='px-0 policies-box' style={{borderRight:'2px solid white'}}>
+            <Col md={6} className='px-2 policies-box' style={{borderRight:'2px solid white'}}>
             <div className='pb-4'>
             <h3 className='my-3 wh-txt text-center'><b>Booking Policies</b></h3>
             {
@@ -271,7 +271,7 @@ const Product = ({tourData, id}) => {
             }
             </div>
             </Col>
-            <Col md={6} className='px-0 policies-box' style={{borderRight:'2px solid white'}}>
+            <Col md={6} className='px-2 policies-box' style={{borderRight:'2px solid white'}}>
             <div className='pb-4'>
             <h3 className='my-3 wh-txt text-center'><b>Cancellation Policies</b></h3>
             {

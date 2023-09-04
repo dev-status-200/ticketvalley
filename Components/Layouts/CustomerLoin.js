@@ -26,9 +26,8 @@ const CustomerLoin = ({providers, signIn}) => {
       <Image src={'/images/logo.png'} className={`${size.width>400?"mb-5":"my-5"}`} width={200} height={75} alt="Image" />
       <div className={`container-custom ${size.width>400?"":"px-3"}`}>
       <div className='login-box'>
-      <h1 className='text-center my-3 signup'></h1>
-      Login To continue using <b>ticketsvalley</b>
-      <div className='my-4 py-2'></div>
+      <h3 className='text-center mt-5 signup'>Sign-in</h3>
+      <div className='mb-4 py-2'></div>
           {Object.values(providers).map((provider) => (
             <div key={provider.name}>
             <button className='google-btn' 
@@ -42,7 +41,9 @@ const CustomerLoin = ({providers, signIn}) => {
       </div>
       </div>
     </div>
-    <div className='text-center fs-15'>COPYRIGHT 2022 TICKETSVALLEY ALL RIGHT RESERVED</div>
+      <div className='text-center fs-15' style={{position:'absolute', bottom:30, width:'100%'}}>
+        <div>COPYRIGHT 2023 TICKETSVALLEY ALL RIGHT RESERVED</div>
+      </div>
     </div>
     </div>
     }

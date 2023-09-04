@@ -28,7 +28,7 @@ const Images = ({tour, detail}) => {
         <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> 
         {tour.destination?.toUpperCase()}, {tour.city}
       <img className='my-3' src={mainImage} 
-        style={{borderRadius:size.width<400?10:23, width:'100%', height:size.width<400?220:"100%"}}  alt="Tour"
+        style={{borderRadius:size.width<400?10:23, width:'100%'}}  alt="Tour"
       />
       <Row className={`${size.width<400?"px-2":""}`}>
         {images.map((x, i)=>{

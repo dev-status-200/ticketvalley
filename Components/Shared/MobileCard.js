@@ -14,12 +14,7 @@ const MobileCard = ({tour, height, info, font}) => {
   return (
     <div className='hover-shadow' 
         style={{backgroundColor:'#29717c'}}
-        onClick={()=>{
-            if(!info){
-                router.push(`/product/${tour.id}`)
-            }
-        }}
-    >
+        onClick={()=>router.push(`/product/${tour.id}`)}>
         <img src={tour.main_image} className="filter" style={{width:'100%', height:height}} alt='Tour' />
         <div className='p-2'>
         {!info &&

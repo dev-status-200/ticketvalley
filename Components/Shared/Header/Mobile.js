@@ -108,7 +108,7 @@ function OffCanvasExample({ name, ...props }) {
         {load &&<>
           <div className='text-center' style={{paddingTop:'70%', color:'white'}} >
             <Spinner size='lg' />
-            <p style={{margin:15, fontSize:22}}>Logging you in please Wait...</p>
+            <p style={{margin:15, fontSize:22}}>Please Wait...</p>
           </div>
         </>}
       </Offcanvas.Body>

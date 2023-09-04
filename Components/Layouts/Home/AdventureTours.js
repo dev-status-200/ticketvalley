@@ -55,7 +55,7 @@ const AdventureTours = () => {
                 {adventures?.map((x, i)=>{
                     return(
                     <SwiperSlide className='' key={i}>
-                        <MobileCard tour={x} height={110} info={true} font={12  } />
+                        <MobileCard tour={x} height={110} info={true} font={12} />
                     </SwiperSlide>
                     )})}
             </Swiper>
