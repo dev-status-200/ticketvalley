@@ -62,8 +62,7 @@ const Inventory = ({inventoryData}) => {
             <button className={`btn-custom ${upload?"":"curr-off"}`} disabled={!upload==true?true:false} onClick={()=>uploadData()}>Upload</button>
         </Col>
         <Col md={1} className='py-1'>
-        <CSVReader
-            cssClass="csv-reader-input"
+        <CSVReader cssClass="csv-reader-input"
             onFileLoaded={CreateInventory}
             onError={(e)=>console.log(e)}
             parserOptions={papaparseOptions}
@@ -87,7 +86,7 @@ const Inventory = ({inventoryData}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {inventories.map((x, index) => {
+                {inventories?.map((x, index) => {
                 return (
                 <tr key={index} className=' '>
                     <td className='py-4 px-1'>{index+1} </td>
