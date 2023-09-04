@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
 import { CgMenuLeft } from "react-icons/cg";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { HiShoppingCart } from "react-icons/hi";
-import { FaUser } from "react-icons/fa6";
-import { SiFacebook, SiInstagram, SiTwitter } from "react-icons/si";
-import { AiOutlineUser } from "react-icons/ai";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Cookies from "js-cookie";
@@ -21,15 +18,16 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import MyOffers from "/Components/Shared/MyOffers"
 
 function OffCanvasExample({ name, ...props }) {
+
+  const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => !load?setShow(false):null;
   const toggleShow = () => setShow((s) => !s);
   const navStyles = {color:'white', textDecoration:'none', fontSize:30}
   
   const {data:session} = useSession();
   const router = useRouter();
-  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
 
   const [showOffers, setShowOffers] = useState(false);
@@ -48,6 +46,7 @@ function OffCanvasExample({ name, ...props }) {
         </Col>
     </Row>
     </Container>
+
     <Container>
       <Row className='py-2'>
         <Col xs={3} className='text-start'>
@@ -64,46 +63,57 @@ function OffCanvasExample({ name, ...props }) {
         </Col>
       </Row>
     </Container>
+
     <Offcanvas show={show} onHide={handleClose} {...props} >
       <Offcanvas.Header closeButton style={{backgroundColor:'#21a69b'}}>
-        <Offcanvas.Title></Offcanvas.Title>
+        <Offcanvas.Title style={{color:'white'}}>Menu</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body style={{backgroundColor:'#21a69b'}}>
-        <div className='text-center navBar'>
-          <div className='mt-3'></div>
-          <Link style={navStyles} href='/' >Home</Link><br/><br/>
-          <Link style={navStyles} href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}} >Activities</Link><br/><br/>
-          <Link style={navStyles} href='/about' >About</Link><br/><br/>
-          {!session &&
-            <span className='cur mx-2' style={navStyles}
-                onClick={()=>{
-                    // This Logic sets the redirected URL to get back to this page
-                    if(Object.keys(router.query).length>0){ 
+        {!load &&<>
+          <div className='text-center navBar'>
+            <div className='mt-3'></div>
+            <Link style={navStyles} href='/' >Home</Link><br/><br/>
+            <Link style={navStyles} href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}} >Activities</Link><br/><br/>
+            <Link style={navStyles} href='/about' >About</Link><br/><br/>
+            {!session &&
+              <span className='cur mx-2' style={navStyles}
+                  onClick={()=>{
+                      //This Logic sets the redirected URL to get back to this page
+                      setLoad(true);
+                      if(Object.keys(router.query).length>0){
                         Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
-                    }
-                    else { 
-                          Cookies.set("redirect",`${router.pathname}`) 
-                    }
-                    signIn();
-                }}
-            >My Login</span>
-          }
-          {session &&
-            <>
-            <div style={navStyles} onClick={()=>router.push('/myBookings')}>
-                My Bookings
-            </div><br/>
-            <div style={navStyles} onClick={async()=>{ await handleClose(); setShowOffers(true)}}>
-                My Offers
-            </div><br/>
-            <div style={navStyles} onClick={()=>signOut()}>
-                Logout
-            </div>
-            </>
-          }
-        </div>
+                      }
+                      else {
+                        Cookies.set("redirect",`${router.pathname}`) 
+                      }
+                      signIn();
+                  }}
+              >My Login</span>
+            }
+            {session &&
+              <>
+              <div style={navStyles} onClick={()=>router.push('/myBookings')}>
+                  My Bookings
+              </div><br/>
+              <div style={navStyles} onClick={async()=>{ await handleClose(); setShowOffers(true)}}>
+                  My Offers
+              </div><br/>
+              <div style={navStyles} onClick={()=>{setLoad(true); signOut()}}>
+                  Logout
+              </div>
+              </>
+            }
+          </div>
+        </>}
+        {load &&<>
+          <div className='text-center' style={{paddingTop:'70%', color:'white'}} >
+            <Spinner size='lg' />
+            <p style={{margin:15, fontSize:22}}>Logging you in please Wait...</p>
+          </div>
+        </>}
       </Offcanvas.Body>
     </Offcanvas>
+
     <hr className='p-0 m-0' />
     {showOffers &&  <>
       <Modal title="My Offers" 
@@ -123,7 +133,7 @@ function OffCanvasExample({ name, ...props }) {
 export default function Mobile() {
   return (
     <>
-    <OffCanvasExample scroll={false} backdrop={true} />
+      <OffCanvasExample scroll={false} backdrop={true} />
     </>
   );
 }
