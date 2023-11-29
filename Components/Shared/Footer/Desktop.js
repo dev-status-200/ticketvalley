@@ -4,6 +4,7 @@ import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
 import { FacebookOutlined, InstagramOutlined, TwitterOutlined } from "@ant-design/icons"
 import { MdEmail } from "react-icons/md";
 import Router from 'next/router';
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const Desktop = () => {
   return (
@@ -29,7 +30,7 @@ const Desktop = () => {
                         <div className='heading'>Social</div>
                         <FacebookOutlined className='mt-5 wh-txt cur fs-18' />
                         <InstagramOutlined className='mt-5 wh-txt mx-3 cur fs-18' />
-                        <TwitterOutlined className='mt-5 wh-txt cur fs-18' />
+                        <FaSquareXTwitter style={{marginTop:2}} className=' wh-txt cur fs-18' />
                     </Col>
                     <Col className='px-3'>
                         <div className='heading'>PAY SAFELY WITH US</div>

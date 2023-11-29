@@ -15,7 +15,8 @@ import { Dropdown, Popover, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCurrency, changeCurrency } from '/redux/currency/currencySlice';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import MyOffers from "/Components/Shared/MyOffers"
+import MyOffers from "/Components/Shared/MyOffers";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const Header = () => {
  
@@ -77,9 +78,9 @@ const Header = () => {
                     </Popover>
                     <span className='cur mx-1'onClick={()=>router.push("/cart")}>{"("} {cart.length} {")"} <HiShoppingCart size={15} className='blue-txt' /></span>
                     <span className='mx-2'> | </span>
-                    <span className='cur mx-1' style={{color:'#2b67b6'}}><SiFacebook/></span>
-                    <span className='cur mx-1' style={{color:'#e425b4'}}><SiInstagram/></span>
-                    <span className='cur mx-1' style={{color:'#25a1e4'}}><SiTwitter/></span>
+                    <a className='cur mx-1' href='https://m.facebook.com/ticketsvalley/?locale=hi_IN' target='_blank' style={{color:'#2b67b6'}}><SiFacebook/></a>
+                    <a className='cur mx-1' style={{color:'#e425b4'}}><img src={'/icons/insta.png'} height={12} /></a>
+                    <a className='cur mx-1' style={{color:'grey'}}><FaSquareXTwitter size={13} /></a>
                     {!session &&
                     <span className='cur mx-2' style={{position:'relative', top:2}}
                         onClick={()=>{

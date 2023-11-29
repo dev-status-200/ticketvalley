@@ -4,6 +4,12 @@ import { IoLocationSharp } from "react-icons/io5";
 import { Rate } from 'antd';
 import useWindowSize from '/functions/useWindowSize';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
+
+import 'swiper/css/pagination';
+import 'swiper/css';
+
 const Images = ({tour, detail}) => {
 
   const [images, setImages] = useState([]);
@@ -27,15 +33,22 @@ const Images = ({tour, detail}) => {
       <span className='mx-2 fs-12' style={{color:'grey'}}>{"("}3 Reviews{")"}</span> 
         <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> 
         {tour.destination?.toUpperCase()}, {tour.city}
-      <img className='my-3' src={mainImage} 
-        style={{borderRadius:size.width<400?10:23, width:'100%'}}  alt="Tour"
-      />
-      <Row className={`${size.width<400?"px-2":""}`}>
+        {/* <img className='my-3' src={mainImage} 
+          style={{borderRadius:size.width<400?10:23, width:'100%'}}  alt="Tour"
+        /> */}
+        <div className='mt-2'></div>
+        <Swiper pagination={true} modules={[Pagination]} spaceBetween={30}>
+          {images.map((x)=>{
+            return(
+              <SwiperSlide ke={x}><img src={x} style={{borderRadius:18}} /></SwiperSlide>
+          )})}
+        </Swiper>
+      <Row className={`${size.width<400?"px-2":"mt-3"}`}>
         {images.map((x, i)=>{
           return(
-            <Col key={i} md={3} xs={3} onClick={()=>setMainImage(x)} className={`${size.width<400?"p-0 px-1":""}`}>
-              <img src={x} className='img-hover' 
-                style={{width:'100%', borderRadius:size.width<400?10:20, height:size.width<400?50:100}} 
+            <Col key={i} md={2} xs={2} onClick={()=>setMainImage(x)} className={`${size.width<400?"p-0 px-1":""}`}>
+              <img src={x} className='' 
+                style={{width:'100%', borderRadius:size.width<400?8:15, height:size.width<400?50:70}} 
                 alt="Tour"  
               />
             </Col>
@@ -46,3 +59,26 @@ const Images = ({tour, detail}) => {
   )
 }
 export default Images
+
+// import React, { useRef, useState } from 'react';
+// // Import Swiper React components
+// import { Swiper, SwiperSlide } from 'swiper/react';
+
+// import 'swiper/css/pagination';
+// import 'swiper/css';
+
+// export default function App({tour, detail}) {
+//   return (
+//     <>
+//       <Swiper pagination={true} className="mySwiper">
+//         {
+//           detail.more_images.split(",").map((x)=>{
+//             return(
+//               <SwiperSlide ke={x}><img src={x} /></SwiperSlide>
+//             )
+//           })
+//         }
+//       </Swiper>
+//     </>
+//   );
+// }
