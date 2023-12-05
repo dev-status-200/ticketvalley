@@ -1,0 +1,41 @@
+.bar-styles{
+    .barz{
+        border: 1px solid rgba(192, 192, 192, 0.366);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: white;
+        border-radius: 5px;
+        width: 13%;
+        box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);
+        margin: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    .barz-mobile{
+        border: 1px solid rgba(192, 192, 192, 0.366);
+        padding-top: 15px;
+        background-color: white;
+        height: 50px;
+        margin: 10px;
+        border-radius: 100%;
+        box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);
+        text-align: center;
+    }
+    .barz:hover{
+        transition-duration: 300ms;
+        background-color: rgb(211, 255, 240);
+    }
+    .barz-icon{
+
+    }
+    .barz-end{
+        text-align: end;
+    }
+    .barz-name{
+        text-align: center;
+    }
+}

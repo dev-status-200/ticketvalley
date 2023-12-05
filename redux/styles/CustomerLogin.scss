@@ -1,0 +1,38 @@
+.bg-login{
+    background-color: rgb(239, 239, 239);
+    height: 100vh;
+}
+.customer-login{
+    .cont{
+        height: 90vh;
+        padding-top: 5%;
+    }
+    .container-custom{
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .signup{
+        color: rgb(79, 79, 97);
+    }
+    .login-box{
+        border-radius: 5px;
+        background-color: white;
+        border: 1px solid grey;
+        padding: 0px 60px 0px 60px;
+    }
+    .google-btn{
+        border: 1px solid grey;
+        background-color: white;
+        border-radius: 5px;
+
+        box-shadow: 0px 1px 5px -1px rgba(0,0,0,0.55);
+        -webkit-box-shadow: 0px 1px 5px -1px rgba(0,0,0,0.55);
+        -moz-box-shadow: 0px 1px 5px -1px rgba(0,0,0,0.55);
+    }
+    .privacy-text{
+        color:grey;
+        font-size: 13px;
+    }
+}

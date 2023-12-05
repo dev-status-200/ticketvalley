@@ -1,0 +1,35 @@
+.cart-styles{
+    .cont{
+        background-color: rgb(237, 244, 254);
+        min-height: 50vh;
+    }
+    .cart-box{
+        border: 2px solid white;
+        background-color: white;
+        
+    }
+    .cart-item{
+        margin-bottom: 5px;
+        border-radius: 5px;
+        border: 1px solid rgb(210, 210, 210);
+    }
+    .close-cart-btn{
+        color:grey;
+        font-size: 20px;
+        margin-left: 20px;
+        position: relative;
+        bottom: 2px;
+    }
+    .close-cart-btn:hover{
+        border-radius: 100%;
+        transition-duration: 100ms;
+        color: rgb(159, 40, 40);
+    }
+    .pay-screen{
+        border-left: 2px solid rgb(222, 222, 222);
+    }
+
+    .cart-item-name{
+        color: rgb(16, 125, 125);
+    }
+}

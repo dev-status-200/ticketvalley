@@ -1,0 +1,25 @@
+.my-offers{
+      .coupon {
+        border: 3px dotted #bbb;
+        width: 100%;
+        border-radius: 15px;
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 2px;
+      }
+      
+      .container {
+        padding: 2px 16px;
+        border-radius: 11px 11px 0px 0px;
+        background-color: #f1f1f1;
+      }
+      
+      .promo {
+        background: #ccc;
+        padding: 0px 3px;
+      }
+      
+      .expire {
+        color: red;
+      }
+}

@@ -1,0 +1,8 @@
+@media screen and (max-width: 800px) {
+    .desktop{ display: none; }
+    .mobile{ display: block; }
+  }
+  @media screen and (min-width: 801px) {
+    .desktop{ display: block; }
+    .mobile{ display: none; }
+  }

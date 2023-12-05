@@ -1,0 +1,106 @@
+.search-bar{
+    .bar-bg{        
+        padding: 5px 15px;
+        background-color: rgba(0, 0, 0, 0.253);
+        border: 1px solid rgb(178, 205, 70);
+    }
+    input[type=text] {
+        height: 50px;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+        color: rgb(143, 143, 143);
+    }
+    
+    input[type=date]:focus {
+        border: 3px solid #919191;
+    }   
+    .date-search-box {
+        height: 50px;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 3px solid #d0d0d0;
+        border-left: none;
+        -webkit-transition: 0.5s;
+        border-radius: 0px;
+        transition: 0.5s;
+        outline: none;
+    }
+      
+    .date-search-box[type=date]:focus {
+        border: 3px solid #919191;
+    }
+    .search-btn{
+        background-color: rgb(25, 125, 125);
+        height: 50px;
+        width: 100%;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 3px solid rgb(25, 125, 125);
+        border-left: none;
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .search-btn:hover{
+        transition-duration: 200ms;
+        background-color: rgb(14, 78, 78);
+        box-sizing: border-box;
+        border: 3px solid rgb(14, 78, 78);
+        border-left: none;
+    }
+    .dropshow{
+        transition-duration: 200ms;
+        z-index: 20;
+        background-color: white;
+        border: 1px solid rgb(232, 232, 232);
+        //border-radius: 8px;
+        position: absolute;
+        width: 34%;
+        text-align: left;
+        padding: 10px;
+
+        box-shadow: 2px 2px 20px -1px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 2px 2px 20px -1px rgba(0,0,0,0.5);
+        -moz-box-shadow: 2px 2px 20px -1px rgba(0,0,0,0.5);
+    }
+    .dropshow-hidden{
+        transition-duration: 200ms;
+        display: none;
+    }
+    .dropdown-cont{
+        transition-duration: 300ms;
+    }
+    .country-opt{
+        transition-duration: 200ms;
+        letter-spacing: 0.001px;
+        cursor: pointer;
+        //padding-top: 5px;
+        font-weight: 600;
+        font-size: 12px;
+        margin-bottom: 8px;
+        color: silver;
+    }
+    .country-opt:hover{
+        color: rgb(10, 105, 92);
+    }
+    .dropdown-img{
+        transition-duration: 200ms;
+        cursor: pointer;
+        filter: brightness(50%);
+        color: white!important;
+        //border-radius: 8px;
+    }
+    .dropdown-cont:hover > .dropdown-img{
+        transition-duration: 200ms;
+        color: white!important;
+        filter: brightness(80%);
+    }
+}
