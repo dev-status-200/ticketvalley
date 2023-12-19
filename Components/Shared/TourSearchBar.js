@@ -108,4 +108,4 @@ const TourSearchBar = () => {
   )
 }
 
-export default TourSearchBar
+export default React.memo(TourSearchBar)

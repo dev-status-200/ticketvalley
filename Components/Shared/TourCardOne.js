@@ -14,7 +14,7 @@ const TourCardOne = ({tour, height, info, font}) => {
     <div className='hover-shadow'
         onClick={()=>{
             if(!info){
-                router.push(`/product/${tour.id}`)
+                router.push(`/product?id=${tour.id}`)
             }
         }}
     >
@@ -55,7 +55,7 @@ const TourCardOne = ({tour, height, info, font}) => {
                 <h4 style={{color:'white'}}>{(tour.TourOptions[0].adult_price*conversion.rate).toFixed(2)} {conversion.currency}</h4>
             </div>
             <div style={{float:'right'}}>
-                <button className='custom-btn-02' onClick={()=>router.push(`/product/${tour.id}`)}>
+                <button className='custom-btn-02' onClick={()=>router.push(`/product?id=${tour.id}`)}>
                     BOOK NOW
                 </button>
             </div>
@@ -65,4 +65,4 @@ const TourCardOne = ({tour, height, info, font}) => {
   )
 }
 
-export default TourCardOne
+export default React.memo(TourCardOne)

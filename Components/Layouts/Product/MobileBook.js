@@ -289,4 +289,4 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
     </>
   )
 }
-export default MobileBook
+export default React.memo(MobileBook)

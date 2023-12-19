@@ -57,4 +57,4 @@ const BestSelling = () => {
   )
 }
 
-export default BestSelling
+export default React.memo(BestSelling)

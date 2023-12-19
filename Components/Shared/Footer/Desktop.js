@@ -1,10 +1,10 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
-import { FacebookOutlined, InstagramOutlined, TwitterOutlined } from "@ant-design/icons"
+import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Router from 'next/router';
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Desktop = () => {
   return (
@@ -27,10 +27,11 @@ const Desktop = () => {
                         <p className='mt-5 wh-txt cur' onClick={()=>Router.push("/about")}>Our Story</p>
                     </Col>
                     <Col className='px-3'>
-                        <div className='heading'>Social</div>
-                        <FacebookOutlined className='mt-5 wh-txt cur fs-18' />
-                        <InstagramOutlined className='mt-5 wh-txt mx-3 cur fs-18' />
-                        <FaSquareXTwitter style={{marginTop:2}} className=' wh-txt cur fs-18' />
+                        <div className='heading mb-5'>Social</div>
+                        <FaFacebook className='wh-txt mx-2 cur fs-18' />
+                        <FaInstagram className='wh-txt mx-2 cur fs-18' />
+                        <FaSquareXTwitter className='wh-txt mx-2 cur fs-18' />
+                        <FaLinkedin className='wh-txt mx-2 cur fs-18' />
                     </Col>
                     <Col className='px-3'>
                         <div className='heading'>PAY SAFELY WITH US</div>

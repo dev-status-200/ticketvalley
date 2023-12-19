@@ -299,4 +299,4 @@ const Book = ({tour, transport, category, setOpen}) => {
     </>
   )
 }
-export default Book
+export default React.memo(Book)

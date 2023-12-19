@@ -65,4 +65,4 @@ const AdventureTours = () => {
   )
 }
 
-export default AdventureTours
+export default React.memo(AdventureTours)

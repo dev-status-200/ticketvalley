@@ -66,4 +66,4 @@ const Combos = () => {
   )
 }
 
-export default Combos
+export default React.memo(Combos)

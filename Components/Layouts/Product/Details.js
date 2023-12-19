@@ -75,4 +75,4 @@ const Details = ({tour, detail}) => {
     </>
   )
 }
-export default Details
+export default React.memo(Details)

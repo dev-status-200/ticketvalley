@@ -10,22 +10,27 @@ import { FaShuttleVan } from "react-icons/fa";
 import { IoFlashSharp } from "react-icons/io5";
 import { RiExchangeFundsLine } from "react-icons/ri";
 import { TbArrowBackUp } from "react-icons/tb";
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Aos from 'aos';
 import Book from './Book';
 import MobileBook from './MobileBook';
 import { useSelector } from 'react-redux';
-import Details from './Details';
-import NavLinks from '../../Shared/NavLinks';
 import { TbPoint } from "react-icons/tb";
 import axios from 'axios';
 import moment from 'moment';
 import Loader from '../../Shared/Loader';
 import useWindowSize from '/functions/useWindowSize';
-import Images from './Images';
+import { lazy } from 'react';
+const Details = lazy(() => import('./Details'));
+const NavLinks = lazy(() => import('../../Shared/NavLinks'));
+const Images = lazy(() => import('./Images.js'));
+// import Details from './Details';
+// import NavLinks from '../../Shared/NavLinks';
+// import Images from './Images';
 
-const Product = ({tourData, id}) => {
+const Product = () => {
 
+  const router = useRouter();
   const cart = useSelector((state) => state.cart.value);
   const conversion = useSelector((state) => state.currency.conversion);
 
@@ -44,37 +49,60 @@ const Product = ({tourData, id}) => {
   const [reviews, setReviws] = useState([]);
   const size = useWindowSize();
   
+//   useEffect(() => {
+//     fetchData();
+    
+//     window.addEventListener('scroll', handleScroll, { passive: true });
+//     axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
+//       headers:{'id':`${id}`}
+//     }).then((x)=>{
+//         x.data.result.length>0?setReviws(x.data.result):null
+//     })
+//     return () => window.removeEventListener('scroll', handleScroll)
+// }, [])
+
   useEffect(() => {
-    fetchData();
     Aos.init({duration:700});
     window.addEventListener('scroll', handleScroll, { passive: true });
-    axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
-      headers:{'id':`${id}`}
-    }).then((x)=>{
-        x.data.result.length>0?setReviws(x.data.result):null
-    })
+    let tempId = router.query.id;
+    if(tempId){
+      fetchData(tempId);
+        axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
+          headers:{'id':`${tempId}`}
+        }).then((x)=>{
+          x.data.result.length>0?setReviws(x.data.result):null
+        })
+    }
     return () => window.removeEventListener('scroll', handleScroll)
-}, [])
+  }, [router])
 
-  const fetchData = async() => {
+  const fetchData = async(id) => {
+    const tourData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ID,{
+      headers:{ "id": `${id}` }
+    }).then((x)=>x.data.result)
     let detailData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_DETAIL_BY_ID,{
       headers:{ "id": `${id}` }
     }).then((x)=>x.data.result);
     let tempDetail = detailData;
-    setTour({...tourData, TourOptions:tempDetail.TourOptions});
-    delete tempDetail.TourOptions
+    await setTour({...tourData, TourOptions:tempDetail?.TourOptions});
+    tempDetail? delete tempDetail.TourOptions:null
     setDetail(tempDetail);
     let transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result);
     //transportData.unshift({id:"1", name:"No", price:0.00})
     setTransport(transportData);
     setBook(true);
+    axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
+      headers:{'id':`${id}`}
+    }).then((x)=>{
+        x.data?.result?.length>0?setReviws(x.data.result):null
+    })
   }
 
   useEffect(() => {
     cart.forEach((x, i)=>{
       if(x.tourId==tourData.id){
-          setAdded(true);
-          setCartIndex(i)
+        setAdded(true);
+        setCartIndex(i)
       }
     })
   }, [cart])
@@ -318,4 +346,4 @@ const Product = ({tourData, id}) => {
   </>
   )
 }
-export default Product
+export default React.memo(Product)

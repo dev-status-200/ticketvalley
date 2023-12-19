@@ -42,4 +42,4 @@ const IncDec = (props) => {
   )
 }
 
-export default IncDec
+export default React.memo(IncDec)

@@ -27,4 +27,4 @@ const Carasoul = (props) => {
   )
 }
 
-export default Carasoul
+export default React.memo(Carasoul)

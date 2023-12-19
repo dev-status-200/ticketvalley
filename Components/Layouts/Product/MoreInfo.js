@@ -107,4 +107,4 @@ const MoreInfo = ({state, dispatchReducer, addToCart}) => {
   )
 }
 
-export default MoreInfo
+export default React.memo(MoreInfo)

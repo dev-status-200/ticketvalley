@@ -58,7 +58,7 @@ const Images = ({tour, detail}) => {
     </div>
   )
 }
-export default Images
+export default React.memo(Images)
 
 // import React, { useRef, useState } from 'react';
 // // Import Swiper React components
