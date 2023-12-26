@@ -48,7 +48,6 @@ const Search = ({destination, city, date, category, tourData}) => {
         }
       }
     });
-
     tempTours.forEach((x)=>{
       x.reviews = 0;
       x.rating = 0;
@@ -65,12 +64,12 @@ const Search = ({destination, city, date, category, tourData}) => {
       }else{
         x.rating = x.rating / x.reviews;
       }
-    })
+    });
     Object.keys(category).forEach((x)=>{
       tempTours = tempTours.filter((y)=>{
         return tempTours
       })
-    })
+    });
     setRecords(tempTours);
     if(tempTours.length>9){
       setPagination(true)

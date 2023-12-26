@@ -38,9 +38,9 @@ const Images = ({tour, detail}) => {
         /> */}
         <div className='mt-2'></div>
         <Swiper pagination={true} modules={[Pagination]} spaceBetween={30}>
-          {images.map((x)=>{
+          {images.length>0 && images.map((x, i)=>{
             return(
-              <SwiperSlide ke={x}><img src={x} style={{borderRadius:18, height:size.width<400?200:400}} /></SwiperSlide>
+              <SwiperSlide key={i}><img src={x} style={{borderRadius:18, height:size.width<400?200:400}} /></SwiperSlide>
           )})}
         </Swiper>
       <Row className={`${size.width<400?"px-2 mt-2":"mt-3"}`}>

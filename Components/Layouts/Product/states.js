@@ -70,7 +70,7 @@ const setTour = (tour, dispatchReducer, category) => {
         });
       }
       tempBook.push({
-        id:x.id, tour:x.TourId, name:x.name, check:i==0?true:category=="Combo Tours"?true:false, adult_price:parseFloat(x.adult_price),
+        id:x.id, tour:x.TourId, name:x.name, check:category=="Combo Tours"?true:false, adult_price:parseFloat(x.adult_price),
         child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:x.transport?"Shared":"1", 
         date:'', dates:tempDates, dated:x.dated, timed:x.timed, timeSlots:tempTimes, 
         timeSlot:tempTimes.length>0?tempTimes[0].slot:null, price:parseFloat(x.adult_price),

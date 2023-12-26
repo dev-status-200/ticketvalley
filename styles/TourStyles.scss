@@ -177,14 +177,18 @@
 }
 
 .tour-features-box{
+  border: 1px solid #18858f;
+  border-radius: 11px;
   box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
   -webkit-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
   -moz-box-shadow: -2px 1px 17px -10px rgba(0,0,0,0.75);
 }
 
 .tour-features{
-  background-color: #18858f;
+  background-color: rgba(35, 144, 154, 0.783);
   color: white;
+  font-weight: 500;
+  border-radius: 11px 11px 0px 0px;
   text-align: center;
 }
 
@@ -192,6 +196,7 @@
   background-color: white;
   color: #333;
   text-align: center;
+  border-radius: 0px 0px 11px 11px;
 }
 
 .tour-map-shadow{
@@ -248,3 +253,30 @@
 .a:hover:after{
   width: 100%;
 }
+
+.tour-opt-selected{
+  border: 1px solid #147ba1ea;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 2px;
+}
+
+.tour-opt{
+  border: 1px solid silver;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 2px;
+}
+
+.tour-option{
+  font-size: 16px;
+  font-weight: 600;
+  color: grey;
+}
+
+.selected-tour-option{
+  font-size: 16px;
+  font-weight: 600;
+  color: #147ba1ea;
+}
+

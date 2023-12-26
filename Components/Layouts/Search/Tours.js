@@ -45,12 +45,10 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
                 <div className={`search-box-container mx-1`}>
                 <img className='search-box-img filter-2' src={x.main_image} height={size.width>400?150:80} width={"100%"} />
                 <div className='px-2 search-bob-bottom'>
-                    <div className={`fs-${size.width>400?"17":"12"} pb-1 pt-3`} style={size.width>400?{}:{minHeight:44}}>
+                    <div className={`fs-${size.width>400?"17":"12"} py-1`} style={size.width>400?{}:{minHeight:44}}>
                         {size.width>400?
-                        <>
-                        <b>{x.title.slice(0,25)} ...</b>
-                        </>:
-                        <b>{x.title.slice(0,27)} ...</b>
+                        <>{x.title}</>:
+                        <>{x.title}</> 
                         }
                     </div>
                     <hr className={size.width>400?`px-5 mt-1 mb-0`:`py-0 my-0`} />
@@ -60,9 +58,8 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
                     {x.reviews==0?'':<span className='fs-10 silver-txt'>{"("}{x.reviews} reviews{")"}</span>}  
                     {size.width>400?
                     <div className='px-2'>
-                    <div className='mt-3' style={{float:'left', fontWeight:900, fontSize:18}}>{parseFloat(x.price).toFixed(2)} AED</div>
-                    <Link href={`/product?id=${x.id}`} className='mt-3 search-box-btn px-3 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
-                        //onClick={()=>router.push(`/product/${x.id}`)}
+                    <div className='mt-4' style={{float:'left', fontWeight:500, fontSize:22}}>{parseFloat(x.price).toFixed(2)} AED</div>
+                    <Link href={`/product?id=${x.id}`} className='search-box-btn px-3 mt-4 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
                     >BOOK NOW</Link>
                     </div>:
                     <div>

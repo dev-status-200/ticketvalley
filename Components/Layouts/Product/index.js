@@ -28,7 +28,7 @@ const Images = lazy(() => import('./Images.js'));
 // import NavLinks from '../../Shared/NavLinks';
 // import Images from './Images';
 
-const Product = () => {
+const Product = ({tourData, id}) => {
 
   const router = useRouter();
   const cart = useSelector((state) => state.cart.value);
@@ -80,6 +80,7 @@ const Product = () => {
     const tourData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ID,{
       headers:{ "id": `${id}` }
     }).then((x)=>x.data.result)
+    //console.log(tourData)
     let detailData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_DETAIL_BY_ID,{
       headers:{ "id": `${id}` }
     }).then((x)=>x.data.result);
@@ -100,12 +101,12 @@ const Product = () => {
 
   useEffect(() => {
     cart.forEach((x, i)=>{
-      if(x.tourId==tourData.id){
-        setAdded(true);
-        setCartIndex(i)
+      if(x.tourId==tour.id){
+          setAdded(true);
+          setCartIndex(i)
       }
     })
-  }, [cart])
+  }, [cart, tour])
   
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
@@ -189,7 +190,7 @@ const Product = () => {
         <div className='dropdown mx-2'>
           <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
           <div className="dropdown-content">
-              <NavLinks/>
+            <NavLinks/>
           </div>
         </div>
         <Link className='navLink' href='/about'>ABOUT US</Link>
@@ -213,38 +214,38 @@ const Product = () => {
           <div className='pt-5'>
             {size.width>400 && <BookComp />}
             <div className='tour-features-box my-4 mt-5'>
-              <div className='tour-features pt-3 pb-1'>
-                <h5>Duration</h5>
+              <div className='tour-features py-2'>
+                <>Duration</>
               </div>
-              <div className='tour-features-white pt-3 pb-1  px-5'>
-                <h6>{tour.duration} </h6>
-              </div>
-            </div>
-            <div className='tour-features-box my-4'>
-              <div className='tour-features pt-3 pb-1'>
-                <h5>Departure Point</h5>
-              </div>
-              <div className='tour-features-white pt-3 pb-1 px-5'>
-                <h6>{tour.departure}</h6>
+              <div className='tour-features-white py-2  px-5'>
+                <>{tour.duration} </>
               </div>
             </div>
             <div className='tour-features-box my-4'>
-              <div className='tour-features pt-3 pb-1'>
-                <h5>Reporting Point</h5>
+              <div className='tour-features py-2'>
+                <>Departure Point</>
               </div>
-              <div className='tour-features-white pt-3 pb-1  px-5'>
-                <h6>{tour.reporting}</h6>
+              <div className='tour-features-white py-2 px-5'>
+                <>{tour.departure}</>
               </div>
             </div>
             <div className='tour-features-box my-4'>
-              <div className='tour-features pt-3 pb-1'>
-                <h5>Languages</h5>
+              <div className='tour-features py-2'>
+                <>Reporting Point</>
               </div>
-              <div className='tour-features-white pt-3 pb-1  px-5'>
-                <h6>{tour.lang}</h6>
+              <div className='tour-features-white py-2 px-5'>
+                <>{tour.reporting}</>
               </div>
             </div>
-            <iframe className="p-0 m-0 tour-map-shadow" width="100%" height="480"
+            <div className='tour-features-box my-4'>
+              <div className='tour-features py-2'>
+                <>Languages</>
+              </div>
+              <div className='tour-features-white py-2 px-5'>
+                <>{tour.lang}</>
+              </div>
+            </div>
+            <iframe width="100%" height="480" className="p-0 m-0 tour-map-shadow" 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s" 
             ></iframe>
           </div>

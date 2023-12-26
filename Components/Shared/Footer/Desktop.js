@@ -8,6 +8,7 @@ import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Desktop = () => {
   return (
+    <>
     <div className='footer-styles'>
         <div className='bgTop p-5'>
             <Container className='px-5 pt-3'>
@@ -46,6 +47,7 @@ const Desktop = () => {
         COPYRIGHT 2023 TICKETSVALLEY, ALL RIGHT RESERVED
         </div>
     </div>
+    </>
   )
 }
 
