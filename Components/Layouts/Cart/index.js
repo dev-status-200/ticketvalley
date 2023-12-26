@@ -201,15 +201,14 @@ const Cart = () => {
                     </Col>
                 </Row>
             )})}
-            <hr/>
             <Row>
-                <Col md={4}>
-                <div className='cart-note'>
-                    <h4>Note:</h4>
-                    <hr className='mt-0 pt-0' />
+                <Col md={12}>
+                <div style={{color:'grey', marginTop:10}}>
+                    Note: After checkout, your ticket will be provided with-in 24 hours
                 </div>
                 </Col>
             </Row>
+            <hr/>
             <div style={{minHeight:90}}>
                 <div className='my-1 mb-5'>
                     <form onSubmit={ApplyPromo} className='mb-5'>
