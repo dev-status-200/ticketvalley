@@ -85,7 +85,7 @@ const Product = ({tourData, id}) => {
       headers:{ "id": `${id}` }
     }).then((x)=>x.data.result);
     let tempDetail = detailData;
-    await setTour({...tourData, TourOptions:tempDetail?.TourOptions});
+    await setTour({...tourData, tour_detail:tempDetail.tour_detail, TourOptions:tempDetail?.TourOptions});
     tempDetail? delete tempDetail.TourOptions:null
     setDetail(tempDetail);
     let transportData = await axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT).then((x)=>x.data.result);
