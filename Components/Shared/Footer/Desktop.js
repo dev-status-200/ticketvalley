@@ -16,7 +16,7 @@ const Desktop = () => {
                     <Col className='px-3'>
                         <h6 className='heading'>CONTACT INFO</h6>
                         <div className='my-4 mt-5 wh-txt'>
-                        <span className=''><FaPhoneAlt style={{position:'relative', bottom:2}}/></span><span className='fs-16 mx-2'>+ 971  55 998 6370</span>
+                        <span className=''><FaPhoneAlt style={{position:'relative', bottom:2}}/></span><span className='fs-16 mx-2'>+ 971  50 337 4890</span>
                         <div className='mb-4'> 
                             <span className=''><MdEmail style={{position:'relative', bottom:2}}/></span><span className='fs-16 mx-2'>info@ticketsvalley.com</span>
                         </div>
@@ -44,7 +44,7 @@ const Desktop = () => {
             </Container>
         </div>
         <div className='bgBt p-3 text-center wh-txt'>
-        COPYRIGHT 2023 TICKETSVALLEY, ALL RIGHT RESERVED
+        COPYRIGHT 2024 TICKETSVALLEY, ALL RIGHT RESERVED
         </div>
     </div>
     </>

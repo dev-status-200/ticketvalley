@@ -1,5 +1,11 @@
 function reducerFunctions(state, action) {
     switch (action.type) {
+      case 'set': {
+        return {
+          ...state,
+          ...action.payload,
+        };
+      }
       case 'field': {
         return {
           ...state,
@@ -51,7 +57,8 @@ function reducerFunctions(state, action) {
           visible: false,
           edit: false,
           bulk: false,
-          load:false
+          load:false,
+          show_images:[],
         };
       }
       default:
@@ -83,64 +90,64 @@ const baseValues = {
 }
 
 const initialState = {
-    records:[],
-    selectedRecord:{},
-    visible:false,
-    bulk:false,
-    edit:false,
-    activeTab:'1',
-    load:false,
-    search:"",
-    categorySearch:"",
-    //form values
-    values:baseValues,
-    stock:0,
-    main_image:"",
-    show_image:"",
+  records:[],
+  selectedRecord:{},
+  visible:false,
+  bulk:false,
+  edit:false,
+  activeTab:'1',
+  load:false,
+  search:"",
+  categorySearch:"",
+  //form values
+  values:baseValues,
+  stock:0,
+  main_image:"",
+  show_image:"",
 
-    prev_images:[],
-    deleted_images:[],
-    more_images:[],
-    show_images:"",
+  prev_images:[],
+  deleted_images:[],
+  more_images:[],
+  show_images:"",
 
-    inclusion:"",
-    inclusions:[],
+  inclusion:"",
+  inclusions:[],
 
-    why_should:"",
-    why_shoulds:[],
+  why_should:"",
+  why_shoulds:[],
 
-    imp_info:"",
-    imp_infos:[],
+  imp_info:"",
+  imp_infos:[],
 
-    policy:"",
-    policies:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
+  policy:"",
+  policies:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
 
-    package:{ name:"", child_price:"0.00", adult_price:"0.00" },
-    packages:[],
+  package:{ name:"", child_price:"0.00", adult_price:"0.00" },
+  packages:[],
 
-    cancellation_policy:"",
-    cancellation_polices:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
+  cancellation_policy:"",
+  cancellation_polices:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
 
-    term_condition:"",
+  term_condition:"",
 
-    dated:false,
-    dates:[],
+  dated:false,
+  dates:[],
 
-    timeStart:'',
-    timeEnd:'',
+  timeStart:'',
+  timeEnd:'',
 
-    timeStartWithDate:'',
-    timeEndWithDate:'',
+  timeStartWithDate:'',
+  timeEndWithDate:'',
 
-    minutes:0.0,
+  minutes:0.0,
 
-    timed:false,
-    timeSlots:[],
+  timed:false,
+  timeSlots:[],
 
-    time:"",
-    
-    status:"",
-    prevPrice:0
+  time:"",
+  
+  status:"",
+  prevPrice:0
 };
 
 export { initialState, reducerFunctions, baseValues }

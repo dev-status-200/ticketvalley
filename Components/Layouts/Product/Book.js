@@ -197,8 +197,8 @@ const Book = ({tour, transport, category, setOpen}) => {
                 </Col>
                 <Col className='text-center mt-3' >
                     <Row>
-                        <Col md={1} className='pt-1'><span>Date: </span> </Col>
-                        <Col>
+                    <Col md={1} className='pt-1'><span>Date: </span> </Col>
+                        <Col md={9}>
                         <DatePicker
                             selected={x.date}
                             onChange={(date) => {
@@ -266,7 +266,8 @@ const Book = ({tour, transport, category, setOpen}) => {
         {i<state.booking.length-1 && <hr/>}
         </div>
         )})}
-        <Row className="px-1 mt-5">
+        <hr/>
+        <Row className="px-1 mt-2">
             <Col md={12} className='my-2 fs-16'><b>Lead Passenger Details</b></Col>
             <Col md={3}>
                 <Select style={{width:"100%"}} value={state.title}
@@ -313,7 +314,12 @@ const Book = ({tour, transport, category, setOpen}) => {
             <Col md={12}><hr className='mt-4 mb-1'/></Col>
         </Row>
         <Row>
-            <Col md={12}>{(state.booking.length>0 && oneSelected()) && <button className='cart-btn mt-3' onClick={addToCart}>Add To Cart</button>}</Col>
+            <Col md={12}>
+                <button className='cart-btn mt-3' 
+                    onClick={addToCart}
+                    disabled={(state.booking.length>0 && oneSelected())?false:true}
+                >Add To Cart</button>
+            </Col>
         </Row>
         </>
         }

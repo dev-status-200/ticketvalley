@@ -1,14 +1,13 @@
 import React, { useReducer, useEffect } from 'react';
-import { Modal, Card, Input, Select } from 'antd';
-import { reducerFunctions, initialState, baseValues } from './states';
-import { Row, Col, Table } from 'react-bootstrap';
-import CreateOrEdit from './CreateOrEdit';
-import { EditOutlined } from '@ant-design/icons';
+import { Card, Input, Select } from 'antd';
+import { reducerFunctions, initialState } from './states';
+import { Row, Col } from 'react-bootstrap';
+import Router from 'next/router';
 
-export default function TourCreation({productData}) {
+const TourCreation = ({productData}) => {
 
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
-  const { records, visible, edit } = state;
+  const { records } = state;
 
   useEffect(() => {
       dispatch({
@@ -52,11 +51,11 @@ export default function TourCreation({productData}) {
           </Col>
             <Col md={4}>
             <Input value={state.search} placeholder="Search Packages"
-            onChange={(e)=>dispatch({
-              type: 'field',
-              fieldName: 'search',
-              payload: e.target.value
-            })} />
+              onChange={(e)=>dispatch({
+                type: 'field',
+                fieldName: 'search',
+                payload: e.target.value
+              })} />
             </Col>
             <Col md={2}>
               <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>dispatch({type:'create'})}>Create</button>
@@ -82,18 +81,12 @@ export default function TourCreation({productData}) {
             }
           }).map((x, i)=>{
             return(
-            <Col md={3} className="my-3" key={i} onClick={()=>{
-              dispatch({type:'edit', payload:x})
-            }}>
-            <Card
-                hoverable
-                style={{
-                  width: 240,
-                }}
+            <Col md={3} className="my-3" key={i} onClick={()=>Router.push(`/tourEditPage?id=${x.id}`)}>
+              <Card hoverable style={{ width: 240 }}
                 cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}
               >
                 <Card.Meta title={x.title} />
-                <p className='card-cntnt mt-2'>{x.tour_detail.slice(0,65)} .....</p>
+                <p className='card-cntnt mt-2'>Tour Description Here..</p>
               </Card>
             </Col>
             )
@@ -101,7 +94,7 @@ export default function TourCreation({productData}) {
         </Row>
       </div>
       
-      <Modal
+      {/* <Modal
         centered
         open={visible}
         onOk={() => dispatch({type: 'modalOff'}) }
@@ -110,7 +103,9 @@ export default function TourCreation({productData}) {
         footer={[]}
       >
         {!state.bulk && <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} />}
-      </Modal>
+      </Modal> */}
     </div>
   );
 }
+
+export default React.memo(TourCreation)

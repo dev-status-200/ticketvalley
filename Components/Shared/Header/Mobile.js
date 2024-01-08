@@ -37,16 +37,16 @@ function OffCanvasExample({ name, ...props }) {
   return (
     <>
     <Container fluid="true" style={{backgroundColor:'rgb(8, 78, 77)', color:'white'}}>
-    <Row style={{fontSize:12}} className='pb-1 px-2'>
+      <Row style={{fontSize:12}} className='pb-1 px-2'>
         <Col xs={6}>
-        <FaPhoneAlt style={{position:'relative', top:1, fontSize:10}}/><span className='mx-1' style={{position:'relative', top:2}}>+971 55 998 6370</span>
+          <FaPhoneAlt style={{position:'relative', top:1, fontSize:10}}/>
+          <span className='mx-1' style={{position:'relative', top:2}}>+ 971  50 337 4890</span>
         </Col>
         <Col xs={6} className='px-1 text-end'>
-        <FaRegEnvelopeOpen style={{fontSize:10}}/><span className='mx-1' style={{position:'relative', top:2}}>booking@ticketsvalley.com</span>
+          <FaRegEnvelopeOpen style={{fontSize:10}}/><span className='mx-1' style={{position:'relative', top:2}}>booking@ticketsvalley.com</span>
         </Col>
-    </Row>
+      </Row>
     </Container>
-
     <Container>
       <Row className='py-2'>
         <Col xs={3} className='text-start'>

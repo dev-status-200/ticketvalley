@@ -41,22 +41,22 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
             })
             .slice(0, index*9).map((x, i)=>{
             return(
-            <Col md={4} xs={6} className={`px-${size.width>400?"1":"0"} search-tour-box`} key={i} onClick={()=>Router.push(`/product?id=${x.id}`)}>
+            <Col md={4} xs={6} className={`px-${size.width>500?"1":"0"} search-tour-box`} key={i} onClick={()=>Router.push(`/product?id=${x.id}`)}>
                 <div className={`search-box-container mx-1`}>
-                <img className='search-box-img filter-2' src={x.main_image} height={size.width>400?150:80} width={"100%"} />
+                <img className='search-box-img filter-2' src={x.main_image} height={size.width>500?150:80} width={"100%"} />
                 <div className='px-2 search-bob-bottom'>
-                    <div className={`fs-${size.width>400?"17":"12"} py-1`} style={size.width>400?{}:{minHeight:44}}>
-                        {size.width>400?
+                    <div className={`fs-${size.width>500?"17":"12"} py-1`} style={size.width>500?{}:{minHeight:44}}>
+                        {size.width>500?
                         <>{x.title}</>:
                         <>{x.title}</> 
                         }
                     </div>
-                    <hr className={size.width>400?`px-5 mt-1 mb-0`:`py-0 my-0`} />
+                    <hr className={size.width>500?`px-5 mt-1 mb-0`:`py-0 my-0`} />
                     {/* <Rate disabled defaultValue={x.rating} allowHalf 
-                        style={{color:'#f0a800', cursor:'pointer', fontSize:size.width>400?10:7}} className={`${size.width>400?"mx-2":""}`} 
+                        style={{color:'#f0a800', cursor:'pointer', fontSize:size.width>500?10:7}} className={`${size.width>500?"mx-2":""}`} 
                     />  */}
                     {x.reviews==0?'':<span className='fs-10 silver-txt'>{"("}{x.reviews} reviews{")"}</span>}  
-                    {size.width>400?
+                    {size.width>500?
                     <div className='px-2'>
                     <div className='mt-4' style={{float:'left', fontWeight:500, fontSize:22}}>{parseFloat(x.price).toFixed(2)} AED</div>
                     <Link href={`/product?id=${x.id}`} className='search-box-btn px-3 mt-4 py-2' style={{float:'right', textDecoration:'none', color:'white'}}

@@ -10,12 +10,8 @@ import dynamic from 'next/dynamic';
 // const MobileVideo = dynamic(() => import('./MobileVideo'), {
 //   loading: () => <div className='text-center'> <img src='/loader.svg' alt="Loader" /> </div>,
 // })
-const Adventures = dynamic(() => import('./AdventureTours'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg' alt="Loader" /> </div>,
-})
-const Combos = dynamic(() => import('./Combos'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg' alt="Loader" /> </div>,
-})
+const Adventures = dynamic(() => import('./AdventureTours'), { ssr: false })
+const Combos = dynamic(() => import('./Combos'), { ssr: false })
 
 const Mobile = ({combos, adventures, bestSelling}) => {
   return (

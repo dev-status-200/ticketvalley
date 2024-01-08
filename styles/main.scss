@@ -18,7 +18,7 @@ body {
   overflow-x: hidden;
 }
 .cur{
-    cursor: pointer;
+    cursor: pointer!important;
 }
 
 .ico{
@@ -54,6 +54,7 @@ body {
 .white-bg{ background-color: white; }
 
 .wh-txt{ color: white!important; }
+.grey-txt-2{ color: rgb(119, 119, 119)!important; }
 .grey-txt{ color: rgb(85, 85, 85)!important; }
 .black-txt{ color: rgb(63, 63, 63)!important; }
 .silver-txt-2{ color: rgb(158, 158, 158)!important; }
@@ -305,8 +306,8 @@ body {
   opacity: 0.5;
   color: rgb(190, 65, 65);
   position: absolute;
-  margin-left: 8.5%;
-  margin-top: 3.5%;
+  margin-left: 5.1%;
+  margin-top: 2.4%;
   background-color: rgba(201, 201, 201, 0.811);
   font-size: 38px;
   border-radius: 50px;

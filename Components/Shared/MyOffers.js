@@ -45,15 +45,15 @@ const MyOffers = (props) => {
               <div className="container wh-txt" style={{backgroundColor:"rgb(6, 150, 172)"}}>
                 <Row>
                   <Col md={1} xs={3} style={{paddingTop:12}}>
-                    <img src={'/icons/voucher.png'} className='filter' height={size.width>400?40:30} alt='Voucher' />
+                    <img src={'/icons/voucher.png'} className='filter' height={size.width>500?40:30} alt='Voucher' />
                   </Col>
-                  <Col md={10} xs={8} className={`${size.width>400?"mx-3":"mx-0 px-0"}`}>
+                  <Col md={10} xs={8} className={`${size.width>500?"mx-3":"mx-0 px-0"}`}>
                   <h3 className='mt-3'><b>{x.Promo.name}</b></h3> 
                   </Col>
                   <p>Click the code below to copy & paste in checkout section to recieve a discount</p>
                 </Row>
               </div>
-              <Row style={size.width>400?{}:{fontSize:11}} className="p-3">
+              <Row style={size.width>500?{}:{fontSize:11}} className="p-3">
                 <Col className='cur'
                   onClick={async()=>{
                     await copyToClipboard(`${x.Promo.code}`);

@@ -61,7 +61,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
 
   return (
     <div style={{minHeight:'50vh', backgroundColor:"white"}}>
-        {size.width>400?<>
+        {size.width>500?<>
         <div className='home-styles'>
         <div className='theme py-4'>
             <div className='navBar'>
@@ -98,19 +98,19 @@ const TicketPage = ({ticketData, bookingNo}) => {
         <hr className='mb-0 mb-0' />
         </>
         }
-        <div className={`${size.width>400?"tickets-cont pb-5":"pb-3 px-5"}`}>
+        <div className={`${size.width>500?"tickets-cont pb-5":"pb-3 px-5"}`}>
             <h3 className='mt-4 grey-txt'>Booking #{ticketData?.result?.booking_no} Tickets</h3>
             <span className='grey-txt'> Please select the ticket to interact</span>
-            <Row className='ticket-cont-wh-bg my-3' style={{padding:size.width>400?"20px 20px":"0px"}}>
+            <Row className='ticket-cont-wh-bg my-3' style={{padding:size.width>500?"20px 20px":"0px"}}>
             {tickets.map((x, i)=>{
             return(
-            <Col md={12} xs={12} key={i} className={`${size.width>400?"":"py-0"}`}>
+            <Col md={12} xs={12} key={i} className={`${size.width>500?"":"py-0"}`}>
                 {i!==0 && <hr className='my-0 py-0' />}
                 {x.BookedToursOptions.map((y, j)=>{
                 return(
                 <>
                 {j!=0 &&<hr/>}
-                <Row className={y.check?'selected-ticket-row': size.width>400?'ticket-row':"py-3 px-1"} key={"a"+j}
+                <Row className={y.check?'selected-ticket-row': size.width>500?'ticket-row':"py-3 px-1"} key={"a"+j}
                     onClick={async()=>{
                         setLoad(true);
                         if(!y.TourOption.manual){
@@ -129,9 +129,9 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     }}
                 >
                     <Col md={2} xs={12}>
-                        <img src={x.image} height={size.width>400?100:150} width={size.width>400?140:"100%"} style={{borderRadius:5}} alt="Tour" />
+                        <img src={x.image} height={size.width>500?100:150} width={size.width>500?140:"100%"} style={{borderRadius:5}} alt="Tour" />
                     </Col>
-                    <Col md={6} className={`${size.width>400?"":"mt-1"}`}>
+                    <Col md={6} className={`${size.width>500?"":"mt-1"}`}>
                     <h5>{y.tourOptName}</h5>
                     <div className='mx-1'>
                         <span className=''>Adults:       <span style={{color:'grey'}}>{y.adult}  </span> </span>
@@ -145,23 +145,23 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     </Col>
                     {size.width<400 && <Col xs={12}><hr/></Col>}
                     <Col md={4} xs={12}>
-                        <div style={size.width>400?{float:'right', height:"100%"}:{}}>
-                            <div className={`${size.width>400? "text-end":""}`}>
+                        <div style={size.width>500?{float:'right', height:"100%"}:{}}>
+                            <div className={`${size.width>500? "text-end":""}`}>
                                 <div className='mx-3'>{" "}</div>
                                 {
                                 y.assigned=="1"?
                                 <>
                                 <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>{y.TourOption.manual?<>Check your E-mail Inbox</>:"Select & Download"}</div>
-                                <img src={'/icons/ticket-available.png'} className={`${size.width>400?"":"mx-2"}`} height={50} alt="Ticket" />
+                                <img src={'/icons/ticket-available.png'} className={`${size.width>500?"":"mx-2"}`} height={50} alt="Ticket" />
                                 </>:
                                 <>
                                 <div className='mx-3 fs-12'>{y.TourOption.manual?'Not Downloadable':'Downloadable'}</div>
                                 <div className='mx-3 fs-18'>Pending</div>
-                                <img src={'/icons/ticket-pending.png'} className={`${size.width>400?"":"mx-3"}`} height={50} alt="Pending" />
+                                <img src={'/icons/ticket-pending.png'} className={`${size.width>500?"":"mx-3"}`} height={50} alt="Pending" />
                                 </>
                                 }
-                                {(y.reviewed=="1" && size.width>400) &&
+                                {(y.reviewed=="1" && size.width>500) &&
                                 <div className={"mx-2"} style={{color:'green'}}>Review Sent</div>
                                 }
                             </div>
@@ -218,7 +218,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
             </Row>
             {fetchedTicket.length>0 &&
             <>
-            {!load && <ReactToPrint content={()=>inputRef} trigger={()=><button className={`custom-btn ${size.width>400?"":"mt-3"}`}>Get Ticket</button>} />}
+            {!load && <ReactToPrint content={()=>inputRef} trigger={()=><button className={`custom-btn ${size.width>500?"":"mt-3"}`}>Get Ticket</button>} />}
             {load && <button className='custom-btn'><Spinner size='sm'  className='mx-3' /></button>}
             </>
             }

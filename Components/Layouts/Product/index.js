@@ -15,18 +15,15 @@ import Aos from 'aos';
 import Book from './Book';
 import MobileBook from './MobileBook';
 import { useSelector } from 'react-redux';
-import { TbPoint } from "react-icons/tb";
 import axios from 'axios';
 import moment from 'moment';
 import Loader from '../../Shared/Loader';
 import useWindowSize from '/functions/useWindowSize';
 import { lazy } from 'react';
+
 const Details = lazy(() => import('./Details'));
 const NavLinks = lazy(() => import('../../Shared/NavLinks'));
 const Images = lazy(() => import('./Images.js'));
-// import Details from './Details';
-// import NavLinks from '../../Shared/NavLinks';
-// import Images from './Images';
 
 const Product = ({tourData, id}) => {
 
@@ -48,18 +45,6 @@ const Product = ({tourData, id}) => {
   const [book, setBook] = useState(false);
   const [reviews, setReviws] = useState([]);
   const size = useWindowSize();
-  
-//   useEffect(() => {
-//     fetchData();
-    
-//     window.addEventListener('scroll', handleScroll, { passive: true });
-//     axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
-//       headers:{'id':`${id}`}
-//     }).then((x)=>{
-//         x.data.result.length>0?setReviws(x.data.result):null
-//     })
-//     return () => window.removeEventListener('scroll', handleScroll)
-// }, [])
 
   useEffect(() => {
     Aos.init({duration:700});
@@ -70,7 +55,7 @@ const Product = ({tourData, id}) => {
         axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
           headers:{'id':`${tempId}`}
         }).then((x)=>{
-          x.data.result.length>0?setReviws(x.data.result):null
+          x.data?.result?.length>0?setReviws(x.data?.result):null
         })
     }
     return () => window.removeEventListener('scroll', handleScroll)
@@ -102,8 +87,8 @@ const Product = ({tourData, id}) => {
   useEffect(() => {
     cart.forEach((x, i)=>{
       if(x.tourId==tour.id){
-          setAdded(true);
-          setCartIndex(i)
+        setAdded(true);
+        setCartIndex(i)
       }
     })
   }, [cart, tour])
@@ -118,12 +103,12 @@ const Product = ({tourData, id}) => {
     return(
       <div className='booking-form mt-4'>
       <div className=''><span className='fw-400 fs-14 grey-txt'>Starting From</span></div>
-      {tour.prevPrice && <s className={`fw-400 ${size.width>400?"fs-20":"fs-15"}`} style={{color:"#af302c"}}>
+      {tour.prevPrice && <s className={`fw-400 ${size.width>500?"fs-20":"fs-15"}`} style={{color:"#af302c"}}>
         {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
       </s>}
-      <p className={`fw-600 ${size.width>400?"fs-30":"fs-20"}`}><AiFillTags/>
+      <p className={`fw-600 ${size.width>500?"fs-30":"fs-20"}`}><AiFillTags/>
         {(tour.TourOptions[0]?.adult_price*conversion.rate).toFixed(2)} {conversion.currency} 
-        <span className={`fw-400 ${size.width>400?"fs-18":"fs-15"} mx-2 grey-txt`}>Per Person</span>
+        <span className={`fw-400 ${size.width>500?"fs-18":"fs-15"} mx-2 grey-txt`}>Per Person</span>
       </p>
       <div className='my-2'>
         <span className='info-logo'><IoCalendarSharp/></span>
@@ -173,7 +158,7 @@ const Product = ({tourData, id}) => {
   return (
   <>
   <div className='tour-styles' style={{backgroundColor:'white'}}>
-    {size.width>400 &&
+    {size.width>500 &&
     <div className='hero pt-4'>
       <div className='navBar'>
         <Link className='navLink' href='/'>HOME</Link>
@@ -184,8 +169,8 @@ const Product = ({tourData, id}) => {
             <a className='menu-drop-links pb-2' onClick={()=>Router.push("/search?destination=uae&city=Abu+Dhabi")}>Abu Dhabi</a>
           </div>
         </div>
-        <span className="navLink">
-          <img src={'/images/logo.png'} height={100}  alt="Logo" />
+        <span className="navLink cur">
+          <img src={'/images/logo.png'} height={100} onClick={()=>Router.push("/")} alt="Logo" />
         </span>
         <div className='dropdown mx-2'>
           <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -204,7 +189,7 @@ const Product = ({tourData, id}) => {
         <Row className='p'>
           <Col md={8} className=''>
             <Images tour={tour} detail={detail} data-aos="fade-right" />
-            {size.width<400 && <>
+            {size.width<=400 && <>
             <hr/>
             <BookComp />
             </>}
@@ -212,7 +197,7 @@ const Product = ({tourData, id}) => {
           </Col>
           <Col md={4} data-aos="fade-up">
           <div className='pt-5'>
-            {size.width>400 && <BookComp />}
+            {size.width>500 && <BookComp />}
             <div className='tour-features-box my-4 mt-5'>
               <div className='tour-features py-2'>
                 <>Duration</>
@@ -289,10 +274,9 @@ const Product = ({tourData, id}) => {
           {
             detail.policies.split("//").map((x, i)=>{
               return(
-              <Row key={i} className="justify-content-md-center wh-txt">
+              <Row key={i} className="justify-content-md-center wh-txt text-center">
                 <Col md={1}></Col>
-                <Col style={{minWidth:30, maxWidth:30}} md={'auto'}><TbPoint className='mx-1 mt-1 ' size={20} /></Col>
-                <Col className='my-1'><div className='fs-14'>{x}</div></Col>
+                <Col className='my-1'> <div className='fs-14'>- {x}</div></Col>
                 <Col md={1}></Col>
               </Row>
               )
@@ -306,10 +290,9 @@ const Product = ({tourData, id}) => {
           {
             detail.cancellation_polices.split("//").map((x, i)=>{
               return(
-              <Row key={i} className="justify-content-md-center wh-txt">
+              <Row key={i} className="justify-content-md-center wh-txt text-center">
                 <Col md={1}></Col>
-                <Col style={{minWidth:30, maxWidth:30}} md={'auto'}><TbPoint className='mx-1 mt-1 ' size={20} /></Col>
-                <Col className='my-1'><div className='fs-14'>{x}</div></Col>
+                <Col className='my-1'><div className='fs-14'>- {x}</div></Col>
                 <Col md={1}></Col>
               </Row>
               )
@@ -319,8 +302,18 @@ const Product = ({tourData, id}) => {
           </Col>
         </Row>
       </Container>}
-      {(scrollPosition>650 && !added ) &&
-      <div className='fixed-book' style={size.width<400?{right:"70%"}:{}} data-aos="slide-up">
+      {(scrollPosition>650 && !added && size.width>500 ) &&
+      <div className='fixed-book' data-aos="slide-up">
+        <button type='button'  onClick={()=>setOpen(true)} className='otherBook-btn'>
+          <b>            
+            <div className='my-0 py-0'>BOOK</div>
+            <div className='my-0 py-0'>NOW</div>
+          </b>
+        </button>
+      </div>
+      }
+      {(!added && size.width<500 ) &&
+      <div className='fixed-book' style={{right:'73%'}}>
         <button type='button'  onClick={()=>setOpen(true)} className='otherBook-btn'>
           <b>            
             <div className='my-0 py-0'>BOOK</div>
@@ -334,12 +327,12 @@ const Product = ({tourData, id}) => {
     {Object.keys(tour).length==0 && <div>Please wait...</div>}
   </div>
   <Drawer 
-    style={size.width>400?{padding:'', margin:0, width:550, position:'relative', right:70}:{}}
+    style={size.width<500?{}:{}}
     title={`${tour.title} Options`} placement={"right"}
     onClose={()=>setOpen(false)} open={open}
-    width={size.width<400?"100%":470}
+    width={size.width<500?"100%":540}
   > 
-    {size.width<400?
+    {size.width<=500?
       <MobileBook tour={tour} transport={transport} category={detail.advCategory} setOpen={setOpen} />:
       <Book tour={tour} transport={transport} category={detail.advCategory} setOpen={setOpen} />
     }
@@ -347,4 +340,5 @@ const Product = ({tourData, id}) => {
   </>
   )
 }
+
 export default React.memo(Product)

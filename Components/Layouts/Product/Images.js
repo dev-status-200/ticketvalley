@@ -28,27 +28,24 @@ const Images = ({tour, detail}) => {
   
   return (
     <div>
-      <div className={`${size.width<400?"fs-20 mt-2":"fs-40"} fw-700 blue-txt`}>{tour.title}</div>
+      <div className={`${size.width<500?"fs-20 mt-2":"fs-40"} fw-700 blue-txt`}>{tour.title}</div>
       <span><Rate disabled defaultValue={5} style={{fontSize:12, color:'orange'}} /></span>
       <span className='mx-2 fs-12' style={{color:'grey'}}>{"("}0 Reviews{")"}</span> 
-        <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> 
-        {tour.destination?.toUpperCase()}, {tour.city}
-        {/* <img className='my-3' src={mainImage} 
-          style={{borderRadius:size.width<400?10:23, width:'100%'}}  alt="Tour"
-        /> */}
-        <div className='mt-2'></div>
-        <Swiper pagination={true} modules={[Pagination]} spaceBetween={30}>
-          {images.length>0 && images.map((x, i)=>{
-            return(
-              <SwiperSlide key={i}><img src={x} style={{borderRadius:18, height:size.width<400?200:400}} /></SwiperSlide>
-          )})}
-        </Swiper>
-      <Row className={`${size.width<400?"px-2 mt-2":"mt-3"}`}>
+      <IoLocationSharp size={15} style={{position:'relative', bottom:2}}/> 
+      {tour.destination?.toUpperCase()}, {tour.city}
+      <div className='mt-2'></div>
+      <Swiper pagination={true} modules={[Pagination]} spaceBetween={30}>
+        {images.length>0 && images.map((x, i)=>{
+          return(
+            <SwiperSlide key={i}><img src={x} style={{borderRadius:18, height:size.width<500?200:400}} /></SwiperSlide>
+        )})}
+      </Swiper>
+      <Row className={`${size.width<=400?"px-1 mt-2":"mt-3"}`}>
         {images.map((x, i)=>{
           return(
-            <Col key={i} md={2} xs={2} onClick={()=>setMainImage(x)} className={`${size.width<400?"p-0 px-1":""}`}>
+            <Col key={i} md={2} xs={2} onClick={()=>setMainImage(x)} className={`${size.width<500?"p-0 px-1":""}`}>
               <img src={x} className='' 
-                style={{width:'100%', borderRadius:size.width<400?8:15, height:size.width<400?50:70}} 
+                style={{width:size.width<=500?65:'100%', borderRadius:size.width<=500?8:15, height:size.width<=500?50:70}} 
                 alt="Tour"  
               />
             </Col>
@@ -59,26 +56,3 @@ const Images = ({tour, detail}) => {
   )
 }
 export default React.memo(Images)
-
-// import React, { useRef, useState } from 'react';
-// // Import Swiper React components
-// import { Swiper, SwiperSlide } from 'swiper/react';
-
-// import 'swiper/css/pagination';
-// import 'swiper/css';
-
-// export default function App({tour, detail}) {
-//   return (
-//     <>
-//       <Swiper pagination={true} className="mySwiper">
-//         {
-//           detail.more_images.split(",").map((x)=>{
-//             return(
-//               <SwiperSlide ke={x}><img src={x} /></SwiperSlide>
-//             )
-//           })
-//         }
-//       </Swiper>
-//     </>
-//   );
-// }

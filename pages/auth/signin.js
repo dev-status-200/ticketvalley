@@ -1,10 +1,10 @@
 import { getProviders, signIn } from "next-auth/react";
-import CustomerLoin from "../../Components/Layouts/CustomerLoin";
+import CustomerLogin from "/Components/Layouts/CustomerLogin";
 
 export default function SignIn({ providers }) {
   return (
     <>
-    <CustomerLoin providers={providers} signIn={signIn} />
+    <CustomerLogin providers={providers} signIn={signIn} />
     </>
   )
 }

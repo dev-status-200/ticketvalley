@@ -103,7 +103,7 @@ const Search = ({destination, city, date, category, tourData}) => {
 
 return(
   <div className='home-styles'>
-    {size.width>400 &&
+    {size.width>500 &&
     <div className={`activity-bg activity py-4`}>
       {/* Header */}
       <div className='navBar'>
@@ -115,8 +115,8 @@ return(
           <a className='menu-drop-links pb-2' onClick={()=>Router.push("/search?destination=uae&city=Abu+Dhabi")}>Abu Dhabi</a>
       </div>
       </div>
-        <span className="navLink">
-          <img src={'/images/logo.png'} height={100} alt="Logo" />
+        <span className="navLink cur">
+          <img src={'/images/logo.png'} height={100} alt="Logo" onClick={()=>Router.push("/")} />
         </span>
         <div className='dropdown  mx-2'>
           <span className='navLink dropbtn' onClick={()=>Router.push("/search?destination=uae&city=Dubai+City")}>ACTIVITIES</span>
@@ -129,8 +129,8 @@ return(
       <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>SEARCH ACTIVITIES</h1>
     </div>}
     <div className='search-bg m-0 p-0' data-aos="fade-up">
-      { size.width>400? <CircleIcons/> : <CircleMobileIcons bg={"none"} /> }
-      <Container className={`px-${size.width>400?"1":"5"} pt-5`}>
+      { size.width>500? <CircleIcons/> : <CircleMobileIcons bg={"none"} /> }
+      <Container className={`px-${size.width>500?"1":"5"} pt-5`}>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>
             <div className='tour-filters mt-1'>
@@ -186,7 +186,7 @@ return(
             </ConfigProvider>
             </div>
           </Col>
-          <Col md={9} className={`${size.width>400?"":"p-0 m-0"}`}>
+          <Col md={9} className={`${size.width>500?"":"p-0 m-0"}`}>
             <Tours search={search} size={size} setSearch={setSearch} records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} searchTerm={searchTerm} />
           </Col>
         </Row>
@@ -200,7 +200,7 @@ return(
         </Col>
       </Row>
     </div>
-    <SignUp mobile={size.width>400?false:true} />
+    <SignUp mobile={size.width>500?false:true} />
   </div>
 )}
 

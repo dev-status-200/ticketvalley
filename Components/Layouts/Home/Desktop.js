@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 import Aos from 'aos';
-import { AiOutlineRight } from "react-icons/ai";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/pagination";
-import { Autoplay, Navigation } from "swiper";
 import "swiper/css/bundle";
-import TourCardOne from '../../Shared/TourCardOne';
+import "swiper/css/pagination";
 import SignUp from '../../Shared/SignUp';
-import { Widget } from "@uploadcare/react-widget";
 import CircleIcons from '/Components/Shared/CircleIcons';
 import dynamic from 'next/dynamic';
 
-const VideoComp = dynamic(() => import('./VideoComp'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
-})
-const BestSelling = dynamic(() => import('./BestSelling'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
-})
-const Adventures = dynamic(() => import('./AdventureTours'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
-})
-const Combos = dynamic(() => import('./Combos'), {
-  loading: () => <div className='text-center'> <img src='/loader.svg'  alt="About Us" /> </div>,
-})
+const VideoComp = dynamic(() => import('./VideoComp'), { ssr: false })
+const BestSelling = dynamic(() => import('./BestSelling'), { ssr: false })
+const Adventures = dynamic(() => import('./AdventureTours'), { ssr: false })
+const Combos = dynamic(() => import('./Combos'), { ssr: false })
 
 const Desktop = () => {
 

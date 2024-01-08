@@ -16,7 +16,7 @@ const About = () => {
     
   return (
     <div className='home-styles' >
-        {size.width>400 &&
+        {size.width>500 &&
         <div data-aos="fade-in">
             <div className='about-us activity py-4' style={{minHeight:500}}>
             <div className='navBar'>
@@ -51,14 +51,14 @@ const About = () => {
             </div>
         </div>}
         <div className='pb-5 why-us-section'>
-        {size.width>400? <CircleIcons/>: <CircleMobileIcons/> }
+        {size.width>500? <CircleIcons/>: <CircleMobileIcons/> }
         <Container className='my-5 py-3'>
             <div>
             <Row  data-aos='fade-up'>
                 <Col className='grey-txt' md={7}>
-                    <p className={`mb-5 fw-400 fs-${size.width>400?"55":"30"} blue-txt`}><span className='border-btm'>WHY</span> CHOOSE US?</p>
-                    <div className={`mb-5 fw-700 fs-${size.width>400?"55":"30"} black-txt`} style={{lineHeight:1}}>DISCOVER THE <span className='blue-txt'>WORLD</span> WITH OUR GUIDE</div>
-                    <span className={`${size.width>400?"fs-20":"fs-15"} black-txt fw-500`}>
+                    <p className={`mb-5 fw-400 fs-${size.width>500?"55":"30"} blue-txt`}><span className='border-btm'>WHY</span> CHOOSE US?</p>
+                    <div className={`mb-5 fw-700 fs-${size.width>500?"55":"30"} black-txt`} style={{lineHeight:1}}>DISCOVER THE <span className='blue-txt'>WORLD</span> WITH OUR GUIDE</div>
+                    <span className={`${size.width>500?"fs-20":"fs-15"} black-txt fw-500`}>
                         <p>
                             It{"’"}s our passion and our expertise, and has been for over two decades.
                             We know the trails and the towns inside and out. We know the hoteliers and their rooms,
@@ -73,7 +73,7 @@ const About = () => {
                 </Col>
                 <Col md={5} className='py-1' xs={12}>
                     <div >
-                        <img src={'images/why-us.png'} style={{width:size.width>400?'32vw':320}} alt="Why Us" />
+                        <img src={'images/why-us.png'} style={{width:size.width>500?'32vw':320}} alt="Why Us" />
                     </div>
                 </Col>
             </Row>
@@ -107,15 +107,15 @@ const About = () => {
         <Container className='my-5 py-3'>
             <div>
             <Row  data-aos='fade-up'>
-                {size.width>400 && <Col md={6} className='py-1'>
+                {size.width>500 && <Col md={6} className='py-1'>
                     <div className='px-5'>
                         <img src={'images/about-us.png'} style={{width:'33vw'}} alt="About Us" />
                     </div>
                 </Col>}
                 <Col className='grey-txt' md={6}>
-                    <p className={`mb-5 fw-400 fs-${size.width>400?"55":"30"} blue-txt`}><span className='border-btm'>About</span> US!</p>
+                    <p className={`mb-5 fw-400 fs-${size.width>500?"55":"30"} blue-txt`}><span className='border-btm'>About</span> US!</p>
                     <br/>
-                    <div className={`${size.width>400?"fs-20":"fs-15"} black-txt fw-500`}>
+                    <div className={`${size.width>500?"fs-20":"fs-15"} black-txt fw-500`}>
                         <p>
                             It{"’"}s our passion and our expertise, and has been for over two decades.
                             We know the trails and the towns inside and out. We know the hoteliers and their rooms,
@@ -139,8 +139,8 @@ const About = () => {
             <Row  data-aos='fade-up'>
                 <Col className='grey-txt my-5' md={7}>
                 <div className='blue-txt ' style={{letterSpacing:7}}>ABOUT US</div>
-                    <div className={`mb-5 fw-400 fs-${size.width>400?"55":"30"} blue-txt`} style={{lineHeight:1}}>FOUNDED IN <span className='blue-txt'>2000</span></div>
-                    <span className={`${size.width>400?"fs-20":"fs-15"} black-txt fw-500`}>
+                    <div className={`mb-5 fw-400 fs-${size.width>500?"55":"30"} blue-txt`} style={{lineHeight:1}}>FOUNDED IN <span className='blue-txt'>2000</span></div>
+                    <span className={`${size.width>500?"fs-20":"fs-15"} black-txt fw-500`}>
                         <p>
                         Tickets Valley is a one-stop shop for all your ticketing needs.
                         The company is based in the United Arab Emirates.
@@ -157,7 +157,7 @@ const About = () => {
                 </Col>
                 <Col md={5} xs={12} className='py-1'>
                     <div style={{float:'right'}}>
-                        <img src={'images/about-us-1a.png'} style={{width:size.width>400? '32vw':320}}  alt="About Us" />
+                        <img src={'images/about-us-1a.png'} style={{width:size.width>500? '32vw':320}}  alt="About Us" />
                     </div>
                 </Col>
             </Row>
@@ -169,7 +169,7 @@ const About = () => {
         <Container className='my-5 py-3'>
             <div>
             <Row  data-aos='fade-up'>
-                <Col className='grey-txt my-5 px-5' md={6} style={{borderRight:'1px solid black', textAlign:size.width>400?'right':'center'}}>
+                <Col className='grey-txt my-5 px-5' md={6} style={{borderRight:'1px solid black', textAlign:size.width>500?'right':'center'}}>
                 <div className='blue-txt mb-3' style={{letterSpacing:7}}>OUR MISSION</div>
                     <span className='fs-20 black-txt fw-500'>
                         <p>
@@ -180,8 +180,8 @@ const About = () => {
                     </span>
                 </Col>
                 <Col className='grey-txt my-5 px-5' md={6}>
-                <div className='blue-txt mb-3' style={size.width>400?{letterSpacing:7}:{textAlign:'center'}} >OUR VISION</div>
-                    <span className='fs-20 black-txt fw-500' style={size.width>400?{}:{textAlign:'center'}}>
+                <div className='blue-txt mb-3' style={size.width>500?{letterSpacing:7}:{textAlign:'center'}} >OUR VISION</div>
+                    <span className='fs-20 black-txt fw-500' style={size.width>500?{}:{textAlign:'center'}}>
                         <p>
                         Our vision is to become the leading ticketing company in the UAE, known for our exceptional customer service, competitive pricing, and wide range of ticket choices. We aim to be the go-to destination for anyone looking to purchase tickets to explore UAE, and to constantly innovating our services for customers.
                         </p>
@@ -212,8 +212,8 @@ const About = () => {
                     </span>
                 </Col>
                 <>
-                {/* {size.width>400 && <Col md={2}></Col> } */}
-                {size.width>400 &&
+                {/* {size.width>500 && <Col md={2}></Col> } */}
+                {size.width>500 &&
                     <Col md={5} className='py-1'>
                     <div>
                         <img src={'images/uae-about-us.png'} style={{width:'32vw'}}  alt="About Us" />

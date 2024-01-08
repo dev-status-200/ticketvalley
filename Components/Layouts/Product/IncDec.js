@@ -3,7 +3,7 @@ import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons"
 
 const IncDec = (props) => {
   return (
-    <div className='mx-1'>
+    <div className=''>
     <span>{props.type.charAt(0).toUpperCase() + props.type.slice(1)}: </span>
         <span className='text-center'>
         <b style={{

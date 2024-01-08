@@ -88,127 +88,117 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
   return (
     <>
     {contextHolder}
-    <div>
-        {!load && <>
-        {state.booking.map((x, i)=>{
-            return(
-            <div className={`${x.check?'tour-opt-selected':'tour-opt'} mb-2 prevent-select`} key={i}>
-            <Row>
-                <Col xs={1} 
-                    onClick={()=>{
-                        if(category!="Combo Tours"){
-                            let temp = [...state.booking];
-                            temp[i].check = !temp[i].check
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }
-                    }}
-                >
-                <Checkbox className='' disabled={category=="Combo Tours"?true:false} checked={x.check}/>
-                </Col>
-                <Col xs={10} className='cur' onClick={()=>{
+    <>
+    {!load && <>
+    {state.booking.map((x, i)=>{
+        return(
+        <div className={`${x.check?'tour-opt-selected':'tour-opt'} mb-2 prevent-select`} key={i}>
+        <Row>
+            <Col xs={1} className='pt-1' onClick={()=>{
                     if(category!="Combo Tours"){
                         let temp = [...state.booking];
                         temp[i].check = !temp[i].check
                         dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
                     }
-                }}>
-                    <div className='fs-16 fw-500'>{x.name}</div>
-                </Col>
-                <Col xs={12}
-                    onClick={()=>{
-                        if(category!="Combo Tours"){
-                            let temp = [...state.booking];
-                            temp[i].check = !temp[i].check
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }
-                    }}>
-                    <h6 style={{color:x.check?"#147ba1ea":"grey", paddingLeft:30}}>{x.price.toFixed(2)} AED</h6>
-                </Col>
-                {x.check &&
-                <>
-                <Col xs={12}><hr className='mt-1' /></Col>
-                <Col xs={6}>
-                    <IncDec type={"adult"} count={x.adult} index={i} state={state} dispatchReducer={dispatchReducer} />
-                </Col>
-                <Col xs={6}>
-                    <IncDec type={"child"} count={x.child} index={i} state={state} dispatchReducer={dispatchReducer} />
-                </Col>
-                <Col xs={6} className='mt-3'>
-                    <IncDec type={"infant"} count={x.infant} index={i} state={state} dispatchReducer={dispatchReducer} />
-                </Col>
-                <Col xs={12}></Col>
-                <Col className='mt-3' xs={5} style={{ marginLeft:4}}>
-                <div style={{marginRight:4}}>Transfer: </div>
-                <Select defaultValue="Yes" value={x.transfer} style={{width:"100%"}}
-                    onChange={(e)=>{
-                        let temp = [...state.booking];
-                        temp[i].transfer = e;
-                        // <- iF e==1? means no transfer option selected
-                        // let temp = [...state.booking];
-                        // temp[i].transfer = e;
-                        // if(e=="Shared"){
-                        //     temp[i].transportPrice = x.transport?0.00:parseFloat(transport[0].price)
-                        // } else if(e=="Private"){ 
-                        //     temp[i].transportPrice = parseFloat(transport[1].price);
-                        // } else if(e=="No"){ 
-                        //     temp[i].transportPrice = 0.00; 
-                        // }
-                        let tempAddress = "";
-                        if(e!="1"){
-                            transport.forEach((y)=>{
-                                if(y.id==e){
-                                    if(e=="845610848208257025"){
-                                        temp[i].transportPrice = x.transport?0.00:parseFloat(y.price);
-                                    }else{
-                                        temp[i].transportPrice = parseFloat(y.price)
-                                    }
-                                }
-                            })
-                            tempAddress = "";
-                        } else {
-                            tempAddress = "none"
-                            temp[i].transportPrice = 0.00; 
-                        }
-                        temp[i].price = temp[i].adult*temp[i].adult_price + temp[i].child*temp[i].child_price + temp[i].transportPrice;
-                        dispatchReducer({type: 'set', payload:{booking:temp, address:tempAddress}});
-                    }}
-                    options={[{value:"1", label:"No", disabled:x.transport},...transport.filter((y)=>{if(y.status=="1"){return x}}).map((y)=>{  return { value:y.id, label:y.name } }) ]}
-                />
-                </Col>
-                <Col className='mt-3 p-0' xs={6} style={{position:'relative', left:20}}>
-                    <div className=''>Date:</div>
-                    <DatePicker
-                        style={{position:'relative', top:1}}
-                        selected={x.date}
-                        onChange={(date) => {
-                            let temp = [...state.booking];
-                            temp[i].date = date;
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }}
-                        minDate={new Date()}
-                        includeDates={x.dated?x.dates:false}
-                        dateFormat="yyyy - MMM - dd"
-                    />
-                </Col>
-                {x.transport==true && <Col md={12} className='px-3 mt-1' style={{color:'silver'}}> {"("}Shared Transfer is included in ticket{")"} </Col>}
-                {x.timed &&<Col md={12} className='mt-2 mx-1' >
-                <div>Time Slots</div>
-                {
-                    x.timeSlots.map((z, j)=>{
-                    return(
-                        <div key={j} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
-                            let temp = [...state.booking];
-                            temp[i].timeSlot = z.slot;
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }}>
-                            {z.slot}
-                        </div>
-                    )
-                    })   
+                }}
+            >
+            <Checkbox className='' disabled={category=="Combo Tours"?true:false} checked={x.check}/>
+            </Col>
+            <Col xs={10} className='cur' onClick={()=>{
+                if(category!="Combo Tours"){
+                    let temp = [...state.booking];
+                    temp[i].check = !temp[i].check
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
                 }
-                </Col>}
-                {/* {x.transfer!="No" && <Col md={12}><hr className='my-2' /></Col> }
-                {x.transfer!="No" &&
+            }}>
+                <div className='fs-16 fw-500'>{x.name}</div>
+            </Col>
+            <Col xs={12} onClick={()=>{
+                if(category!="Combo Tours"){
+                    let temp = [...state.booking];
+                    temp[i].check = !temp[i].check
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                }
+            }}>
+                <h6 style={{color:x.check?"#147ba1ea":"grey", paddingLeft:30}}>{x.price.toFixed(2)} AED</h6>
+            </Col>
+            {x.check &&
+            <>
+            <Col xs={12}><hr className='mt-1' /></Col>
+            <Col xs={6}>
+                <IncDec type={"adult"} count={x.adult} index={i} state={state} dispatchReducer={dispatchReducer} />
+            </Col>
+            <Col xs={6}>
+                <IncDec type={"child"} count={x.child} index={i} state={state} dispatchReducer={dispatchReducer} />
+            </Col>
+            <Col xs={6} className='mt-3'>
+                <IncDec type={"infant"} count={x.infant} index={i} state={state} dispatchReducer={dispatchReducer} />
+            </Col>
+            <Col xs={12}></Col>
+            <Col className='mt-3' xs={5} style={{ marginLeft:4}}>
+            <div style={{marginRight:4}}>Transfer: </div>
+            <Select defaultValue="Yes" value={x.transfer} style={{width:"100%"}}
+                onChange={(e)=>{
+                    let temp = [...state.booking];
+                    temp[i].transfer = e;
+                    let tempAddress = "";
+                    if(e!="1"){
+                        transport.forEach((y)=>{
+                            if(y.id==e){
+                                if(e=="845610848208257025"){
+                                    temp[i].transportPrice = x.transport?0.00:parseFloat(y.price);
+                                }else{
+                                    temp[i].transportPrice = parseFloat(y.price)
+                                }
+                            }
+                        })
+                        tempAddress = "";
+                    } else {
+                        tempAddress = "none"
+                        temp[i].transportPrice = 0.00; 
+                    }
+                    temp[i].price = temp[i].adult*temp[i].adult_price + temp[i].child*temp[i].child_price + temp[i].transportPrice;
+                    dispatchReducer({type: 'set', payload:{booking:temp, address:tempAddress}});
+                }}
+                options={[{value:"1", label:"No", disabled:x.transport},...transport.filter((y)=>{if(y.status=="1"){return x}}).map((y)=>{  return { value:y.id, label:y.name } }) ]}
+            />
+            </Col>
+            <Col className='mt-3 p-0' xs={5} style={{position:'relative', left:20}}>
+                <div className=''>Date:</div>
+                <DatePicker
+                    style={{position:'relative', top:1}}
+                    selected={x.date}
+                    onChange={(date) => {
+                        let temp = [...state.booking];
+                        temp[i].date = date;
+                        dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                    }}
+                    minDate={new Date()}
+                    includeDates={x.dated?x.dates:false}
+                    dateFormat="yyyy - MMM - dd"
+                />
+            </Col>
+            <Col xs={12} className='py-2'></Col>
+            {x.transport==true && <Col md={12} className='px-3 mt-1' style={{color:'silver'}}> {"("}Shared Transfer is included in ticket{")"} </Col>}
+            {x.timed &&<Col md={12} className='mt-2 mx-1' >
+            <div>Time Slots</div>
+            {
+                x.timeSlots.map((z, j)=>{
+                return(
+                    <div key={j} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
+                        let temp = [...state.booking];
+                        temp[i].timeSlot = z.slot;
+                        dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                    }}>
+                        {z.slot}
+                    </div>
+                )
+                })   
+            }
+            </Col>}
+            {x.transfer!="1" &&
+            <>
+                <Col md={12}><hr className='my-2' /></Col>
                 <Col md={12} className="mt-1 mb-2 px-3">
                     <GooglePlacesAutocomplete
                         apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
@@ -216,108 +206,83 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
                             onChange: (res)=> {
                                 let temp = [...state.booking];
                                 temp[i].address = res.label;
+                                //console.log(temp[i].address)
                                 dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
                             },
-                            placeholder: 'Address Bar Powered By Google',
-                            // components : {
-                            //     IndicatorSeparator: () => null,
-                            //     DropdownIndicator: () => 
-                            //     <>
-                            //         <span className='mx-2' style={{color:'silver'}}></span>
-                            //         <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
-                            //     </>
-                            // },
+                            placeholder: 'Pick up Address',
+                            components : {
+                                IndicatorSeparator: () => null,
+                                DropdownIndicator: () => 
+                                <>
+                                    <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
+                                    <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
+                                </>
+                            },
                         }}
                     />
                 </Col>
-                } */}
-                {x.transfer!="1" &&
-                <>
-                    <Col md={12}><hr className='my-2' /></Col>
-                    <Col md={12} className="mt-1 mb-2 px-3">
-                        <GooglePlacesAutocomplete
-                            apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
-                            selectProps={{
-                                onChange: (res)=> {
-                                    let temp = [...state.booking];
-                                    temp[i].address = res.label;
-                                    //console.log(temp[i].address)
-                                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                                },
-                                placeholder: 'Pick up Address',
-                                components : {
-                                    IndicatorSeparator: () => null,
-                                    DropdownIndicator: () => 
-                                    <>
-                                        <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
-                                        <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
-                                    </>
-                                },
-                            }}
-                        />
-                    </Col>
-                </>
-                }
-                </>
-                }
-            </Row>
-            </div>
-            )
-        })}        
-        <Row className="px-1">
-            <Col md={12} className='my-2 fs-16'><b>Lead Passenger Details</b></Col>
-            <Col xs={4}>
-                <Select style={{width:"100%"}} value={state.title}
-                    onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'title', payload: e })}
-                    options={[{value:"Mr.", label:"Mr."}, {value:"Ms.", label:"Ms."}, {value:"Mrs.", label:"Mrs."}]}
-                />
-            </Col>
-            <Col xs={8}>
-                <Input placeholder='Full Name' value={state.name}
-                    onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'name', payload: e.target.value })} 
-                />
-            </Col>
-            <Col xs={12} className='mt-3'>
-            <Select  defaultValue="Select Country"
-                style={{width:"100%"}}
-                onChange={(e)=>{
-                    let tempContact = ""
-                    codes.forEach((x)=>{
-                        if(x.value==e){
-                            tempContact = x.code+" "
-                            //dispatchReducer({ type: 'field', fieldName:'contact', payload: x.code+" " });
-                            return
-                        }
-                    })
-                    dispatchReducer({ type:'set', payload:{ code:e, contact:tempContact }})
-                }}
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                    ((option?.value) ?? '').toLowerCase().includes(input.toLowerCase())||
-                    ((option?.label) ?? '').toLowerCase().includes(input.toLowerCase())||
-                    ((option?.code) ?? '').toLowerCase().includes(input.toLowerCase())
-                }
-                options={codes}
+            </>
+            }
+            </>
+            }
+        </Row>
+        </div>
+        )
+    })}        
+    <Row className="px-1">
+        <Col md={12} className='my-2 fs-16'><b>Lead Passenger Details</b></Col>
+        <Col xs={4}>
+            <Select style={{width:"100%"}} value={state.title}
+                onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'title', payload: e })}
+                options={[{value:"Mr.", label:"Mr."}, {value:"Ms.", label:"Ms."}, {value:"Mrs.", label:"Mrs."}]}
             />
-            </Col>
-            <Col xs={2} className='flag-box' style={{marginLeft:15}}>
-            <span className={`fi fi-${state.code.toLowerCase()}`}></span>
-            </Col>
-            <Col xs={9} className='mt-3'>
-                <Input placeholder='Contact No' value={state.contact}
-                    onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'contact', payload: e.target.value })} 
-                />
-            </Col>
-            <Col md={12}><hr className='mt-4 mb-1'/></Col>
-        </Row>
-        <Row>
-            <Col md={12}>{(state.booking.length>0 && oneSelected()) && <button className='cart-btn mt-3' onClick={addToCart}>Add To Cart</button>}</Col>
-        </Row>
-        </>
-        }
-        {load && <div className='text-center py-5'> <Spinner className='mt-5' /><p className='mb-5'>Please wait...</p> </div>}
-    </div>
+        </Col>
+        <Col xs={8}>
+            <Input placeholder='Full Name' value={state.name}
+                onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'name', payload: e.target.value })} 
+            />
+        </Col>
+        <Col xs={12} className='mt-3'>
+        <Select  defaultValue="Select Country"
+            style={{width:"100%"}}
+            onChange={(e)=>{
+                let tempContact = ""
+                codes.forEach((x)=>{
+                    if(x.value==e){
+                        tempContact = x.code+" "
+                        //dispatchReducer({ type: 'field', fieldName:'contact', payload: x.code+" " });
+                        return
+                    }
+                })
+                dispatchReducer({ type:'set', payload:{ code:e, contact:tempContact }})
+            }}
+            showSearch
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+                ((option?.value) ?? '').toLowerCase().includes(input.toLowerCase())||
+                ((option?.label) ?? '').toLowerCase().includes(input.toLowerCase())||
+                ((option?.code) ?? '').toLowerCase().includes(input.toLowerCase())
+            }
+            options={codes}
+        />
+        </Col>
+        <Col xs={2} className='flag-box' style={{marginLeft:15}}>
+        <span className={`fi fi-${state.code.toLowerCase()}`}></span>
+        </Col>
+        <Col xs={9} className='mt-3' style={{marginLeft:15}}>
+            <Input placeholder='Contact No' value={state.contact}
+                onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'contact', payload: e.target.value })} 
+            />
+        </Col>
+        <Col md={12}><hr className='mt-4 mb-1'/></Col>
+    </Row>
+    <Row>
+        <Col md={12}>{(state.booking.length>0 && oneSelected()) && <button className='cart-btn mt-3' onClick={addToCart}>Add To Cart</button>}</Col>
+    </Row>
+    </>
+    }
+    {load && <div className='text-center py-5'> <Spinner className='mt-5' /><p className='mb-5'>Please wait...</p> </div>}
+    </>
     </>
   )
 }

@@ -145,6 +145,7 @@
   }
   .fixed-book{
     position: fixed!important;
+    z-index: 100;
     bottom: 30px!important;
     right: 110px;
     border-radius: 100%;
@@ -280,3 +281,6 @@
   color: #147ba1ea;
 }
 
+.react-datepicker__input-container{
+  width: 120%!important ;
+}
