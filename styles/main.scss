@@ -887,18 +887,22 @@ div.react-datepicker-wrapper > div > input{
 .signin-bg{
   padding-top: 60px;
   padding-bottom: 60px;
-  background-color: rgb(18, 44, 148);
+  background-color: rgb(13, 92, 106);
   //text-align: center;
   color: white;
 }
 .subscribe-btn{
   color: white;
-  background-color: rgb(11, 28, 95);
+  border: 1px solid white;
+  background-color: rgba(11, 28, 95, 0);
   padding: 20px;
   font-size: 25px;
   font-weight: bolder;
   text-align: center;
   cursor: pointer;
+}
+.subscribe-btn:hover{
+  background-color: rgba(11, 28, 95, 0.28);
 }
 
 .insight-box{

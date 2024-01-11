@@ -103,12 +103,12 @@ const Product = ({tourData, id}) => {
     return(
       <div className='booking-form mt-4'>
       <div className=''><span className='fw-400 fs-14 grey-txt'>Starting From</span></div>
-      {tour.prevPrice && <s className={`fw-400 ${size.width>500?"fs-20":"fs-15"}`} style={{color:"#af302c"}}>
+      {tour.prevPrice && <s className={`fw-400 ${size.width>600?"fs-20":"fs-15"}`} style={{color:"#af302c"}}>
         {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
       </s>}
-      <p className={`fw-600 ${size.width>500?"fs-30":"fs-20"}`}><AiFillTags/>
+      <p className={`fw-600 ${size.width>600?"fs-30":"fs-20"}`}><AiFillTags/>
         {(tour.TourOptions[0]?.adult_price*conversion.rate).toFixed(2)} {conversion.currency} 
-        <span className={`fw-400 ${size.width>500?"fs-18":"fs-15"} mx-2 grey-txt`}>Per Person</span>
+        <span className={`fw-400 ${size.width>600?"fs-18":"fs-15"} mx-2 grey-txt`}>Per Person</span>
       </p>
       <div className='my-2'>
         <span className='info-logo'><IoCalendarSharp/></span>
@@ -158,7 +158,7 @@ const Product = ({tourData, id}) => {
   return (
   <>
   <div className='tour-styles' style={{backgroundColor:'white'}}>
-    {size.width>500 &&
+    {size.width>600 &&
     <div className='hero pt-4'>
       <div className='navBar'>
         <Link className='navLink' href='/'>HOME</Link>
@@ -197,7 +197,7 @@ const Product = ({tourData, id}) => {
           </Col>
           <Col md={4} data-aos="fade-up">
           <div className='pt-5'>
-            {size.width>500 && <BookComp />}
+            {size.width>600 && <BookComp />}
             <div className='tour-features-box my-4 mt-5'>
               <div className='tour-features py-2'>
                 <>Duration</>
@@ -302,7 +302,7 @@ const Product = ({tourData, id}) => {
           </Col>
         </Row>
       </Container>}
-      {(scrollPosition>650 && !added && size.width>500 ) &&
+      {(scrollPosition>650 && !added && size.width>600 ) &&
       <div className='fixed-book' data-aos="slide-up">
         <button type='button'  onClick={()=>setOpen(true)} className='otherBook-btn'>
           <b>            
@@ -312,7 +312,7 @@ const Product = ({tourData, id}) => {
         </button>
       </div>
       }
-      {(!added && size.width<500 ) &&
+      {(!added && size.width<600 ) &&
       <div className='fixed-book' style={{right:'73%'}}>
         <button type='button'  onClick={()=>setOpen(true)} className='otherBook-btn'>
           <b>            
@@ -327,10 +327,10 @@ const Product = ({tourData, id}) => {
     {Object.keys(tour).length==0 && <div>Please wait...</div>}
   </div>
   <Drawer 
-    style={size.width<500?{}:{}}
+    style={size.width<600?{}:{}}
     title={`${tour.title} Options`} placement={"right"}
     onClose={()=>setOpen(false)} open={open}
-    width={size.width<500?"100%":540}
+    width={size.width<600?"100%":540}
   > 
     {size.width<=500?
       <MobileBook tour={tour} transport={transport} category={detail.advCategory} setOpen={setOpen} />:

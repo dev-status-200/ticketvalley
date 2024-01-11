@@ -22,22 +22,22 @@ const CustomerLogin = ({providers, signIn}) => {
     {!session &&
     <div className='bg-login'>
     <div className='customer-login text-center'>
-    <div className={`${size.width>500?"cont":"pb-5 mb-5"}`}>
-      <Image src={'/images/logo.png'} className={`${size.width>500?"mb-5":"my-5"}`} width={200} height={75} alt="Image" />
-      <div className={`container-custom ${size.width>500?"":"px-3"}`}>
+    <div className={`${size.width>600?"cont":"pb-5 mb-5"}`}>
+      <Image src={'/images/logo.png'} className={`${size.width>600?"mb-5":"my-5"}`} width={200} height={75} alt="Image" />
+      <div className={`container-custom ${size.width>600?"":"px-3"}`}>
       <div className='login-box'>
       <h3 className='text-center mt-5 signup'>Sign-in</h3>
       <div className='mb-4 py-2'></div>
-          {Object.values(providers).map((provider) => (
-            <div key={provider.name}>
-            <button className='google-btn' 
-              style={{padding:size.width>500?"10px 20px 10px 20px":"5px 8px"}}
-              onClick={() => signIn(provider.id)}>
-                <span><FcGoogle className='mb-1' /></span> <span className='mx-2'>Login in with {provider.name}</span>
-            </button>
-            </div>
-          ))}
-          <p className='text-center mb-3 mt-5 privacy-text'>Privacy Protected Login</p>
+        {providers && Object?.values(providers)?.map((provider) => (
+          <div key={provider.name}>
+          <button className='google-btn' 
+            style={{padding:size.width>600?"10px 20px 10px 20px":"5px 8px"}}
+            onClick={() => signIn(provider.id)}>
+              <span><FcGoogle className='mb-1' /></span> <span className='mx-2'>Login in with {provider.name}</span>
+          </button>
+          </div>
+        ))}
+        <p className='text-center mb-3 mt-5 privacy-text'>Privacy Protected Login</p>
       </div>
       </div>
     </div>

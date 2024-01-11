@@ -10,6 +10,7 @@ import { Tabs } from 'antd';
 import moment from "moment";
 import axios from 'axios';
 import { reducerFunctions, initialState, baseValues } from './states';
+import { openNotification } from "../../Shared/Notification"
 
 const CreateOrEdit = ({productData, id}) => {
 
@@ -46,7 +47,7 @@ const CreateOrEdit = ({productData, id}) => {
       state.dated = tempState.dated;
       //state.dates = tempState.dated?JSON.parse(tempState.dates):[{"date":""}]
       reset(tempState);
-      console.log(productData.result.more_images.split(","))
+      // console.log(productData.result.more_images.split(","))
       dispatch({
         type: 'set',
         payload: {
@@ -139,116 +140,101 @@ const CreateOrEdit = ({productData, id}) => {
   };
 
   const onEdit = async(data) => {
-    console.log(state)
-  //   dispatch({type:'field', fieldName:'load', payload:true})
-  //   let prev_img = "";
-  //   let value;
-  //   let values=[];
-  //   if(state.main_image){
-  //     prev_img = data.main_image
-  //     delete data.main_image; // this has the previous image
-  //     //delete data.more_images;
-  //     let cover;
-  //     cover = await uploadImage(state.main_image); // this has the new image
-  //     data.main_image = cover;
-  //   }else{
-  //     delete data.main_image;
-  //   }
-  //   if(state.more_images.length>0){
-  //     for(let i = 0; i<state.more_images.length; i++){
-  //       value = await uploadImage(state.more_images[i]);
-  //       values.push(value)
-  //     }
-  //     state.prev_images.forEach((x)=>{
-  //       values.push(x)
-  //     })
-  //   }
-  //   if(state.deleted_images.length>0 && state.more_images.length==0){
-  //     console.log("Function Hit")
-  //     let tempMages = [];
-  //     state.prev_images.forEach((x)=>{
-  //       state.deleted_images.forEach((y)=>{
-  //         if(x!=y){
-  //           tempMages.push(x);
-  //         }
-  //       })
-  //     })
-  //     values = tempMages;
-  //   }
-  //   let tempPackages = [...state.packages];
-  //   tempPackages.forEach((x)=>{
-  //     if(x.dated){
-  //       let newDates = [];
-  //       x.dates.forEach((y)=>{
-  //         newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
-  //       })
-  //       x.dates = newDates;
-  //     }
-  //   })
-  //   await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
-  //     {
-  //       ...data,
-  //       packages:tempPackages,//state.packages,
-  //       stock:state.stock,
-  //       prev_img:prev_img,
-  //       status:state.status,
-  //       deleted_images:state.deleted_images,
-  //       more_images:values.toString(),
-  //       inclusions:makeString(state.inclusions),
-  //       why_shoulds:makeString(state.why_shoulds),
-  //       imp_infos:makeString(state.imp_infos),
-  //       policies:makeString(state.policies),
-  //       cancellation_polices:makeString(state.cancellation_polices),
-  //     }
-  //   ).then((x)=>{
-  //     if(x.data.status=='success'){
-  //       console.log(x.data)
-  //       let tempState = [...state.records];
-  //       let index = tempState.findIndex((y)=>y.id==x.data.result.id);
-  //       tempState[index] = x.data.result
-  //       dispatch({type:'modalOffAndTourUpdate', payload:tempState});
-  //       //Router.push("/productCreation")
-  //       //openNotification('Success', `Tour Updated!`, 'green')
-  //   }
-  // })
+    dispatch({type:'field', fieldName:'load', payload:true})
+    let prev_img = "", value, values=[];
+    if(state.main_image){
+      prev_img = data.main_image
+      delete data.main_image; // this has the previous image
+      //delete data.more_images;
+      let cover;
+      cover = await uploadImage(state.main_image); // this has the new image
+      data.main_image = cover;
+    }else{
+      delete data.main_image;
+    }
+    if(state.more_images.length>0){
+      for(let i = 0; i<state.more_images.length; i++){
+        value = await uploadImage(state.more_images[i]);
+        values.push(value)
+      }
+      state.prev_images.forEach((x)=>{
+        values.push(x)
+      })
+    }
+    if(state.deleted_images.length>0 && state.more_images.length==0){
+      let tempMages = [];
+      state.prev_images.forEach((x)=>{
+        state.deleted_images.forEach((y)=>{
+          if(x!=y){
+            tempMages.push(x);
+          }
+        })
+      })
+      values = tempMages;
+    }
+    let tempPackages = [...state.packages];
+    tempPackages.forEach((x)=>{
+      if(x.dated){
+        let newDates = [];
+        x.dates.forEach((y)=>{
+          newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+        })
+        x.dates = newDates;
+      }
+    })
+    await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
+      {
+        ...data,
+        packages:tempPackages,//state.packages,
+        stock:state.stock,
+        prev_img:prev_img,
+        status:state.status,
+        deleted_images:state.deleted_images,
+        more_images:values.toString(),
+        inclusions:makeString(state.inclusions),
+        why_shoulds:makeString(state.why_shoulds),
+        imp_infos:makeString(state.imp_infos),
+        policies:makeString(state.policies),
+        cancellation_polices:makeString(state.cancellation_polices),
+      }
+    ).then((x)=>{
+      if(x.data.status=='success'){
+        openNotification('Success', `Tour Updated!`, 'green')
+        Router.push(`/tourEditPage?id=${id}`)
+      } else {
+        openNotification('Error', `Something Went Wrong, Try Again!`, 'red')
+      }
+    })
   };
 
   const onError = async(data) => { };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(state.edit?onEdit:onSubmit, onError)}>
-      <Tabs
-        defaultActiveKey="1"
-        onChange={(e)=>dispatch({type:'toggle', fieldName:'activeTab', payload:e})}
-        items={[
-          {
-            label: `Tour Info`,
-            key: '1',
-            children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-          },
-          {
-            label: `Packages Info`,
-            key: '5',
-            children:<PackagesInfo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-          },
-          {
-            label: `Description`,
-            key: '3',
-            children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-          },
-          {
-            label: `Images`,
-            key: '4',
-            children:<ImageUpload state={state} setValues={setValues} dispatch={dispatch} id={id} />
-          }
-        ]}
-      />
-      <div className='pt-3'>
-        <button className='btn-custom' type="submit" disabled={state.load?true:false}>{state.load?<Spinner animation="border" size='sm' className='mx-3' />:'Submit'}</button>
-      </div>
-      </form>
+  <>
+  <form onSubmit={handleSubmit(id!='new'?onEdit:onSubmit, onError)}>
+    <Tabs
+      defaultActiveKey="1"
+      onChange={(e)=>dispatch({type:'toggle', fieldName:'activeTab', payload:e})}
+      items={[
+        {
+          label:`Tour Info`, key:'1', children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+        },
+        {
+          label:`Packages Info`, key:'5', children:<PackagesInfo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+        },
+        {
+          label:`Description`, key:'3', children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+        },
+        {
+          label:`Images`, key:'4', children:<ImageUpload state={state} setValues={setValues} dispatch={dispatch} id={id} />
+        }
+      ]}
+    />
+    <div className='pt-3'>
+      <button className='btn-custom' type="submit" disabled={state.load?true:false}>{state.load?<Spinner animation="border" size='sm' className='mx-3' />:'Submit'}</button>
     </div>
+  </form>
+  </>
   )
 }
 export default CreateOrEdit

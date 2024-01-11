@@ -103,7 +103,7 @@ const Search = ({destination, city, date, category, tourData}) => {
 
 return(
   <div className='home-styles'>
-    {size.width>500 &&
+    {size.width>600 &&
     <div className={`activity-bg activity py-4`}>
       {/* Header */}
       <div className='navBar'>
@@ -129,8 +129,8 @@ return(
       <h1 className='text-center mt-5 wh-txt fw-700 text-shadow fs-45'>SEARCH ACTIVITIES</h1>
     </div>}
     <div className='search-bg m-0 p-0' data-aos="fade-up">
-      { size.width>500? <CircleIcons/> : <CircleMobileIcons bg={"none"} /> }
-      <Container className={`px-${size.width>500?"1":"5"} pt-5`}>
+      { size.width>600? <CircleIcons/> : <CircleMobileIcons bg={"none"} /> }
+      <Container className={`px-${size.width>600?"1":"5"} pt-5`}>
         <Row>
           <Col md={3} className="" style={{paddingRight:10}}>
             <div className='tour-filters mt-1'>
@@ -186,7 +186,7 @@ return(
             </ConfigProvider>
             </div>
           </Col>
-          <Col md={9} className={`${size.width>500?"":"p-0 m-0"}`}>
+          <Col md={9} className={`${size.width>600?"":"p-0 m-0"}`}>
             <Tours search={search} size={size} setSearch={setSearch} records={records} index={index} pages={pages} pagination={pagination} price={price} category={category} setIndex={setIndex} searchTerm={searchTerm} />
           </Col>
         </Row>
@@ -200,7 +200,7 @@ return(
         </Col>
       </Row>
     </div>
-    <SignUp mobile={size.width>500?false:true} />
+    <SignUp mobile={size.width>600?false:true} />
   </div>
 )}
 

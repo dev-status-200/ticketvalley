@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { IoStar } from 'react-icons/io5';
-import { HiArrowLongRight } from 'react-icons/hi2';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 

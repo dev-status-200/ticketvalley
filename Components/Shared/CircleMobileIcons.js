@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const CircleIcons = ({bg}) => {
 
-    const height = 15, width = 15;
+    const height = 20, width = 20;
 
     const imgStyle = {
         position:"relative",

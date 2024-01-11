@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 const SignUp = ({mobile}) => {
   return (
-    <div className='signin-bg '>
+    <div className='signin-bg'>
     <Container className={`${mobile?"text-center":''}`}>
     <Row>
       <Col md={1}></Col>

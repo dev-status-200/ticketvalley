@@ -15,9 +15,12 @@
     }
     .barz-mobile{
         border: 1px solid rgba(192, 192, 192, 0.366);
-        padding-top: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         background-color: white;
-        height: 50px;
+        height: 60px!important;
+        width: 60px!important;
         margin: 10px;
         border-radius: 100%;
         box-shadow: 0px 4px 14px -8px rgba(0,0,0,0.75);

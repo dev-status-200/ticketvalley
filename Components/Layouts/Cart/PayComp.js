@@ -16,8 +16,6 @@ const PayComp = ({price, email, name, image}) => {
                 setStripePromise(loadStripe(x.data.publishableKey))
             }
         })
-    }, []);
-    useEffect(() => {
         axios.post(process.env.NEXT_PUBLIC_CREATE_PAY_INTENT,{
             price:price
         })
@@ -29,7 +27,7 @@ const PayComp = ({price, email, name, image}) => {
     }, []);
 
   return (
-    <div>
+    <div className='px-4'>
         {stripePromise && clientSecret &&
         <Elements stripe={stripePromise} options={{clientSecret}}>
             <Checkout email={email} name={name} image={image} />

@@ -39,7 +39,7 @@ const MyBookings = () => {
 
   return (
     <div style={{backgroundColor:'white'}}>
-        {size.width>500?
+        {size.width>600?
         <>
         <hr className='my-0' />
         <div className='home-styles'>
@@ -78,7 +78,7 @@ const MyBookings = () => {
         <hr className='pb-0 mb-0' />
         </>
         }
-        <div className={`${size.width>500?"tickets-cont":"px-3"} pb-5`}>
+        <div className={`${size.width>600?"tickets-cont":"px-3"} pb-5`}>
         {(session && email=='') && <div>{retrive(session.user.email)}</div>}
         <h1 className='mt-4 grey-txt'>My Bookings</h1>
         <div className='mb-4'>All Your booking info will be diplayed here.</div>
@@ -95,8 +95,8 @@ const MyBookings = () => {
                     {i==0 &&
                         <Row>
                             <Col xs={6}>
-                            <div className={`grey-txt fs-${size.width>500?"20":"15"} fw-500`}>Booking #{y.booking_no}</div>
-                            <div className={`${size.width>500?'silver-2-txt':'silver-2-txt fs-12'}`}><span >{moment(y.moment).format('DD-MMM-YYYY, hh:ss a')}</span></div>
+                            <div className={`grey-txt fs-${size.width>600?"20":"15"} fw-500`}>Booking #{y.booking_no}</div>
+                            <div className={`${size.width>600?'silver-2-txt':'silver-2-txt fs-12'}`}><span >{moment(y.moment).format('DD-MMM-YYYY, hh:ss a')}</span></div>
                             <div className='mt-2'>
                                 Discount:
                                 {" "}
@@ -117,7 +117,7 @@ const MyBookings = () => {
                             </div>    
                             </Col>
                             <Col style={{textAlign:'end'}} xs={6}>
-                            <img src={'/icons/reservation.png'} height={size.width>500? 90: 50}  alt="reservation"/>
+                            <img src={'/icons/reservation.png'} height={size.width>600? 90: 50}  alt="reservation"/>
                             
                             <div style={{color:'#2b55bf'}} className='mt-3'>Click To View Tickets{">"}</div>
                             </Col>

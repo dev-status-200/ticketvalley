@@ -62,8 +62,8 @@ const TourSearchBar = () => {
     <div className='search-bar'>
     <Row>
         <Col md={2}></Col>
-        <Col md={8} className='px-0'>
-        <div style={{textAlign:'left'}}>
+        <Col md={8} className='px-5'>
+        <div style={{textAlign:'left'}} className='px-5'>
             <h3
                 style={{
                     fontWeight:600,
@@ -72,19 +72,13 @@ const TourSearchBar = () => {
                 }}
             >Search Now</h3>
         </div>
-        <Row className='bar-bg'>
-        <Col md={6} className='px-0 py-0' 
+        <Row className='bar-bg mx-5'>
+        <Col md={9} className='px-0 py-0' 
             onMouseEnter={()=>setDropShow(true)} 
             onMouseLeave={()=>setDropShow(false)}
             > 
             <input type='text' placeholder='Enter Destination' value={search} onChange={(e)=>setSearch(e.target.value)} />
             <DropShow/>
-        </Col>
-        <Col md={3} className='px-0 cur'>
-            <input type='date' style={{color:date==""?'white':"grey"}} value={date} className='date-search-box' 
-                onChange={(e)=>setDate(e.target.value)} 
-            />
-            {date=="" && <span style={{position:'absolute' ,bottom:28, right:"42.5%", color:'silver'}} >Select Date</span>}
         </Col>
         <Col md={3} className='px-0'>
             <button className='search-btn' 
