@@ -15,14 +15,13 @@ import { openNotification } from "../../Shared/Notification"
 const CreateOrEdit = ({productData, id}) => {
 
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
-
   const {register, control, handleSubmit, reset, formState:{errors} } = useForm({
     defaultValues:state.values
   });
 
   useEffect(() => {
+    console.log(id)
     if(id!="new"){
-      //console.log(productData.result.more_images)
       let tempState = {...productData.result};
       state.cancellation_polices = tempState.cancellation_polices.split("//");
       state.status = tempState.status;

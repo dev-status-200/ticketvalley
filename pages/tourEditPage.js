@@ -4,7 +4,7 @@ import TourEditPage from "../Components/Layouts/TourCreation/CreateOrEdit"
 
 const tourEditPage = ({productData, id}) => {
   return (
-    <TourEditPage productData={productData} />
+    <TourEditPage productData={productData} id={id} />
   )
 }
 export default tourEditPage
