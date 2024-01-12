@@ -197,7 +197,11 @@ const Product = ({tourData, id}) => {
           </Col>
           <Col md={4} data-aos="fade-up">
           <div className='pt-5'>
-            {size.width>600 && <BookComp />}
+            {size.width>600 && 
+            <>
+              <BookComp />
+            </>
+            }
             <div className='tour-features-box my-4 mt-5'>
               <div className='tour-features py-2'>
                 <>Duration</>
@@ -328,11 +332,12 @@ const Product = ({tourData, id}) => {
   </div>
   <Drawer 
     style={size.width<600?{}:{}}
-    title={`${tour.title} Options`} placement={"right"}
+    title={<h3 style={{paddingTop:9, color:'grey'}}>Select From Below Options</h3>} placement={"right"}
     onClose={()=>setOpen(false)} open={open}
     width={size.width<600?"100%":540}
   > 
-    {size.width<=500?
+    {detail.advCategory=="Combo Tours" && <div className='combo-note'> Note: In Combo Tickets all options are included ! </div>}
+    {size.width<=600?
       <MobileBook tour={tour} transport={transport} category={detail.advCategory} setOpen={setOpen} />:
       <Book tour={tour} transport={transport} category={detail.advCategory} setOpen={setOpen} />
     }

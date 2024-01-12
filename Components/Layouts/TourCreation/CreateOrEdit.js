@@ -22,7 +22,6 @@ const CreateOrEdit = ({productData, id}) => {
   useEffect(() => {
     if(id!="new"){
       let tempState = {...productData.result};
-      console.log(tempState.more_images)
       state.cancellation_polices = tempState?.cancellation_polices?.split("//");
       state.status = tempState.status;
       tempState.TourOptions.forEach((x)=>{
@@ -141,7 +140,7 @@ const CreateOrEdit = ({productData, id}) => {
   const onEdit = async(data) => {
     // more_images <- New images that are added
     // prev_images <- Previous Images Left after deleting or not deleting either
-    
+
     dispatch({type:'field', fieldName:'load', payload:true})
     let prev_img = "", value, values=[...state.prev_images];
     if(state.main_image){

@@ -37,15 +37,15 @@ const Images = ({tour, detail}) => {
       <Swiper pagination={true} modules={[Pagination]} spaceBetween={30}>
         {images.length>0 && images.map((x, i)=>{
           return(
-            <SwiperSlide key={i}><img src={x} style={{borderRadius:18, height:size.width<600?200:400}} /></SwiperSlide>
+            <SwiperSlide key={i}><img src={x} style={{borderRadius:18, height:size.width<600?200:'100%'}} /></SwiperSlide>
         )})}
       </Swiper>
-      <Row className={`${size.width<=400?"px-1 mt-2":"mt-3"}`}>
+      <Row className={`${size.width<=600?"px-2 mt-2":"mt-3"}`}>
         {images.map((x, i)=>{
           return(
-            <Col key={i} md={2} xs={2} onClick={()=>setMainImage(x)} className={`${size.width<600?"p-0 px-1":""}`}>
+            <Col key={i} md={"auto"} xs={"auto"} onClick={()=>setMainImage(x)} className={`${size.width<600?"p-0 px-1":""}`}>
               <img src={x} className='' 
-                style={{width:size.width<=500?65:'100%', borderRadius:size.width<=500?8:15, height:size.width<=500?50:70}} 
+                style={{width:size.width<=600?65:'100%', borderRadius:size.width<=600?8:15, height:size.width<=600?45:70}} 
                 alt="Tour"  
               />
             </Col>

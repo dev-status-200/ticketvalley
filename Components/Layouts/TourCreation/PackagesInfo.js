@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Input, InputNumber, Switch, message, Popover } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
 import { CloseCircleOutlined, DeleteOutlined, CopyOutlined, ReloadOutlined, FieldTimeOutlined } from '@ant-design/icons';
-import DatePicker, { DateObject, getAllDatesInRange } from "react-multi-date-picker"
+import DatePicker from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
-import moment from "moment"
+import moment from "moment";
+const { TextArea } = Input;
 
 const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
 
@@ -66,6 +67,16 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                     }} 
                 />
             </Col>
+            <Col style={{maxWidth:100}}>
+                <div className='mt-2 red-txt'>Old Price</div>   
+                <InputNumber className='mb-2' value={x.oldPrice} min="0" stringMode
+                    onChange={(e) => {
+                        let temp = [...state.packages];
+                        temp[i].oldPrice = e;
+                        setValues(temp,'packages');
+                    }} 
+                />
+            </Col>
             <Col className="my-2" style={{maxWidth:70}}>
                 <div>Dated</div>
                 <Switch checked={x.dated} onChange={()=>{
@@ -98,7 +109,6 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                     dispatch({type:'field', fieldName:"packages", payload:tempState})
                 }} />
             </Col>
-            
             <Col md={1} className="my-1">
                 {x.id!="" && <>
                     {x.status=="1"?
@@ -247,6 +257,18 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                 </Row>
             </Col>
             }
+            <Col md={6}>
+                <div className='mt-2'>Detail</div>    
+                <TextArea className='mb-2' value={x.detail} 
+                    showCount maxLength={300}
+                    placeholder='Enter Option Detail'
+                    onChange={(e)=>{
+                        let temp = [...state.packages]
+                        temp[i].detail = e.target.value;
+                        setValues(temp,'packages');
+                    }} 
+                />
+            </Col>
             </Row>
             )
         })}

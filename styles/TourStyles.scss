@@ -164,6 +164,18 @@
   -webkit-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 29px -11px rgba(0,0,0,0.75);
 }
+.combo-note{
+  color: #18858f;
+  font-size: 15px;
+}
+
+.show-opt-detail{
+  color: #18858f;
+  cursor: pointer;
+}
+.show-opt-detail:hover{
+  color: #0d5b62;
+}
 
 // BTN CSS
 .wrapper{

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react'
-import { Select, Checkbox, Input, message, ConfigProvider, notification } from 'antd';
+import { Select, Checkbox, Input, message, notification } from 'antd';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct } from '../../../redux/cart/cartSlice';
@@ -12,7 +12,6 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
 import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail } from './states';
-import { CiCircleChevRight } from "react-icons/ci";
 
 const Book = ({tour, transport, category, setOpen}) => {
 
@@ -20,7 +19,7 @@ const Book = ({tour, transport, category, setOpen}) => {
     const [api, contextNotifyHolder] = notification.useNotification();
     const Context = React.createContext({
         name: 'Default',
-      });
+    });
       
     const [messageApi, contextHolder] = message.useMessage();
     const cart = useSelector((state) => state.cart.value);
@@ -40,9 +39,7 @@ const Book = ({tour, transport, category, setOpen}) => {
         api.info({
           message: `Booking Method`,
           description: <Context.Consumer>{({ name }) => (
-            <p className='fs-15'>Select options in the right panel to book your ticket!
-                {/* <CiCircleChevRight className='mx-1' color='grey ' style={{position:'relative', bottom:2, fontSize:25}}/> */}
-            </p>
+            <p className='fs-15'>Select options in the right panel to book your ticket!</p>
           )}</Context.Consumer>,
           placement,
           duration:12
@@ -54,7 +51,6 @@ const Book = ({tour, transport, category, setOpen}) => {
     const addToCart = async() => {
         let notValidAddress = false
         state.booking.forEach((x) => {
-            console.log(x)
             if(x.check && x.transfer!="1" && x.address==""){
                 notValidAddress = true
             }
@@ -114,159 +110,167 @@ const Book = ({tour, transport, category, setOpen}) => {
         {!load && <>
         {state.booking.map((x, i)=>{
         return(
-        <div key={i}>
-        <div className={`${x.check?'tour-opt-selected':'tour-opt'} mb-2 prevent-select`}>
-            <Row>
-                <Col style={{maxWidth:30}} onClick={()=>{
+        <div key={x.id}>
+        <div className={`${x.check?'tour-opt-selected':'tour-opt pb-2'} mb-2 prevent-select`}>
+        <Row>
+            <Col style={{maxWidth:30}} onClick={()=>{
+                if(category!="Combo Tours"){
+                    let temp = [...state.booking];
+                    temp[i].check = !temp[i].check
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                }
+            }}>
+                <Checkbox className='' disabled={category=="Combo Tours"?true:false} checked={x.check}/>
+            </Col>
+            <Col md={7} className='cur' onClick={()=>{
+                if(category!="Combo Tours"){
+                    let temp = [...state.booking];
+                    temp[i].check = !temp[i].check
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                }
+            }}>
+                <div className={`${x.check?'selected-tour-option':'tour-option'}`}>{x.name}</div>
+            </Col>
+            <Col md={4} className='cur'
+                onClick={()=>{
                     if(category!="Combo Tours"){
                         let temp = [...state.booking];
                         temp[i].check = !temp[i].check
                         dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
                     }
                 }}>
-                    <Checkbox className='' disabled={category=="Combo Tours"?true:false} checked={x.check}/>
-                </Col>
-                <Col md={7} className='cur' onClick={()=>{
-                    if(category!="Combo Tours"){
-                        let temp = [...state.booking];
-                        temp[i].check = !temp[i].check
-                        dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                    }
-                }}>
-                    <div className={`${x.check?'selected-tour-option':'tour-option'}`}>{(i+1)+'. '+' '+x.name}</div>
-                </Col>
-                <Col md={4} className='cur'
-                    onClick={()=>{
-                        if(category!="Combo Tours"){
-                            let temp = [...state.booking];
-                            temp[i].check = !temp[i].check
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }
-                    }}>
-                        <h6 className='text-end' style={{color:x.check?"#147ba1ea":"grey"}}>{x.price.toFixed(2)} AED</h6>
-                </Col>
-                {x.check &&
-                <>
-                <Col md={12}><hr className='mt-1' /></Col>
-                <Col md={4}>
-                    <IncDec type={"adult"} count={x.adult} index={i} state={state} dispatchReducer={dispatchReducer} />
-                </Col>
-                <Col md={4}>
-                    <IncDec type={"child"} count={x.child} index={i} state={state} dispatchReducer={dispatchReducer} />
-                </Col>
-                <Col md={4}>
-                    <IncDec type={"infant"} count={x.infant} index={i} state={state} dispatchReducer={dispatchReducer} />
-                </Col>
-                <Col className='mt-3' style={{ maxWidth:230, marginLeft:4}}>
-                <span style={{marginRight:10}}>Transfer: </span>
-                <Select defaultValue="Yes" value={x.transfer} style={{width:140}}
-                    onChange={(e)=>{
-                        let temp = [...state.booking];
-                        temp[i].transfer = e;
-                        // <- iF e==1? means no transfer option selected
-                        // let temp = [...state.booking];
-                        // temp[i].transfer = e;
-                        // if(e=="Shared"){
-                        //     temp[i].transportPrice = x.transport?0.00:parseFloat(transport[0].price)
-                        // } else if(e=="Private"){ 
-                        //     temp[i].transportPrice = parseFloat(transport[1].price);
-                        // } else if(e=="No"){ 
-                        //     temp[i].transportPrice = 0.00; 
-                        // }
-                        let tempAddress = "";
-                        if(e!="1"){
-                            transport.forEach((y)=>{
-                                if(y.id==e){
-                                    if(e=="845610848208257025"){
-                                        temp[i].transportPrice = x.transport?0.00:parseFloat(y.price);
-                                    }else{
-                                        temp[i].transportPrice = parseFloat(y.price)
-                                    }
+                    <div className='text-end fs-16'> 
+                    <span style={{color:x.check?"#147ba1ea":"grey"}}>
+                        {x.price.toFixed(2)} AED
+                    </span>
+                    {(x.oldPrice && parseFloat(x.oldPrice)>0) && <>
+                        <br/>
+                        <span className='red-txt'><s> {" "}{parseFloat(x.oldPrice).toFixed(2)} AED{" "}</s></span>
+                    </>}
+                    </div>
+            </Col>
+            {x.check &&
+            <>
+            <Col md={12}><hr className='mt-1' /></Col>
+            <Col md={4}>
+                <IncDec type={"adult"} count={x.adult} index={i} state={state} dispatchReducer={dispatchReducer} />
+            </Col>
+            <Col md={4}>
+                <IncDec type={"child"} count={x.child} index={i} state={state} dispatchReducer={dispatchReducer} />
+            </Col>
+            <Col md={4}>
+                <IncDec type={"infant"} count={x.infant} index={i} state={state} dispatchReducer={dispatchReducer} />
+            </Col>
+            <Col className='mt-3' style={{ maxWidth:230, marginLeft:4}}>
+            <span style={{marginRight:10}}>Transfer: </span>
+            <Select defaultValue="Yes" value={x.transfer} style={{width:140}}
+                onChange={(e)=>{
+                    let temp = [...state.booking];
+                    temp[i].transfer = e;
+                    let tempAddress = "";
+                    if(e!="1"){
+                        transport.forEach((y)=>{
+                            if(y.id==e){
+                                if(e=="845610848208257025"){
+                                    temp[i].transportPrice = x.transport?0.00:parseFloat(y.price);
+                                }else{
+                                    temp[i].transportPrice = parseFloat(y.price)
                                 }
-                            })
-                            tempAddress = "";
-                        } else {
-                            tempAddress = "none"
-                            temp[i].transportPrice = 0.00; 
-                        }
-                        temp[i].price = temp[i].adult*temp[i].adult_price + temp[i].child*temp[i].child_price + temp[i].transportPrice;
-                        dispatchReducer({type: 'set', payload:{booking:temp, address:tempAddress}});
-                    }}
-                    options={[{value:"1", label:"No", disabled:x.transport},...transport.filter((y)=>{if(y.status=="1"){return x}}).map((y)=>{  return { value:y.id, label:y.name } }) ]}
-                />
-                </Col>
-                <Col className='text-center mt-3' >
-                    <Row>
-                    <Col md={1} className='pt-1'><span>Date: </span> </Col>
-                        <Col md={9}>
-                        <DatePicker
-                            selected={x.date}
-                            onChange={(date) => {
-                                let temp = [...state.booking];
-                                temp[i].date = date;
-                                dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                            }}
-                            minDate={new Date()}
-                            includeDates={x.dated?x.dates:false}
-                            dateFormat="yyyy - MMM - dd"
-                        /> 
-                        </Col>
-                    </Row>
-
-                </Col>
-                {x.transport==true && <Col md={12} className='px-3 mt-1' style={{color:'silver'}}> {"("}Shared Transfer is included in ticket{")"} </Col>}
-                {x.timed &&<Col md={12} className='mt-2 mx-1' >
-                <div>Time Slots</div>
-                {
-                    x.timeSlots.map((z, j)=>{
-                    return(
-                        <div key={j} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
+                            }
+                        })
+                        tempAddress = "";
+                    } else {
+                        tempAddress = "none"
+                        temp[i].transportPrice = 0.00; 
+                    }
+                    temp[i].price = temp[i].adult*temp[i].adult_price + temp[i].child*temp[i].child_price + temp[i].transportPrice;
+                    dispatchReducer({type: 'set', payload:{booking:temp, address:tempAddress}});
+                }}
+                options={[{value:"1", label:"No", disabled:x.transport},...transport.filter((y)=>{if(y.status=="1"){return x}}).map((y)=>{  return { value:y.id, label:y.name } }) ]}
+            />
+            </Col>
+            <Col className='text-center mt-3' >
+                <Row>
+                <Col md={1} className='pt-1'><span>Date: </span> </Col>
+                    <Col md={9}>
+                    <DatePicker
+                        selected={x.date}
+                        onChange={(date) => {
                             let temp = [...state.booking];
-                            temp[i].timeSlot = z.slot;
+                            temp[i].date = date;
                             dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }}>
-                            { z.slot}
-                        </div>
-                    )
-                    })   
-                }
-                </Col>}
-                {x.transfer!="1" &&
-                <>
-                    <Col md={12}><hr className='my-2' /></Col>
-                    <Col md={12} className="mt-1 px-4">
-                        <GooglePlacesAutocomplete
-                            apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
-                            selectProps={{
-                                onChange: (res)=> {
-                                    let temp = [...state.booking];
-                                    temp[i].address = res.label;
-                                    //console.log(temp[i].address)
-                                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                                },
-                                placeholder: 'Pick up Address',
-                                components : {
-                                    IndicatorSeparator: () => null,
-                                    DropdownIndicator: () => 
-                                    <>
-                                        <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
-                                        <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
-                                    </>
-                                },
-                            }}
-                        />
+                        }}
+                        minDate={new Date()}
+                        includeDates={x.dated?x.dates:false}
+                        dateFormat="yyyy - MMM - dd"
+                    /> 
                     </Col>
-                </>
-                }
-                </>
-                }
-                {x.check && <div className='mt-3'></div>}
-            </Row>
+                </Row>
+            </Col>
+            {x.transport==true && <Col md={12} className='px-3 mt-1' style={{color:'silver'}}> {"("}Shared Transfer is included in ticket{")"} </Col>}
+            {x.timed &&<Col md={12} className='mt-2 mx-1' >
+            <div>Time Slots</div>
+            {x.timeSlots.map((z, j)=>{
+            return(
+                <div key={j} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
+                    let temp = [...state.booking];
+                    temp[i].timeSlot = z.slot;
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                }}>
+                    { z.slot}
+                </div>
+            )})}
+            </Col>}
+            {x.transfer!="1" &&
+            <>
+            <Col md={12}><hr className='my-2' /></Col>
+            <Col md={12} className="mt-1 px-4">
+                <GooglePlacesAutocomplete
+                    apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
+                    selectProps={{
+                        onChange: (res)=> {
+                            let temp = [...state.booking];
+                            temp[i].address = res.label;
+                            //console.log(temp[i].address)
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                        },
+                        placeholder: 'Pick up Address',
+                        components : {
+                            IndicatorSeparator: () => null,
+                            DropdownIndicator: () => 
+                            <>
+                                <span className='mx-2' style={{color:'silver'}}>Powered By Google </span>
+                                <MdPlace style={{fontSize:20, position:'relative', bottom:0, right:5, color:'#4a9fe8'}} />
+                            </>
+                        },
+                    }}
+                />
+            </Col>
+            </>
+            }
+            <Col md={11} className='mt-3 px-3'>
+                <span className='show-opt-detail' onClick={()=>{
+                    let temp = [...state.booking];
+                    temp[i].show = !temp[i].show
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                }}>Show Package Details</span>
+                {x.show && <div>
+                <hr className='mb-2 mt-0' />
+                {(x.detail!=null && x.detail.length>10) && <div style={{ whiteSpace:'pre-wrap'}}>{x.detail}</div>}
+                {(x.detail==null || x.detail.length<10) && <div>No Detail Added</div>}
+                </div>}
+            </Col>
+            </>
+            }
+            {x.check && <div className='mt-2'></div>}
+        </Row>
         </div>
         {i<state.booking.length-1 && <hr/>}
         </div>
         )})}
+
         <hr/>
+
         <Row className="px-1 mt-2">
             <Col md={12} className='my-2 fs-16'><b>Lead Passenger Details</b></Col>
             <Col md={3}>

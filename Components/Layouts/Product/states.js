@@ -47,7 +47,7 @@ const initialState = {
     {
       id:"", tour:"", title:"", check:"", adult_price:0.00, child_price:0.00, adult:0, child:0, infant:0, transfer:"1",
       transportPrice:0.00, date:"",  dated:false, dates:[], timed:false, timeSlots:[], timeSlot:'', address:"",
-      price:0.00, name:"", email:"", contact:""
+      price:0.00, name:"", email:"", contact:"", oldPrice:""
     }
   ]
 };
@@ -74,7 +74,7 @@ const setTour = (tour, dispatchReducer, category) => {
         child_price:parseFloat(x.child_price), adult:1, child:0, infant:0, transfer:x.transport?"Shared":"1", 
         date:'', dates:tempDates, dated:x.dated, timed:x.timed, timeSlots:tempTimes, 
         timeSlot:tempTimes.length>0?tempTimes[0].slot:null, price:parseFloat(x.adult_price),
-        transportPrice:0.00, address:"", transport:x.transport
+        transportPrice:0.00, address:"", transport:x.transport, oldPrice:x.oldPrice, detail:x.detail, show:false
       })
     })
     dispatchReducer({ type: 'field', fieldName:'booking', payload: tempBook });

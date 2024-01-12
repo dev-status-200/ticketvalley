@@ -92,7 +92,7 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
     {!load && <>
     {state.booking.map((x, i)=>{
         return(
-        <div className={`${x.check?'tour-opt-selected':'tour-opt'} mb-2 prevent-select`} key={i}>
+        <div className={`${x.check?'tour-opt-selected':'tour-opt'} mb-3 prevent-select`} key={i}>
         <Row>
             <Col xs={1} className='pt-1' onClick={()=>{
                     if(category!="Combo Tours"){
@@ -120,7 +120,15 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
                     dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
                 }
             }}>
-                <h6 style={{color:x.check?"#147ba1ea":"grey", paddingLeft:30}}>{x.price.toFixed(2)} AED</h6>
+                <div className='fs-16' style={{paddingLeft:30}}> 
+                    <span style={{color:x.check?"#147ba1ea":"grey"}}>
+                        {x.price.toFixed(2)} AED
+                    </span>
+                    {(x.oldPrice && parseFloat(x.oldPrice)>0) && <>
+                        <br/>
+                        <span className='red-txt'><s> {" "}{parseFloat(x.oldPrice).toFixed(2)} AED{" "}</s></span>
+                    </>}
+                    </div>
             </Col>
             {x.check &&
             <>
@@ -209,7 +217,7 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
                                 //console.log(temp[i].address)
                                 dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
                             },
-                            placeholder: 'Pick up Address',
+                            placeholder: 'Address',
                             components : {
                                 IndicatorSeparator: () => null,
                                 DropdownIndicator: () => 
@@ -225,7 +233,20 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
             }
             </>
             }
+            <Col xs={11} className='mb-1 px-3'>
+                <div className='show-opt-detail fs-18 mt-2' onClick={()=>{
+                    let temp = [...state.booking];
+                    temp[i].show = !temp[i].show
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                }}>Tap to show Details</div>
+                {x.show && <div className='mb-1'>
+                <hr className='mb-2 mt-0' />
+                {(x.detail!=null && x.detail.length>10) && <div style={{ whiteSpace:'pre-wrap'}}>{x.detail}</div>}
+                {(x.detail==null || x.detail.length<10) && <div>No Detail Added</div>}
+                </div>}
+            </Col>
         </Row>
+        
         </div>
         )
     })}        
@@ -243,7 +264,7 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
             />
         </Col>
         <Col xs={12} className='mt-3'>
-        <Select  defaultValue="Select Country"
+        <Select defaultValue="Select Country"
             style={{width:"100%"}}
             onChange={(e)=>{
                 let tempContact = ""
@@ -269,7 +290,7 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
         <Col xs={2} className='flag-box' style={{marginLeft:15}}>
         <span className={`fi fi-${state.code.toLowerCase()}`}></span>
         </Col>
-        <Col xs={9} className='mt-3' style={{marginLeft:15}}>
+        <Col xs={9} className='mt-3' style={{marginLeft:8}}>
             <Input placeholder='Contact No' value={state.contact}
                 onChange={(e)=>dispatchReducer({ type: 'field', fieldName:'contact', payload: e.target.value })} 
             />
