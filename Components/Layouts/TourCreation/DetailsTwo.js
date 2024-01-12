@@ -8,10 +8,9 @@ import { Switch } from 'antd';
 const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
 
   return (
-    <div style={{minHeight:542}}>
-    <Row className=''><Col style={{maxWidth:100, color:"silver"}}>Basic Info</Col><Col><div><hr /></div></Col></Row>
+    <div style={{height:'65vh', overflowY:"auto", overflowX:"hidden"}}>
     <Row>
-    <Col className='' md={4}>
+    <Col className='mx-2' md={4}>
         <InputComp  register={register} name='title' control={control} label='Title' />
     </Col>
     <Col className='' md={2}>

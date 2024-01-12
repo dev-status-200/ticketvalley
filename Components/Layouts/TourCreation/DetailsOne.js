@@ -21,10 +21,9 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
     }
 
   return (
-    <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
+    <div style={{height:'65vh', overflowY:"auto", overflowX:"hidden"}}>
     <Row>
         <Col className='px-4'>
-            <hr className='my-4' />
             <div className='mt-4'>Inclusions</div>
             <Row>
             <Col md={9}>

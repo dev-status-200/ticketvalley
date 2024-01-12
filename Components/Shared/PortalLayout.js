@@ -24,7 +24,7 @@ const PortalLayout = ({children}) => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          onSelect={(x)=>{
+          onClick={(x)=>{
             if(x.key=='1'){ Router.push('/portal')
             } else if(x.key=='2'){ Router.push('/productCreation')
             } else if(x.key=='3'){ Router.push('/transport')

@@ -9,10 +9,9 @@ import moment from "moment"
 const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
 
   return (
-    <div style={{minHeight:542, maxHeight:542, overflowY:"auto", overflowX:"hidden"}}>
+    <div style={{height:'65vh', overflowY:"auto", overflowX:"hidden"}}>
         <Row>
         <Col md={10}>
-            <h3 className='mx-2'>Tour Options</h3>
         </Col>
         <Col md={2}>
         <div className='mt-2 btn-custom text-center'

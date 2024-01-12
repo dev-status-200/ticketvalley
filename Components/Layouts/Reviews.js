@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import moment from "moment";
 import axios from "axios";
-import openNotification from '../Shared/Notification';
+import { openNotification } from '../Shared/Notification';
 import { FieldTimeOutlined } from '@ant-design/icons';
 import Router from 'next/router';
 

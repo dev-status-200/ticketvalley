@@ -8,7 +8,7 @@ import { CloseCircleOutlined } from '@ant-design/icons'
 const DetailsThree = ({state, setValues, dispatch}) => {
 
   return (
-    <div style={{minHeight:542}}>
+    <div style={{height:'65vh', overflowY:"auto", overflowX:"hidden"}}>
     <Row>
         <Col md={5}>
             <Col className='mx-1 mt-3' md={3}>

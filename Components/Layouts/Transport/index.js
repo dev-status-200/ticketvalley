@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { Modal } from 'antd';
 import CreateOrEdit from './CreateOrEdit';
 import { EditOutlined, StopOutlined } from '@ant-design/icons';
-import openNotification from "/Components/Shared/Notification"
+import { openNotification } from "/Components/Shared/Notification"
 import axios from 'axios';
 
 function recordsReducer(state, action){

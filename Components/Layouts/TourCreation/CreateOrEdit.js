@@ -20,10 +20,10 @@ const CreateOrEdit = ({productData, id}) => {
   });
 
   useEffect(() => {
-    console.log(id)
     if(id!="new"){
       let tempState = {...productData.result};
-      state.cancellation_polices = tempState.cancellation_polices.split("//");
+      console.log(tempState.more_images)
+      state.cancellation_polices = tempState?.cancellation_polices?.split("//");
       state.status = tempState.status;
       tempState.TourOptions.forEach((x)=>{
         if(x.dated){
@@ -36,12 +36,12 @@ const CreateOrEdit = ({productData, id}) => {
       })
       state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
-      state.policies = tempState.policies.split("//");
+      state.policies = tempState?.policies?.split("//");
       //state.timeSlots = tempState.timeSlots.split("//");
-      state.imp_infos = tempState.imp_infos.split("//");
-      state.why_shoulds = tempState.why_shoulds.split("//");
-      state.inclusions = tempState.inclusions.split("//");
-      state.prev_images = tempState.more_images.split(",");
+      state.imp_infos = tempState?.imp_infos?.split("//");
+      state.why_shoulds = tempState?.why_shoulds?.split("//");
+      state.inclusions = tempState?.inclusions?.split("//");
+      // state.prev_images = (tempState.more_images!=''||tempState.more_images!=null)? tempState?.more_images?.split(","):[];
       state.stock = tempState.stock;
       state.dated = tempState.dated;
       //state.dates = tempState.dated?JSON.parse(tempState.dates):[{"date":""}]
@@ -52,7 +52,7 @@ const CreateOrEdit = ({productData, id}) => {
         payload: {
           selectedRecord:productData.result,
           show_image:productData.result.main_image,
-          prev_images:productData.result.more_images.split(",")
+          prev_images:productData.result.more_images?productData.result.more_images.split(","):[]
         }
       })
     } else {
@@ -139,8 +139,11 @@ const CreateOrEdit = ({productData, id}) => {
   };
 
   const onEdit = async(data) => {
+    // more_images <- New images that are added
+    // prev_images <- Previous Images Left after deleting or not deleting either
+    
     dispatch({type:'field', fieldName:'load', payload:true})
-    let prev_img = "", value, values=[];
+    let prev_img = "", value, values=[...state.prev_images];
     if(state.main_image){
       prev_img = data.main_image
       delete data.main_image; // this has the previous image
@@ -156,31 +159,17 @@ const CreateOrEdit = ({productData, id}) => {
         value = await uploadImage(state.more_images[i]);
         values.push(value)
       }
-      state.prev_images.forEach((x)=>{
-        values.push(x)
-      })
     }
-    if(state.deleted_images.length>0 && state.more_images.length==0){
-      let tempMages = [];
-      state.prev_images.forEach((x)=>{
-        state.deleted_images.forEach((y)=>{
-          if(x!=y){
-            tempMages.push(x);
-          }
-        })
-      })
-      values = tempMages;
-    }
-    let tempPackages = [...state.packages];
+    let tempPackages = await [...state.packages];
     tempPackages.forEach((x)=>{
       if(x.dated){
         let newDates = [];
-        x.dates.forEach((y)=>{
-          newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+        x.dates.forEach(async(y)=>{
+          await newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
         })
         x.dates = newDates;
       }
-    })
+    });
     await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
       {
         ...data,
@@ -189,7 +178,7 @@ const CreateOrEdit = ({productData, id}) => {
         prev_img:prev_img,
         status:state.status,
         deleted_images:state.deleted_images,
-        more_images:values.toString(),
+        more_images:values.length>0?values.toString():'',
         inclusions:makeString(state.inclusions),
         why_shoulds:makeString(state.why_shoulds),
         imp_infos:makeString(state.imp_infos),

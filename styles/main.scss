@@ -300,21 +300,34 @@ body {
 
 .img-box{
   cursor: pointer;
+  border: 1px solid silver;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+  border-radius: 8px;
 }
 
 .img-cross{
   opacity: 0.5;
   color: rgb(190, 65, 65);
-  position: absolute;
-  margin-left: 5.1%;
-  margin-top: 2.4%;
-  background-color: rgba(201, 201, 201, 0.811);
-  font-size: 38px;
   border-radius: 50px;
+  position: relative;
+  right: 5px;
 }
-
-.img-box:hover > .img-cross{
+.img-cross:hover{
   opacity: 1;
+}
+.image-reset{
+  cursor: pointer;
+  color: rgb(173, 102, 102);
+  margin-left: 20px;
+  border: 1px solid silver;
+  padding: 0px 10px;
+}
+.image-reset:hover{
+  color: red;
+  border: 1px solid red;
 }
 
 .signIn-container{
