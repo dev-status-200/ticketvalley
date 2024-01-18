@@ -183,6 +183,7 @@ return(
               <Checkbox checked={category=="Luxury Tours"?true:false} onChange={()=>adjustCategory("Luxury Tours")}><h6>Luxury Tours</h6></Checkbox><br/>
               <Checkbox checked={category=="Adventure"?true:false}    onChange={()=>adjustCategory("Adventure")}><h6>Adventure</h6></Checkbox><br/>
               <Checkbox checked={category=="Water Parks"?true:false}  onChange={()=>adjustCategory("Water Parks")}><h6>Water Parks</h6></Checkbox><br/>
+              <Checkbox checked={category=="Family Fun"?true:false}  onChange={()=>adjustCategory("Family Fun")}><h6>Family Fun</h6></Checkbox><br/>
             </ConfigProvider>
             </div>
           </Col>

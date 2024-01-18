@@ -84,6 +84,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'City Tours'  }}}  >City Tours</Link>
                     <Link className='menu-drop-links mx-3'      href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Luxury Tours'}}}>Luxury Tours</Link>
                     <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Adventure'   }}}  >Adventure</Link>
+                    <Link className='menu-drop-links mx-3 pb-2' href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Family Fun'   }}}  >Family Fun</Link>
                 </div>
             </div>
             <Link className='navLink' href='/about'>ABOUT US</Link>

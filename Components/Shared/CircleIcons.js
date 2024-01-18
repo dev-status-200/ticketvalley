@@ -12,7 +12,6 @@ const CircleIcons = () => {
   return (
     <Container className='bar-styles text-center'>
         <Row className="justify-content-md-center pt-4">
-            <Col md={1}></Col>
             <Col md={2} className='barz'>
             <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Theme Parks' }}}
                 style={{textDecoration:"none", color:'black'}}
@@ -45,7 +44,12 @@ const CircleIcons = () => {
             ><img src={"/icons/new-circle (3).png"}  height={height} width={width} style={imgStyle} alt='Luxury Tours' /> Luxury Tours
             </Link>
             </Col>
-            <Col md={1}></Col>
+            <Col md={2} className='barz'>
+            <Link href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Family Fun' }}}
+                style={{textDecoration:"none", color:'black'}}
+            ><img src={"/icons/new-circle (5).png"}  height={height} width={width} style={imgStyle} alt='Family Fun' /> Family Fun
+            </Link>
+            </Col>
         </Row>
     </Container>
   )

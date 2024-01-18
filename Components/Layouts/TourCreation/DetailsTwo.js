@@ -28,6 +28,7 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
             {id:'City Tours', name:'City Tours'},
             {id:'Luxury Tours', name:'Luxury Tours'},
             {id:'Adventure', name:'Adventure'},
+            {id:'Family Fun', name:'Family Fun'},
         ]}/>
     </Col>
     <Col className='' md={3}>
