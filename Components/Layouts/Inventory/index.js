@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import CSVReader from 'react-csv-reader';
-import { Table, Row, Col } from 'react-bootstrap';
+import { Table, Row, Col, Spinner } from 'react-bootstrap';
 import axios from "axios";
 import Router from 'next/router';
-import {MdOutlineDoDisturbOff} from "react-icons/md";
+import { MdOutlineDoDisturbOff } from "react-icons/md";
 import cookies from "js-cookie";
 import moment from 'moment';
 import History from './History';
@@ -11,6 +11,7 @@ import History from './History';
 const Inventory = ({inventoryData}) => {
 
     const [inventory, setInventory] = useState([]);
+    const [load, setLoad] = useState(false);
     const [upload, setUpload] = useState(false);
     const [inventories, setInventories] = useState([
         {TourOptions:[
@@ -40,6 +41,7 @@ const Inventory = ({inventoryData}) => {
     }
 
     const uploadData = async() => {
+        setLoad(true)
         let loginId = await cookies.get("loginId");
         let username = await cookies.get("username");
         let log = ``;
@@ -57,9 +59,20 @@ const Inventory = ({inventoryData}) => {
   return (
     <div className='p-0'>
         <Row>
-        <Col md={8}><span style={{fontSize:20, fontWeight:500}}>Inventory</span> <History/></Col>
+        <Col md={6}>
+            <span style={{fontSize:20, fontWeight:500}} className='mx-2'>Inventory</span> <History/>
+        </Col>
+        <Col md={2}>
+
+        </Col>
         <Col md={1} className='mx-2'>
-            <button className={`btn-custom ${upload?"":"curr-off"}`} disabled={!upload==true?true:false} onClick={()=>uploadData()}>Upload</button>
+            <button 
+                className={`btn-custom ${upload?"":"curr-off"}`} 
+                disabled={!upload==true?true:false} 
+                onClick={()=>uploadData()}
+            >
+                {!load?'Upload':<Spinner size='sm' />}
+            </button>
         </Col>
         <Col md={1} className='py-1'>
         <CSVReader cssClass="csv-reader-input"
@@ -140,4 +153,4 @@ const Inventory = ({inventoryData}) => {
   )
 }
 
-export default Inventory
+export default React.memo(Inventory)

@@ -146,4 +146,4 @@ const BookingInfo = ({state, dispatch}) => {
   )
 }
 
-export default BookingInfo
+export default React.memo(BookingInfo)

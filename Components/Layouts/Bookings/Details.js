@@ -15,6 +15,10 @@ const Details = ({state}) => {
   return (
     <Row>
     <>
+        <Col md={4} className='fw-500'>Booking # :</Col>
+        <Col md={8} className=' grey-txt'>{state.selectedRecord.booking_no}</Col>
+    </>
+    <>
         <Col md={4} className='fw-500'>Name :</Col>
         <Col md={8} className=' grey-txt'>{state.selectedRecord.name}</Col>
     </>
@@ -52,4 +56,4 @@ const Details = ({state}) => {
   )
 }
 
-export default Details
+export default React.memo(Details)

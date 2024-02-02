@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined,
   TagsOutlined, SnippetsOutlined, CreditCardOutlined, UsergroupAddOutlined,
-  StarOutlined
+  StarOutlined, HomeOutlined, WechatOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
@@ -32,7 +32,9 @@ const PortalLayout = ({children}) => {
             } else if(x.key=='5'){ Router.push('/bookings') 
             } else if(x.key=='6'){ Router.push('/inventory') 
             } else if(x.key=='7'){ Router.push('/customers') 
-            } else if(x.key=='8'){ Router.push('/reviews') }
+            } else if(x.key=='8'){ Router.push('/reviews') 
+            } else if(x.key=='9'){ Router.push('/hotelForms') 
+            } else if(x.key=='10'){ Router.push('/contactForms') }
           }}
           items={[
             {
@@ -74,6 +76,16 @@ const PortalLayout = ({children}) => {
               key: '8',
               icon: <StarOutlined />,
               label: 'Reviews',
+            },
+            {
+              key: '9',
+              icon: <HomeOutlined />,
+              label: 'Hotel Queries',
+            },
+            {
+              key: '10',
+              icon: <WechatOutlined />,
+              label: 'Messages',
             },
           ]}
         />

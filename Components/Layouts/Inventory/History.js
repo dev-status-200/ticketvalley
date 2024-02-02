@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Spinner } from 'react-bootstrap';
 import { HistoryOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import moment from 'moment';
-import { Spinner } from 'react-bootstrap';
+import axios from 'axios';
 
 const History = () => {
 
@@ -63,4 +63,4 @@ const History = () => {
   )
 }
 
-export default History
+export default React.memo(History)

@@ -65,6 +65,8 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
         router.pathname =='/customers'|| 
         router.pathname =='/tourEditPage'|| 
         router.pathname =='/reviews'|| 
+        router.pathname =='/contactForms'|| 
+        router.pathname =='/hotelForms'|| 
         router.pathname =='/promos' 
       ) &&
         <PortalLayout>

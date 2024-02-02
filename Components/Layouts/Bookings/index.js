@@ -158,7 +158,7 @@ const Bookings = ({bookingsData}) => {
       </div>
     </Col>
     </Row>
-    <Modal open={state.visible} width={1000} footer={false}
+    <Modal open={state.visible} width={1000} footer={false} centered
       onOk={()=>dispatch({ type: 'modalOff' })} onCancel={()=>dispatch({ type: 'modalOff' })}
     >
       <BookingInfo state={state} dispatch={dispatch} />
@@ -167,4 +167,4 @@ const Bookings = ({bookingsData}) => {
   )
 }
 
-export default Bookings
+export default React.memo(Bookings)
