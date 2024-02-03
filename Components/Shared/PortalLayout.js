@@ -34,7 +34,8 @@ const PortalLayout = ({children}) => {
             } else if(x.key=='7'){ Router.push('/customers') 
             } else if(x.key=='8'){ Router.push('/reviews') 
             } else if(x.key=='9'){ Router.push('/hotelForms') 
-            } else if(x.key=='10'){ Router.push('/contactForms') }
+            } else if(x.key=='10'){ Router.push('/contactForms') 
+            } else if(x.key=='11'){ Router.push('/visaForms') }
           }}
           items={[
             {
@@ -86,6 +87,11 @@ const PortalLayout = ({children}) => {
               key: '10',
               icon: <WechatOutlined />,
               label: 'Messages',
+            },
+            {
+              key: '11',
+              icon: <CreditCardOutlined />,
+              label: 'Visa Queries',
             },
           ]}
         />
