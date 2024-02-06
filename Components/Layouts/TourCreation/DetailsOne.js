@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
 import { Row, Col } from 'react-bootstrap';
-import { CloseCircleOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, UpCircleOutlined, DownCircleOutlined } from '@ant-design/icons';
 
 const DetailsOne = ({register, control, state, setValues, dispatch}) => {
 
@@ -16,6 +16,21 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
             let aboveValue = tempState[i-1]
             tempState[i-1] = tempState[i]
             tempState[i] = aboveValue;
+            dispatch({ type: 'field', fieldName:variable, payload: tempState })
+        }
+    }
+
+    const ValueDownshift = (variable, arr, i) => {
+        let tempState = [...arr];
+        if(i==tempState.length-1 && arr.length>0){
+            let firstValue = tempState[0]
+            tempState[0] = tempState[tempState.length-1]
+            tempState[tempState.length-1] = firstValue;
+            dispatch({ type: 'field', fieldName:variable, payload: tempState })
+        } else {
+            let bottomValue = tempState[i+1]
+            tempState[i+1] = tempState[i]
+            tempState[i] = bottomValue;
             dispatch({ type: 'field', fieldName:variable, payload: tempState })
         }
     }
@@ -46,7 +61,11 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
             state.inclusions.map((x, i)=>{
                 return(
                 <Row key={i} className='my-2'>
-                    <Col md={1}><VerticalAlignTopOutlined onClick={()=>ValueUpshift('inclusions', state.inclusions, i)} /></Col>
+                    <Col md={"auto"}>
+                        <UpCircleOutlined className='row-hov' onClick={()=>ValueUpshift('inclusions', state.inclusions, i)} />
+                        <br/>
+                        <DownCircleOutlined className='row-hov' onClick={()=>ValueDownshift('inclusions', state.inclusions, i)} />
+                    </Col>
                     <Col md={10} className='list-items'>{x}</Col>
                     <Col md={1}>
                         <CloseCircleOutlined className='cross-icon' 
@@ -83,7 +102,11 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
             state.why_shoulds.map((x, i)=>{
                 return(
                 <Row key={i} className='my-2'>
-                    <Col md={1}><VerticalAlignTopOutlined onClick={()=>ValueUpshift('why_shoulds', state.why_shoulds, i)} /></Col>
+                    <Col md={"auto"}>
+                        <UpCircleOutlined className='row-hov' onClick={()=>ValueUpshift('why_shoulds', state.why_shoulds, i)} />
+                        <br/>
+                        <DownCircleOutlined className='row-hov' onClick={()=>ValueDownshift('why_shoulds', state.why_shoulds, i)} />
+                    </Col>
                     <Col md={10} className='list-items'>{x}</Col>
                     <Col md={1}>
                         <CloseCircleOutlined className='cross-icon' 
@@ -124,9 +147,13 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
         state.cancellation_polices.map((x, i)=>{
             return(
             <Row key={i} className='my-2'>
-                <Col md={1}><VerticalAlignTopOutlined onClick={()=>ValueUpshift('cancellation_polices', state.cancellation_polices, i)} /></Col>
+                <Col md={"auto"}>
+                    <UpCircleOutlined className='row-hov' onClick={()=>ValueUpshift('cancellation_polices', state.cancellation_polices, i)} />
+                    <br/>
+                    <DownCircleOutlined className='row-hov' onClick={()=>ValueDownshift('cancellation_polices', state.cancellation_polices, i)} />
+                </Col>
                 <Col className='list-items'>{x}</Col>
-                <Col md={1}>
+                <Col md={1} className='py-2'>
                     <CloseCircleOutlined className='cross-icon' 
                     onClick={()=>{
                         let tempState = [...state.cancellation_polices];
@@ -161,7 +188,11 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
         state.imp_infos.map((x, i)=>{
             return(
             <Row key={i} className='my-2'>
-                <Col md={1}><VerticalAlignTopOutlined  onClick={()=>ValueUpshift('imp_infos', state.imp_infos, i)} /></Col>
+                <Col md={"auto"}>
+                    <UpCircleOutlined className='row-hov' onClick={()=>ValueUpshift('imp_infos', state.imp_infos, i)} />
+                    <br/>
+                    <DownCircleOutlined className='row-hov' onClick={()=>ValueDownshift('imp_infos', state.imp_infos, i)} />
+                </Col>
                 <Col className='list-items'>{x}</Col>
                 <Col md={1}>
                     <CloseCircleOutlined className='cross-icon' 
@@ -198,7 +229,11 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
         state.policies.map((x, i)=>{
             return(
             <Row key={i} className='my-2'>
-                <Col md={1}><VerticalAlignTopOutlined  onClick={()=>ValueUpshift('policies', state.policies, i)} /></Col>
+                <Col md={"auto"}>
+                    <UpCircleOutlined className='row-hov' onClick={()=>ValueUpshift('policies', state.policies, i)} />
+                    <br/>
+                    <DownCircleOutlined className='row-hov' onClick={()=>ValueDownshift('policies', state.policies, i)} />
+                </Col>
                 <Col className='list-items'>{x}</Col>
                 <Col md={1}>
                     <CloseCircleOutlined className='cross-icon' 

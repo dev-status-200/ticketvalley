@@ -10,12 +10,12 @@ const TourCreation = ({productData}) => {
   const { records } = state;
 
   useEffect(() => {
-      dispatch({
-        type: 'field',
-        fieldName: 'records',
-        payload: productData.result
-      });
-    }, [])
+    dispatch({
+      type: 'field',
+      fieldName: 'records',
+      payload: productData.result
+    });
+  }, [])
     
   const onChange = (e) => {
     dispatch({
@@ -58,7 +58,7 @@ const TourCreation = ({productData}) => {
             })} />
           </Col>
           <Col md={2}>
-            <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>dispatch({type:'create'})}>Create</button>
+            <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>Router.push(`/tourEditPage?id=new`)}>Create</button>
           </Col>
       </Row>
       </Col>

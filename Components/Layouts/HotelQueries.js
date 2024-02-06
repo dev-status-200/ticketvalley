@@ -5,6 +5,7 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import { openNotification } from "/Components/Shared/Notification"
 import axios from 'axios';
 import moment from 'moment';
+import codes from "/JSONData/codes"
 
 function recordsReducer(state, action){
   switch (action.type) {
@@ -42,6 +43,7 @@ const HotelQueries = ({}) => {
   const getHotelsQueries = async() => {
     await axios.get(process.env.NEXT_PUBLIC_GET_HOTEL_FORMS)
     .then((x)=>{
+      console.log(x.data)
       dispatch({type:"set", 
         payload:{
           records:x.data.result,
@@ -65,7 +67,15 @@ const HotelQueries = ({}) => {
       getHotelsQueries();
     })
   }
-
+  const getCodeValue = (value) => {
+    let result = "";
+    codes.forEach(x => {
+      if(x.value==value){
+        result = x.label
+      }
+    });
+    return result
+  }
   return (
   <>
     <Row>
@@ -115,36 +125,49 @@ const HotelQueries = ({}) => {
       onOk={()=>dispatch({ type: 'modalOff' })}
       onCancel={()=>dispatch({ type: 'modalOff' })}
       title="Hotel Query"
-      centered={false}
+      centered={true}
       footer={false} 
       width={450}
     >
       <Row className='fs-17'>
         <hr/>
+        <Col md={4}>Name:</Col>
+        <Col md={8} className='text-end'>{state.selectedRecord.name}</Col>
+
         <Col md={4}>Email:</Col>
         <Col md={8} className='text-end'>{state.selectedRecord.email}</Col>
-        {/* <br/> */}
+
+        <Col md={4}>Nationality:</Col>
+        <Col md={8} className='text-end'>{getCodeValue(state.selectedRecord.nationality)}</Col>
+
+        <Col md={4}>Contact:</Col>
+        <Col md={8} className='text-end'>{state.selectedRecord.contact}</Col>
+
         <Col md={4}>Check-in:</Col>
         <Col md={8} className='text-end'>{moment(state.selectedRecord.checkin).format("YYYY/MMM/ddd")}</Col>
-        {/* <br/> */}
+
         <Col md={4}>Check-out:</Col>
         <Col md={8} className='text-end'>{moment(state.selectedRecord.checkout).format("YYYY/MMM/ddd")}</Col>
-        {/* <br/> */}
-        <Col md={4}>Rooms:</Col>
-        <Col md={8} className='text-end'>{state.selectedRecord.rooms}</Col>
-        {/* <br/> */}
-        <Col md={4}>Adults:</Col>
-        <Col md={8} className='text-end'>{state.selectedRecord.adults}</Col>
-        {/* <br/> */}
-        <Col md={4}>Children:</Col>
-        <Col md={8} className='text-end'>{state.selectedRecord.children}</Col>
-        {/* <br/> */}
+
+        <Col md={4}>Destination:</Col>
+        <Col md={8} className='text-end'>{state.selectedRecord.destination}</Col>
+
+        <Col md={4}>Hotel:</Col>
+        <Col md={8} className='text-end'>{state.selectedRecord.hotel}</Col>
+
         <Col md={4}>Rating:</Col> 
         <Col md={8} className='text-end'>
           {state.selectedRecord.rating} Star
           {" "}<Rate value={state.selectedRecord.rating} disabled />
         </Col>
-        <hr/>
+          <hr/>
+        <Col md={4}>Guest Info:</Col> 
+        <Col md={8} className='text-end'>
+          {state.selectedRecord.Rooms?.map((y, j)=>{
+            return (<div key={j}>Room: {j+1} Adults: {y.adult}, Children: {y.child}</div>)
+          })}
+        </Col> 
+        <hr className='mt-2' />
         <Button disabled={state.selectedRecord.done=="1"?true:false} type='primary' 
           onClick={()=>markAsDone(state.selectedRecord.id)}
         >

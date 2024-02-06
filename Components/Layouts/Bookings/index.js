@@ -15,10 +15,10 @@ function recordsReducer(state, action){
     }
     case 'select': {
       return {
-          ...state,
-          selectedRecord:{},
-          visible: true,
-          selectedRecord:action.payload
+        ...state,
+        selectedRecord:{},
+        visible: true,
+        selectedRecord:action.payload
       }
     }
     case 'modalOff': {
@@ -95,9 +95,14 @@ const Bookings = ({bookingsData}) => {
     <>
     <Row>
       <Col md={1}><h5>Bookings</h5></Col>
-      <Col md={8}></Col>
-      <Col md={2}><Input value={state.search} allowClear onChange={(e)=>dispatch({type:"set", payload:{search:e.target.value}})} placeholder='Search' /></Col>
-      <Col md={1} className='pt-1'><Switch checked={state.assigned} onChange={onChange} /></Col>
+      <Col md={7}></Col>
+      <Col md={2}>
+        <Input value={state.search} allowClear onChange={(e)=>dispatch({type:"set", payload:{search:e.target.value}})} placeholder='Search Bookings' />
+      </Col>
+      <Col md={2} className='pt-1'>
+        {state.assigned?"Assigned":"Pending"}
+        <Switch checked={state.assigned} onChange={onChange} className='mx-2' />
+      </Col>
     </Row>
     <Row style={{maxHeight:'69vh',overflowY:'auto', overflowX:'hidden'}}>
     <Col md={12}>
@@ -105,7 +110,7 @@ const Bookings = ({bookingsData}) => {
         <Table className='tableFixHead'>
         <thead>
           <tr>
-            <th>No.</th>
+            {/* <th>No.</th> */}
             <th>Name</th>
             <th>Email</th>
             <th>Packages</th>
@@ -128,7 +133,7 @@ const Bookings = ({bookingsData}) => {
           .map((x, index) => {
           return (
           <tr key={index} className='hov-row' onClick={()=>dispatch({type:'select', payload:x})}>
-            <td><div style={{color:"#108ee9"}}><b>#{x.booking_no}</b></div></td>
+            {/* <td><div style={{color:"#108ee9"}}><b>#{x.booking_no}</b></div></td> */}
             <td>{x.name} </td>
             <td>{x.email} </td>
             <td className='px-4' style={{fontSize:15, color:"#a3592e"}}><b>{x.BookedTours.length}</b></td>

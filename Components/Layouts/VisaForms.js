@@ -5,6 +5,7 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import { openNotification } from "/Components/Shared/Notification"
 import axios from 'axios';
 import moment from 'moment';
+import codes from "/JSONData/codes"
 
 function recordsReducer(state, action){
   switch (action.type) {
@@ -64,6 +65,26 @@ const HotelQueries = ({}) => {
     }).then((x)=>{
       getHotelsQueries();
     })
+  }
+
+  const getCodeValue = (value) => {
+    let result = "";
+    codes.forEach(x => {
+      if(x.value==value){
+        result = x.label
+      }
+    });
+    return result
+  }
+
+  const getCode = (value) => {
+    let result = "";
+    codes.forEach(x => {
+      if(x.value==value){
+        result = x.code
+      }
+    });
+    return result
   }
 
   return (
@@ -127,15 +148,15 @@ const HotelQueries = ({}) => {
               <Col md={4}>Email:</Col>
               <Col md={8} className='text-end'>{x.email}</Col>
               <Col md={4}>Country:</Col>
-              <Col md={8} className='text-end'>{x.nationality}</Col>
+              <Col md={8} className='text-end'>{getCodeValue(x.nationality)}</Col>
               <Col md={4}>City:</Col>
               <Col md={8} className='text-end'>{x.city}</Col>
               <Col md={4}>State:</Col>
               <Col md={8} className='text-end'>{x.state}</Col>
               <Col md={4}>Contact:</Col>
-              <Col md={8} className='text-end'>{x.countryCode} {x.contact}</Col>
+              <Col md={8} className='text-end'>{"("}{getCode(x.countryCode)}{")"} {x.contact}</Col>
               <Col md={4}>WhatsApp:</Col>
-              <Col md={8} className='text-end'>{x.WAcountryCode} {x.WAcontact}</Col>
+              <Col md={8} className='text-end'>{"("}{getCode(x.WAcountryCode)}{")"} {x.WAcontact}</Col>
               <Col md={4}>Visa Entry Type:</Col>
               <Col md={8} className='text-end'>{x.entryType}</Col>
               <Col md={4}>Passport No.:</Col>

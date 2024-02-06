@@ -260,7 +260,7 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
             <Col md={6}>
                 <div className='mt-2'>Detail</div>    
                 <TextArea className='mb-2' value={x.detail} 
-                    showCount maxLength={300}
+                    showCount maxLength={550}
                     placeholder='Enter Option Detail'
                     onChange={(e)=>{
                         let temp = [...state.packages]

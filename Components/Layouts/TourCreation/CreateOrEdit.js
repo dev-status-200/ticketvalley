@@ -13,7 +13,6 @@ import { reducerFunctions, initialState, baseValues } from './states';
 import { openNotification } from "../../Shared/Notification"
 
 const CreateOrEdit = ({productData, id}) => {
-  // test
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
   const {register, control, handleSubmit, reset, formState:{errors} } = useForm({
     defaultValues:state.values
@@ -24,7 +23,7 @@ const CreateOrEdit = ({productData, id}) => {
       let tempState = {...productData.result};
       state.cancellation_polices = tempState?.cancellation_polices?.split("//");
       state.status = tempState.status;
-      tempState.TourOptions.forEach((x)=>{
+      tempState?.TourOptions?.forEach((x)=>{
         if(x.dated){
           let newDates = [];
           x.dates.forEach((y)=>{
@@ -127,13 +126,8 @@ const CreateOrEdit = ({productData, id}) => {
         cancellation_polices:makeString(state.cancellation_polices)
       }).then((x)=>{
       if(x.data.status=='success'){
-        let tempState = [...state.records];
-        tempState.unshift(x.data.result);
-        dispatch({type:'field', fieldName:'records', payload:tempState})
-        reset(baseValues)
+        Router.push(`/tourEditPage?id=${x.data.result.id}`)
       }
-      dispatch({type:'field', fieldName:'load', payload:false})
-      dispatch({type: 'modalOff'})
     }), 3000)
   };
 
