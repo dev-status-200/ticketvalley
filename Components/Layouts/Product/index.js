@@ -80,7 +80,7 @@ const Product = ({tourData, id}) => {
     axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
       headers:{'id':`${id}`}
     }).then((x)=>{
-        x.data?.result?.length>0?setReviws(x.data.result):null
+      x.data?.result?.length>0?setReviws(x.data.result):null
     })
   }
 
