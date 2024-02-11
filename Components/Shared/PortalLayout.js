@@ -116,7 +116,7 @@ const PortalLayout = ({children}) => {
             {
               key: '11',
               icon: <FaLocationCrosshairs />,
-              label: 'Destination & Cities',
+              label: 'Destinations',
             },
             {
               key: '12',
