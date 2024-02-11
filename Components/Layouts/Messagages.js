@@ -34,10 +34,10 @@ const Messagages = ({}) => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
   useEffect(() => {
-    getHotelsQueries();
+    getMessages();
   }, [])
   
-  const getHotelsQueries = async() => {
+  const getMessages = async() => {
     await axios.get(process.env.NEXT_PUBLIC_GET_CONTACT_US_MESSAGES)
     .then((x)=>{
       dispatch({type:"set", 

@@ -110,7 +110,7 @@ const Transport = ({transportData}) => {
               style={{cursor:'pointer'}} 
               onClick={()=>toggle(x,x.status=="1"?false:true)}
             > 
-              {x.status=="1"?<span style={{color:'green'}} >Active</span>: <span style={{color:'crimson'}} >Disabled <StopOutlined /></span> }
+              {x.status=="1"?<span style={{color:'green'}} >Active</span>: <span style={{color:'crimson'}} >Disabled <StopOutlined style={{position:'relative', bottom:4}} /></span> }
             </td>
           </tr>
           )

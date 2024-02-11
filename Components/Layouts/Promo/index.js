@@ -67,51 +67,55 @@ const Transport = ({promoData}) => {
   return (
   <>
     <Row>
-      <Col><h5>Promo Codes</h5></Col>
-      <Col><button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button></Col>
+      <Col>
+        <h5>Promo Codes</h5>
+      </Col>
+      <Col>
+        <button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button>
+      </Col>
     </Row>
     <Row style={{maxHeight:'69vh',overflowY:'auto', overflowX:'hidden'}}>
-    <Col md={12}>
-      <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
-        <Table className='tableFixHead'>
-        <thead>
-          <tr>
-            <th>Sr.</th>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Amount</th>
-            <th>Code</th>
-            <th>Valid Till</th>
-            <th>Stock</th>
-            <th>Modify</th>
-          </tr>
-        </thead>
-        <tbody>
-        {state.records.map((x, index) => {
-          return (
-          <tr key={index} className='f'>
-            <td>{index+1} </td>
-            <td>{x.name} </td>
-            <td>{x.status!="1"?<span style={{color:"red"}}>Disabled <StopOutlined/></span>:<span style={{color:"green"}}>Active</span>} </td>
-            <td>{x.byPercentage!="1"?<span >{x.amount} AED</span>:<span>{x.amount} %</span>} </td>
-            <td>{x.code} </td>
-            <td>{x.validity.slice(0, 10)}</td>
-            <td style={{color:x.stock>0?"green":"red"}}>{x.stock} </td>
-            <td>
+      <Col md={12}>
+        <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
+          <Table className='tableFixHead'>
+          <thead>
+            <tr>
+              <th>Sr.</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Amount</th>
+              <th>Code</th>
+              <th>Valid Till</th>
+              <th>Stock</th>
+              <th>Modify</th>
+            </tr>
+          </thead>
+          <tbody>
+          {state.records.map((x, index) => {
+            return (
+            <tr key={index} className='f'>
+              <td>{index+1} </td>
+              <td>{x.name} </td>
+              <td>{x.status!="1"?<span style={{color:"red"}}>Disabled <StopOutlined  style={{position:'relative', bottom:4}} /></span>:<span style={{color:"green"}}>Active</span>} </td>
+              <td>{x.byPercentage!="1"?<span >{x.amount} AED</span>:<span>{x.amount} %</span>} </td>
+              <td>{x.code} </td>
+              <td>{x.validity.slice(0, 10)}</td>
+              <td style={{color:x.stock>0?"green":"red"}}>{x.stock} </td>
+              <td>
                 <EditOutlined 
-                    className='modify-edit' 
-                    onClick={()=>{
-                        dispatch({type:'edit', payload:x})
-                    }}
+                  className='modify-edit' 
+                  onClick={()=>{
+                    dispatch({type:'edit', payload:x})
+                  }}
                 />
-            </td>
-          </tr>
-          )
-        })}
-        </tbody>
-        </Table>
-      </div>
-    </Col>
+              </td>
+            </tr>
+            )
+          })}
+          </tbody>
+          </Table>
+        </div>
+      </Col>
     </Row>
     <Modal
       open={state.visible}

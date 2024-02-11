@@ -1,19 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   MenuFoldOutlined, MenuUnfoldOutlined, CarOutlined, UserOutlined,
   TagsOutlined, SnippetsOutlined, CreditCardOutlined, UsergroupAddOutlined,
   StarOutlined, HomeOutlined, WechatOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import axios from 'axios';
+
+import { Layout, Menu, theme, Popover, Button } from 'antd';
 const { Header, Sider, Content } = Layout;
 import Router from 'next/router';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 
 const PortalLayout = ({children}) => {
 
+  const [list, setList] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const { token: { colorBgContainer } } = theme.useToken();
 
+  useEffect(() => {
+    axios.get(process.env.NEXT_PUBLIC_GET_NOTIFICATIONS)
+    .then((x)=>{
+      setList(x.data.result)
+    })
+  }, []);
+
+  const content = (
+    <div style={{maxHeight:200, overflowY:'auto'}}>
+      {list.map((x, i)=>{
+        return(
+          <div key={i} className='mb-3 fs-13 grey-txt-2'>{x.description} - {moment(x.createdAt).fromNow()} <span className='mx-1'></span>
+            <hr className='my-0' />
+          </div>
+        )
+      })}
+    </div>
+  );
+  
   return (
     <Layout className='portal-layout'>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -35,7 +59,8 @@ const PortalLayout = ({children}) => {
             } else if(x.key=='8'){ Router.push('/reviews') 
             } else if(x.key=='9'){ Router.push('/hotelForms') 
             } else if(x.key=='10'){ Router.push('/contactForms') 
-            } else if(x.key=='11'){ Router.push('/visaForms') }
+            } else if(x.key=='11'){ Router.push('/destinations') 
+            } else if(x.key=='12'){ Router.push('/visaForms') }
           }}
           items={[
             {
@@ -90,6 +115,11 @@ const PortalLayout = ({children}) => {
             },
             {
               key: '11',
+              icon: <FaLocationCrosshairs />,
+              label: 'Destination & Cities',
+            },
+            {
+              key: '12',
               icon: <CreditCardOutlined />,
               label: 'Visa Queries',
             },
@@ -100,6 +130,10 @@ const PortalLayout = ({children}) => {
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <span style={{marginLeft:12, cursor:'pointer'}} onClick={() => setCollapsed(!collapsed)}>
             {collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
+            <span className='mx-3'></span>
+            <Popover placement="topLeft" title={"Activity Log"} content={content} >
+            <Button className='mt-1'>Activity</Button>
+          </Popover>
           </span>
           <span className='mx-4' style={{float:'right', cursor:'pointer'}}
             onClick={()=>{

@@ -36,6 +36,16 @@ body {
     border-radius: 25px;
 }
 
+.custom-btn-sm{
+    transition-duration: 300ms;
+    border: none;
+    background-color: rgb(24, 143, 187);
+    color: white;
+    font-weight: 500;
+    padding: 5px 15px 5px 15px;
+    border-radius: 25px;
+}
+
 .custom-btn:hover {
     transition-duration: 300ms;
     background-color: rgb(20, 94, 121);
@@ -66,6 +76,7 @@ body {
 .blue-txt{ color: rgb(8, 78, 77)!important; }
 .lt-blue-txt{ color: #61c7c8!important; }
 .yellow-txt{ color: #ebf13c!important; }
+.green-txt{ color: green!important; }
 
 .fs-10 { font-size: 10px!important; }
 .fs-11 { font-size: 11px!important; }

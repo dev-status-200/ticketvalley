@@ -19,6 +19,18 @@ const CreateOrEdit = ({productData, id}) => {
   });
 
   useEffect(() => {
+    let cities = []
+    axios.get(process.env.NEXT_PUBLIC_GET_ALL_CITIES)
+    .then((x)=>{
+      cities = x.data.result.map((y)=>{
+        return { id:y.name, name:y.name }
+      });
+      dispatch({
+        type: 'set',
+        payload: { cities }
+      });
+      // console.log(cities)
+    })
     if(id!="new"){
       let tempState = {...productData.result};
       state.cancellation_polices = tempState?.cancellation_polices?.split("//");

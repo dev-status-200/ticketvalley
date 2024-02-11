@@ -15,10 +15,7 @@ const DetailsTwo = ({register, control, state, setValues, dispatch}) => {
     </Col>
     <Col className='' md={2}>
         <SelectComp register={register} name='city' control={control} label='City' width={"100%"}
-          options={[
-            {id:'Dubai City', name:'Dubai City'},
-            {id:'Abu Dhabi',  name:'Abu Dhabi' },
-        ]}/>
+          options={state?.cities||[]}/>
     </Col>
     <Col className='' md={2}>
         <SelectComp register={register} name='category' control={control} label='Sub Category' width={"100%"}
