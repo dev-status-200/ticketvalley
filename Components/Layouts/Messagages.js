@@ -45,7 +45,16 @@ const Messagages = ({}) => {
           records:x.data.result,
           load:false
         }
-      })
+      });
+      checkNotifications()
+    })
+  }
+
+  const checkNotifications = () => {
+    axios.post(process.env.NEXT_PUBLIC_POST_CHECK_NOTIFICATION,{
+      type:'message'
+    }).then((x)=>{
+      // console.log(x.data)
     })
   }
 

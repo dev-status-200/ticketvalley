@@ -54,7 +54,7 @@ const Destinations = () => {
   };
 
   const confirm = (e) => {
-    console.log(e);
+    // console.log(e);
     message.success('Click on Yes');
   };
   const cancel = (e) => {
@@ -126,7 +126,6 @@ const Destinations = () => {
                     axios.post(process.env.NEXT_PUBLIC_POST_DELETE_CITY,{
                       id:x.id
                     }).then((x)=>{
-                      console.log(x.data);
                       Router.push("/destinations")
                     })
                   }}
@@ -134,13 +133,8 @@ const Destinations = () => {
                   okText="Yes"
                   cancelText="No"
                 >
-                  <Button danger={x.deletable=="0"?true:false} disabled={x.deletable=="0"?true:false} size='small'
-                    onClick={()=>{
-                      if(x.deletable=="1"){
-                        console.log(x.id);
-                      }
-                    }}
-                  > Delete
+                  <Button danger={x.deletable=="0"?true:false} disabled={x.deletable=="0"?true:false} size='small' >
+                    Delete
                   </Button>
                 </Popconfirm>
 
@@ -176,7 +170,7 @@ const Destinations = () => {
                     active:'1',
                     deletable:'1'
                   }).then((x)=>{
-                    console.log(x.data);
+                    // console.log(x.data);
                     Router.push("/destinations")
                   })
                 }}

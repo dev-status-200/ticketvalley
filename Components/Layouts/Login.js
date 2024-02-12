@@ -26,7 +26,7 @@ const Login = ({sessionData}) => {
           email:username,
           password:password
         }).then((x)=>{
-            console.log(x.data)
+            // console.log(x.data)
           if(x.data.message=='Success'){
             let token = jwt_decode(x.data.token);
             Cookies.set('token', x.data.token, { expires: 1 });

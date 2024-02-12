@@ -3,11 +3,6 @@ import { Row, Col } from 'react-bootstrap';
 import { IoIosRemoveCircle } from "react-icons/io";
 
 const ImageUpload = ({state, dispatch, id}) => {
-
-  React.useEffect(() => {
-    console.log(state.prev_images)
-  }, [])
-  
   
   return (
     <div style={{height:'65vh', overflowY:"auto", overflowX:"hidden"}}>

@@ -10,12 +10,12 @@ const ExcelConverter = ({jsonData}) => {
 
   useEffect(() => {
     //console.log(data)
-    console.log(jsonData)
+    // console.log(jsonData)
   }, [])
   
   const getValues = (data) => {
     let result = "";
-    console.log(data)
+    // console.log(data)
     data.forEach((x)=>{
       result = result + `${x.name}, `
     })

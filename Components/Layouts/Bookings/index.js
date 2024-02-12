@@ -4,6 +4,7 @@ import { Input, Modal, Switch } from 'antd';
 import { EditOutlined, HistoryOutlined } from '@ant-design/icons';
 import BookingInfo from './BookingInfo';
 import moment from 'moment';
+import axios from 'axios';
 
 function recordsReducer(state, action){
   switch (action.type) {
@@ -84,7 +85,16 @@ const Bookings = ({bookingsData}) => {
       records:tempValues,
       transports:bookingsData.transports
     }});
-  }, [])
+    checkNotifications();
+  }, []);
+
+  const checkNotifications = () => {
+    axios.post(process.env.NEXT_PUBLIC_POST_CHECK_NOTIFICATION,{
+      type:'tour'
+    }).then((x)=>{
+      // console.log(x.data)
+    })
+  }
 
   const onChange = (e) => 
     dispatch({type:'set', payload:{

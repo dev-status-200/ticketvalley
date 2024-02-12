@@ -37,13 +37,12 @@ const HotelQueries = ({}) => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
   useEffect(() => {
-    getHotelsQueries();
+    checkNotifications(getHotelsQueries());
   }, [])
   
   const getHotelsQueries = async() => {
     await axios.get(process.env.NEXT_PUBLIC_GET_HOTEL_FORMS)
     .then((x)=>{
-      console.log(x.data)
       dispatch({type:"set", 
         payload:{
           records:x.data.result,
@@ -55,18 +54,19 @@ const HotelQueries = ({}) => {
     })
   }
 
-  const markAsDone = async(id) => {
+  const markAsDone = async(id, status) => {
     dispatch({type:"set", 
       payload:{
         submitLoad:true,
       }
     })
     await axios.get(process.env.NEXT_PUBLIC_POST_HOTEL_QUERY_DONE,{
-      headers:{id:id}
+      headers:{id:id, status}
     }).then((x)=>{
       getHotelsQueries();
     })
   }
+
   const getCodeValue = (value) => {
     let result = "";
     codes.forEach(x => {
@@ -76,6 +76,15 @@ const HotelQueries = ({}) => {
     });
     return result
   }
+
+  const checkNotifications = () => {
+    axios.post(process.env.NEXT_PUBLIC_POST_CHECK_NOTIFICATION,{
+      type:'hotel'
+    }).then((x)=>{
+      // console.log(x.data)
+    })
+  }
+
   return (
   <>
     <Row>
@@ -168,10 +177,10 @@ const HotelQueries = ({}) => {
           })}
         </Col> 
         <hr className='mt-2' />
-        <Button disabled={state.selectedRecord.done=="1"?true:false} type='primary' 
-          onClick={()=>markAsDone(state.selectedRecord.id)}
+        <Button type='primary' 
+          onClick={()=>markAsDone(state.selectedRecord.id, state.selectedRecord.done)}
         >
-          {!state.submitLoad?"Mark as Done":<Spinner size='sm' />}
+          {!state.submitLoad?"Toggle Status":<Spinner size='sm' />}
         </Button>
       </Row>
     </Modal>

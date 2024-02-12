@@ -31,7 +31,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         dispatch({type:'toggle', fieldName:'load', payload:true});
         setTimeout(async() => {
             await axios.post(process.env.NEXT_PUBLIC_CREATE_TRANSPORT, data).then((x)=>{
-                console.log(x.data)
+                // console.log(x.data)
                 if(x.data.status=='success'){
                     let tempRecords = [...state.records];
                     tempRecords.unshift(x.data.result);
@@ -52,7 +52,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         setTimeout(async() => {
             await axios.post(process.env.NEXT_PUBLIC_EDIT_TRANSPORT, data).then((x)=>{
                 if(x.data.status=='success'){
-                    console.log(data)
+                    // console.log(data)
                     let tempRecords = [...state.records];
                     let i = tempRecords.findIndex((y=>data.id==y.id));
                     tempRecords[i] = data;

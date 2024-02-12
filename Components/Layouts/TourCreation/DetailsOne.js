@@ -135,7 +135,7 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
                     if(state.cancellation_policy!=""){
                         let tempState = [...state.cancellation_polices];
                         tempState.push(state.cancellation_policy)
-                        console.log(tempState)
+                        // console.log(tempState)
                         dispatch({type: 'field', fieldName: 'cancellation_polices', payload: tempState });
                         setValues("",'cancellation_policy')
                     }}}>

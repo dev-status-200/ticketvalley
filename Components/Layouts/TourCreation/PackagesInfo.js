@@ -116,14 +116,14 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
                         onClick={()=>{
                             let tempState = [...state.packages];
                             tempState[i].status="0";
-                            console.log(tempState[i])
+                            // console.log(tempState[i])
                             dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
                         }}/>:
                         <ReloadOutlined className='cross-icon mt-4' style={{fontSize:20}}
                         onClick={()=>{
                             let tempState = [...state.packages];
                             tempState[i].status="1";
-                            console.log(tempState[i])
+                            // console.log(tempState[i])
                             dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
                         }}/>
                     }

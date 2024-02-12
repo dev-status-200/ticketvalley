@@ -8,7 +8,7 @@ export const openNotification = (title, message, color) => {
     description: message,
     icon: <ExclamationCircleOutlined style={{ color: color }} />,
     onClick: () => {
-      console.log('Notification Clicked!');
+      // console.log('Notification Clicked!');
     },
   });
 };

@@ -28,7 +28,7 @@ const Reviews = ({reservationData}) => {
   }
 
   const allowReview = async(id, allowed) => {
-    console.log(id, allowed)
+    // console.log(id, allowed)
     await axios.post(process.env.NEXT_PUBLIC_POST_ALLOW_REVIEW,{id, allowed})
     .then((x)=>{
       //console.log(x.data)

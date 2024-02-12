@@ -36,7 +36,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     code:x
                 })
             })
-            console.log(option);
+            // console.log(option);
             await setFetchedTicket(ticket);
         }
 	};

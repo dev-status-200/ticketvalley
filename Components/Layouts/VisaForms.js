@@ -51,6 +51,7 @@ const HotelQueries = ({}) => {
           submitLoad:false
         }
       })
+      checkNotifications();
     })
   }
 
@@ -85,6 +86,14 @@ const HotelQueries = ({}) => {
       }
     });
     return result
+  }
+
+  const checkNotifications = () => {
+    axios.post(process.env.NEXT_PUBLIC_POST_CHECK_NOTIFICATION,{
+      type:'visa'
+    }).then((x)=>{
+      // console.log(x.data)
+    })
   }
 
   return (

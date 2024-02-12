@@ -80,7 +80,7 @@ const Inventory = ({inventoryData}) => {
         })
         axios.post(process.env.NEXT_PUBLIC_POST_REMOVE_INVENTORY,tempCOdes)
         .then((x)=>{
-            console.log(x.data)
+            // console.log(x.data)
             Router.push("/inventory")
         })
     }
