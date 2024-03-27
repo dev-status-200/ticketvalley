@@ -4,7 +4,7 @@ import { reducerFunctions, initialState } from './states';
 import { Row, Col } from 'react-bootstrap';
 import Router from 'next/router';
 
-const TourCreation = ({productData}) => {
+const TourCreation = ({productData, packageType}) => {
 
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
   const { records } = state;
@@ -28,7 +28,7 @@ const TourCreation = ({productData}) => {
   return (
   <>
     <Row>
-      <Col className='' md={3}><h5>Product</h5></Col>
+      <Col className='' md={3}><h5>{!packageType?'Product':'Products'}</h5></Col>
       <Col>
       <Row className='pb-2'>
         <Col md={2}></Col>
@@ -58,7 +58,7 @@ const TourCreation = ({productData}) => {
             })} />
           </Col>
           <Col md={2}>
-            <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>Router.push(`/tourEditPage?id=new`)}>Create</button>
+            <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=new`)}>Create</button>
           </Col>
       </Row>
       </Col>
@@ -81,7 +81,13 @@ const TourCreation = ({productData}) => {
           }
         }).map((x, i)=>{
           return(
-          <Col md={3} className="my-3" key={i} onClick={()=>Router.push(`/tourEditPage?id=${x.id}`)}>
+          <Col 
+            md={3} 
+            key={i} 
+            className="my-3" 
+            onClick={()=>Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=${x.id}`)}
+            style={{opacity:x.status!=1?0.3:1}}
+          >
             <Card hoverable style={{ width: 240 }}
               cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}
             >

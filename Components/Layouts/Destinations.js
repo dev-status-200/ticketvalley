@@ -90,7 +90,7 @@ const Destinations = () => {
             <td> {index+1} </td>
             <td> {x.name} </td>
             <td> {x.active=="1"?<span className='green-txt'>Active</span>:<span className='red-txt'>Disabled</span>} </td>
-            <td> {moment(x.createdAt).format("YYYY/MMM/ddd")} </td>
+            <td> {moment(x.createdAt).format("DD - MMM - YYYY")} </td>
           </tr>
           )
         })}
@@ -126,7 +126,7 @@ const Destinations = () => {
                     axios.post(process.env.NEXT_PUBLIC_POST_DELETE_CITY,{
                       id:x.id
                     }).then((x)=>{
-                      Router.push("/destinations")
+                      Router.push("/destinationPage")
                     })
                   }}
                   onCancel={cancel}
@@ -171,7 +171,7 @@ const Destinations = () => {
                     deletable:'1'
                   }).then((x)=>{
                     // console.log(x.data);
-                    Router.push("/destinations")
+                    Router.push("/destinationPage")
                   })
                 }}
               >Done</button>

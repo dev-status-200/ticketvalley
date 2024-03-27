@@ -5,6 +5,7 @@ import PackagesInfo from "./PackagesInfo";
 import ImageUpload from './ImageUpload';
 import DetailsOne from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
+import PackageOptions from './PackageOptions';
 import Router from 'next/router';
 import { Tabs } from 'antd';
 import moment from "moment";
@@ -12,7 +13,7 @@ import axios from 'axios';
 import { reducerFunctions, initialState, baseValues } from './states';
 import { openNotification } from "../../Shared/Notification"
 
-const CreateOrEdit = ({productData, id}) => {
+const CreateOrEdit = ({productData, id, packageType}) => {
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
   const {register, control, handleSubmit, reset, formState:{errors} } = useForm({
     defaultValues:state.values
@@ -29,10 +30,10 @@ const CreateOrEdit = ({productData, id}) => {
         type: 'set',
         payload: { cities }
       });
-      // console.log(cities)
     })
     if(id!="new"){
       let tempState = {...productData.result};
+      console.log(tempState.packageIncludes)
       state.cancellation_polices = tempState?.cancellation_polices?.split("//");
       state.status = tempState.status;
       tempState?.TourOptions?.forEach((x)=>{
@@ -44,6 +45,8 @@ const CreateOrEdit = ({productData, id}) => {
           x.dates = newDates
         }
       })
+      // travelDetail:makeString(),
+      // state.packageDetail = tempState?.travelDetail?.split("//");
       state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
       state.policies = tempState?.policies?.split("//");
@@ -51,6 +54,7 @@ const CreateOrEdit = ({productData, id}) => {
       state.imp_infos = tempState?.imp_infos?.split("//");
       state.why_shoulds = tempState?.why_shoulds?.split("//");
       state.inclusions = tempState?.inclusions?.split("//");
+      state.packageDetail = tempState?.travelDetail?.split("//");
       // state.prev_images = (tempState.more_images!=''||tempState.more_images!=null)? tempState?.more_images?.split(","):[];
       state.stock = tempState.stock;
       state.dated = tempState.dated;
@@ -60,6 +64,7 @@ const CreateOrEdit = ({productData, id}) => {
       dispatch({
         type: 'set',
         payload: {
+          packageIncludes:JSON.parse(tempState.packageIncludes)||{},
           selectedRecord:productData.result,
           show_image:productData.result.main_image,
           prev_images:productData.result.more_images?productData.result.more_images.split(","):[]
@@ -77,6 +82,23 @@ const CreateOrEdit = ({productData, id}) => {
       payload: value
     })
   };
+
+  let pageItems = [
+    {
+      label:`Tour Info`, key:'1', children:<DetailsTwo packageType={packageType} register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+    },
+    {
+      label:`Package Info`, key:'5', children:packageType?
+        <PackageOptions register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />:
+        <PackagesInfo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+    },
+    {
+      label:`Description`, key:'3', children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
+    },
+    {
+      label:`Images`, key:'4', children:<ImageUpload state={state} setValues={setValues} dispatch={dispatch} id={id} />
+    }
+  ]
 
   function uploadImage(x){
     let value = ''
@@ -104,43 +126,62 @@ const CreateOrEdit = ({productData, id}) => {
   };
 
   const onSubmit = async(data) => {
-    dispatch({type:'field', fieldName:'load', payload:true})
-    let cover = "a";
-    let value;
-    let values=[];
-    cover = await uploadImage(state.main_image);
-    for(let i=0; i<state.more_images.length; i++){
-      value = await uploadImage(state.more_images[i]);
-      values.push(value)
+    if(
+      data.title.length>3 && 
+      data.city.length>3 && 
+      data.category.length>3 && 
+      data.tour_detail.length>3 && 
+      data.duration.length>3 && 
+      data.refund.length>0 && 
+      data.lang.length>3 && 
+      data.voucher.length>3 && 
+      data.time_slot.length>3 && 
+      state.main_image.name.length>1 && 
+      data.title.length>3
+    ){
+      dispatch({type:'field', fieldName:'load', payload:true})
+      let cover = "a";
+      let value;
+      let values=[];
+      cover = await uploadImage(state.main_image);
+      for(let i=0; i<state.more_images.length; i++){
+        value = await uploadImage(state.more_images[i]);
+        values.push(value)
+      }
+      let tempPackages = [...state.packages];
+      tempPackages.forEach((x)=>{
+        if(x.dated){
+          let newDates = [];
+          x.dates.forEach((y)=>{
+            newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
+          })
+          x.dates = newDates;
+        }
+      })
+      setTimeout(
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT, {
+          ...data,
+          packageIncludes:JSON.stringify(state.packageIncludes),
+          package:packageType?'1':'0',
+          packages:tempPackages,//state.packages,
+          stock:state.stock,
+          travelDetail:makeString(state.packageDetail),
+          status:state.status,
+          main_image:cover==null?"a":cover,
+          more_images:values.length>0? values.toString():"a",
+          inclusions:makeString(state.inclusions),
+          why_shoulds:makeString(state.why_shoulds),
+          imp_infos:makeString(state.imp_infos),
+          policies:makeString(state.policies),
+          cancellation_polices:makeString(state.cancellation_polices)
+        }).then((x)=>{
+        if(x.data.status=='success'){
+          Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=${x.data.result.id}`)
+        }
+      }), 3000)
+    } else {
+      openNotification("Warning", "In-complete information! please enter the mandatory info with *", 'orange')
     }
-    let tempPackages = [...state.packages];
-    tempPackages.forEach((x)=>{
-      if(x.dated){
-        let newDates = [];
-        x.dates.forEach((y)=>{
-          newDates.push({"date":`${moment(y).subtract(1, 'days').format("YYYY-MM-DD")}`})
-        })
-        x.dates = newDates;
-      }
-    })
-    setTimeout(
-      await axios.post(process.env.NEXT_PUBLIC_CREATE_PRODUCT, {
-        ...data,
-        packages:tempPackages,//state.packages,
-        stock:state.stock,
-        status:state.status,
-        main_image:cover==null?"a":cover,
-        more_images:values.length>0? values.toString():"a",
-        inclusions:makeString(state.inclusions),
-        why_shoulds:makeString(state.why_shoulds),
-        imp_infos:makeString(state.imp_infos),
-        policies:makeString(state.policies),
-        cancellation_polices:makeString(state.cancellation_polices)
-      }).then((x)=>{
-      if(x.data.status=='success'){
-        Router.push(`/tourEditPage?id=${x.data.result.id}`)
-      }
-    }), 3000)
   };
 
   const onEdit = async(data) => {
@@ -178,7 +219,9 @@ const CreateOrEdit = ({productData, id}) => {
     await axios.post(process.env.NEXT_PUBLIC_EDIT_PRODUCT,
       {
         ...data,
+        packageIncludes:JSON.stringify(state.packageIncludes),
         packages:tempPackages,//state.packages,
+        travelDetail:makeString(state.packageDetail),
         stock:state.stock,
         prev_img:prev_img,
         status:state.status,
@@ -193,7 +236,7 @@ const CreateOrEdit = ({productData, id}) => {
     ).then((x)=>{
       if(x.data.status=='success'){
         openNotification('Success', `Tour Updated!`, 'green')
-        Router.push(`/tourEditPage?id=${id}`)
+        Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=${id}`)
       } else {
         openNotification('Error', `Something Went Wrong, Try Again!`, 'red')
       }
@@ -208,20 +251,7 @@ const CreateOrEdit = ({productData, id}) => {
     <Tabs
       defaultActiveKey="1"
       onChange={(e)=>dispatch({type:'toggle', fieldName:'activeTab', payload:e})}
-      items={[
-        {
-          label:`Tour Info`, key:'1', children:<DetailsTwo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-        },
-        {
-          label:`Packages Info`, key:'5', children:<PackagesInfo register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-        },
-        {
-          label:`Description`, key:'3', children:<DetailsOne register={register} control={control} state={state} setValues={setValues} dispatch={dispatch} />
-        },
-        {
-          label:`Images`, key:'4', children:<ImageUpload state={state} setValues={setValues} dispatch={dispatch} id={id} />
-        }
-      ]}
+      items={pageItems}
     />
     <div className='pt-3'>
       <button className='btn-custom' type="submit" disabled={state.load?true:false}>{state.load?<Spinner animation="border" size='sm' className='mx-3' />:'Submit'}</button>
@@ -230,4 +260,4 @@ const CreateOrEdit = ({productData, id}) => {
   </>
   )
 }
-export default CreateOrEdit
+export default React.memo(CreateOrEdit)

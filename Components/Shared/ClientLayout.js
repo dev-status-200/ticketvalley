@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import Header from './Header/';
-import Footer from './Footer/';
+import Footer from './FooterNew/';
 import { Layout } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addProduct } from '../../redux/cart/cartSlice';
 import { retrieveCart } from '../../functions/cartFunction';
-import { WhatsAppOutlined } from '@ant-design/icons';
-import { Popover } from 'antd';
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
 
 const MainLayout = ({children}) => {
@@ -16,8 +14,7 @@ const MainLayout = ({children}) => {
   useEffect(() => { dispatch(addProduct(retrieveCart())); }, [])
 
   return (
-    <>
-      <Layout style={{fontFamily:'Alata'}}>
+    <Layout style={{fontFamily:'Alata'}}>
       <Header/>
         {children}
       <Footer/>
@@ -30,8 +27,7 @@ const MainLayout = ({children}) => {
         notification
         notificationSound
       />
-      </Layout>
-    </>
+    </Layout>
   )
 }
 

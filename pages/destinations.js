@@ -1,9 +1,8 @@
-import React from 'react';
-import Destinations from "../Components/Layouts/Destinations"
+import React from 'react'
 
 const destinations = () => {
   return (
-    <Destinations />
+    <div>destinations</div>
   )
 }
 

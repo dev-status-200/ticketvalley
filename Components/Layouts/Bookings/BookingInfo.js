@@ -1,14 +1,18 @@
 import { CheckOutlined, DiffOutlined } from "@ant-design/icons";
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import moment from 'moment';
 import Details from "./Details";
 import axios from "axios";
-import Router from "next/router"
+import Router from "next/router";
+import { openNotification } from "/Components/Shared/Notification"
 
-const BookingInfo = ({state, dispatch}) => {
+const BookingInfo = ({state, dispatch, getBooking}) => {
 
     const assignTicket = async(data, count, type) => {
+        dispatch({type:'set', payload:{
+            assignLoad:true
+        }})
         if(type!="no"){
             let tempTickets = [], i=0;
             if(!data.TourOption.manual){
@@ -24,14 +28,25 @@ const BookingInfo = ({state, dispatch}) => {
                 ticketId:state.selectedRecord.id, manual:data.TourOption.manual
             }).then((x)=>{
                 if(x.data.result[0]==1){
-                    Router.push("/bookings");
+                    openNotification("Success", "Operation Done Successfully", "green");
+                    dispatch({type:'set', payload:{
+                        visible:false,
+                        assignLoad:false
+                    }})
+                    getBooking()
+                    // Router.push("/bookings");
                 }
             })
         } else {
             await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_REVERSE_TICKET,{
                 id:data.id
             }).then((x)=>{
-                Router.push("/bookings");
+                openNotification("Success", "Operation Done Successfully", "green");
+                dispatch({type:'set', payload:{
+                    visible:false
+                }})
+                getBooking()
+                // Router.push("/bookings");
             })
         }
     }
@@ -51,14 +66,14 @@ const BookingInfo = ({state, dispatch}) => {
         <h4>Booking Details</h4><hr/>
         <Row>
             <Col md={4}>
-            <h6>Booking Info</h6>
+                <h6>Booking Info</h6>
                 <Details state={state} />
             </Col>
             <Col md={8}>
             <h6>Tours Info</h6>
             <Row>{state.selectedRecord.BookedTours.map((x, i)=>{
-            return(<>
-            <Col md={12} className='grey-txt tour-booking-list'>
+            return(
+            <Col md={12} className='grey-txt tour-booking-list' key={x.id}>
             <Row className='px-1 py-2'>
                 <Col md={12} >
                 {x.BookedToursOptions.map((y, j)=>{
@@ -67,6 +82,7 @@ const BookingInfo = ({state, dispatch}) => {
                     <span className='fw-500' style={{borderBottom:"1px solid grey"}}>#{j+1} {y.tourOptName}</span>
                     {!y.TourOption.manual &&
                     <div>
+                        {!state.assignLoad &&
                         <div className='fw-500 right text-end'>
                             {y.assigned=="0" &&<>
                             <div>{parseInt(y.adult) + parseInt(y.child)} Required</div>
@@ -88,12 +104,13 @@ const BookingInfo = ({state, dispatch}) => {
                                 /> Assigned
                             </div>
                             </>}
-                        </div>
+                        </div>}
+                        {state.assignLoad && <Spinner/>}
                     </div>
                     }
                     {y.TourOption.manual &&
                     <div>
-                        <div className='fw-500 right text-end'>
+                        {!state.assignLoad && <div className='fw-500 right text-end'>
                             {y.assigned=="0" &&<>
                             <div>
                                 {parseInt(y.adult) + parseInt(y.child)} Manual Required 
@@ -111,7 +128,8 @@ const BookingInfo = ({state, dispatch}) => {
                                 <CheckOutlined style={{position:'relative', bottom:2}} /> Assigned Manually
                             </div>
                             </>}
-                        </div>
+                        </div>}
+                        {state.assignLoad && <Spinner/>}
                     </div>
                     }
                     <div className=' mt-2'>
@@ -138,7 +156,7 @@ const BookingInfo = ({state, dispatch}) => {
                 </Col>
             </Row>
             </Col>
-            </>)})
+            )})
             }</Row>
             </Col>
         </Row>

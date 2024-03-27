@@ -10,6 +10,7 @@ import axios from "axios";
 import { Switch } from "antd";
 import moment from "moment";
 import Router from 'next/router';
+import dayjs from 'dayjs';
 
 const SignupSchema = yup.object().shape({
     name: yup.string().required('Required'),
@@ -30,7 +31,7 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
         if(state.edit){
             tempState = {
                 ...tempState,
-                validity:moment(tempState.validity)
+                validity:dayjs(tempState.validity)
             }
             dispatch({type:'toggle', fieldName:'status', payload:tempState.status});
             dispatch({type:'toggle', fieldName:'byPercentage', payload:tempState.byPercentage});

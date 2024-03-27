@@ -29,14 +29,18 @@ const Cart = () => {
     const [promoInfo, setPromoInfo] = useState({price:0, byPercentage:false, name:""});
     const [price, setPrice] = useState(0.0);
     const [promo, setPromo] = useState("");
+    const [transportList, setTransportList] = useState("");
     const [discountPrice, setDiscountPrice] = useState(0);
     const [load, setLoad] = useState(false);
     const size = useWindowSize();
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    useEffect(() => { Aos.init({duration:500}); console.log(cart) }, []);
-    useEffect(()=> { setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)) }, [cart]);
+    useEffect(() => {
+        Aos.init({duration:500});
+        getValues();
+    }, []);
+    useEffect(()=> { setPrice(parseFloat(getTotalPrice(cart)).toFixed(2)); }, [cart]);
 
     const getTotalPrice = (val) => {
         let discount = Cookies.get("promoDiscount");
@@ -109,7 +113,14 @@ const Cart = () => {
                     </div>
                   ),
                   onOk(){
-                    Cookies.set("promoDiscount", JSON.stringify(({price:parseFloat(x.data.result.amount), byPercentage:x.data.result.byPercentage=="0"?false:true, name:x.data.result.code})))
+                    Cookies.set("promoDiscount", 
+                        JSON.stringify(({
+                            price:parseFloat(x.data.result.amount), 
+                            byPercentage:x.data.result.byPercentage=="0"?false:true, 
+                            name:x.data.result.code, 
+                            id:x.data.result.id
+                        }))
+                    )
                     setPromoInfo({price:parseFloat(x.data.result.amount), byPercentage:x.data.result.byPercentage=="0"?false:true, name:x.data.result.code})
                     Router.push("/cart")
                   }, 
@@ -117,8 +128,27 @@ const Cart = () => {
             }
         })
     };
+
+    async function getValues(){
+        axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT)
+        .then((x)=>{
+          setTransportList(x.data.result)
+        })
+      }
+
+    const getTransportName = (id) => {
+        let name = "";
+        if(transportList.length>0){
+            transportList.forEach((x)=>{
+              if(x.id==id){
+                name = x.name
+              }
+            });
+        }
+        return name
+      }
+
   return (
-    <>
     <div className='tour-styles' style={{backgroundColor:'white'}} >
     {
         size.width>600?
@@ -178,9 +208,7 @@ const Cart = () => {
                             <div className=''>
                                 {y.name} {"("}{`${y.adult} Adult`}{y.child>0?`, ${y.child} Child`:""} {y.infant>0?`, Infant ${y.infant}`:""}{" )"}
                             </div>
-                            <div>
-                                Transfer Type: {y.transfer} 
-                            </div>
+                            <div>Transfer Type: {getTransportName(y.transfer)}</div>
                             <div>
                                 {y.transfer!="No"?`Pickup Location: ${y.address} `:""}
                             </div>
@@ -279,7 +307,7 @@ const Cart = () => {
             </> 
             }
             {!session &&
-            <div className='text-center'>
+            <div className='text-center mb-5'>
                 <div className={`${size.width>600?"cart-logged-in-warning":"fs-18"}`}>Sign-in is required to continue Checkout!</div>
                 <Row className='mt-4'>
                     <Col></Col>
@@ -303,7 +331,6 @@ const Cart = () => {
     </Container>
     </div>
     </div>
-    </>
   )
 }
 export default Cart

@@ -8,6 +8,7 @@ import { Modal, Input } from 'antd';
 import axios from "axios";
 import moment from "moment";
 import Router from "next/router";
+import { openNotification } from "/Components/Shared/Notification"
 
 const CreateOffer = ({content, setContent, records, promos}) => {
 
@@ -62,38 +63,39 @@ const CreateOffer = ({content, setContent, records, promos}) => {
       <hr/>
       <div className='table-sm-1' style={{maxHeight:"30vh", overflowY:'auto', overflowX:'hidden'}}>
       <Table className='tableFixHead'>
-      <tbody>
-      {customRecords.filter((x)=>{ 
-        if(x.name.toLowerCase().includes(search.toLowerCase()) || x.email.toLowerCase().includes(search.toLowerCase())){
-          return x
-        }else if(search==""){
-          return x
-        }
-      }).map((x,i) => {
-      return (
-      <tr key={i} className='my-0 py-0 row-hov'
-        onClick={()=>{
-          let tempRecords = [...customRecords];
-          let index = tempRecords.findIndex((y) => y.id == x.id);
-          tempRecords[index].check = !tempRecords[index].check;
-          setCustomRecords(tempRecords);
-      }}>
-        <td className='fs-16 pt-3' style={{maxWidth:30}}>
-            <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40}  alt="Offer"/>
-        </td>
-        <td>
-          <span className='mx-2'>{x.name}</span><br/>
-          <MailOutlined style={{position:'relative', bottom:3}} className='mx-2' />{x.email}
-        </td>
-        <td className='pt-4'>
-          <input type='checkbox' checked={x.check}  />
-        </td>
-      </tr>
-      )})}
-      </tbody>
+        <tbody>
+        {customRecords.filter((x)=>{ 
+          if(x.name.toLowerCase().includes(search.toLowerCase()) || x.email.toLowerCase().includes(search.toLowerCase())){
+            return x
+          }else if(search==""){
+            return x
+          }
+        }).map((x,i) => {
+        return (
+        <tr key={i} className='my-0 py-0 row-hov'
+          onClick={()=>{
+            let tempRecords = [...customRecords];
+            let index = tempRecords.findIndex((y) => y.id == x.id);
+            tempRecords[index].check = !tempRecords[index].check;
+            setCustomRecords(tempRecords);
+        }}>
+          <td className='fs-16 pt-3' style={{maxWidth:30}}>
+              <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40}  alt="Offer"/>
+          </td>
+          <td>
+            <span className='mx-2'>{x.name}</span><br/>
+            <MailOutlined style={{position:'relative', bottom:3}} className='mx-2' />{x.email}
+          </td>
+          <td className='pt-4'>
+            <input type='checkbox' checked={x.check}  />
+          </td>
+        </tr>
+        )})}
+        </tbody>
       </Table>
       </div>
-      <div><button className='btn-custom'
+      <div>
+      <button className='btn-custom'
         onClick={async()=>{
           let tempRecords = [];
           tempRecords = customRecords.filter((x)=>x.check==true).map((x)=> { return {CustomerId:x.id, email:x.email, name:x.name, PromoId:PromoId} })

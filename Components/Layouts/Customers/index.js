@@ -43,7 +43,7 @@ const Customers = ({data, promoData}) => {
             </Col>
             <Col md={7}></Col>
             <Col md={2}>
-            <button className='btn-custom' onClick={()=>setVisible(true)}>Create Offer</button>
+            {/* <button className='btn-custom' onClick={()=>setVisible(true)}>Create Offer</button> */}
             </Col>
         </Row>
     <Row>
@@ -64,13 +64,16 @@ const Customers = ({data, promoData}) => {
                 <td className='fs-16' style={{maxWidth:1}}>
                     {index+1}
                 </td>
-                <td className='fs-16' style={{maxWidth:30}}>
+                <td className='fs-16 pt-3' style={{maxWidth:30}}>
                     <img src={x.image} style={{borderRadius:"100%", position:'relative', bottom:7}}  height={40}  alt="Tour" />
                 </td>
-                <td >{x.name}</td>
+                <td className='px-4'>
+                    {x.name}<br/>
+                    {x.BookedTours[0]?.customerContact||<span className='grey-txt-2'>No Contact</span>}
+                </td>
                 <td><MailOutlined style={{position:'relative', bottom:3}} className='mx-2' />{x.email}</td>
                 <td>
-                Total Bookings: <b style={{color:'green'}}> {x.bookings}</b>
+                Total Bookings: <b style={{color:'green'}}> {x.bookings||0}</b>
                 </td>
                 <td>
                 {x.MyOffers.length>0?`Last:  ${moment(x.MyOffers[0].createdAt).fromNow()}`:""}

@@ -12,6 +12,7 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
 import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail } from './states';
+import GooglePlaceSearch from './GooglePlaceSearch';
 
 const MobileBook = ({tour, transport, category, setOpen}) => {
 
@@ -208,7 +209,8 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
             <>
                 <Col md={12}><hr className='my-2' /></Col>
                 <Col md={12} className="mt-1 mb-2 px-3">
-                    <GooglePlacesAutocomplete
+                    <GooglePlaceSearch dispatchReducer={dispatchReducer} state={state} index={i} />
+                    {/* <GooglePlacesAutocomplete
                         apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
                         selectProps={{
                             onChange: (res)=> {
@@ -227,7 +229,7 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
                                 </>
                             },
                         }}
-                    />
+                    /> */}
                 </Col>
             </>
             }

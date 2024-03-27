@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { Row, Col, Table, Spinner } from 'react-bootstrap';
+import { Row, Col, Table, Spinner, Form } from 'react-bootstrap';
 import { Modal, Button, Rate } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { openNotification } from "/Components/Shared/Notification"
@@ -26,22 +26,31 @@ function recordsReducer(state, action){
 
 const initialState = {
   records: [],
-  load:true,
+  load:false,
   submitLoad:false,
   visible:false,
   edit:false,
+  to:`${moment().format("YYYY-MM-DD")}`,
+  from:`${moment().subtract(7, 'days').format("YYYY-MM-DD")}`,
   selectedRecord:{}
 };
 
 const HotelQueries = ({}) => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
-  useEffect(() => {
-    getHotelsQueries();
-  }, [])
   
-  const getHotelsQueries = async() => {
-    await axios.get(process.env.NEXT_PUBLIC_GET_ALL_VISA_FORMS)
+  const getVisas = async() => {
+    dispatch({type:"set", 
+      payload:{
+        load:true,
+      }
+    })
+    await axios.get(process.env.NEXT_PUBLIC_GET_ALL_VISA_FORMS,{
+      headers:{
+        from:state.from,
+        to:state.to
+      }
+    })
     .then((x) => {
       dispatch({type:"set", 
         payload:{
@@ -52,19 +61,6 @@ const HotelQueries = ({}) => {
         }
       })
       checkNotifications();
-    })
-  }
-
-  const markAsDone = async(id) => {
-    dispatch({type:"set", 
-      payload:{
-        submitLoad:true,
-      }
-    })
-    await axios.get(process.env.NEXT_PUBLIC_POST_HOTEL_QUERY_DONE,{
-      headers:{id:id}
-    }).then((x)=>{
-      getHotelsQueries();
     })
   }
 
@@ -96,12 +92,51 @@ const HotelQueries = ({}) => {
     })
   }
 
+  const toggleForm = () => {
+    dispatch({
+      type:'set',
+      payload:{
+        load:true,
+        visible:false
+      }
+    })
+    axios.post(process.env.NEXT_PUBLIC_POST_TOGGLE_VISA_FORM,{
+      id:state.selectedRecord.id,
+      status:state.selectedRecord.status=='0'?'1':'0'
+    }).then((x)=>{
+      let tempState = [...state.records];
+      let index = tempState.findIndex((x)=>x.id==state.selectedRecord.id);
+      tempState[index].status = state.selectedRecord.status=='0'?'1':'0'
+      dispatch({
+        type:'set',
+        payload:{
+          load:false,
+          records:tempState
+        }
+      })
+    })
+  }
+
   return (
   <>
     <Row>
-      <Col><h5>Visa Queries</h5></Col>
+      <Col md={5}>
+        <h4>Visa Queries</h4>
+      </Col>
+      <Col md={1}>
+        {state.load && <Spinner/>}
+      </Col>
+      <Col md={'auto'}>
+        <Form.Control type={"date"} size="sm" value={state.from} onChange={(e)=>dispatch({type:"toggle", fieldName:"from", payload:e.target.value})} />
+      </Col>
+      <Col md={'auto'}>
+        <Form.Control type={"date"} size="sm" value={state.to} onChange={(e)=>dispatch({type:"toggle", fieldName:"to", payload:e.target.value})} />
+      </Col>
+      <Col md={'auto'}>
+        <button onClick={getVisas} className='btn-custom'>Go</button>
+      </Col>
     </Row>
-    {!state.load &&<Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
+    <Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
     <Col md={12}>
       <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
         <Table className='tableFixHead'>
@@ -109,9 +144,10 @@ const HotelQueries = ({}) => {
           <tr>
             <th>#</th>
             <th>Customer Name</th>
+            <th>Customer Email</th>
             <th>Created</th>
+            <th>Status</th>
             <th>Dated</th>
-            {/* <th>Status</th> */}
           </tr>
         </thead>
         <tbody>
@@ -124,27 +160,28 @@ const HotelQueries = ({}) => {
             }}
           >
             <td> {index+1} </td>
-            <td> {x.VisaPersons[0].firstName} {x.VisaPersons[0].lastName} </td>
+            <td> {x?.VisaPersons[0]?.firstName} {x?.VisaPersons[0]?.lastName} </td>
+            <td> {x?.VisaPersons[0]?.email} </td>
             <td> {moment(x.createdAt).fromNow()}  </td>
+            <td> {x.status=="0"?<span className='grey-txt-2'>Pending</span>:<span className='green-txt'>Done</span>} </td>
             <td> {moment(x.createdAt).format("YYYY-MM-DD")}  </td>
-            {/* <td> {x.status=="0"?"Pending":<CheckCircleOutlined style={{color:'green', position:'relative', bottom:4}} />} </td> */}
           </tr>
           )})}
         </tbody>
         </Table>
       </div>
     </Col>
-    </Row>}
-    {state.load && <div><Spinner/></div>}
+    </Row>
     <Modal
       open={state.visible}
       onOk={()=>dispatch({ type: 'modalOff' })}
       onCancel={()=>dispatch({ type: 'modalOff' })}
       title="Visa Query"
-      centered={false}
+      centered
       footer={false} 
       width={550}
     >
+      <button className='btn-custom mb-3' onClick={toggleForm}>Toggle Done</button>
       <Row className='fs-17'>
         <hr/>
         {state?.selectedRecord?.VisaPersons?.map((x, i)=>{

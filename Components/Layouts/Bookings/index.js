@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import { Row, Col, Table } from 'react-bootstrap';
+import React, { useReducer, useEffect } from 'react';
+import { Row, Col, Table, Form, Spinner } from 'react-bootstrap';
 import { Input, Modal, Switch } from 'antd';
-import { EditOutlined, HistoryOutlined } from '@ant-design/icons';
 import BookingInfo from './BookingInfo';
 import moment from 'moment';
 import axios from 'axios';
@@ -42,6 +41,7 @@ const baseValues = {
 
 const initialState = {
   records: [],
+  load:false,
   inventory: [],
   transports: [],
   load:false,
@@ -52,10 +52,14 @@ const initialState = {
   byPercentage:"0",
   assigned:false,
   search:"",
-  selectedRecord:{}
+  selectedRecord:{},
+  assignLoad:false,
+
+  from:moment().subtract(7,'days').format("YYYY-MM-DD"),
+  to:moment().format("YYYY-MM-DD"),
 };
 
-const Bookings = ({bookingsData}) => {
+const Bookings = () => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
   const getInventoryTickets = (id, data) => {
@@ -68,25 +72,39 @@ const Bookings = ({bookingsData}) => {
     return result
   }
 
-  useEffect(()=>{
-    let tempValues = bookingsData.result;
-    tempValues.forEach((x)=>{
-      x.assigningLeft = 0;
-      x.booking_no = `${x.booking_no}`;
-      x.BookedTours.forEach((y)=>{
-        y.BookedToursOptions.forEach((z)=>{
-          z.inventory=getInventoryTickets(z.TourOptionId, bookingsData.resultTwo);
-          x.assigningLeft = z.assigned=="0"?x.assigningLeft+1: x.assigningLeft+ 0
+  const getBooking = async() => {
+    dispatch({type:'set', payload:{
+      load:true,
+    }});
+    await axios.get(process.env.NEXT_PUBLIC_CREATE_GET_ALL_RESERVATIONS,{
+      headers:{
+        from:state.from,
+        to:state.to
+      }
+    })
+    .then((x)=>{
+      console.log(x.data)
+      let bookingsData = x.data;
+      let tempValues = bookingsData.result;
+      tempValues?.forEach((x)=>{
+        x.assigningLeft = 0;
+        x.booking_no = `${x.booking_no}`;
+        x.BookedTours.forEach((y)=>{
+          y.BookedToursOptions.forEach((z)=>{
+            z.inventory=getInventoryTickets(z.TourOptionId, bookingsData.resultTwo);
+            x.assigningLeft = z.assigned=="0"?x.assigningLeft+1: x.assigningLeft+ 0
+          })
         })
       })
+      dispatch({type:'set', payload:{
+        inventory:bookingsData.resultTwo,
+        records:tempValues,
+        transports:bookingsData.transports,
+        load:false
+      }});
+      checkNotifications();
     })
-    dispatch({type:'set', payload:{
-      inventory:bookingsData.resultTwo,
-      records:tempValues,
-      transports:bookingsData.transports
-    }});
-    checkNotifications();
-  }, []);
+  }
 
   const checkNotifications = () => {
     axios.post(process.env.NEXT_PUBLIC_POST_CHECK_NOTIFICATION,{
@@ -100,12 +118,23 @@ const Bookings = ({bookingsData}) => {
     dispatch({type:'set', payload:{
       assigned:e
   }});
-
+  
   return (
     <>
     <Row>
       <Col md={1}><h5>Bookings</h5></Col>
-      <Col md={7}></Col>
+      <Col md={1}></Col>
+      <Col md={2} className='d-flex'>
+          <div className='py-1 mx-1'>From: </div>
+          <Form.Control type={"date"} size="sm" value={state.from} onChange={(e)=>dispatch({type:"set", payload:{from:e.target.value}})} />
+      </Col>
+      <Col md={2} className='d-flex'>
+        <div className='py-1 mx-1'>To: </div>
+        <Form.Control type={"date"} size="sm" value={state.to} onChange={(e)=>dispatch({type:"set", payload:{to:e.target.value}})} />
+      </Col>
+      <Col md={2}>
+        <button className='btn-custom' onClick={getBooking}>Go</button>
+      </Col>
       <Col md={2}>
         <Input value={state.search} allowClear onChange={(e)=>dispatch({type:"set", payload:{search:e.target.value}})} placeholder='Search Bookings' />
       </Col>
@@ -114,6 +143,7 @@ const Bookings = ({bookingsData}) => {
         <Switch checked={state.assigned} onChange={onChange} className='mx-2' />
       </Col>
     </Row>
+    {!state.load &&
     <Row style={{maxHeight:'69vh',overflowY:'auto', overflowX:'hidden'}}>
     <Col md={12}>
       <div className='table-sm-1 mt-3' style={{maxHeight:"60vh", overflowY:'auto'}}>
@@ -121,6 +151,7 @@ const Bookings = ({bookingsData}) => {
         <thead>
           <tr>
             {/* <th>No.</th> */}
+            <th>No. #</th>
             <th>Name</th>
             <th>Email</th>
             <th>Packages</th>
@@ -144,6 +175,7 @@ const Bookings = ({bookingsData}) => {
           return (
           <tr key={index} className='hov-row' onClick={()=>dispatch({type:'select', payload:x})}>
             {/* <td><div style={{color:"#108ee9"}}><b>#{x.booking_no}</b></div></td> */}
+            <td>#{x.booking_no} </td>
             <td>{x.name} </td>
             <td>{x.email} </td>
             <td className='px-4' style={{fontSize:15, color:"#a3592e"}}><b>{x.BookedTours.length}</b></td>
@@ -173,10 +205,12 @@ const Bookings = ({bookingsData}) => {
       </div>
     </Col>
     </Row>
+    }
+    {state.load && <div className='p-5 text-center'><Spinner/></div> }
     <Modal open={state.visible} width={1000} footer={false} centered
       onOk={()=>dispatch({ type: 'modalOff' })} onCancel={()=>dispatch({ type: 'modalOff' })}
     >
-      <BookingInfo state={state} dispatch={dispatch} />
+      <BookingInfo state={state} dispatch={dispatch} getBooking={getBooking} />
     </Modal>
     </>
   )

@@ -251,13 +251,16 @@ const Product = ({tourData, id}) => {
           {reviews.map((x, i)=>{
             return(
             <Row key={i}>
-                <Col md={1}>
+                <Col md={'auto'} xs={'auto'}>
                     <img src={x['BookedToursOptions.BookedTour.Customer.image']} height={50} width={50} style={{borderRadius:'100%'}} alt="Tour"/>
                 </Col>
-                <Col md={11} style={{backgroundColor:'white'}}>
+                <Col  md={'auto'} xs={'auto'} style={{backgroundColor:'white'}}>
                     <div style={{fontSize:16, display:'inline-block'}}>{x['BookedToursOptions.BookedTour.Customer.name']}</div>
-                    <div className='mx-5' style={{fontSize:13, color:'silver', display:'inline-block'}}>{moment(x['BookedToursOptions.BookedTour.createdAt']).fromNow()}</div>
-                    <br/><Rate allowHalf disabled defaultValue={parseFloat(x['BookedToursOptions.rating'])} />
+                    <div className='mx-2' style={{fontSize:13, color:'silver', display:'inline-block'}}>
+                      {"("}{moment(x['BookedToursOptions.BookedTour.createdAt']).fromNow()}{")"}
+                    </div>
+                    <br/>
+                    <Rate allowHalf disabled defaultValue={parseFloat(x['BookedToursOptions.rating'])} />
                 </Col>
                 <Col md={12} style={{color:'grey'}} className='mt-3'>
                     {x['BookedToursOptions.review']}

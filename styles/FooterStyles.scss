@@ -1,12 +1,53 @@
 .footer-styles{
     .bgTop{
-        background-color: #20201f;
+        background-color: #194050;
     }
     .bgBt{
-        background-color: #181818;
+        border-top: 1px solid white;
+        background-color: #194050;
     }
     .heading{
         color: white;
         font-weight: 700;
+    }
+    .white-links{
+        font-size: 20px;
+        text-decoration: none;
+        font-weight: 300;
+        color: white;
+    }
+    .white-links:hover{
+        color: rgb(74, 168, 205);
+    }
+    .newsletter-container{
+        border: 2px solid white;
+        display: flex;
+        height: 40px;
+    }
+    .newsletter-input{
+        background-color: #081b39;
+        color:white;
+        width: 80%;
+        border-radius: 0px;
+        border: none;
+        outline: none;
+        padding-left: 10px;
+    }
+    .newsletter-btn{
+        background-color: #1e4788;
+        color: white;
+        border: none;
+        font-size: 12px;
+        width: 20%;
+    }
+    .newsletter-btn:hover{
+        transition-duration: 300ms;
+        background-color: rgb(125, 180, 44);
+    }
+    .social-links-container{
+        display: flex;
+        justify-content: space-between;
+        // gap: 5px;
+        width: 70%;
     }
 }

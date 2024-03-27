@@ -6,7 +6,7 @@ import Router, { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ConfigProvider, Input } from 'antd';
 
-const Tours = ({records, size, index, pages, pagination, price, category, setIndex, searchTerm, search, setSearch}) => {
+const Tours = ({records, size, index, pages, pagination, price, category, setIndex, searchTerm, search, setSearch, duration}) => {
 
   return (
     <>
@@ -28,16 +28,26 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
             </Col>
             <hr className='p-0 mb-3 mx-0'/>
             {
-            records
-            .filter((x)=>{
+            records.filter((x)=>{
                 return x.price <= price
-            })
-            .filter((x)=>{
+            }).filter((x)=>{
                 if(search==""){
                     return x
-                }else if(x.title.toLowerCase().includes(search.toLowerCase())){
+                } else if(x.title.toLowerCase().includes(search.toLowerCase())){
                     return x
                 }
+            }).filter((x)=>{
+                let temp = {};
+                if(duration.uptoOne){
+                    temp = x.duration=='Upto 1 hour'?x:null
+                }
+                if(duration.oneToFour){
+                    temp = x.duration=='1 to 4 hours'?x:null
+                }
+                if(duration.fourToDat){
+                    temp = x.duration=='4 hours to 1 day'?x:null
+                }
+                return temp
             })
             .slice(0, index*9).map((x, i)=>{
             return(
@@ -47,8 +57,7 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
                 <div className='px-2 search-bob-bottom'>
                     <div className={`fs-${size.width>600?"17":"12"} py-1`} style={size.width>600?{}:{minHeight:44}}>
                         {size.width>600?
-                        <>{x.title}</>:
-                        <>{x.title}</> 
+                        <>{x.title.length>36?x.title.slice(0, 36)+'...':x.title}</>:<>{x.title}</> 
                         }
                     </div>
                     <hr className={size.width>600?`px-5 mt-1 mb-0`:`py-0 my-0`} />
@@ -62,18 +71,18 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
                     <Link href={`/product?id=${x.id}`} className='search-box-btn px-3 mt-4 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
                     >BOOK NOW</Link>
                     </div>:
-                    <div>
-                    <div style={{float:'left', fontWeight:700, fontSize:12}}>
-                        {parseFloat(x.price).toFixed(2)} AED
-                    </div>
-                    <br/>
-                    <div className='text-center'>
-                    <div 
-                        className='search-box-btn py-1' 
-                        style={{textDecoration:'none', color:'white', paddingLeft:"22%", paddingRight:"22%"}}
-                        //onClick={()=>router.push(`/product/${x.id}`)}
-                    >BOOK NOW</div>
-                    </div>
+                    <div className='mt-2'>
+                        <div style={{float:'left', fontWeight:700, fontSize:12}}>
+                            {parseFloat(x.price).toFixed(2)} AED
+                        </div>
+                        <br/>
+                        <div className='text-center'>
+                        <div 
+                            className='search-box-btn py-1' 
+                            style={{textDecoration:'none', color:'white', paddingLeft:"22%", paddingRight:"22%"}}
+                            //onClick={()=>router.push(`/product/${x.id}`)}
+                        >BOOK NOW</div>
+                        </div>
                     </div>
                     }
                 </div>

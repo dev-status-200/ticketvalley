@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { Row, Col, Table, Spinner } from 'react-bootstrap';
+import { Row, Col, Table, Spinner, Form } from 'react-bootstrap';
 import { Modal, Button, Rate } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { openNotification } from "/Components/Shared/Notification"
@@ -25,20 +25,25 @@ function recordsReducer(state, action){
 
 const initialState = {
   records: [],
-  load:true,
+  load:false,
   visible:false,
-  selectedRecord:{}
+  selectedRecord:{},
+  to:`${moment().format("YYYY-MM-DD")}`,
+  from:`${moment().subtract(7, 'days').format("YYYY-MM-DD")}`,
 };
 
 const Messagages = ({}) => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
-  useEffect(() => {
-    getMessages();
-  }, [])
   
   const getMessages = async() => {
-    await axios.get(process.env.NEXT_PUBLIC_GET_CONTACT_US_MESSAGES)
+    dispatch({type:"set", payload:{ load:true } });
+    await axios.get(process.env.NEXT_PUBLIC_GET_CONTACT_US_MESSAGES,{
+      headers:{
+        from:state.from,
+        to:state.to
+      }
+    })
     .then((x)=>{
       dispatch({type:"set", 
         payload:{
@@ -58,48 +63,76 @@ const Messagages = ({}) => {
     })
   }
 
+  const toggleMessage = () => {
+    dispatch({type:'set', payload:{load:true, visible:false}})
+    axios.post(process.env.NEXT_PUBLIC_TOGGLE_MESSAGES,{
+      id:state.selectedRecord.id,
+      status:state.selectedRecord.status=="1"?'0':'1',
+    }).then((x)=>{
+      getMessages()
+    })
+  }
+
   return (
   <>
     <Row>
-      <Col><h5>Contact Form Messages</h5></Col>
+      <Col md={5}>
+        <h4>Contact Messages</h4>
+      </Col>
+      <Col md={1}>
+        {state.load && <Spinner/>}
+      </Col>
+      <Col md={'auto'}>
+        <Form.Control type={"date"} size="sm" value={state.from} onChange={(e)=>dispatch({type:"toggle", fieldName:"from", payload:e.target.value})} />
+      </Col>
+      <Col md={'auto'}>
+        <Form.Control type={"date"} size="sm" value={state.to} onChange={(e)=>dispatch({type:"toggle", fieldName:"to", payload:e.target.value})} />
+      </Col>
+      <Col md={'auto'}>
+        <button onClick={getMessages} className='btn-custom'>Go</button>
+      </Col>
     </Row>
-    {!state.load &&<Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
-    <Col md={12}>
-      <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
-        <Table className='tableFixHead'>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Message</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-        {state?.records?.map((x, index) => {
-          return (
-          <tr key={index} className='f row-hov'
-            onClick={()=> {
-              dispatch({type:"toggle", fieldName:"selectedRecord", payload:x})
-              dispatch({type:"toggle", fieldName:"visible", payload:true})
-            }}
-          >
-            <td> {index+1} </td>
-            <td> {x.name} </td>
-            <td> {x.email} </td>
-            <td> <div style={{whiteSpace:'pre-wrap'}}>{x.msg.slice(0, 30)}...</div> </td>
-            <td> {moment(x.createdAt).format("YYYY/MMM/ddd")} </td>
-          </tr>
-          )
-        })}
-        </tbody>
-        </Table>
-      </div>
-      
-    </Col>
-    </Row>}
-    {state.load && <div><Spinner/></div>}
+    <Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
+      <Col md={12}>
+        <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
+          <Table className='tableFixHead'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+          {state?.records?.map((x, index) => {
+            return (
+            <tr key={index} className='f row-hov'
+              onClick={()=> {
+                // dispatch({type:"toggle", fieldName:"selectedRecord", payload:x})
+                // dispatch({type:"toggle", fieldName:"visible", payload:true})
+                dispatch({type:"set", payload:{
+                  selectedRecord:x,
+                  visible:true
+                }})
+              }}
+            >
+              <td> {index+1} </td>
+              <td> {x.name} </td>
+              <td> {x.email} </td>
+              <td> <div style={{whiteSpace:'pre-wrap'}}>{x.msg.slice(0, 30)}...</div> </td>
+              <td> {x.status=='1'?<span className='green-txt'>Done</span>:<span className='grey-txt-2'>Pending</span>} </td>
+              <td> {moment(x.createdAt).format("YYYY/MMM/ddd")} </td>
+            </tr>
+            )
+          })}
+          </tbody>
+          </Table>
+        </div>
+      </Col>
+    </Row>
     <Modal
       open={state.visible}
       onOk={()=>dispatch({ type: 'modalOff' })}
@@ -109,14 +142,20 @@ const Messagages = ({}) => {
       footer={false} 
       width={500}
     >
+      <button
+        className='btn-custom'
+        onClick={toggleMessage}
+      >
+        {!state.submitLoad?"Toggle Status":<Spinner size='sm' />}
+      </button> 
       <Row className='fs-17'>
-        <hr/>
-        <Col md={4}><b>Name:</b></Col>
-        <Col md={8} className='text-end'>{state.selectedRecord.name}</Col>
-        <Col md={4}><b>Email:</b></Col>
-        <Col md={8} className='text-end'>{state.selectedRecord.email}</Col>
-        <Col md={4}><b>Dated:</b></Col>
-        <Col md={8} className='text-end'>{moment(state.selectedRecord.createdAt).format("YYYY/MMM/ddd")}</Col>
+        <hr className='mt-2' />
+        <Col md={3}><b>Name:</b></Col>
+        <Col md={9} className='text-end'>{state.selectedRecord.name}</Col>
+        <Col md={3}><b>Email:</b></Col>
+        <Col md={9} className='text-end'>{state.selectedRecord.email}</Col>
+        <Col md={3}><b>Dated:</b></Col>
+        <Col md={9} className='text-end'>{moment(state.selectedRecord.createdAt).format("DD/MMMM/YYYY")}</Col>
         {/* <hr className='mt-2' /> */}
         <Col md={12}><b>Message:</b></Col>
         <Col md={12} style={{whiteSpace:'pre-wrap', color:'grey'}}>{state.selectedRecord.msg}</Col>

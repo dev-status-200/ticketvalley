@@ -1,96 +1,101 @@
 function reducerFunctions(state, action) {
-    switch (action.type) {
-      case 'set': {
-        return {
-          ...state,
-          ...action.payload,
-        };
-      }
-      case 'field': {
-        return {
-          ...state,
-          [action.fieldName]: action.payload,
-        };
-      }
-      case 'create': {
-        return {
-          ...state,
-          visible: true,
-          edit: false,
-        };
-      }
-      case 'bulkCreate': {
-        return {
-          ...state,
-          bulk: true,
-          visible: true,
-          edit: false,
-        };
-      }
-      case 'edit': {
-        return {
-          ...state,
-          selectedRecord: action.payload,
-          visible: true,
-          edit: true,
-        };
-      }
-      case 'modalOff': {
-        return {
-          ...state,
-          selectedRecord:{},
-          main_image:"",
-          show_image:"",
-          visible: false,
-          edit: false,
-          bulk: false,
-          load:false
-        };
-      }
-      case 'modalOffAndTourUpdate': {
-        return {
-          ...state,
-          selectedRecord:{},
-          records:action.payload,
-          main_image:"",
-          show_image:"",
-          visible: false,
-          edit: false,
-          bulk: false,
-          load:false,
-          show_images:[],
-        };
-      }
-      default:
-        return state;
+  switch (action.type) {
+    case 'set': {
+      return {
+        ...state,
+        ...action.payload,
+      };
     }
-
+    case 'field': {
+      return {
+        ...state,
+        [action.fieldName]: action.payload,
+      };
+    }
+    case 'create': {
+      return {
+        ...state,
+        visible: true,
+        edit: false,
+      };
+    }
+    case 'bulkCreate': {
+      return {
+        ...state,
+        bulk: true,
+        visible: true,
+        edit: false,
+      };
+    }
+    case 'edit': {
+      return {
+        ...state,
+        selectedRecord: action.payload,
+        visible: true,
+        edit: true,
+      };
+    }
+    case 'modalOff': {
+      return {
+        ...state,
+        selectedRecord:{},
+        main_image:"",
+        show_image:"",
+        visible: false,
+        edit: false,
+        bulk: false,
+        load:false
+      };
+    }
+    case 'modalOffAndTourUpdate': {
+      return {
+        ...state,
+        selectedRecord:{},
+        records:action.payload,
+        main_image:"",
+        show_image:"",
+        visible: false,
+        edit: false,
+        bulk: false,
+        load:false,
+        show_images:[],
+      };
+    }
+    default:
+      return state;
+  }
 }
 
 const baseValues = {
-
   title:"",
-  availability:"",
-  duration:"",
-  time_slot:"",
-  confirmation:"",
-  refund:"",
-  voucher:"",
-  lang:"",
+  availability:"Everyday",
+  duration:"Upto 1 hour",
+  destination:"",
+  time_slot:"10:00 am",
+  confirmation:"Instant",
+  refund:"No",
+  voucher:"Printed V-copy Accepted",
+  lang:"English, Arabic",
   tour_detail:"",
   departure:"",
   reporting:"",
-  
+
   child_price:"",
   adult_price:"",
 
-  category:"",
+  category:"Adventure",
   advCategory:"",
-  city:"",
-}
+  city:"Dubai City",
+
+  packageTravel:"",
+  packageCountry:"",
+  packageCity:"",
+  packageDescription:""
+};
 
 const initialState = {
   records:[],
+  cities:[],
   selectedRecord:{},
   visible:false,
   bulk:false,
@@ -147,7 +152,17 @@ const initialState = {
   time:"",
   
   status:"",
-  prevPrice:0
+  prevPrice:0,
+
+  packageIncludes:{
+    transport:0,
+    food:0,
+    plane:0,
+    hotel:0,
+    potography:0
+  },
+  packageDay:'',
+  packageDetail:["Day One"]
 };
 
 export { initialState, reducerFunctions, baseValues }

@@ -26,6 +26,40 @@ body {
     margin-bottom: 3px;
 }
 
+.search-container{
+  width: 700px;
+  margin: 5px auto;
+  border: 2px solid rgb(25, 125, 125);;
+  background-color: rgba(53, 106, 144, 0.266);
+  padding: 0px 10px;
+}
+.search-container-mobile{
+  border: 2px solid #b8d233;
+  width: 90vw;
+  margin: auto;
+  padding: 10px;
+  background-color: rgba(53, 106, 144, 0.412);
+}
+.search-btn{
+  background-color: rgb(25, 125, 125);
+  height: 40px;
+  width: 100%;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid rgb(25, 125, 125);
+  border-left: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+}
+.search-btn:hover{
+  transition-duration: 200ms;
+  background-color: rgb(14, 78, 78);
+  box-sizing: border-box;
+  border: 3px solid rgb(14, 78, 78);
+  border-left: none;
+}
+
 .custom-btn{
     transition-duration: 300ms;
     border: none;
@@ -66,6 +100,7 @@ body {
 .red-txt{ color:rgb(166, 13, 13)!important; }
 .wh-txt{ color: white!important; }
 .grey-txt-2{ color: rgb(119, 119, 119)!important; }
+.grey-txt-3{ color: rgb(175, 175, 175)!important; }
 .grey-txt{ color: rgb(85, 85, 85)!important; }
 .black-txt{ color: rgb(63, 63, 63)!important; }
 .silver-txt-2{ color: rgb(158, 158, 158)!important; }
@@ -194,6 +229,16 @@ body {
   padding: 5px 20px 5px 20px;
   border-radius: 15px;
   border: none;
+}
+
+.btn-custom-sm{
+  cursor: pointer;
+  background-color: rgb(6, 150, 172)!important;
+  color: white;
+  padding: 3px 10px 3px 10px;
+  border-radius: 15px;
+  border: none;
+  font-size: 12px;
 }
 
 .btn-custom:hover{
@@ -1015,4 +1060,11 @@ div.react-datepicker-wrapper > div > input{
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.contact-box{
+  border: 1px solid rgba(27, 141, 156, 0.687);
+  padding: 20px 20px!important;
+  border-radius: 5px;
+  margin: 20px 0px;
 }

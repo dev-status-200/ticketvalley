@@ -3,9 +3,7 @@ import CustomerLogin from "/Components/Layouts/CustomerLogin";
 
 export default function SignIn({ providers }) {
   return (
-    <>
     <CustomerLogin providers={providers} signIn={signIn} />
-    </>
   )
 }
 

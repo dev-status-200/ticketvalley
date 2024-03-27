@@ -45,7 +45,7 @@ const Desktop = () => {
     </Container>
 
     </div>
-    <SignUp/>
+    {/* <SignUp/> */}
   </div>
   )
 }

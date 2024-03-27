@@ -12,6 +12,7 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
 import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail } from './states';
+import GooglePlaceSearch from './GooglePlaceSearch';
 
 const Book = ({tour, transport, category, setOpen}) => {
 
@@ -49,7 +50,7 @@ const Book = ({tour, transport, category, setOpen}) => {
     const showMessage = (msg) => messageApi.warning(<span style={{position:'relative', top:2}}>{msg}</span>);
 
     const addToCart = async() => {
-        let notValidAddress = false
+        let notValidAddress = false;
         state.booking.forEach((x) => {
             if(x.check && x.transfer!="1" && x.address==""){
                 notValidAddress = true
@@ -65,6 +66,10 @@ const Book = ({tour, transport, category, setOpen}) => {
         }
         if(!validateName(state.name.length)){
             showMessage("Enter A Valid Full Name !");
+            return
+        }
+        if(state.contact.length<10){
+            showMessage("Please Enter Contact Details");
             return
         }
 
@@ -212,7 +217,7 @@ const Book = ({tour, transport, category, setOpen}) => {
             <div>Time Slots</div>
             {x.timeSlots.map((z, j)=>{
             return(
-                <div key={j} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
+                <div key={j+'a'} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
                     let temp = [...state.booking];
                     temp[i].timeSlot = z.slot;
                     dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
@@ -225,7 +230,8 @@ const Book = ({tour, transport, category, setOpen}) => {
             <>
             <Col md={12}><hr className='my-2' /></Col>
             <Col md={12} className="mt-1 px-4">
-                <GooglePlacesAutocomplete
+                <GooglePlaceSearch dispatchReducer={dispatchReducer} state={state} index={i} />
+                {/* <GooglePlacesAutocomplete
                     apiKey="AIzaSyDNlNHouprfGHm_3mmfLutARQbIwuNamJk"
                     selectProps={{
                         onChange: (res)=> {
@@ -244,11 +250,14 @@ const Book = ({tour, transport, category, setOpen}) => {
                             </>
                         },
                     }}
-                />
+                /> */}
             </Col>
             </>
             }
-            <Col md={11} className='mt-3 px-3'>
+            </>
+            }
+            {x.check && <div className='mt-2'></div>}
+            <Col md={11} className='mt-3 px-3 mb-1'>
                 <span className='show-opt-detail' onClick={()=>{
                     let temp = [...state.booking];
                     temp[i].show = !temp[i].show
@@ -260,9 +269,6 @@ const Book = ({tour, transport, category, setOpen}) => {
                 {(x.detail==null || x.detail.length<10) && <div>No Detail Added</div>}
                 </div>}
             </Col>
-            </>
-            }
-            {x.check && <div className='mt-2'></div>}
         </Row>
         </div>
         {i<state.booking.length-1 && <hr/>}

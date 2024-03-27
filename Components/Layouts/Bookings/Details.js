@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from "react-bootstrap";
 import moment from 'moment';
 
 const Details = ({state}) => {
+
+    useEffect(() => {
+      console.log(state)
+    }, [state])
+    
     const showPromoInfo = (data) => {
         const val = JSON.parse(data)
         return(
@@ -12,6 +17,7 @@ const Details = ({state}) => {
             </div>
         )
     }
+    
   return (
     <Row>
     <>
@@ -21,6 +27,10 @@ const Details = ({state}) => {
     <>
         <Col md={4} className='fw-500'>Name :</Col>
         <Col md={8} className=' grey-txt'>{state.selectedRecord.name}</Col>
+    </>
+    <>
+        <Col md={4} className='fw-500'>Contact :</Col>
+        <Col md={8} className=' grey-txt'>{state?.selectedRecord?.BookedTours[0]?.customerContact}</Col>
     </>
     <>
         <Col md={4} className='fw-500'>Email :</Col>

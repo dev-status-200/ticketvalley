@@ -1,9 +1,10 @@
-import { Row, Col, Table } from 'react-bootstrap';
+import { Row, Col, Table, Spinner } from 'react-bootstrap';
 import React, { useEffect, useReducer } from 'react';
-import Router from 'next/router';
-import { Modal } from 'antd';
-import { EditOutlined, StopOutlined } from '@ant-design/icons';
+import { EditOutlined, StopOutlined, EyeOutlined } from '@ant-design/icons';
 import CreateOrEdit from './CreateOrEdit';
+import { Modal } from 'antd';
+import axios from 'axios';
+import Router from 'next/router';
 
 function recordsReducer(state, action){
   switch (action.type) {
@@ -33,7 +34,7 @@ function recordsReducer(state, action){
     }
     default: return state 
   }
-}
+};
 
 const baseValues = {
   //Basic Info
@@ -43,11 +44,12 @@ const baseValues = {
   code:"",
   validity:"",
   stock:0
-}
+};
 
 const initialState = {
   records: [],
   load:false,
+  toggleLoad:false,
   visible:false,
   edit:false,
   values:baseValues,
@@ -63,14 +65,27 @@ const Transport = ({promoData}) => {
   useEffect(() => {
     dispatch({type:"toggle", fieldName:"records", payload:promoData.result})
   }, [])
-    
+
+  const toggleVisibility = (data) => {
+    dispatch({type:"toggle", fieldName:"toggleLoad", payload:true})
+    axios.post(process.env.NEXT_PUBLIC_POST_TOGGLE_PROMO,{
+      id:data.id,
+      show:data.show=='1'?'0':'1'
+    }).then((x)=>{
+      Router.push("/promos")
+    })
+  }
+
   return (
   <>
     <Row>
-      <Col>
+      <Col md={2}>
         <h5>Promo Codes</h5>
       </Col>
-      <Col>
+      <Col md={9} className='text-end'>
+        {state.toggleLoad && <Spinner/>}
+      </Col>
+      <Col md={1}>
         <button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button>
       </Col>
     </Row>
@@ -87,13 +102,15 @@ const Transport = ({promoData}) => {
               <th>Code</th>
               <th>Valid Till</th>
               <th>Stock</th>
+              <th>Used</th>
+              <th>visible</th>
               <th>Modify</th>
             </tr>
           </thead>
           <tbody>
           {state.records.map((x, index) => {
             return (
-            <tr key={index} className='f'>
+            <tr key={index} className='f' style={{opacity:x.status!=1?0.3:1}}>
               <td>{index+1} </td>
               <td>{x.name} </td>
               <td>{x.status!="1"?<span style={{color:"red"}}>Disabled <StopOutlined  style={{position:'relative', bottom:4}} /></span>:<span style={{color:"green"}}>Active</span>} </td>
@@ -101,6 +118,16 @@ const Transport = ({promoData}) => {
               <td>{x.code} </td>
               <td>{x.validity.slice(0, 10)}</td>
               <td style={{color:x.stock>0?"green":"red"}}>{x.stock} </td>
+              <td>{x.used} </td>
+              <td>
+                <EyeOutlined
+                  className='modify-edit'
+                  style={{color:x.show=="1"?'green':'silver'}}
+                  onClick={()=>{
+                    toggleVisibility(x)
+                  }}
+                />
+              </td>
               <td>
                 <EditOutlined 
                   className='modify-edit' 
