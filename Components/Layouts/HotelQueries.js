@@ -6,6 +6,7 @@ import { openNotification } from "/Components/Shared/Notification"
 import axios from 'axios';
 import moment from 'moment';
 import codes from "/JSONData/codes"
+import exportFromJSON from 'export-from-json';
 
 function recordsReducer(state, action){
   switch (action.type) {
@@ -85,10 +86,46 @@ const HotelQueries = ({}) => {
     })
   }
 
+  const exportData = () => {
+    const fileName = 'Hotel Queries'
+    const exportType = 'csv'
+    const getRoomInfo = (rooms) => {
+      let result = ""
+      rooms.forEach((x, i)=>{
+        let room_info = `Room#${i+1}: ${x.roomType} ${x.adult} Adults, ${x.child}:Child \n `
+        result = result + room_info
+      })
+      return result
+    }
+    console.log(state?.records)
+    let data = state?.records.map((x)=>{
+      return {
+        // ...x,
+        Name:x.name,
+        Email:x.email,
+        Contact:x.contact,
+        Currency:x.currency,
+        Checkin:moment(x.checkin).format("DD/MMMM/YYYY"),
+        Checkout:moment(x.checkout).format("DD/MMMM/YYYY"),
+        Created:moment(x.createdAt).format("DD/MMMM/YYYY"),
+        Status:x.done=="0"?'Pending':'Done',
+        Nationality:getCodeValue(x.nationality),
+        Destination:x.destination,
+        Hotel:x.hotel,
+        Hotel_Rating:x.rating,
+        WhatsApp:x.whatsapp||'none',
+        Rooms:x.Rooms.length,
+        Room_Info:getRoomInfo(x.Rooms)
+      }
+    });
+    exportFromJSON({ data, fileName, exportType })
+  }
+
   return (
   <>
     <Row>
-      <Col><h5>Hotel Queries</h5></Col>
+      <Col md={11}><h5>Hotel Queries</h5></Col>
+      <Col md={1}><button className='custom-btn-sm' onClick={exportData}>Export</button></Col>
     </Row>
     {!state.load &&<Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
     <Col md={12}>

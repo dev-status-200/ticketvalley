@@ -6,6 +6,7 @@ import { openNotification } from "/Components/Shared/Notification"
 import axios from 'axios';
 import moment from 'moment';
 import codes from "/JSONData/codes"
+import exportFromJSON from 'export-from-json';
 
 function recordsReducer(state, action){
   switch (action.type) {
@@ -117,10 +118,47 @@ const HotelQueries = ({}) => {
     })
   }
 
+  const visaTypes = [
+    {id:'1', title:'48 Hours', price:'110 AED' },
+    {id:'2', title:'96 Hours', price:'220 AED' },
+    {id:'3', title:'30 Days',  price:'350 AED' },
+    {id:'4', title:'60 Days', price:'600 AED' },
+    {id:'5', title:'30 Days Multi Entry',  price:'600 AED' },
+    {id:'6', title:'60 Days Multi Entry', price:'850 AED' },
+    {id:'7', title:'60 Extension A2A', price:'1550 AED' }
+  ];
+
+  const exportItems = () => {
+    const fileName = 'Visa Queries'
+    const exportType = 'csv'
+    let data = [];
+    state.records.forEach((y)=>{ //<<== it is Y
+      y.VisaPersons.length>0 &&y.VisaPersons.forEach((x, i)=>{  //<<== it is X
+        data.push({
+          Status:y.status=='0'?'Pending':'Done',
+          Name:x.firstName + " " + x.lastName,
+          Email:x.email,
+          Contact:x.countryCode + " " + x.contact,
+          WhatsApp:x.WAcountryCode + " " + x.WAcontact,
+          Nationality:x.nationality,
+          City:x.city,
+          State:x.state,
+          DOB:x.dob,
+          Passport_No:x.passport,
+          Expiry:x.passportDay+"/"+x.passportMonth+"/"+x.passportYear,
+          Arrival:x.ApassportDay+"/"+x.ApassportMonth+"/"+x.ApassportYear,
+          Entry_Type:visaTypes[parseInt(x.entryType)-1]?.title + " - " + visaTypes[parseInt(x.entryType)-1]?.price||"None",
+          Dated:moment(x.createdAt).format("DD/MMMM/YYYY")
+        })
+      })
+    })
+    exportFromJSON({ data, fileName, exportType })
+  }
+
   return (
   <>
     <Row>
-      <Col md={5}>
+      <Col md={4}>
         <h4>Visa Queries</h4>
       </Col>
       <Col md={1}>
@@ -134,6 +172,9 @@ const HotelQueries = ({}) => {
       </Col>
       <Col md={'auto'}>
         <button onClick={getVisas} className='btn-custom'>Go</button>
+      </Col>
+      <Col md={'auto'}>
+        <button onClick={exportItems} className='btn-custom'>Export</button>
       </Col>
     </Row>
     <Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
@@ -204,7 +245,7 @@ const HotelQueries = ({}) => {
               <Col md={4}>WhatsApp:</Col>
               <Col md={8} className='text-end'>{"("}{getCode(x.WAcountryCode)}{")"} {x.WAcontact}</Col>
               <Col md={4}>Visa Entry Type:</Col>
-              <Col md={8} className='text-end'>{x.entryType}</Col>
+              <Col md={8} className='text-end'>{visaTypes[parseInt(x.entryType)-1]?.title} - {visaTypes[parseInt(x.entryType)-1]?.price}</Col>
               <Col md={4}>Passport No.:</Col>
               <Col md={8} className='text-end'>{x.passport}</Col>
               <Col md={4}>Expiry Date:</Col>

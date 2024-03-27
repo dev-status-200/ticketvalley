@@ -3,7 +3,7 @@ import exportFromJSON from 'export-from-json';
 import moment from 'moment';
   
 //const data = [{ foo: 'foo' }, { bar: 'bar' }]  
-const fileName = 'download'  
+const fileName = 'Sales Report'  
 const exportType = 'csv'  
 
 const ExcelConverter = ({jsonData}) => {
@@ -26,14 +26,14 @@ const ExcelConverter = ({jsonData}) => {
     let data = [];
     await jsonData.forEach((x)=>{
       data.push({
-        bookingno:x.booking_no,
-        price:x.base_price,
-        totalPrice:x.final_price,
-        email:x.email,
-        number:x.BookedTours[0].customerContact,
-        name:x.BookedTours[0].customerName,
-        tours:getValues(x.BookedTours),
-        date:`${moment(x.createdAt).format("DD - MMM - YYYY")}`
+        Booking_No:x.booking_no,
+        Price:x.base_price,
+        Total_Price:x.final_price,
+        Email:x.email,
+        Contact:x?.BookedTours[0]?.customerContact||'None',
+        Name:x?.BookedTours[0]?.customerName||'None',
+        Tours:getValues(x.BookedTours),
+        Dated:`${moment(x.createdAt).format("DD - MMM - YYYY")}`
       })
     })
     exportFromJSON({ data, fileName, exportType })

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Row, Col, Table, Spinner } from 'react-bootstrap';
 import moment from 'moment';
+import exportFromJSON from 'export-from-json';
 
 const PackageQueries = () => {
 
@@ -37,10 +38,28 @@ const PackageQueries = () => {
     })
   }
 
+  const exportItems = () => {
+    const fileName = 'Package Queries'
+    const exportType = 'csv'
+    let data = [];
+    console.log(records)
+    data = records.map((x)=>{
+      return{
+        Name:`${x.customerTitle} ${x.customerName}`,
+        Contact:`${x.customerContact}`,
+        Email:`${x.customerEmail}`,
+        Package:`${x.name}`,
+        Status:x.status=='1'?'Done':'Pending',
+        Dated:moment(x.createdAt).format("DD/MMMM/YYYY")
+      }
+    })
+    exportFromJSON({ data, fileName, exportType })
+  }
+
   return (
   <>
     <Row>
-      <Col md={5}>
+      <Col md={4}>
         <h4>Package Queries</h4>
       </Col>
       <Col md={1}>
@@ -54,6 +73,9 @@ const PackageQueries = () => {
       </Col>
       <Col md={'auto'}>
         <button onClick={getPackages} className='btn-custom'>Go</button>
+      </Col>
+      <Col md={'auto'}>
+        <button onClick={exportItems} className='btn-custom'>Export</button>
       </Col>
     </Row>
     <hr/>
