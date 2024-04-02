@@ -49,7 +49,7 @@ const Product = ({tourData, id}) => {
   useEffect(() => {
     Aos.init({duration:700});
     window.addEventListener('scroll', handleScroll, { passive: true });
-    let tempId = router.query.id;
+    let tempId = tourData.result.id;
     if(tempId){
       fetchData(tempId);
         axios.get(process.env.NEXT_PUBLIC_GET_REVIEWS,{
@@ -67,7 +67,7 @@ const Product = ({tourData, id}) => {
     }).then((x)=>x.data.result)
     //console.log(tourData)
     let detailData = await axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_DETAIL_BY_ID,{
-      headers:{ "id": `${id}` }
+      headers:{ "id": `${id}`, type:'product' }
     }).then((x)=>x.data.result);
     let tempDetail = detailData;
     await setTour({...tourData, tour_detail:tempDetail.tour_detail, TourOptions:tempDetail?.TourOptions});
@@ -107,7 +107,7 @@ const Product = ({tourData, id}) => {
         {" "}{(tour.prevPrice*conversion.rate).toFixed(2)} {conversion.currency}{" "}
       </s>}
       <p className={`fw-600 ${size.width>600?"fs-30":"fs-20"}`}><AiFillTags/>
-        {(tour.TourOptions[0]?.adult_price*conversion.rate).toFixed(2)} {conversion.currency} 
+        {(tour.TourOptions[0]?.adult_price*conversion.rate).toFixed(2)||''} {conversion.currency} 
         <span className={`fw-400 ${size.width>600?"fs-18":"fs-15"} mx-2 grey-txt`}>Per Person</span>
       </p>
       <div className='my-2'>

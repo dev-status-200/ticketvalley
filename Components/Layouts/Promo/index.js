@@ -41,6 +41,7 @@ const baseValues = {
   id:'',
   name:"",
   amount:0.0,
+  minimum:0.0,
   code:"",
   validity:"",
   stock:0

@@ -119,8 +119,12 @@ const CreateOrEdit = ({state, dispatch, baseValues}) => {
                 <InputComp  register={register} name='code' control={control} label='Promo Code' />
                 {errors.code && <div className='error-line'>{errors.code.message}*</div>}
             </Col>
-            <Col md={4} className='py-1'>
+            <Col md={3} className='py-1'>
                 <InputNumComp  register={register} name='stock' control={control} label='No. Stock' />
+                {errors.stock && <div className='error-line'>{errors.stock.message}*</div>}
+            </Col>
+            <Col md={4} className='py-1'>
+                <InputNumComp  register={register} name='minimum' control={control} label='Minimum Spend' />
                 {errors.stock && <div className='error-line'>{errors.stock.message}*</div>}
             </Col>
             <Col md={12} className='py-1'>

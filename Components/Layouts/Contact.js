@@ -75,7 +75,7 @@ const Contact = () => {
         </div>
         <div className='my-5'>
             <div className='text-center'>
-            <h1 className='wh-txt hero-txt-1'>ABOUT <span className='yellow-txt'>US</span></h1>
+            <h1 className='wh-txt hero-txt-1'>CONTACT <span className='yellow-txt'>US</span></h1>
             </div>
         </div>
         </div>

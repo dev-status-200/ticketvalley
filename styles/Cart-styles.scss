@@ -32,4 +32,19 @@
     .cart-item-name{
         color: rgb(16, 125, 125);
     }
+    .promo{
+        align-items: center;
+        border-radius: 5px;
+        border: 2px solid rgba(68, 171, 128, 0.411);
+        background-color: rgba(144, 208, 182, 0.343);
+        padding: 10px 0px;
+    }
+    .remove-promo{
+        color: rgb(167, 34, 34);
+        cursor: pointer;
+    }
+    .remove-promo:hover{
+        color: rgb(222, 57, 57);
+        text-decoration: underline;
+    }
 }

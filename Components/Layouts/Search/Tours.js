@@ -51,7 +51,7 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
             })
             .slice(0, index*9).map((x, i)=>{
             return(
-            <Col md={4} xs={6} className={`px-${size.width>600?"1":"0"} search-tour-box`} key={i} onClick={()=>Router.push(`/product?id=${x.id}`)}>
+            <Col md={4} xs={6} className={`px-${size.width>600?"1":"0"} search-tour-box`} key={i} onClick={()=>Router.push(`/product/${x.slug}`)}>
                 <div className={`search-box-container mx-1`}>
                 <img className='search-box-img filter-2' src={x.main_image} height={size.width>600?150:80} width={"100%"} />
                 <div className='px-2 search-bob-bottom'>
@@ -68,7 +68,7 @@ const Tours = ({records, size, index, pages, pagination, price, category, setInd
                     {size.width>600?
                     <div className='px-2'>
                     <div className='mt-4' style={{float:'left', fontWeight:500, fontSize:22}}>{parseFloat(x.price).toFixed(2)} AED</div>
-                    <Link href={`/product?id=${x.id}`} className='search-box-btn px-3 mt-4 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
+                    <Link href={`/product/${x.slug}`} className='search-box-btn px-3 mt-4 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
                     >BOOK NOW</Link>
                     </div>:
                     <div className='mt-2'>

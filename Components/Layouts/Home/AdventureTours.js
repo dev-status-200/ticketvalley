@@ -8,12 +8,13 @@ import MobileCard from '../../Shared/MobileCard';
 
 const AdventureTours = () => {
 
-    const [adventures, setAdventures] = useState([])
-
+    const [adventures, setAdventures] = useState([]);
+    
     useEffect(() => {
         axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
             headers:{ "category": "Adventure Tours" }
         }).then((x)=>{
+            console.log(x.data)
             if(x.data.status=="success"){
                 setAdventures(x.data.result);
             }

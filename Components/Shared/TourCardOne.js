@@ -9,7 +9,7 @@ const TourCardOne = ({tour, height, info, font}) => {
     const conversion = useSelector((state) => state.currency.conversion);
 
   return (
-    <div className='hover-shadow' onClick={()=>router.push(`/product?id=${tour.id}`)}>
+    <div className='hover-shadow' onClick={()=>router.push(`/product/${tour.slug}`)}>
         <div style={{width:'100%' , position:'relative', left:0, top:0}}>
         <img src={tour.main_image} className="filter" style={{width:'100%', height:height, objectFit:'cover'}} alt='Tour' />
         {!info &&<img src={'images/card-overlay.png'} className="overlay" style={{width:'100%'}} alt='Overlay' />}
