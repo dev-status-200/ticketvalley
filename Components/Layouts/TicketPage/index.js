@@ -19,8 +19,13 @@ const TicketPage = ({ticketData, bookingNo}) => {
     let inputRef = useRef(null);
     const [load, setLoad] = useState(false);
     const [tickets, setTickets] = useState([]);
+    const [transportList, setTransportList] = useState([]);
     const [fetchedTicket, setFetchedTicket] = useState({});
 
+    useEffect(() => {
+      getValues();
+    }, [])
+    
     const selectTour = async(tour, option) => {
         if(option.assigned=="1"){
             let count = option.codes.split(", ")
@@ -35,11 +40,29 @@ const TicketPage = ({ticketData, bookingNo}) => {
                     assigned:option.assigned,
                     code:x
                 })
-            })
-            // console.log(option);
+            });
             await setFetchedTicket(ticket);
         }
 	};
+
+    async function getValues(){
+        axios.get(process.env.NEXT_PUBLIC_GET_TRANSPORT)
+        .then((x)=>{
+          setTransportList(x.data.result)
+        })
+    };
+
+    const getTransportName = (id) => {
+        let name = "";
+        if(transportList.length>0){
+          transportList.forEach((x)=>{
+            if(x.id==id){
+                name = x.name
+            }
+          });
+        }
+        return name
+    }
 
     const submitReview = async(data) => {
         await axios.post(process.env.NEXT_PUBLIC_POST_CUSTOMER_REVIEW,{
@@ -101,7 +124,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
         }
         <div className={`${size.width>600?"tickets-cont pb-5":"pb-3 px-5"}`}>
             <h3 className='mt-4 grey-txt'>Booking #{ticketData?.result?.booking_no} Tickets</h3>
-            <span className='grey-txt'> Please select the ticket to interact</span>
+            <span className='grey-txt'> Please select the ticket & download</span>
             <Row className='ticket-cont-wh-bg my-3' style={{padding:size.width>600?"20px 20px":"0px"}}>
             {tickets.map((x, i)=>{
             return(
@@ -140,8 +163,21 @@ const TicketPage = ({ticketData, bookingNo}) => {
                         <span className='mx-2'>Infant:   <span style={{color:'grey'}}>{y.infant} </span> </span>
                     </div>
                     <div className='mx-1'>
-                        <span className=''>Transfer:   <span style={{color:'grey'}}>{y.transfer} </span> </span>
-                        {y.transfer!="No" && <div><span className=''>Pick-up:</span>    <span style={{color:'grey'}}>{y.address}</span></div>}
+                        <span className=''>
+                            Transfer:
+                            {" "}
+                            <span style={{color:'grey'}}>
+                                {y.transfer=='1'?'Without Transfer':getTransportName(y.transfer)}
+                            </span>
+                        </span>
+                        {y.transfer!="1" && 
+                          <div>
+                            <span className=''>Pick-up: </span>
+                            <span style={{color:'grey'}}>
+                              {y.address}
+                            </span>
+                          </div>
+                        }
                     </div>
                     </Col>
                     {size.width<400 && <Col xs={12}><hr/></Col>}
@@ -229,13 +265,15 @@ const TicketPage = ({ticketData, bookingNo}) => {
         </div>
 
         {fetchedTicket.length>0 &&
-        <div style={{display:"none"}}>
+        <div 
+            style={{display:"none"}}
+        >
         <div ref={(response) => (inputRef = response)} >
             {fetchedTicket.map((x, i)=>{
             return(
                 <div key={i} className=''>
                     <div className='my-5'></div>
-                    <Ticket fetchedTicket={x} i={i} />
+                    <Ticket fetchedTicket={x} i={i} getTransportName={getTransportName} />
                 </div>
             )})}
         </div>

@@ -12,6 +12,7 @@ const VideoComp = dynamic(() => import('./VideoComp'), { ssr: false })
 const BestSelling = dynamic(() => import('./BestSelling'), { ssr: false })
 const Adventures = dynamic(() => import('./AdventureTours'), { ssr: false })
 const Combos = dynamic(() => import('./Combos'), { ssr: false })
+const PromoSection = dynamic(() => import('/Components/Shared/PromoSection'), { ssr: false })
 
 const Desktop = () => {
 
@@ -31,7 +32,7 @@ const Desktop = () => {
       <BestSelling/>
       </Container>
     </div>
-
+    <PromoSection/>
     {/* <Slider/> */}
     <div className='py-5 bg-02' style={{backgroundColor:"white"}}>
     <Container className='my-5' data-aos='fade-up'>

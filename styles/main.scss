@@ -1069,3 +1069,51 @@ div.react-datepicker-wrapper > div > input{
   border-radius: 5px;
   margin: 20px 0px;
 }
+
+
+//Promo Section
+
+
+.promo{
+  display: flex;
+  justify-content: center;
+}
+
+.orange-txt{
+  color: rgb(236, 128, 34);
+}
+
+.promo-left{
+  border-left: 1px solid sandybrown;
+  border-top: 1px solid sandybrown;
+  border-bottom: 1px solid sandybrown;
+  border-right: 2px dashed sandybrown;
+  width: 66%;
+  border-radius: 10px;
+
+  margin: 10px 0px 10px 10px;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.promo-right{
+  border-top: 1px solid sandybrown;
+  border-bottom: 1px solid sandybrown;
+  border-right: 1px solid sandybrown;
+  // border-left: 2px dashed sandybrown;
+  width: 35%;
+  border-radius: 10px;
+  background-color: rgba(244, 165, 96, 0.219);
+  margin: 10px 10px 10px 0px;
+  padding-top: 20px;
+}
+
+.orange-btn{
+  background-color: rgb(236, 128, 34);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: 700;
+}

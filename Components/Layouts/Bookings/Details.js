@@ -3,16 +3,12 @@ import { Row, Col } from "react-bootstrap";
 import moment from 'moment';
 
 const Details = ({state}) => {
-
-    useEffect(() => {
-      console.log(state)
-    }, [state])
     
     const showPromoInfo = (data) => {
         const val = JSON.parse(data)
         return(
             <div style={{color:'#d37945'}}>
-                <span >{val.byPercentage==true?`${val.price}%`:`${val.price}`}</span>
+                <span >{val.byPercentage==true?`${val.price}%`:`${val.price} AED`}</span>
                 <span className='mx-2'>{"( "}{val.name}{" )"}</span>
             </div>
         )
@@ -30,7 +26,7 @@ const Details = ({state}) => {
     </>
     <>
         <Col md={4} className='fw-500'>Contact :</Col>
-        <Col md={8} className=' grey-txt'>{state?.selectedRecord?.BookedTours[0]?.customerContact}</Col>
+        <Col md={8} className=' grey-txt'>{state?.selectedRecord?.contact}</Col>
     </>
     <>
         <Col md={4} className='fw-500'>Email :</Col>
@@ -52,7 +48,7 @@ const Details = ({state}) => {
     </>
     <>
         <Col md={4} className='fw-500'>Created At :</Col>
-        <Col md={8} className=' grey-txt'>{moment(state.selectedRecord.createdAt).format("DD/MM/YY  hh:mm")}</Col>
+        <Col md={8} className=' grey-txt'>{state.selectedRecord.createdAt}</Col>
     </>
     <>
         <Col md={4} className='fw-500'>Stripe PI :</Col>

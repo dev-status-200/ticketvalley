@@ -9,17 +9,17 @@ const SearchBar = () => {
     const [search, setSearch] = useState('');
 
     const handleSearch = (e) => {
-        // e.length>0?
-        if(options.length==0){
+        if(options?.length==0){
             axios.get(process.env.NEXT_PUBLIC_GET_TOUR_SEARCH,{
                 headers:{'search':search}
             }).then((x)=>{
                 setOptions(x.data.result);
-            })//:null
+            })
         }
     };
 
     const handleChange = (e) => {
+        console.log(e)
         setSearch(e)
     };
 

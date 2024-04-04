@@ -42,7 +42,7 @@ const Desktop = () => {
             </form>
           </Col>
         </Row>
-        <Row className='mt-2'>
+        <Row className=''>
           <Col md={2}>
             <Link href='/' className='white-links'>Home</Link><br/>
             <Link href='/activities' className='white-links'>Destinations</Link><br/>
@@ -52,38 +52,40 @@ const Desktop = () => {
             <Link href='/about' className='white-links'>About</Link><br/>
             <Link href='/contact' className='white-links'>Contact</Link><br/>
           </Col>
-          <Col md={4}>
+          <Col md={4} className='px-2'>
             <p className='wh-txt'>
-              <b>Address # 1</b><br/>
-              <span className='fw-300'>Office # 302, Royal Plaza Bdg Opposite ADCB Bank Al Rigga Road, Deira - 1 B St Dubai-UAE</span>
+              <div className='mb-2'>
+                <b className='mb-2'>Our Address</b>
+              </div>
+              <div className='fw-300'>Office # 302, Royal Plaza Bdg Opposite ADCB Bank Al Rigga Road, Deira - 1 B St Dubai-UAE</div>
             </p>
-            <p className='wh-txt'>
+            {/* <p className='wh-txt'>
               <b>Address # 2</b><br/>
               <span className='fw-300'>Shop # 4, Rahab Hotel Bldg, Beside Bori Masjid Eyal Nasser, Street # 16 Deira Dubai-UAE</span>
-            </p>
+            </p> */}
           </Col>
-          <Col className='px-5'>
-            <h3 className='wh-txt'>Follow us on</h3>
+          <Col className='px-4'>
+            {/* <h3 className='wh-txt'>Follow us on</h3> */}
             <div className='social-links-container'>
-            <Link href={'https://www.facebook.com/peacelandtraveltourism.official/'} target='_blank'>
-              <img src='icons/facebook.png' height={30} />
+            <Link href={'https://www.facebook.com/ticketsvalley'} target='_blank'>
+              <img src='icons/facebook.png' height={22} />
             </Link>
-            <Link href="https://www.tiktok.com/@peacelandtravel" target='_blank'>
+            {/* <Link href="https://www.tiktok.com/@peacelandtravel" target='_blank'>
               <img src='icons/tiktok.png' height={30} />
+            </Link> */}
+            <Link href="https://www.instagram.com/ticketsvalley/" target='_blank'>
+              <img src='icons/insta.png' height={22} />
             </Link>
-            <Link href="https://www.instagram.com/peacelandtravelandtourism/?fbclid=IwAR0Ol2E3QiKOWgGxlBu0vvIvYvwbKERTs_yo_-lnzLRY-5LOvbjykfR_7Nc" target='_blank'>
-              <img src='icons/insta.png' height={30} />
-            </Link>
-            <Link href={'https://twitter.com/peacelandgroup'} target='_blank'>
+            {/* <Link href={'https://twitter.com/peacelandgroup'} target='_blank'>
               <img src='icons/x.png' height={30} />
-            </Link>
-            <Link href="https://www.linkedin.com/company/peaceland-travels-and-tourism/" target='_blank'>
-              <img src='icons/linked.png' height={30} />
+            </Link> */}
+            <Link href="https://www.linkedin.com/company/tickets-valley/" target='_blank'>
+              <img src='icons/linked.png' height={22} />
             </Link>
             </div>
             <div className='heading mt-4'>PAY SAFELY WITH US</div>
             <img src='/images/creditcard-logo.png' alt='credit card' />
-            <div className='wh-txt'><FaShieldAlt color='gold' className='mb-1 mx-2' /> Strip protected payemnt gateway</div>
+            <div className='wh-txt'><FaShieldAlt color='gold' className='mb-1 mx-2' /> Strip protected payement gateway</div>
           </Col>
         </Row>
       </Container>

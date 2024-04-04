@@ -90,7 +90,7 @@ const Transport = ({promoData}) => {
         <button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button>
       </Col>
     </Row>
-    <Row style={{maxHeight:'69vh',overflowY:'auto', overflowX:'hidden'}}>
+    <Row>
       <Col md={12}>
         <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
           <Table className='tableFixHead'>
@@ -109,7 +109,7 @@ const Transport = ({promoData}) => {
             </tr>
           </thead>
           <tbody>
-          {state.records.map((x, index) => {
+          {state.records.sort((secondItem, firstItem) => parseInt(firstItem.status) - parseInt(secondItem.status)).map((x, index) => {
             return (
             <tr key={index} className='f' style={{opacity:x.status!=1?0.3:1}}>
               <td>{index+1} </td>
@@ -150,7 +150,7 @@ const Transport = ({promoData}) => {
       onOk={()=>dispatch({ type: 'modalOff' })} onCancel={()=>dispatch({ type: 'modalOff' })}
       width={550} footer={false} centered={false}
     >
-       <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} /> 
+      <CreateOrEdit state={state} dispatch={dispatch} baseValues={baseValues} /> 
     </Modal>
   </>
   )

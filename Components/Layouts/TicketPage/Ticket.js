@@ -3,7 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import QRCode from "react-qr-code";
 import { MdShareLocation } from 'react-icons/md'
 
-const Ticket = ({fetchedTicket, i}) => {
+const Ticket = ({fetchedTicket, i, getTransportName}) => {
 
   return (
     <>
@@ -31,7 +31,7 @@ const Ticket = ({fetchedTicket, i}) => {
                             <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.name}</div>
                             <div className='ticket-line'></div>
                             <div className='tictet-field mt-2'><MdShareLocation className='tictet-icon' color='yellow' /> Transfer</div>
-                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.transfer}</div>
+                            <div className='wh-txt fw-700' style={{paddingLeft:18}}>{getTransportName(fetchedTicket.transfer)}</div>
                             <div className='ticket-line'></div>
                             <div className='tictet-field mt-2'><MdShareLocation className='tictet-icon' color='yellow' /> Tour Date</div>
                             <div className='wh-txt fw-700' style={{paddingLeft:18}}>{fetchedTicket.date}</div>

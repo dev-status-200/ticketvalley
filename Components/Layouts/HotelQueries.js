@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { Row, Col, Table, Spinner } from 'react-bootstrap';
 import { Modal, Button, Rate } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
-import { openNotification } from "/Components/Shared/Notification"
+import { openNotification } from "/Components/Shared/Notification";
 import axios from 'axios';
 import moment from 'moment';
 import codes from "/JSONData/codes"
@@ -34,9 +34,10 @@ const initialState = {
   selectedRecord:{}
 };
 
-const HotelQueries = ({}) => {
+const HotelQueries = () => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
+
   useEffect(() => {
     checkNotifications(getHotelsQueries());
   }, [])
@@ -53,7 +54,7 @@ const HotelQueries = ({}) => {
         }
       })
     })
-  }
+  };
 
   const markAsDone = async(id, status) => {
     dispatch({type:"set", 
@@ -66,7 +67,7 @@ const HotelQueries = ({}) => {
     }).then((x)=>{
       getHotelsQueries();
     })
-  }
+  };
 
   const getCodeValue = (value) => {
     let result = "";
@@ -76,7 +77,7 @@ const HotelQueries = ({}) => {
       }
     });
     return result
-  }
+  };
 
   const checkNotifications = () => {
     axios.post(process.env.NEXT_PUBLIC_POST_CHECK_NOTIFICATION,{
@@ -84,7 +85,7 @@ const HotelQueries = ({}) => {
     }).then((x)=>{
       // console.log(x.data)
     })
-  }
+  };
 
   const exportData = () => {
     const fileName = 'Hotel Queries'
@@ -97,10 +98,8 @@ const HotelQueries = ({}) => {
       })
       return result
     }
-    console.log(state?.records)
     let data = state?.records.map((x)=>{
       return {
-        // ...x,
         Name:x.name,
         Email:x.email,
         Contact:x.contact,
@@ -119,7 +118,7 @@ const HotelQueries = ({}) => {
       }
     });
     exportFromJSON({ data, fileName, exportType })
-  }
+  };
 
   return (
   <>
@@ -157,12 +156,10 @@ const HotelQueries = ({}) => {
             <td> {moment(x.createdAt).fromNow()}  </td>
             <td> {x.done=="0"?"Pending":<CheckCircleOutlined style={{color:'green', position:'relative', bottom:4}} />} </td>
           </tr>
-          )
-        })}
+        )})}
         </tbody>
         </Table>
       </div>
-      
     </Col>
     </Row>}
     {state.load && <div><Spinner/></div>}

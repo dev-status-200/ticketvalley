@@ -18,7 +18,7 @@ const Desktop = () => {
                         <div className='my-4 mt-5 wh-txt'>
                         <span className=''><FaPhoneAlt style={{position:'relative', bottom:2}}/></span><span className='fs-16 mx-2'>+ 971  50 337 4890</span>
                         <div className='mb-4'> 
-                            <span className=''><MdEmail style={{position:'relative', bottom:2}}/></span><span className='fs-16 mx-2'>info@ticketsvalley.com</span>
+                            <span className=''><MdEmail style={{position:'relative', bottom:2}}/></span><span className='fs-16 mx-2'>support@ticketsvalley.com</span>
                         </div>
                         </div>
                     </Col>

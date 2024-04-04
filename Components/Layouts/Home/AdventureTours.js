@@ -14,7 +14,6 @@ const AdventureTours = () => {
         axios.get(process.env.NEXT_PUBLIC_GET_PRODUCT_BY_ADV_CATEGORY,{
             headers:{ "category": "Adventure Tours" }
         }).then((x)=>{
-            console.log(x.data)
             if(x.data.status=="success"){
                 setAdventures(x.data.result);
             }

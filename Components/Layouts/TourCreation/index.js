@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect } from 'react';
-import { Card, Input, Select } from 'antd';
+import React, { useReducer, useEffect, useState } from 'react';
+import { Card, Input, Select, Switch } from 'antd';
 import { reducerFunctions, initialState } from './states';
 import { Row, Col } from 'react-bootstrap';
 import Router from 'next/router';
@@ -8,6 +8,7 @@ const TourCreation = ({productData, packageType}) => {
 
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
   const { records } = state;
+  const [ status, setStatus ] = useState(true)
 
   useEffect(() => {
     dispatch({
@@ -31,8 +32,11 @@ const TourCreation = ({productData, packageType}) => {
       <Col className='' md={3}><h5>{!packageType?'Product':'Products'}</h5></Col>
       <Col>
       <Row className='pb-2'>
-        <Col md={2}></Col>
-        <Col md={1}></Col>
+        {/* <Col md={1}></Col> */}
+        <Col md={3} className='d-flex justify-content-end pt-1'>
+          <div>Tours Status</div>
+          <Switch className='mx-2 mt-1' checked={status} onChange={()=>setStatus(!status)} size='small' />
+        </Col>
         <Col md={3}>
         <Select
           allowClear
@@ -66,7 +70,14 @@ const TourCreation = ({productData, packageType}) => {
     <div style={{ maxHeight:"60vh", overflowY:'auto', overflowX:'hidden'}}>
       <Row>
         {
-        records.filter((x)=>{
+        records.filter((x)=> {
+          if(status){
+            return x.status==1
+          } else {
+            return x.status!=1
+          }
+        } )
+        .filter((x)=>{
           if(x.category.toLowerCase().includes(state.categorySearch?.toLowerCase())){
             return x
           }else if(state.categorySearch=="" || state.categorySearch==null){
@@ -79,14 +90,15 @@ const TourCreation = ({productData, packageType}) => {
           if(state.search==""){
             return x
           }
-        }).map((x, i)=>{
+        })//.sort((secondItem, firstItem) => parseInt(firstItem.status) - parseInt(secondItem.status))
+        .map((x, i)=>{
           return(
           <Col 
             md={3} 
             key={i} 
             className="my-3" 
             onClick={()=>Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=${x.id}`)}
-            style={{opacity:x.status!=1?0.3:1}}
+            style={{opacity:x.status!=1?0.5:1}}
           >
             <Card hoverable style={{ width: 240 }}
               cover={<img alt="example" style={{height:150, width:240}} src={x.main_image} />}

@@ -11,7 +11,7 @@ import { Tabs } from 'antd';
 import moment from "moment";
 import axios from 'axios';
 import { reducerFunctions, initialState, baseValues } from './states';
-import { openNotification } from "../../Shared/Notification"
+import { openNotification } from "/Components/Shared/Notification"
 
 const CreateOrEdit = ({productData, id, packageType}) => {
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
@@ -20,9 +20,9 @@ const CreateOrEdit = ({productData, id, packageType}) => {
   });
 
   useEffect(() => {
-    let cities = []
+    let cities = [];
     axios.get(process.env.NEXT_PUBLIC_GET_ALL_CITIES)
-    .then((x)=>{
+    .then((x) => {
       cities = x.data.result.map((y)=>{
         return { id:y.name, name:y.name }
       });
@@ -33,10 +33,9 @@ const CreateOrEdit = ({productData, id, packageType}) => {
     })
     if(id!="new"){
       let tempState = {...productData.result};
-      console.log(tempState.packageIncludes)
       state.cancellation_polices = tempState?.cancellation_polices?.split("//");
       state.status = tempState.status;
-      tempState?.TourOptions?.forEach((x)=>{
+      tempState?.TourOptions?.forEach((x) => {
         if(x.dated){
           let newDates = [];
           x.dates.forEach((y)=>{
@@ -44,23 +43,18 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           })
           x.dates = newDates
         }
-      })
-      // travelDetail:makeString(),
-      // state.packageDetail = tempState?.travelDetail?.split("//");
+      });
       state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
       state.policies = tempState?.policies?.split("//");
-      //state.timeSlots = tempState.timeSlots.split("//");
       state.imp_infos = tempState?.imp_infos?.split("//");
       state.why_shoulds = tempState?.why_shoulds?.split("//");
       state.inclusions = tempState?.inclusions?.split("//");
       state.packageDetail = tempState?.travelDetail?.split("//");
-      // state.prev_images = (tempState.more_images!=''||tempState.more_images!=null)? tempState?.more_images?.split(","):[];
       state.stock = tempState.stock;
       state.dated = tempState.dated;
-      //state.dates = tempState.dated?JSON.parse(tempState.dates):[{"date":""}]
       reset(tempState);
-      // console.log(productData.result.more_images.split(","))
+
       dispatch({
         type: 'set',
         payload: {
@@ -118,11 +112,13 @@ const CreateOrEdit = ({productData, id, packageType}) => {
   };
 
   const makeString = (data) => {
-    let result = "";
-    data.forEach((x, i)=>{
-        result = i==0?result+`${x}` :result + "//" + `${x}`
-    })
-    return result
+    if(data){
+      let result = "";
+      data.forEach((x, i)=>{
+          result = i==0?result+`${x}` :result + "//" + `${x}`
+      })
+      return result
+    }
   };
 
   const onSubmit = async(data) => {

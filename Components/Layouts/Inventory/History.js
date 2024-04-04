@@ -15,7 +15,6 @@ const History = () => {
         setVisible(true)
         await axios.get(process.env.NEXT_PUBLIC_GET_INVENTORY_HISTORY)
         .then((x)=>{
-            console.log(x.data);
             setData(x.data.result);
             setLoad(false);
         })

@@ -30,7 +30,6 @@ const PackageQueries = () => {
         id:data.id,
         status:data.status=='0'?'1':'0'
     }).then((x) => {
-      console.log(x.data)
       let temp = [...records];
       temp[index].status = data.status=='0'?'1':'0'
       setRecords(temp);
@@ -42,7 +41,6 @@ const PackageQueries = () => {
     const fileName = 'Package Queries'
     const exportType = 'csv'
     let data = [];
-    console.log(records)
     data = records.map((x)=>{
       return{
         Name:`${x.customerTitle} ${x.customerName}`,

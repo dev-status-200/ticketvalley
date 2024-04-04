@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Aos from 'aos';
-import { addProduct } from '../../redux/cart/cartSlice';
+import { addProduct } from '/redux/cart/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { destroyCart, retrieveCart } from '../../functions/cartFunction';
-import { useSession } from 'next-auth/react';
+import { destroyCart, retrieveCart } from '/functions/cartFunction';
+// import { useSession } from 'next-auth/react';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, image}) => {
 
-  const {data:session} = useSession();
+  // const {data:session} = useSession();
   const cart = useSelector((state) => state.cart.value);
   const dispatch = useDispatch();
 
   const delay = ms => new Promise(res => setTimeout(res, ms));
-
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -73,7 +72,8 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
 
     await axios.post(process.env.NEXT_PUBLIC_CREATE_RESERVATION,{
       bookedTours:cartData,
-      reservation:reserve
+      reservation:reserve,
+      site:'ticketsvalley'
     }).then((x)=>{
       booking_id = x.data.result
     })

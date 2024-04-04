@@ -3,7 +3,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { ConfigProvider, notification, Input } from 'antd';
 import axios from 'axios';
 import Aos from 'aos';
-import CircleIcons from '../Shared/CircleIcons';
+import CircleIcons from '/Components/Shared/CircleIcons';
 import CircleMobileIcons from '../Shared/CircleMobileIcons';
 import useWindowSize from '/functions/useWindowSize';
 import Link from 'next/link';

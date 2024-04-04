@@ -54,12 +54,9 @@ const Destinations = () => {
   };
 
   const confirm = (e) => {
-    // console.log(e);
     message.success('Click on Yes');
   };
-  const cancel = (e) => {
-    // message.error('Click on No');
-  };
+  const cancel = (e) => { };
 
   return (
   <>

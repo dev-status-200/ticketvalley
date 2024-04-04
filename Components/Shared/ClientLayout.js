@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import Header from './Header/';
-import Footer from './FooterNew/';
+// import Footer from './FooterNew/';
 import { Layout } from 'antd';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../redux/cart/cartSlice';
 import { retrieveCart } from '../../functions/cartFunction';
-import { FloatingWhatsApp } from 'react-floating-whatsapp'
+import { FloatingWhatsApp } from 'react-floating-whatsapp';
+import dynamic from 'next/dynamic';
+
+const Footer = dynamic(() => import('./FooterNew'), { ssr: false })
 
 const MainLayout = ({children}) => {
 

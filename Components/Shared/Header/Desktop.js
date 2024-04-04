@@ -30,14 +30,14 @@ const Header = () => {
   const conversion = useSelector((state) => state.currency.conversion);
   
     useEffect(() => {
-        if(Object.keys(currencyList).length==0){
-            setCurrency();
-        }
+      if(Object.keys(currencyList).length==0){
+        setCurrency();
+      }
     }, [])
 
     const setCurrency = async() => {
-        let items = await fetchCurrencyData();
-        dispatch(addCurrency([]));
+      let items = await fetchCurrencyData();
+      dispatch(addCurrency([]));
     }
 
   const items = [
@@ -51,82 +51,86 @@ const Header = () => {
 
   return (
     <div className='header-styles '>
-        <Row className='px-5 pt-2 m-0 white-bg' style={{paddingBottom:8}}>
-            <Col md={6}>
-                <div style={{fontSize:15}}>
-                    <span ><FaPhoneAlt/></span>
-                    <span className='mx-2' style={{position:'relative', top:2}}>+ 971  50 337 4890</span>
-                    <span style={{marginLeft:1, marginRight:10, position:'relative', top:1}}>|</span>
-                    <span style={{position:'relative', bottom:0}}><FaRegEnvelopeOpen/></span>
-                    <span className=' mx-2' style={{position:'relative', top:2}}>info@ticketsvalley.com</span>
+      <Row className='px-5 pt-2 m-0 white-bg' style={{paddingBottom:8}}>
+        <Col md={6}>
+          <div style={{fontSize:15}}>
+            <span ><FaPhoneAlt/></span>
+            <span className='mx-2' style={{position:'relative', top:2}}>+ 971  50 337 4890</span>
+            <span style={{marginLeft:1, marginRight:10, position:'relative', top:1}}>|</span>
+            <span style={{position:'relative', bottom:0}}><FaRegEnvelopeOpen/></span>
+            <span className=' mx-2' style={{position:'relative', top:2}}>support@ticketsvalley.com</span>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div style={{float:'right', fontSize:15}}>
+            <Popover placement="bottom" 
+              trigger="click"
+              content={
+                <div className='text-center' style={{minHeight:60}}>
+                    <div className='fs-15'>Select Currency</div>
+                    <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AED')}><span className="fi fi-ae"></span></span>
+                    <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('USD')}><span className="fi fi-um"></span></span>
+                    <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AUD')}><span className="fi fi-au"></span></span>
+                    <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('GBP')}><span className="fi fi-gb"></span></span>
+                    <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('PKR')}><span className="fi fi-pk"></span></span>
+                    <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span className="fi fi-in"></span></span>
                 </div>
-            </Col>
-            <Col md={6}>
-                <div style={{float:'right', fontSize:15}}>
-                    <Popover placement="bottom" content={
-                        <div className='text-center' style={{minHeight:60}}>
-                            <div className='fs-15'>Select Currency</div>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AED')}><span className="fi fi-ae"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('USD')}><span className="fi fi-um"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('AUD')}><span className="fi fi-au"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('GBP')}><span className="fi fi-gb"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('PKR')}><span className="fi fi-pk"></span></span>
-                            <span className='cur mx-1 flag-hov' onClick={()=>adjustCurrency('INR')}><span className="fi fi-in"></span></span>
-                        </div>
-                    } trigger="click">
-                        <span className='cur mx-1'>Currency <BsCurrencyExchange size={15} className='blue-txt' /></span>
-                    </Popover>
-                    <span className='mx-3 fs-11' style={{opacity:0.5}}>|</span>
-                    <span className='cur mx-1 blue-txt'onClick={()=>router.push("/cart")}>
-                        My Cart
-                        <span className='fs-12'>{" ( "}{cart.length}{" )"} </span>
-                        <HiShoppingCart size={15} />
-                    </span>
-                    <span className='mx-3 fs-11' style={{opacity:0.5}}>|</span>
-                    {/* <a className='cur mx-1' href='https://m.facebook.com/ticketsvalley/?locale=hi_IN' target='_blank' style={{color:'#2b67b6'}}><SiFacebook/></a>
-                    <a className='cur mx-1' style={{color:'#e425b4'}}><img src={'/icons/insta.png'} height={12} /></a>
-                    <a className='cur mx-1' style={{color:'grey'}}><FaSquareXTwitter size={13} /></a> */}
-                    {!session &&
-                    <span className='cur' style={{position:'relative', top:2}}
-                        onClick={()=>{
-                            // This Logic sets the redirected URL to get back to this page
-                            if(Object.keys(router.query).length>0){ 
-                                Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
-                            }
-                            else { 
-                                 Cookies.set("redirect",`${router.pathname}`) 
-                            }
-                            signIn();
-                        }}
-                    ><AiOutlineUser size={15} style={{marginLeft:0, position:'relative', bottom:3, marginRight:4}} /> My Login</span>
+              }>
+                <span className='cur mx-1'>Currency <BsCurrencyExchange size={15} className='blue-txt' /></span>
+            </Popover>
+            <span className='mx-3 fs-11' style={{opacity:0.5}}>|</span>
+            <span className='cur mx-1 blue-txt'onClick={()=>router.push("/cart")}>
+                My Cart
+                <span className='fs-12'>{" ( "}{cart.length}{" )"} </span>
+                <HiShoppingCart size={15} />
+            </span>
+            <span className='mx-3 fs-11' style={{opacity:0.5}}>|</span>
+            {/* <a className='cur mx-1' href='https://m.facebook.com/ticketsvalley/?locale=hi_IN' target='_blank' style={{color:'#2b67b6'}}><SiFacebook/></a>
+            <a className='cur mx-1' style={{color:'#e425b4'}}><img src={'/icons/insta.png'} height={12} /></a>
+            <a className='cur mx-1' style={{color:'grey'}}><FaSquareXTwitter size={13} /></a> */}
+            {!session &&
+            <span className='cur' style={{position:'relative', top:2}}
+                onClick={()=>{
+                    // This Logic sets the redirected URL to get back to this page
+                    if(Object.keys(router.query).length>0){ 
+                        Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
                     }
-                    {session &&
-                    <>
-                    <span className='mx-3 fs-11' style={{position:'relative', top:2, }}>
-                    <Dropdown menu={{ items }}>
-                        <span onClick={(e) => e.preventDefault()}>
-                            <span className='' style={{marginLeft:0, position:'relative', bottom:3, marginRight:4}}>
-                                <AiOutlineUser size={15} />
-                            </span>
-                            {session.user.name}
-                        </span>
-                    </Dropdown>
-                    </span>
-                    <span className='mx-3 fs-11' style={{opacity:0.5}}>|</span>
-                    <span className='cur'  style={{position:'relative', top:2}} onClick={()=>signOut()}>
-                        <GrLogout className='mx-1' style={{position:'relative', bottom:2, fontSize:13}}  />Logout
-                    </span>
-                    </>
+                    else { 
+                            Cookies.set("redirect",`${router.pathname}`) 
                     }
-                </div>
-            </Col>
-        </Row>
-        {showOffers &&  <>
-            <Modal title="My Offers" open={showOffers} onCancel={()=>setShowOffers(false)} footer={false} centered>
-                <hr/>
-                <MyOffers selectable={false} email={session?.user.email} />
-            </Modal>
-        </>}
+                    signIn();
+                }}
+            ><AiOutlineUser size={15} style={{marginLeft:0, position:'relative', bottom:3, marginRight:4}} /> My Login</span>
+            }
+            {session &&
+            <>
+            <span className='mx-3 fs-11' style={{position:'relative', top:2, }}>
+            <Dropdown menu={{ items }}>
+                <span onClick={(e) => e.preventDefault()}>
+                    <span className='' style={{marginLeft:0, position:'relative', bottom:3, marginRight:4}}>
+                        <AiOutlineUser size={15} />
+                    </span>
+                    {session.user.name}
+                </span>
+            </Dropdown>
+            </span>
+            <span className='mx-3 fs-11' style={{opacity:0.5}}>|</span>
+            <span className='cur'  style={{position:'relative', top:2}} onClick={()=>signOut()}>
+                <GrLogout className='mx-1' style={{position:'relative', bottom:2, fontSize:13}}  />Logout
+            </span>
+            </>
+            }
+          </div>
+        </Col>
+      </Row>
+      {showOffers && 
+      <>
+        <Modal title="My Offers" open={showOffers} onCancel={()=>setShowOffers(false)} footer={false} centered>
+          <hr/>
+          <MyOffers selectable={false} email={session?.user.email} />
+        </Modal>
+      </>
+      }
     </div>
   )
 }

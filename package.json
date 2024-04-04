@@ -21,6 +21,8 @@
     "@tiptap/pm": "^2.0.3",
     "@tiptap/react": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
+    "ag-grid-community": "^31.2.0",
+    "ag-grid-react": "^31.2.0",
     "antd": "^5.0.7",
     "aos": "^2.3.4",
     "axios": "^1.2.1",
