@@ -8,6 +8,7 @@ import moment from 'moment';
 import axios from 'axios';
 import 'swiper/css';
 import Link from 'next/link';
+import { delay } from "/functions/delay"
 import { notification } from 'antd';
 
 const Context = React.createContext({
@@ -18,6 +19,7 @@ const PromoSection = ({mobile}) => {
 
   const [promos, setPromos] = useState([]);
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
   const [api, contextHolder] = notification.useNotification();
 
   const expensiveCalculation = (num) => {
@@ -67,15 +69,16 @@ const PromoSection = ({mobile}) => {
 
   useEffect(() => {
     axios.get(process.env.NEXT_PUBLIC_GIT_VISIBLE_PROMOS)
-    .then((x)=>{
-      console.log(x.data)
+    .then(async(x)=>{
+      await delay(2000);
       setPromos(x?.data?.result);
     })
   }, []);
 
   useEffect(() => {
-    if(promos.length>1){
+    if(promos.length>2 && show==false){
       openNotification('topRight');
+      setShow(true)
     }
   }, [promos]);
 
