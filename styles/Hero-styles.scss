@@ -1,0 +1,115 @@
+.home-slider-styles{
+  .swiper {
+    width: 100%;
+    padding: 0px;
+    height: 100%;
+  }
+  .swiper-slide {
+    padding: 0px;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  }
+
+  .search-bar-bg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    border-radius: 15px;
+    padding: 40px;
+  }
+
+  .search-bar-container{
+    border: 1px solid green;
+    padding: 20px;
+    width: 80%;
+  }
+
+  .tour-list{
+    background-color: white;
+    width: 780px;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    top: 66.1%;
+    border: 1px solid silver;
+    text-align: left;
+    z-index: 100;
+  }
+
+  .search-item{
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 20px;
+  }
+  .search-item:hover{
+    background-color: #b8d233;
+  }
+
+  .desert-safari{
+    height: 80vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
+  .aqua{
+    // background:linear-gradient(0deg, rgba(2, 58, 93, 0.5), rgba(10, 132, 67, 0.445)), url("../public/slider/aquarium.png");
+    height: 80vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .heading {
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+    font-size: 2em;
+    position: absolute;
+    padding-left: 20px;
+    padding-right: 20px;
+    top: 63%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-image: linear-gradient(rgba(255, 217, 0, 0.547), rgba(255, 153, 0, 0.547));
+    background-size: 100% 10px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    transition: background-size .7s, background-position .5s ease-in-out;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.66);
+  }
+
+  .heading:hover {
+    transition-duration: 200ms;
+    background-size: 100% 100%;
+    background-position: 0% 100%;
+    transition: background-position .5s, background-size .3s ease-in-out;
+    border: 1px solid black;
+  }
+
+  .heading-main{
+    color: rgb(255, 255, 255);
+    font-size: 70px;
+    text-shadow: 4px 4px 2px rgba(10, 38, 3, 0.66);
+    font-weight: 900!important;
+  }
+  .heading-main-mobile{
+    color: rgb(255, 255, 255);
+    font-size: 230%;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(10, 38, 3, 0.66);
+    font-weight: 900!important;
+  }
+}

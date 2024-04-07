@@ -4,14 +4,14 @@ import Mobile from './Mobile';
 
 const Footer = () => {
   return (
-    <div className=''>
+  <div className=''>
     <div className="desktop" >
-        <Desktop />
+      <Desktop />
     </div>
     <div className="mobile" >
-        <Mobile />
+      <Mobile />
     </div>
-    </div>
+  </div>
   )
 }
 

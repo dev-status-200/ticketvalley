@@ -19,7 +19,6 @@ const SearchBar = () => {
     };
 
     const handleChange = (e) => {
-        console.log(e)
         setSearch(e)
     };
 

@@ -32,7 +32,9 @@ const Desktop = () => {
       <BestSelling/>
       </Container>
     </div>
-    <PromoSection/>
+    <div className='bg-white'>
+      <PromoSection />
+    </div>
     {/* <Slider/> */}
     <div className='py-5 bg-02' style={{backgroundColor:"white"}}>
     <Container className='my-5' data-aos='fade-up'>

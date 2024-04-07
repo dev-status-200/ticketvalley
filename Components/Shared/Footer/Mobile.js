@@ -10,9 +10,9 @@ const Mobile = () => {
         <Row>
           <Col md={12} className='text-center'>
           <div className='my-3 wh-txt'>
-            <span className=''><FaPhoneAlt style={{position:'relative', bottom:2}}/></span><span className='fs-20 mx-2'>+ 971  50 337 4890</span>
+            <span className=''><FaPhoneAlt style={{position:'relative', bottom:2}}/></span><span className='fs-20 mx-2'>+ 971  55 998 6370</span>
             <div className=''> 
-                <span className=''><MdEmail style={{position:'relative', bottom:2}}/></span><span className='fs-18 mx-2'>support@ticketsvalley.com</span>
+                <span className=''><MdEmail style={{position:'relative', bottom:2}}/></span><span className='fs-18 mx-2'>info@peacelandtravel.com</span>
             </div>
             </div>
           </Col>
@@ -25,7 +25,7 @@ const Mobile = () => {
         </Row>
       </div>
       <div style={{}} className='bgBt text-center py-2'>
-        <div className='wh-txt fs-12'>COPYRIGHT 2024 TICKETSVALLEY, ALL RIGHT RESERVED</div>
+        <div className='wh-txt fs-12'>COPYRIGHT 2023 PEACELAND TRAVEL, ALL RIGHT RESERVED</div>
       </div>
     </div>
   )

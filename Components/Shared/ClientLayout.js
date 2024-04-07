@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import Header from './Header/';
-// import Footer from './FooterNew/';
 import { Layout } from 'antd';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../redux/cart/cartSlice';
-import { retrieveCart } from '../../functions/cartFunction';
+import { addProduct } from '/redux/cart/cartSlice';
+import { retrieveCart } from '/functions/cartFunction';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import dynamic from 'next/dynamic';
 
-const Footer = dynamic(() => import('./FooterNew'), { ssr: false })
+const Footer = dynamic(() => import('./Footer'), { ssr: false });
 
 const MainLayout = ({children}) => {
 
   const dispatch = useDispatch();
-
-  useEffect(() => { dispatch(addProduct(retrieveCart())); }, [])
+  useEffect(() => { dispatch(addProduct(retrieveCart())); }, []);
 
   return (
     <Layout style={{fontFamily:'Alata'}}>
@@ -34,4 +32,4 @@ const MainLayout = ({children}) => {
   )
 }
 
-export default React.memo(MainLayout)
+export default React.memo(MainLayout);
