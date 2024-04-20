@@ -136,4 +136,4 @@ const DetailsThree = ({state, setValues, dispatch}) => {
   )
 }
 
-export default DetailsThree
+export default React.memo(DetailsThree)

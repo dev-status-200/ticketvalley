@@ -28,13 +28,11 @@ export default function CheckoutForm({email, name, image}) {
         receipt_email:email
       },
     });
-
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
       setMessage("An unexpected error occured.");
     }
-
     setIsProcessing(false);
   };
 

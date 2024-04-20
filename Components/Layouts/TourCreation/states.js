@@ -1,3 +1,6 @@
+const format = 'HH:mm';
+import dayjs from 'dayjs';
+
 function reducerFunctions(state, action) {
   switch (action.type) {
     case 'set': {
@@ -90,7 +93,8 @@ const baseValues = {
   packageTravel:"",
   packageCountry:"",
   packageCity:"",
-  packageDescription:""
+  packageDescription:"",
+  cutOff:dayjs('12:08', format)
 };
 
 const initialState = {

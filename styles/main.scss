@@ -82,6 +82,15 @@ html, body {
   padding: 5px 15px 5px 15px;
   border-radius: 25px;
 }
+.custom-btn-sm-green{
+  transition-duration: 300ms;
+  border: none;
+  background-color: rgb(21, 120, 129);
+  color: white;
+  font-weight: 500;
+  padding: 5px 15px 5px 15px;
+  border-radius: 25px;
+}
 
 .custom-btn:hover {
   transition-duration: 300ms;

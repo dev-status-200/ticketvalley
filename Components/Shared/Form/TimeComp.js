@@ -1,22 +1,28 @@
+import React from 'react'
+import { useController } from "react-hook-form";
 import { TimePicker } from 'antd';
-import { Controller } from "react-hook-form";
 
-const TimeComp = (props) => {
-  return (
+const SelectComp = (props) => {
+  const { control, name } = props;
+  const { field: { onChange, onBlur, value, name: fieldName, ref } } = useController({ control, name });
+
+return(
   <>
-    <Controller
-      name={`${props.name}`}
-      defaultValue=""
-      control={props.control}
-      {...props.register(`${props.name}`)}
-      render={({ field }) => (
-        <>
-          <div>{props.label}</div>
-          <TimePicker {...field} />
-        </>
-      )}
+    <div className="mt-3">{props.label}</div>
+    <TimePicker 
+      ref={ref}
+      value={value} 
+      allowClear
+      changeOnScroll
+      onBlur={onBlur}
+      name={fieldName} 
+      use12Hours={true}
+      format={'h:mm A'} 
+      onChange={onChange} 
+      style={{width:110}}
+      {...props.rest}
     />
   </>
-  )
-}
-export default React.memo(TimeComp)
+)}
+
+export default React.memo(SelectComp)

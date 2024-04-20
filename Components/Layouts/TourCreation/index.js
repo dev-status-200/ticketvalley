@@ -62,15 +62,20 @@ const TourCreation = ({productData, packageType}) => {
             })} />
           </Col>
           <Col md={2}>
-            <button className='btn-custom mx-5' style={{float:'right'}} onClick={()=>Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=new`)}>Create</button>
+            <button 
+              className='btn-custom mx-5' 
+              style={{float:'right'}} 
+              onClick={()=>Router.replace(`/${packageType?'packageEditPage':'tourEditPage'}?id=new`)}
+            >
+              Create
+            </button>
           </Col>
       </Row>
       </Col>
     </Row>
     <div style={{ maxHeight:"60vh", overflowY:'auto', overflowX:'hidden'}}>
       <Row>
-        {
-        records.filter((x)=> {
+        {records?.length>0 && records?.filter((x)=> {
           if(status){
             return x.status==1
           } else {

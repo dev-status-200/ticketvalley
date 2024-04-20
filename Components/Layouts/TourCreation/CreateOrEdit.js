@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Spinner } from 'react-bootstrap';
 import PackagesInfo from "./PackagesInfo";
 import ImageUpload from './ImageUpload';
@@ -11,7 +11,8 @@ import { Tabs } from 'antd';
 import moment from "moment";
 import axios from 'axios';
 import { reducerFunctions, initialState, baseValues } from './states';
-import { openNotification } from "/Components/Shared/Notification"
+import { openNotification } from "/Components/Shared/Notification";
+import dayjs from 'dayjs';
 
 const CreateOrEdit = ({productData, id, packageType}) => {
   const [state, dispatch] = useReducer(reducerFunctions, initialState);
@@ -23,7 +24,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
     let cities = [];
     axios.get(process.env.NEXT_PUBLIC_GET_ALL_CITIES)
     .then((x) => {
-      cities = x.data.result.map((y)=>{
+      cities = x?.data?.result?.map((y)=>{
         return { id:y.name, name:y.name }
       });
       dispatch({
@@ -44,6 +45,8 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           x.dates = newDates
         }
       });
+      console.log(tempState.cutOff)
+      tempState.cutOff = (tempState.cutOff && tempState.cutOff!=undefined )?dayjs(tempState.cutOff, 'HH:mm'):null;
       state.packages = tempState.TourOptions;
       state.timed = tempState.timed;
       state.policies = tempState?.policies?.split("//");
@@ -64,8 +67,22 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           prev_images:productData.result.more_images?productData.result.more_images.split(","):[]
         }
       })
-    } else {
-      reset(baseValues)
+    } else if(id=="new") {
+      reset(baseValues);
+      dispatch({
+        type: 'set',
+        payload: {
+          packages:[], 
+          policies:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
+          cancellation_polices:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
+          imp_infos:[],
+          why_shoulds:[],
+          inclusions:[],
+          more_images:[],
+          prev_images:[],
+          main_image:"",
+        }
+      });
     }
   }, [])
 
@@ -123,17 +140,17 @@ const CreateOrEdit = ({productData, id, packageType}) => {
 
   const onSubmit = async(data) => {
     if(
-      data.title.length>3 && 
-      data.city.length>3 && 
-      data.category.length>3 && 
-      data.tour_detail.length>3 && 
-      data.duration.length>3 && 
-      data.refund.length>0 && 
-      data.lang.length>3 && 
-      data.voucher.length>3 && 
-      data.time_slot.length>3 && 
-      state.main_image.name.length>1 && 
-      data.title.length>3
+      data.title?.length>3 && 
+      data.city?.length>3 && 
+      data.category?.length>3 && 
+      data.tour_detail?.length>3 && 
+      data.duration?.length>3 && 
+      data.refund?.length>0 && 
+      data.lang?.length>3 && 
+      data.voucher?.length>3 && 
+      data.time_slot?.length>3 && 
+      state.main_image?.name?.length>1 && 
+      data.title?.length>3
     ){
       dispatch({type:'field', fieldName:'load', payload:true})
       let cover = "a";
@@ -161,6 +178,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           package:packageType?'1':'0',
           packages:tempPackages,//state.packages,
           stock:state.stock,
+          cutOff:(data.cutOff && data.cutOff!=undefined )?dayjs(data.cutOff, 'HH:mm').format("HH:mm"):null,
           travelDetail:makeString(state.packageDetail),
           status:state.status,
           main_image:cover==null?"a":cover,
@@ -171,6 +189,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           policies:makeString(state.policies),
           cancellation_polices:makeString(state.cancellation_polices)
         }).then((x)=>{
+          console.log(x)
         if(x.data.status=='success'){
           Router.push(`/${packageType?'packageEditPage':'tourEditPage'}?id=${x.data.result.id}`)
         }
@@ -220,6 +239,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
         travelDetail:makeString(state.packageDetail),
         stock:state.stock,
         prev_img:prev_img,
+        cutOff:(data.cutOff && data.cutOff!=undefined )?dayjs(data.cutOff, 'HH:mm').format("HH:mm"):null,
         status:state.status,
         deleted_images:state.deleted_images,
         more_images:values.length>0?values.toString():'',
@@ -241,6 +261,8 @@ const CreateOrEdit = ({productData, id, packageType}) => {
 
   const onError = async(data) => { };
 
+  const cutOff = useWatch({control, name:"cutOff"});
+  
   return (
   <>
   <form onSubmit={handleSubmit(id!='new'?onEdit:onSubmit, onError)}>

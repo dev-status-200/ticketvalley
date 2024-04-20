@@ -132,7 +132,7 @@ const PromoSection = ({mobile}) => {
         <Row>
           <Col md={5} xs={3}></Col>
           <Col md={2} xs={6} className='text-center'>
-            <div className='custom-btn-sm cur' onClick={()=>setOpen(true)}>Show More</div>
+            <div className='custom-btn-sm-green cur' onClick={()=>setOpen(true)}>Show More</div>
           </Col>
           <Col md={5} xs={3}></Col>
         </Row>

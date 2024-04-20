@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import InputComp from '../../Shared/Form/InputComp';
 import SelectComp from '../../Shared/Form/SelectComp';
 import InputAreaComp from '../../Shared/Form/InputAreaComp';
+import TimeComp from '../../Shared/Form/TimeComp';
 import { Switch } from 'antd';
 
 const DetailsTwo = ({packageType, register, control, state, setValues, dispatch}) => {
@@ -14,8 +15,10 @@ const DetailsTwo = ({packageType, register, control, state, setValues, dispatch}
         <InputComp  register={register} name='title' control={control} label='Title*' />
     </Col>
     <Col className='' md={2}>
-        <SelectComp register={register} name='city' control={control} label='City*' width={"100%"}
-          options={state?.cities||[]}/>
+      <SelectComp register={register} name='city' control={control} label='City*' 
+        width={"100%"}
+        options={state?.cities||[]}
+      />
     </Col>
     <Col className='' md={2}>
         <SelectComp register={register} name='category' control={control} label='Sub Category*' width={"100%"}
@@ -39,13 +42,17 @@ const DetailsTwo = ({packageType, register, control, state, setValues, dispatch}
     </Row>
     <Row>
     <Col className='px-0 mx-4' md={1}>
-        <InputComp  register={register} name='prevPrice' control={control} label={packageType?'Price':'Old price'} />
+      <InputComp  register={register} name='prevPrice' control={control} label={packageType?'Price':'Old price'} />
     </Col>
     <Col className='mx-1 mt-3' md={1}>
         <div>Active</div>
         <Switch checked={state.status=="1"?true:false} onChange={()=>{
             dispatch({type:'field', fieldName:"status", payload:state.status=="1"?"0":"1"})
-        }} />
+        }}
+        />
+    </Col>
+    <Col className='px-0' md={1}>
+      <TimeComp register={register} name='cutOff' control={control} label={'Cut Off Time'} />
     </Col>
     </Row>
     <Row>
@@ -106,4 +113,4 @@ const DetailsTwo = ({packageType, register, control, state, setValues, dispatch}
   )
 }
 
-export default DetailsTwo
+export default React.memo(DetailsTwo)

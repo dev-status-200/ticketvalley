@@ -253,4 +253,4 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
   )
 }
 
-export default DetailsOne
+export default React.memo(DetailsOne)
