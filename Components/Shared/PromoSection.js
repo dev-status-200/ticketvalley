@@ -76,7 +76,7 @@ const PromoSection = ({mobile}) => {
   }, []);
 
   useEffect(() => {
-    if(promos.length>2 && show==false){
+    if(promos?.length>2 && show==false){
       openNotification('topRight');
       setShow(true)
     }
@@ -103,7 +103,7 @@ const PromoSection = ({mobile}) => {
             }}
             modules={[Autoplay]}
           >
-          {promos.length>0 && promos.slice(0,5).map((x, i)=>{
+          {promos?.length>0 && promos.slice(0,5).map((x, i)=>{
           return(
             <SwiperSlide key={i}>
               <div className='promo' style={{width:350}}>
@@ -148,7 +148,7 @@ const PromoSection = ({mobile}) => {
           <Row>
             <h3>Current Offers</h3>
             <hr/>
-            {promos.map((x, i)=>{
+            {promos?.map((x, i)=>{
             return(
               <Col md={4} key={i}>
                 <div className='promo'>

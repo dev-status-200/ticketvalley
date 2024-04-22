@@ -222,7 +222,7 @@ const Cart = () => {
                               
                           </div>
                       )})}
-                      {size.width<400 &&
+                      {size.width<600 &&
                       <>
                       <hr/>
                       <span className='fs-18 fw-500 grey-txt px-1'>

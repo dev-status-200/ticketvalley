@@ -160,6 +160,20 @@ const Bookings = () => {
       width:20
     },
     { headerName:"No.#", field: "booking_no", cellRenderer:(p)=>`#${p.value}`,  width:100},
+    { field: "site",
+    width:100,
+    cellRenderer:(params)=>{
+      return <div 
+        style={{
+          backgroundColor:params.value=="peaceland"?'greenyellow':'yellow',
+          textAlign:'center',
+          fontSize:10
+        }}
+      >
+        {params.value}
+      </div>
+    },
+    },
     { 
       headerName:"Tour",
       flex:1,
@@ -203,7 +217,6 @@ const Bookings = () => {
       },
       valueGetter:(params)=> params.data.TourOption.manual?"Manual":"Auto"
     },
-    { field: "site" },
   ];
 
   return (

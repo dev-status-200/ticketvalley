@@ -1,4 +1,11 @@
 import moment from "moment";
+import dayjs from 'dayjs';
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+dayjs.extend(utc);
+dayjs.extend(customParseFormat);
+dayjs.extend(timezone);
 
 function reducerFunctions(state, action) {
   switch (action.type) {
@@ -36,6 +43,7 @@ const initialState = {
   added:false,
   visible:false,
   edit:false,
+  cutOff:true,
 
   title:"Mr.",
   name:"",
@@ -47,7 +55,7 @@ const initialState = {
     {
       id:"", tour:"", title:"", check:"", adult_price:0.00, child_price:0.00, adult:0, child:0, infant:0, transfer:"1",
       transportPrice:0.00, date:"",  dated:false, dates:[], timed:false, timeSlots:[], timeSlot:'', address:"",
-      price:0.00, name:"", email:"", contact:"", oldPrice:""
+      price:0.00, name:"", email:"", contact:"", oldPrice:"", remarks:""
     }
   ]
 };
@@ -107,4 +115,23 @@ const validateName = (name) => {
   return (false)
 }
 
-export { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail }
+const setDate = (temp, i, date, tour) => {
+  temp[i].date = date;
+  const day = dayjs.tz(dayjs(),"Asia/Dubai").diff(dayjs(date), 'day', true)
+  const applyCufOff = (day<1 && day>0)?true:false
+  const cutOff = dayjs(tour.cutOff,'HH:mm')
+  const dubaiCurrent = dayjs.tz(dayjs(),"Asia/Dubai")
+  console.log(applyCufOff?"Same Day":"Future Day")
+  console.log(cutOff.hour(), 'cutoff hour');
+  console.log(dubaiCurrent.hour(), 'dubai hour');
+  console.log(dayjs().hour(), 'current hour');
+  console.log(cutOff.hour()+1>dubaiCurrent.hour()?true:false);
+  if(applyCufOff && tour.cutOff!=null && tour.cutOff!=undefined){
+    temp[i].available = cutOff.hour()+1>dubaiCurrent.hour()?true:false
+  } else {
+    temp[i].available = true
+  }
+  return temp
+}
+
+export { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail, setDate }

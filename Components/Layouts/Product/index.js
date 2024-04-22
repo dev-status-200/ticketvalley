@@ -189,7 +189,7 @@ const Product = ({tourData, id}) => {
         <Row className='p'>
           <Col md={8} className=''>
             <Images tour={tour} detail={detail} data-aos="fade-right" />
-            {size.width<=400 && <>
+            {size.width<=600 && <>
             <hr/>
             <BookComp />
             </>}

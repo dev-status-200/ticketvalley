@@ -42,7 +42,7 @@ const Header = () => {
 
   const items = [
     { label: <div className='text-center px-3' onClick={()=>router.push('/myBookings')}>My Bookings</div>, key: '0' },
-    { label: <div className='text-center px-3' onClick={()=>setShowOffers(true)}>My Offers</div>, key: '1' }
+    // { label: <div className='text-center px-3' onClick={()=>setShowOffers(true)}>My Offers</div>, key: '1' }
   ];
 
   const adjustCurrency = (curr) => {

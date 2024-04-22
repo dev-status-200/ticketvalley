@@ -8,10 +8,10 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import { saveCart } from '../../../functions/cartFunction';
 import IncDec from './IncDec';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+// import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
-import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail } from './states';
+import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail, setDate } from './states';
 import GooglePlaceSearch from './GooglePlaceSearch';
 
 const Book = ({tour, transport, category, setOpen}) => {
@@ -107,6 +107,16 @@ const Book = ({tour, transport, category, setOpen}) => {
         return result
     }
     
+  const checkAvailability = () => {
+    let tempAvailability = true
+    state.booking.forEach((x)=>{
+      if(x.available==false){
+        tempAvailability = false
+      }
+    })
+    return !tempAvailability
+  }
+  
   return (
     <>
     {contextHolder}
@@ -115,7 +125,7 @@ const Book = ({tour, transport, category, setOpen}) => {
         {!load && <>
         {state.booking.map((x, i)=>{
         return(
-        <div key={x.id}>
+        <div key={i}>
         <div className={`${x.check?'tour-opt-selected':'tour-opt pb-2'} mb-2 prevent-select`}>
         <Row>
             <Col style={{maxWidth:30}} onClick={()=>{
@@ -202,9 +212,9 @@ const Book = ({tour, transport, category, setOpen}) => {
                         selected={x.date}
                         onChange={(date) => {
                             let temp = [...state.booking];
-                            temp[i].date = date;
-                            dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
-                        }}
+                            let tempResult = setDate(temp, i, date, tour)
+                            dispatchReducer({type: 'field', fieldName:'booking', payload: tempResult});
+                          }}
                         minDate={new Date()}
                         includeDates={x.dated?x.dates:false}
                         dateFormat="yyyy - MMM - dd"
@@ -217,7 +227,7 @@ const Book = ({tour, transport, category, setOpen}) => {
             <div>Time Slots</div>
             {x.timeSlots.map((z, j)=>{
             return(
-                <div key={j+'a'} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
+                <div key={j} className={`time-box ${x.timeSlot==z.slot?'selected-time-box':''}`} onClick={()=>{
                     let temp = [...state.booking];
                     temp[i].timeSlot = z.slot;
                     dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
@@ -256,8 +266,8 @@ const Book = ({tour, transport, category, setOpen}) => {
             }
             </>
             }
-            {x.check && <div className='mt-2'></div>}
-            <Col md={11} className='mt-3 px-3 mb-1'>
+            {/* {x.check && <div className='mt-2'></div>} */}            
+            {/* <Col md={11} className='mt-3 px-3 mb-1'>
                 <span className='show-opt-detail' onClick={()=>{
                     let temp = [...state.booking];
                     temp[i].show = !temp[i].show
@@ -266,9 +276,28 @@ const Book = ({tour, transport, category, setOpen}) => {
                 {x.show && <div>
                 <hr className='mb-2 mt-0' />
                 {(x.detail!=null && x.detail.length>10) && <div style={{ whiteSpace:'pre-wrap'}}>{x.detail}</div>}
-                {(x.detail==null || x.detail.length<10) && <div>No Detail Added</div>}
                 </div>}
-            </Col>
+            </Col> */}
+            {(x.detail!=null || x?.detail?.length>=10) &&
+                <Col md={11} className={`${x.check?'mt-3':''} px-3`}>
+                  <span className='show-opt-detail' onClick={()=>{
+                    let temp = [...state.booking];
+                    temp[i].show = !temp[i].show
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                  }}>Show Package Details</span>
+                  {x.show && 
+                  <div>
+                    <hr className='mb-2 mt-0' />
+                    {(x.detail!=null && x.detail.length>10) && 
+                    <div style={{ whiteSpace:'pre-wrap', color:'grey'}}>
+                      {x.detail}
+                    </div>
+                    }
+                    </div>
+                    }
+                </Col>
+            }
+            {(x.detail==null || x?.detail?.length<10) &&<div className='p-1'></div> }
         </Row>
         </div>
         {i<state.booking.length-1 && <hr/>}
@@ -324,12 +353,32 @@ const Book = ({tour, transport, category, setOpen}) => {
             <Col md={12}><hr className='mt-4 mb-1'/></Col>
         </Row>
         <Row>
-            <Col md={12}>
+            {/* <Col md={12}>
                 <button className='cart-btn mt-3' 
                     onClick={addToCart}
                     disabled={(state.booking.length>0 && oneSelected())?false:true}
                 >Add To Cart</button>
-            </Col>
+            </Col> */}
+            {checkAvailability() && 
+            <div>
+              <h6 className='mt-2'>
+                <FaClockRotateLeft style={{color:'orange'}} />
+                <span className='mx-1'>Tour Cut-off time for today is over.</span>
+              </h6>
+              <span className='grey-txt-2'>Please Select another date.</span>
+            </div>
+          }
+          <Col md={12}>
+          {(state.booking.length>0 && oneSelected()) && 
+            <button 
+              disabled={checkAvailability()}
+              className='cart-btn mt-3' 
+              onClick={addToCart}
+            >
+              Add To Cart
+            </button>
+          }
+          </Col>
         </Row>
         </>
         }

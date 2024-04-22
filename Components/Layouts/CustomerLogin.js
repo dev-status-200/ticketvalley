@@ -32,8 +32,9 @@ const CustomerLogin = ({providers, signIn}) => {
               <div key={provider.name}>
               <button className='google-btn' 
                 style={{padding:size.width>600?"10px 20px 10px 20px":"5px 8px"}}
-                onClick={() => signIn(provider.id)}>
-                  <span><FcGoogle className='mb-1' /></span> <span className='mx-2'>Login in with {provider.name}</span>
+                onClick={() => signIn(provider.id)}
+              >
+                <span><FcGoogle className='mb-1' /></span> <span className='mx-2'>Login in with {provider.name}</span>
               </button>
               </div>
             ))}
@@ -48,18 +49,18 @@ const CustomerLogin = ({providers, signIn}) => {
     </div>
     }
     {session && 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100vw',
-        height: '100vh'
-      }}>
-        <div>
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100vw',
+      height: '100vh'
+    }}>
+      <div>
         <img src={'/loader.svg'}  alt="Loader" />
         <p className='text-center silver-txt'>Please Wait...</p>
-        </div>
       </div>
+    </div>
     }
   </>
   )

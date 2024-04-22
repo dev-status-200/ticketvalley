@@ -7,54 +7,55 @@ import Details from "./Details";
 
 const BookingInfo = ({state, dispatch, getBooking}) => {
 
-    const assignTicket = async(data, count, type) => {
-        dispatch({type:'set', payload:{
-            assignLoad:true
-        }})
-        if(type!="no"){
-            let tempTickets = [], i=0;
-            if(!data.TourOption.manual){
-                while(tempTickets.length!=count){
-                    if(!data.inventory[i].used){
-                        tempTickets.push({...data.inventory[i], used:true});
-                    }
-                    i++;
-                }
+    const assignTicket = async(site, data, count, type) => {
+      dispatch({type:'set', payload:{
+        assignLoad:true
+      }})
+      if(type!="no"){
+        let tempTickets = [], i=0;
+        if(!data.TourOption.manual){
+          while(tempTickets.length!=count){
+            if(!data.inventory[i].used){
+              tempTickets.push({...data.inventory[i], used:true});
             }
-            await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
-                data, tickets:tempTickets, email:state.selectedRecord['email'],
-                ticketId:state.selectedRecord.id, manual:data.TourOption.manual,
-                BookedTourOptionId:state.selectedRecord.BookedTourOptionId
-            }).then((x)=>{
-                if(x.data.result[0]==1){
-                    openNotification("Success", "Operation Done Successfully", "green");
-                    getBooking()
-                    // Router.push("/bookings");
-                }
-            })
-        } else {
-            await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_REVERSE_TICKET,{
-                id:state.selectedRecord.BookedTourOptionId
-            }).then((x)=>{
-                openNotification("Success", "Operation Done Successfully", "green");
-                getBooking()
-                // Router.push("/bookings");
-            })
+            i++;
+          }
         }
-        dispatch({type:'set', payload:{
-            visible:false,
-            assignLoad:false,
-        }})
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_ASSIGN_TICKET,{
+          data, tickets:tempTickets, email:state.selectedRecord['email'],
+          ticketId:state.selectedRecord.id, manual:data.TourOption.manual,
+          BookedTourOptionId:state.selectedRecord.BookedTourOptionId,
+          site:site
+        }).then((x)=>{
+          if(x.data.result[0]==1){
+            openNotification("Success", "Operation Done Successfully", "green");
+            getBooking()
+            // Router.push("/bookings");
+          }
+        })
+      } else {
+        await axios.post(process.env.NEXT_PUBLIC_CREATE_POST_REVERSE_TICKET,{
+          id:state.selectedRecord.BookedTourOptionId
+        }).then((x)=>{
+          openNotification("Success", "Operation Done Successfully", "green");
+          getBooking()
+          // Router.push("/bookings");
+        })
+      }
+      dispatch({type:'set', payload:{
+        visible:false,
+        assignLoad:false,
+      }})
     }
 
     const transportName = (id) => {
-        let result = "";
-        state.transports.forEach(x => {
-            if(x.id==id){
-                result = x.name
-            }
-        });
-        return result
+      let result = "";
+      state.transports.forEach(x => {
+        if(x.id==id){
+          result = x.name
+        }
+      });
+      return result
     }
 
   return (
@@ -83,7 +84,9 @@ const BookingInfo = ({state, dispatch, getBooking}) => {
                         </div>
                         {(state.selectedRecord.inventory.length>=parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child) && state.selectedRecord.assigned=="0") &&
                         <div className="cur row-hov px-1" style={{color:"#9b6a08"}} 
-                            onClick={()=>assignTicket(state.selectedRecord, parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child))}
+                            onClick={()=>
+                              assignTicket(state.selectedRecord.site,state.selectedRecord, parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child))
+                            }
                         > 
                             <DiffOutlined /> Assign
                         </div>
@@ -112,7 +115,7 @@ const BookingInfo = ({state, dispatch, getBooking}) => {
                     <div>
                       {parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child)} Manual Required 
                       <div className="cur row-hov" style={{color:'#9b6a08'}} 
-                        onClick={()=>assignTicket(state.selectedRecord, parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child))}
+                        onClick={()=>assignTicket(state.selectedRecord.site,state.selectedRecord, parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child))}
                       > 
                         <DiffOutlined /> Assign Manually
                       </div>
@@ -122,7 +125,7 @@ const BookingInfo = ({state, dispatch, getBooking}) => {
                   {state.selectedRecord.assigned=="1" &&
                   <>
                     <div style={{color:'green', cursor:'pointer'}} className='row-hov'
-                      onClick={()=>assignTicket(state.selectedRecord, parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child),"no")}
+                      onClick={()=>assignTicket(state.selectedRecord.site, state.selectedRecord, parseInt(state.selectedRecord.adult) + parseInt(state.selectedRecord.child),"no")}
                     >
                       <CheckOutlined /> Assigned Manually
                     </div>

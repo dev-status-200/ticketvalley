@@ -8,10 +8,10 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import { saveCart } from '../../../functions/cartFunction';
 import IncDec from './IncDec';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+// import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
-import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail } from './states';
+import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail, setDate } from './states';
 import GooglePlaceSearch from './GooglePlaceSearch';
 
 const MobileBook = ({tour, transport, category, setOpen}) => {
@@ -84,6 +84,16 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
             }
         })
         return result
+    }
+
+    const checkAvailability = () => {
+        let tempAvailability = true
+        state.booking.forEach((x)=>{
+          if(x.available==false){
+            tempAvailability = false
+          }
+        })
+        return !tempAvailability
     }
 
   return (
@@ -235,7 +245,27 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
             }
             </>
             }
-            <Col xs={11} className='mb-1 px-3'>
+            {(x.detail!=null && x.detail.length>10) &&
+              <Col md={11} className={`mb-2 ${x.check?'mt-3':''} px-3`}>
+                <span className='show-opt-detail' 
+                  onClick={()=>{
+                    let temp = [...state.booking];
+                    temp[i].show = !temp[i].show
+                    dispatchReducer({type: 'field', fieldName:'booking', payload: temp});
+                  }}
+                >
+                  Tap to show Detail
+                </span>
+                {x.show && 
+                <div>
+                  <hr className='mb-2 mt-0' />
+                  {(x.detail!=null && x.detail.length>10) && <div style={{ whiteSpace:'pre-wrap'}}>{x.detail}</div>}
+                </div>
+                }
+              </Col>
+              }
+              {(x.detail==null || x?.detail?.length<10) &&<div className='pb-3'></div>}
+            {/* <Col xs={11} className='mb-1 px-3'>
                 <div className='show-opt-detail fs-18 mt-2' onClick={()=>{
                     let temp = [...state.booking];
                     temp[i].show = !temp[i].show
@@ -246,7 +276,7 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
                 {(x.detail!=null && x.detail.length>10) && <div style={{ whiteSpace:'pre-wrap'}}>{x.detail}</div>}
                 {(x.detail==null || x.detail.length<10) && <div>No Detail Added</div>}
                 </div>}
-            </Col>
+            </Col> */}
         </Row>
         
         </div>
@@ -300,7 +330,26 @@ const MobileBook = ({tour, transport, category, setOpen}) => {
         <Col md={12}><hr className='mt-4 mb-1'/></Col>
     </Row>
     <Row>
-        <Col md={12}>{(state.booking.length>0 && oneSelected()) && <button className='cart-btn mt-3' onClick={addToCart}>Add To Cart</button>}</Col>
+    <Col md={12}>
+          {checkAvailability() &&
+            <div>
+              <h6 className='mt-2'>
+                <FaClockRotateLeft style={{ color: 'orange' }} />
+                <span className='mx-1'>Tour Cut-off time for today is over.</span>
+              </h6>
+              <span className='grey-txt-2'>Please Select another date.</span>
+            </div>
+          }
+          {(state.booking.length > 0 && oneSelected()) &&
+            <button
+              disabled={checkAvailability()}
+              className='cart-btn mt-3'
+              onClick={addToCart}
+            >
+              Add To Cart
+            </button>
+          }
+        </Col>
     </Row>
     </>
     }

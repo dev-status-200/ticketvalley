@@ -4,16 +4,17 @@ import { Rate} from 'antd';
 import { Row, Col } from 'react-bootstrap';
 import Router, { useRouter } from 'next/router';
 import Link from 'next/link';
-import { ConfigProvider, Input } from 'antd';
+import { ConfigProvider, Button, Input, Popover  } from 'antd';
+import { FilterOutlined } from '@ant-design/icons';
 
-const Tours = ({records, size, index, price, search, setSearch, duration}) => {
+const Tours = ({records, size, index, price, search, setSearch, duration, Filter}) => {
 
   return (
     <>
     {records.length>0 &&
     <>
       <Row>
-        <Col md={12} className='pb-3'>
+        <Col md={12} className='pb-3' xs={10}>
             <h5><b>{records.filter((x)=>{
               if(search==""){
                 return x
@@ -25,6 +26,23 @@ const Tours = ({records, size, index, price, search, setSearch, duration}) => {
               <Input  onChange={(e)=> setSearch(e.target.value)} value={search} placeholder='Search' />
             </ConfigProvider>
         </Col>
+        {size.width<500 &&
+          <Col xs={2} className='px-0 mx-0' style={{paddingTop:31}}>
+          <Popover 
+            placement="topLeft" 
+            title={"Filter Activities"} 
+            content={
+              <div style={{border:'1px solid #147ba1ea', width:300, padding:20}}>
+                <Filter/>
+              </div>
+            }
+          >
+            <Button>
+              <div style={{height:22}}><FilterOutlined/></div>
+            </Button>
+          </Popover>  
+          </Col>
+        }
         <hr className='p-0 mb-3 mx-0'/>
         {
           records.filter((x)=>{
@@ -99,5 +117,4 @@ const Tours = ({records, size, index, price, search, setSearch, duration}) => {
     </>
   )
 }
-
 export default React.memo(Tours)

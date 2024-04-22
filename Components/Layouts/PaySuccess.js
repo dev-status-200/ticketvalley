@@ -31,7 +31,7 @@ const PaySuccess = ({email, payment_intent_client_secret, payment_intent, name, 
   const sendMail = async(id, no) => {
     if(id){
       await axios.post(process.env.NEXT_PUBLIC_CREATE_BOOKING,{
-        user:email, booking_id:id, booking_no:no
+        user:email, booking_id:id, booking_no:no, site:"ticketsvalley"
       }).then((x)=>{
       })
     }
