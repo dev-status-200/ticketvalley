@@ -14,6 +14,7 @@ import { SessionProvider } from "next-auth/react";
 
 import { store } from '/redux/store';
 import { Provider } from 'react-redux';
+import Script from "next/script";
 
 function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
 
@@ -30,7 +31,18 @@ function MyApp({ Component, pageProps:{ session, ...pageProps }, }) {
   }, []);
 
   return (
-  <>
+  <>  
+  <Script strategy="beforeInteractive" src={`https://www.googletagmanager.com/gtag/js?id=AW-16534859566`} />
+      <Script strategy="beforeInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-16534859566', {
+          page_path: window.location.pathname,
+          });
+        `}
+      </Script>
     {(
       router.pathname =='/'            ||
       router.pathname =='/product'     ||
