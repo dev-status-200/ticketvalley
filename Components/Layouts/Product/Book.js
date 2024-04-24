@@ -13,6 +13,7 @@ import { MdPlace } from "react-icons/md";
 import codes from "../../../JSONData/codes.json"
 import { initialState, reducerFunctions, setTour, validateName, validateDate, ValidateEmail, setDate } from './states';
 import GooglePlaceSearch from './GooglePlaceSearch';
+import { FaClockRotateLeft } from "react-icons/fa6";
 
 const Book = ({tour, transport, category, setOpen}) => {
 
