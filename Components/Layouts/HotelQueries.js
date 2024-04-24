@@ -195,7 +195,6 @@ const HotelQueries = () => {
 
         <Col md={4}>Email:</Col>
         <Col md={8} className='text-end'>{state.selectedRecord.email}</Col>
-
         <Col md={4}>Nationality:</Col>
         <Col md={8} className='text-end'>{getCodeValue(state.selectedRecord.nationality)}</Col>
 
