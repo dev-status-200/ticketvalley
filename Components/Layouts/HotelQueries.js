@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { Row, Col, Table, Spinner } from 'react-bootstrap';
+import { Row, Col, Table, Spinner, Form } from 'react-bootstrap';
 import { Modal, Button, Rate } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { openNotification } from "/Components/Shared/Notification";
@@ -31,7 +31,9 @@ const initialState = {
   submitLoad:false,
   visible:false,
   edit:false,
-  selectedRecord:{}
+  selectedRecord:{},
+  to:`${moment().format("YYYY-MM-DD")}`,
+  from:`${moment().subtract(7, 'days').format("YYYY-MM-DD")}`,
 };
 
 const HotelQueries = () => {
@@ -39,12 +41,17 @@ const HotelQueries = () => {
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
 
   useEffect(() => {
-    checkNotifications(getHotelsQueries());
+    checkNotifications();
   }, [])
   
   const getHotelsQueries = async() => {
-    await axios.get(process.env.NEXT_PUBLIC_GET_HOTEL_FORMS)
-    .then((x)=>{
+    await axios.get(process.env.NEXT_PUBLIC_GET_HOTEL_FORMS,{
+      headers:{
+        from:state.from,
+        to:state.to
+      }
+    }).then((x)=>{
+      console.log(x.data.result)
       dispatch({type:"set", 
         payload:{
           records:x.data.result,
@@ -119,11 +126,20 @@ const HotelQueries = () => {
     });
     exportFromJSON({ data, fileName, exportType })
   };
-
+//getHotelsQueries()
   return (
   <>
     <Row>
-      <Col md={11}><h5>Hotel Queries</h5></Col>
+      <Col md={6}><h5>Hotel Queries</h5></Col>
+      <Col md={'auto'}>
+        <Form.Control type={"date"} size="sm" value={state.from} onChange={(e)=>dispatch({type:"toggle", fieldName:"from", payload:e.target.value})} />
+      </Col>
+      <Col md={'auto'}>
+        <Form.Control type={"date"} size="sm" value={state.to} onChange={(e)=>dispatch({type:"toggle", fieldName:"to", payload:e.target.value})} />
+      </Col>
+      <Col md={'auto'}>
+        <button onClick={getHotelsQueries} className='btn-custom'>Go</button>
+      </Col>
       <Col md={1}><button className='custom-btn-sm' onClick={exportData}>Export</button></Col>
     </Row>
     {!state.load &&<Row style={{maxHeight:'70vh',overflowY:'auto', overflowX:'hidden'}}>
@@ -132,7 +148,7 @@ const HotelQueries = () => {
         <Table className='tableFixHead'>
         <thead>
           <tr>
-            <th>#</th>
+            <th>Booking #</th>
             <th>Customer Mail</th>
             <th>Check-in</th>
             <th>Check-out</th>
@@ -149,7 +165,7 @@ const HotelQueries = () => {
               dispatch({type:"toggle", fieldName:"visible", payload:true})
             }}
           >
-            <td> {index+1} </td>
+            <td> {x.booking_no} </td>
             <td> {x.email} </td>
             <td> {moment(x.checkin).format("YYYY/MMM/ddd")} </td>
             <td> {moment(x.checkout).format("YYYY/MMM/ddd")} </td>

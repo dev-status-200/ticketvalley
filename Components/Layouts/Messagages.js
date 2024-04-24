@@ -35,7 +35,7 @@ const initialState = {
 const Messagages = ({}) => {
 
   const [ state, dispatch ] = useReducer(recordsReducer, initialState);
-  
+
   const getMessages = async() => {
     dispatch({type:"set", payload:{ load:true } });
     await axios.get(process.env.NEXT_PUBLIC_GET_CONTACT_US_MESSAGES,{
@@ -151,13 +151,16 @@ const Messagages = ({}) => {
       <Row className='fs-17'>
         <hr className='mt-2' />
         <Col md={3}><b>Name:</b></Col>
-        <Col md={9} className='text-end'>{state.selectedRecord.name}</Col>
+        <Col md={9} className='text-end'>{state.selectedRecord?.name}</Col>
         <Col md={3}><b>Email:</b></Col>
-        <Col md={9} className='text-end'>{state.selectedRecord.email}</Col>
+        <Col md={9} className='text-end'>{state.selectedRecord?.email?.split(", ")[0]||''}</Col>
+        <Col md={3}><b>Contact:</b></Col>
+        <Col md={9} className='text-end'>{state.selectedRecord?.email?.split(", ")[1]||''}</Col>
         <Col md={3}><b>Dated:</b></Col>
-        <Col md={9} className='text-end'>{moment(state.selectedRecord.createdAt).format("DD/MMMM/YYYY")}</Col>
+        <Col md={9} className='text-end'>{moment(state?.selectedRecord?.createdAt).format("DD/MMMM/YYYY")}</Col>
         {/* <hr className='mt-2' /> */}
         <Col md={12}><b>Message:</b></Col>
+        <hr className='my-1' />
         <Col md={12} style={{whiteSpace:'pre-wrap', color:'grey'}}>{state.selectedRecord.msg}</Col>
       </Row>
     </Modal>

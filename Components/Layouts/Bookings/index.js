@@ -159,7 +159,11 @@ const Bookings = () => {
       cellRenderer:(params)=> <EyeOutlined className='cur row-hov lt-blue-txt' onClick={()=>dispatch({type:'select', payload:params.data})} />,
       width:20
     },
-    { headerName:"No.#", field: "booking_no", cellRenderer:(p)=>`#${p.value}`,  width:100},
+    { headerName:"No.#", field: "booking_no",
+      cellRenderer:(p)=>`#${p.value}`,
+      valueGetter:(p)=> parseInt(p.data.booking_no),
+      width:100
+    },
     { field: "site",
     width:100,
     cellRenderer:(params)=>{

@@ -1,136 +1,219 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { FaPhoneAlt, FaRegEnvelopeOpen } from "react-icons/fa";
+import { DownCircleOutlined } from '@ant-design/icons';
 import { CgMenuLeft } from "react-icons/cg";
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import { FaUserCircle } from "react-icons/fa";
 import { HiShoppingCart } from "react-icons/hi";
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Cookies from "js-cookie";
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { fetchCurrencyData } from '/functions/fetchCurrencyData';
-import { GrLogout } from "react-icons/gr";
-import { BsCurrencyExchange } from "react-icons/bs";
+// import { fetchCurrencyData } from '/functions/fetchCurrencyData';
+// import { GrLogout } from "react-icons/gr";
+// import { BsCurrencyExchange } from "react-icons/bs";
+// import { addCurrency, changeCurrency } from '/redux/currency/currencySlice';
+import { Drawer } from "antd";
 import { Dropdown, Popover, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCurrency, changeCurrency } from '/redux/currency/currencySlice';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import MyOffers from "/Components/Shared/MyOffers"
+import MyOffers from "/Components/Shared/MyOffers";
+
+import { useContext } from 'react';
+import Accordion from 'react-bootstrap/Accordion';
+import AccordionContext from 'react-bootstrap/AccordionContext';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import axios from 'axios';
+
+
+function ContextAwareToggle({ children, eventKey, callback }) {
+
+  const { activeEventKey } = useContext(AccordionContext);
+  const decoratedOnClick = useAccordionButton( eventKey, () => callback && callback(eventKey), );
+
+  return (
+    <button className='link-dropdown-btn' type="button" onClick={decoratedOnClick} >
+      {children}
+    </button>
+  );
+}
 
 function OffCanvasExample({ name, ...props }) {
 
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
+  const [list, setList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState("");
 
   const handleClose = () => !load?setShow(false):null;
-  const toggleShow = () => setShow((s) => !s);
-  const navStyles = {color:'white', textDecoration:'none', fontSize:30}
+  const toggleShow = () => setOpen((s) => !s);
+  const navStyles = {color:'white', textDecoration:'none', fontSize:22, fontWeight:400, lineHeight:2}
   
-  const {data:session} = useSession();
   const router = useRouter();
   const cart = useSelector((state) => state.cart.value);
 
   const [showOffers, setShowOffers] = useState(false);
-  const currencyList = useSelector((state) => state.currency.value);
-  const conversion = useSelector((state) => state.currency.conversion);
+  // const currencyList = useSelector((state) => state.currency.value);
+  // const conversion = useSelector((state) => state.currency.conversion);
+
+  useEffect(() => {
+    // let values = Cookies.get("token");
+    // if(values){
+    //   setImage(JSON.parse(values)?.picture)
+    // }
+    axios.get(process.env.NEXT_PUBLIC_GET_ALL_CITIES)
+    .then((x)=>{
+      let tempList = [];
+      tempList = x?.data?.result?.map((y, i)=>{
+        return {
+          name:y.name,
+          url:`/activities?destination=uae&city=${y.name}&category=`
+        }
+      });
+      setList(tempList)
+    })
+  }, [])
+
+  const [countdown, setCountdown] = useState(1);
+  const [changeTag, setChangeTag] = useState(false);
+  
+  useEffect(() => {
+    let timeout;
+    if (countdown < 1000) {
+      timeout = setTimeout(() => {
+        setCountdown(countdown + 1);
+      }, 1000);
+    }
+    countdown%10==0?setChangeTag(!changeTag):null;
+    return () => clearTimeout(timeout);
+  }, [countdown]);
+
+  const logout = ()=>{
+    setLoad(true); 
+    Cookies.remove("token"); 
+    Router.reload("/")
+  }
 
   return (
     <>
-    <Container fluid="true" style={{backgroundColor:'rgb(8, 78, 77)', color:'white'}}>
-      <Row style={{fontSize:12}} className='pb-1 px-2'>
-        <Col xs={6}>
-          <FaPhoneAlt style={{position:'relative', top:1, fontSize:10}}/>
-          <span className='mx-1' style={{position:'relative', top:2}}>+ 971  50 337 4890</span>
-        </Col>
-        <Col xs={6} className='px-1 text-end'>
-          <FaRegEnvelopeOpen style={{fontSize:10}}/><span className='mx-1' style={{position:'relative', top:2}}>booking@ticketsvalley.com</span>
-        </Col>
-      </Row>
-    </Container>
     <Container>
       <Row className='py-2'>
-        <Col xs={3} className='text-start'>
-          <CgMenuLeft onClick={toggleShow} style={{fontSize:25, color:'#21a69b', marginTop:11}}/>
+        <Col xs={4} className='text-start pt-3'>
+          <CgMenuLeft onClick={toggleShow} color='#194e9e' size={23}/>
         </Col>
-        <Col xs={6} className='text-center'>
+        <Col xs={4} className='text-center'>
         <img src={'/images/logo.png'} height={50} style={{position:'relative', right:10}} onClick={()=>router.push("/")} alt='logo' />
         </Col>
-        <Col xs={3} className='text-end'>
-          <div onClick={()=>router.push("/cart")} style={{color:'#21a69b', marginTop:11}}>
-           <span style={{fontSize:12}} >{`(${cart.length})`}</span><HiShoppingCart size={23} />
+        <Col xs={4} className='text-end'>
+          <div className='mt-3'>
+           <span className='mx-2 grey-txt-2'>{`(${cart.length})`}<HiShoppingCart color='#194e9e' size={23} onClick={()=>router.push("/cart")} /></span>
+            {/* {user.loggedIn && <img src={user.picture} style={{height:22, borderRadius:100}} />}
+            {!user.loggedIn && <FaUserCircle color='#194e9e' size={21} style={{position:'relative', bottom:1}} onClick={()=>router.push("/auth")} />} */}
           </div>
-          {/* <FaUser style={{fontSize:16, color:'#21a69b'}}/> */}
         </Col>
       </Row>
     </Container>
 
-    <Offcanvas show={show} onHide={handleClose} {...props} >
-      <Offcanvas.Header closeButton style={{backgroundColor:'#21a69b'}}>
-        <Offcanvas.Title style={{color:'white'}}>Menu</Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body style={{backgroundColor:'#21a69b'}}>
-        {!load &&<>
-          <div className='text-center navBar'>
-            <div className='mt-3'></div>
-            <Link style={navStyles} href='/' >Home</Link><br/><br/>
-            <Link style={navStyles} href={{pathname:'/search',  query:{destination:"uae", city:"Dubai City", category:'Water Parks' }}} >Activities</Link><br/><br/>
-            <Link style={navStyles} href='/about' >About</Link><br/><br/>
-            {!session &&
-              <span className='cur mx-2' style={navStyles}
-                  onClick={()=>{
-                      //This Logic sets the redirected URL to get back to this page
-                      setLoad(true);
-                      if(Object.keys(router.query).length>0){
-                        Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
-                      }
-                      else {
-                        Cookies.set("redirect",`${router.pathname}`) 
-                      }
-                      signIn();
-                  }}
-              >My Login</span>
-            }
-            {session &&
-              <>
-              <div style={navStyles} onClick={()=>router.push('/myBookings')}>
-                  My Bookings
-              </div><br/>
-              {/* <div style={navStyles} onClick={async()=>{ await handleClose(); setShowOffers(true)}}>
-                  My Offers
-              </div><br/> */}
-              <div style={navStyles} onClick={()=>{setLoad(true); signOut()}}>
-                  Logout
-              </div>
-              </>
-            }
-          </div>
-        </>}
-        {load &&<>
-          <div className='text-center' style={{paddingTop:'70%', color:'white'}} >
-            <Spinner size='lg' />
-            <p style={{margin:15, fontSize:22}}>Please Wait...</p>
-          </div>
-        </>}
-      </Offcanvas.Body>
-    </Offcanvas>
+    <Drawer 
+      style={{backgroundColor:'#21a69b'}}
+      title={<h4 className="wh-txt pt-2">Menu</h4>}
+      placement={"left"}
+      onClose={()=>setOpen(false)}
+      open={open}
+      width={"56%"}
+    >
+    <div>
+    {!load &&
+      <div className='navBar'>
+        <div className='mt-3'></div>
+        <Link style={navStyles} href='/'>Home</Link><br/>
+        {/* <Link style={navStyles} href={{pathname:'/activities'}} >Activities</Link><br/><br/> */}
+        <Accordion defaultActiveKey="3">
+          <Link style={navStyles} href={{pathname:'/activities'}}>Destination</Link>
+          <ContextAwareToggle eventKey="0">
+            <DownCircleOutlined style={{color:'white', position:'relative', bottom:2, fontSize:20}} />
+          </ContextAwareToggle>
+          <Accordion.Collapse 
+            eventKey="0" 
+          >
+            <div className='wh-txt'>
+              {list?.length>0 && list?.map((x, i)=>{
+                return(
+                  <div key={i} className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push(x.url)}>- {x.name}</div>
+                )
+              })}
+            </div>
+          </Accordion.Collapse>
+          <br/>
+          <Link style={navStyles} href={{pathname:'/activities'}} >Activities</Link>
+          <ContextAwareToggle eventKey="1">
+            <DownCircleOutlined style={{color:'white', position:'relative', bottom:1, fontSize:20}} />
+          </ContextAwareToggle>
+          <Accordion.Collapse 
+            eventKey="1" 
+          >
+            <div className='wh-txt'>
+            <div className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push('/activities?destination=&city=&category=Adventure')}>   - Adventure Tours</div>
+            <div className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push('/activities?destination=&city=&category=Water+Parks')}> - Water Parks  </div>
+            <div className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push('/activities?destination=&city=&category=Family+Fun')}>  - Family Fun    </div>
+            <div className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push('/activities?destination=&city=&category=Theme+Parks')}> - Theme Parks  </div>
+            <div className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push('/activities?destination=&city=&category=City+Tours')}>  - City Tours    </div>
+            <div className='mx-2 p-1 fw-500 fs-20' onClick={()=>router.push('/activities?destination=&city=&category=Luxury+Tours')}>- Luxury Tours</div>
+            </div>
+          </Accordion.Collapse>
+          <br/>
+        </Accordion>
+        {/* <Link style={navStyles} href='/hotels' >Hotels</Link><br/> */}
+        {/* <Link style={navStyles} href='/visa' >Visa</Link><br/> */}
+        <Link style={navStyles} href='/about' >About</Link><br/>
+        <Link style={navStyles} href='/contact' >Contact</Link><br/>
+          {/* {!user.loggedIn &&
+            <span className='cur' style={navStyles}
+            onClick={()=>{
+              // This Logic sets the redirected URL to get back to this page
+              if(Object.keys(router.query).length>0){ 
+                Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
+              }
+              else { 
+                Cookies.set("redirect",`${router.pathname}`) 
+              }
+              router.push("/auth")
+            }}
+          >My Login</span>
+          } */}
+
+
+        
+      </div>
+    }
+    {load &&
+      <div className='text-center' style={{paddingTop:'70%', color:'white'}} >
+        <Spinner size='lg' />
+        <p style={{margin:15, fontSize:22}}>Please Wait...</p>
+      </div>
+    }
+    </div>
+    </Drawer>
 
     <hr className='p-0 m-0' />
-    {showOffers &&  <>
-      <Modal title="My Offers" 
-      scroll={false} 
-      backdrop={true} 
-      open={showOffers} 
-      centered 
-      onCancel={()=>setShowOffers(false)} footer={false}>
-          <hr/>
-          <MyOffers selectable={false} email={session?.user.email} />
+    {showOffers && 
+      <Modal 
+        title="My Offers" 
+        centered 
+        scroll={false} 
+        backdrop={true} 
+        open={showOffers} 
+        footer={false}
+        onCancel={()=>setShowOffers(false)}
+      >
+        <hr/>
       </Modal>
-    </>}
+    }
     </>
   );
 }
 
-export default function Mobile() {
+export default function Mobile(){
   return (
     <>
       <OffCanvasExample scroll={false} backdrop={true} />

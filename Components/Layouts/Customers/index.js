@@ -69,7 +69,7 @@ const Customers = ({data, promoData}) => {
                 </td>
                 <td className='px-4'>
                     {x.name}<br/>
-                    {x.BookedTours[0]?.customerContact||<span className='grey-txt-2'>No Contact</span>}
+                    {x?.BookedTours?.length>0 && x.BookedTours[0]?.customerContact||<span className='grey-txt-2'>No Contact</span>}
                 </td>
                 <td><MailOutlined style={{position:'relative', bottom:3}} className='mx-2' />{x.email}</td>
                 <td>
