@@ -78,14 +78,14 @@ const Tours = ({records, size, index, price, search, setSearch, duration, Filter
                 </div>
                 <hr className={size.width>600?`px-5 mt-1 mb-0`:`py-0 my-0`} />
                 {/* <Rate disabled defaultValue={x.rating} allowHalf style={{color:'#f0a800', cursor:'pointer', fontSize:size.width>600?10:7}} className={`${size.width>600?"mx-2":""}`} />  */}
-                {x.reviews==0?'':<span className='fs-10 silver-txt'>{"("}{x.reviews} reviews{")"}</span>}  
+                {/* {x.reviews==0?'':<span className='fs-10 silver-txt'>{"("}{x.reviews} reviews{")"}</span>}   */}
                 {size.width>600?
                 <div className='px-2'>
                   <div className='mt-4' style={{float:'left', fontWeight:500, fontSize:22}}>{parseFloat(x.price).toFixed(2)} AED</div>
                   <Link href={`/product/${x.slug}`} className='search-box-btn px-3 mt-4 py-2' style={{float:'right', textDecoration:'none', color:'white'}}
                   >BOOK NOWs</Link>
                 </div>:
-                <div className='mt-2'>
+                <div className='mt-3'>
                   <div style={{float:'left', fontWeight:700, fontSize:12}}>
                     {parseFloat(x.price).toFixed(2)} AED
                   </div>

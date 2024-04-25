@@ -7,7 +7,7 @@ import { delay } from "/functions/delay"
 const MobileSearch = () => {
 
     const [options, setOptions] = useState([])
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(null);
     const [show, setShow] = useState(false);
 
     const handleSearch = (e) => {
@@ -37,20 +37,19 @@ const MobileSearch = () => {
   return (
     <div className='hero-bg-01'>
       <div className='home-slider-styles'>
-      <div className='hero-cont top-text pt-5'>
+      <div className='hero-cont top-text pt-4'>
         <div className='text-center'>
-            <h3 className='wh-txt hero-txt-1 fs-40 mt-3'>TICKETS <span className='yellow-txt'>VALLEY</span></h3>
+            <h3 className='wh-txt hero-txt-1 fs-45 mt-3'>TICKETS <br/><span className='yellow-txt'>VALLEY</span></h3>
         </div>
-        <h5 className='wh-txt text-center mt-4'>Search Tours</h5>
       </div>
       {show && 
-      <div className='mt-'>
+      <div className='mt-3'>
         <div className='search-container-mobile py-1'>
             <ConfigProvider theme={{token:{ colorPrimary:'green', borderRadius:0 }}}>
                 <Select style={{width:'65%', textAlign:'left'}}
                     showSearch
                     value={search}
-                    placeholder={"Search Tours"}
+                    placeholder={"Search Tours, Packages, Tickets"}
                     onSearch={handleSearch}
                     onChange={handleChange}
                     dropdownStyle={{

@@ -129,9 +129,12 @@ html, body {
 .wh-txt{ color: white!important; }
 .blue-txt{ color: rgb(8, 78, 77)!important; }
 .lt-blue-txt{ color: #61c7c8!important; }
+.lt-blue-2-txt{ color: #31a0a1!important; }
 .yellow-txt{ color: #ebf13c!important; }
 .green-txt{ color: green!important; }
 
+.fs-7 { font-size: 7px!important; }
+.fs-8 { font-size: 8px!important; }
 .fs-10 { font-size: 10px!important; }
 .fs-11 { font-size: 11px!important; }
 .fs-12 { font-size: 12px!important; }
@@ -890,6 +893,11 @@ div.react-datepicker-wrapper > div > input{
   border-radius: 5px;
 }
 
+.flex{
+  display: flex;
+  align-items: center;
+}
+
 .history-list{
   border-bottom: 1px solid silver;
   //border-radius: 14px;
@@ -900,6 +908,15 @@ div.react-datepicker-wrapper > div > input{
   background-color: rgb(95, 212, 95);
   color: white;
   border: 5px solid green;
+  border-radius: 200px;
+  text-align: center;
+  height: 33px;
+  width: 33px;
+}
+.delete-stoc-number{
+  background-color: rgb(212, 140, 95);
+  color: white;
+  border: 5px solid rgb(128, 17, 0);
   border-radius: 200px;
   text-align: center;
   height: 33px;
@@ -1132,7 +1149,11 @@ div.react-datepicker-wrapper > div > input{
   border-radius: 10px;
   background-color: rgb(44, 168, 174);
   margin: 10px 10px 10px 0px;
-  padding-top: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .orange-btn{

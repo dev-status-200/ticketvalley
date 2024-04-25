@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CSVReader from 'react-csv-reader';
-import { Table, Row, Col, Spinner } from 'react-bootstrap';
+import { Table, Row, Col, Spinner, Form } from 'react-bootstrap';
 import axios from "axios";
 import { Button, Input, Popover } from "antd"
 import Router from 'next/router';
@@ -8,133 +8,151 @@ import { MdOutlineDoDisturbOff, MdRemoveRedEye } from "react-icons/md";
 import cookies from "js-cookie";
 import moment from 'moment';
 import History from './History';
+import AssignedHistory from './AssignedHistory';
+import FullInventory from './FullInventory';
 
 const Inventory = ({inventoryData}) => {
 
-    const [inventory, setInventory] = useState([]);
-    const [qrCodes, setQrCodes] = useState([]);
-    const [codeLoad, setCodeLoad] = useState(false);
-    const [load, setLoad] = useState(false);
-    const [search, setSearch] = useState("");
-    const [qrSearch, setQrSearch] = useState("");
-    const [upload, setUpload] = useState(false);
-    const [inventories, setInventories] = useState([
-        {TourOptions:[
-            {Inventories:[], Histories:[]}
-        ]}
-    ]);
+  const [inventory, setInventory] = useState([]);
+  const [qrCodes, setQrCodes] = useState([]);
+  const [codeLoad, setCodeLoad] = useState(false);
+  const [load, setLoad] = useState(false);
+  const [search, setSearch] = useState("");
+  const [qrSearch, setQrSearch] = useState("");
+  const [upload, setUpload] = useState(false);
+  const [inventories, setInventories] = useState([
+    {TourOptions:[
+      {Inventories:[], Histories:[]}
+    ]}
+  ]);
 
-    const papaparseOptions = {
-        header: true,
-        dynamicTyping: true,
-        skipEmptyLines: true
+  const [ from, setFrom ] = useState(moment().subtract(7, 'days').format("YYYY-MM-DD"));
+  const [ to, setTo ] = useState(moment().format("YYYY-MM-DD"));
+
+  const papaparseOptions = {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true
+  }
+
+  useEffect(() => {
+    setInventories(inventoryData.result); 
+  }, [])
+
+  useEffect(() => {
+    if(inventory.length>0){
+      setUpload(true);
+    } else {
+      setUpload(false);
     }
+  }, [inventory])
 
-    useEffect(() => {
-        setInventories(inventoryData.result); 
-    }, [])
+  const CreateInventory = (data) => {
+    let values = data;
+    values.forEach((x, i)=>{ values[i].TourOptionId =  x.TourOptionId.replace('i', '')})
+    setInventory(values)
+  }
 
-    useEffect(() => {
-        if(inventory.length>0){
-            setUpload(true);
-        } else {
-            setUpload(false);
-        }
-    }, [inventory])
+  const uploadData = async() => {
+    setLoad(true)
+    let loginId = await cookies.get("loginId");
+    let username = await cookies.get("username");
+    let log = ``;
+    log = `user ${username} uploaded a Inventory of ${inventory.length} products on ${moment().format("DD-MMM-YYYY hh:mm A")}`;
+    let codes = [];
+    inventory.forEach((x)=>codes.push(x.code));
+    //console.log(inventory)
+    await axios.post(process.env.NEXT_PUBLIC_CREATE_INVENTORY, {inventory, codes, username})
+    .then((x)=>{
+      //console.log(x.data)
+      Router.push("/inventory");
+    })
+  }
 
-    const CreateInventory = (data) => {
-        let values = data;
-        values.forEach((x, i)=>{ values[i].TourOptionId =  x.TourOptionId.replace('i', '')})
-        setInventory(values)
-    }
+  const showdata = (e) => {
+    let codes = [];
+    e.Inventories.forEach((x)=>{
+        codes.push({...x, check:false})
+    })
+    setQrCodes(codes)
+  }
 
-    const uploadData = async() => {
-        setLoad(true)
-        let loginId = await cookies.get("loginId");
-        let username = await cookies.get("username");
-        let log = ``;
-        log = `user ${username} uploaded a Inventory of ${inventory.length} products on ${moment().format("DD-MMM-YYYY hh:mm A")}`;
-        let codes = [];
-        inventory.forEach((x)=>codes.push(x.code));
-        //console.log(inventory)
-        await axios.post(process.env.NEXT_PUBLIC_CREATE_INVENTORY, {inventory, codes, username})
-        .then((x)=>{
-            //console.log(x.data)
-            Router.push("/inventory");
-        })
-    }
+  const removeCodes = async() => {
+    setCodeLoad(true)
+    let tempCOdes = [];
+    const username = await cookies.get('username')
+    let tourId = ""
+    qrCodes.forEach((x)=>{
+      if(x.check){
+        tempCOdes.push(x.code);
+        tourId==""?
+          tourId = x.TourOptionId:
+          null
+      }
+    })
+    axios.post(process.env.NEXT_PUBLIC_POST_REMOVE_INVENTORY,{
+      codes:tempCOdes,
+      username:username,
+      tourId:tourId
+    })
+    .then((x)=>{
+        // console.log(x.data)
+      Router.push("/inventory")
+    })
+  }
 
-    const showdata = (e) => {
-        let codes = [];
-        e.Inventories.forEach((x)=>{
-            codes.push({...x, check:false})
-        })
-        setQrCodes(codes)
-    }
-
-    const removeCodes = () => {
-        setCodeLoad(true)
-        let tempCOdes = [];
-        qrCodes.forEach((x)=>{
-            if(x.check){
-                tempCOdes.push(x.code)
+  const content = (
+    <>
+      {!codeLoad && <>
+        <Button type="primary" danger size='small' onClick={removeCodes}>Remove</Button>
+        <Input size='small' className='mt-2' onChange={(e)=>setQrSearch(e.target.value)} />
+        <hr className='mt-2' />
+        <div style={{maxHeight:300, overflowY:'auto'}}>
+          {qrCodes.filter((x)=>{
+            if(x.code.toLocaleLowerCase().includes(qrSearch.toLocaleLowerCase()) && qrSearch!=""){
+              return x
+            } else if(qrSearch=="") {
+              return x
             }
-        })
-        axios.post(process.env.NEXT_PUBLIC_POST_REMOVE_INVENTORY,tempCOdes)
-        .then((x)=>{
-            // console.log(x.data)
-            Router.push("/inventory")
-        })
-    }
-
-    const content = (
-      <>
-        {!codeLoad && <>
-          <Button type="primary" danger size='small' onClick={removeCodes}>Remove</Button>
-          <Input size='small' className='mt-2' onChange={(e)=>setQrSearch(e.target.value)} />
-          <hr className='mt-2' />
-          <div style={{maxHeight:300, overflowY:'auto'}}>
-            {qrCodes.filter((x)=>{
-                if(x.code.toLocaleLowerCase().includes(qrSearch.toLocaleLowerCase()) && qrSearch!=""){
-                    return x
-                } else if(qrSearch=="") {
-                    return x
-                }
-            }).map((x, i)=>{
-              return(
-              <div key={x.id} className='cur'
-                onClick={()=>{
-                  let tempState = [...qrCodes];
-                  const index = tempState.findIndex((y)=> y.id==x.id)
-                  tempState[index].check = !tempState[index].check;
-                  setQrCodes(tempState)
-                }}
-              >
-                <input type='checkbox' className='' checked={x.check} /> 
-                <span className='mx-3'>{x.code}</span> 
-              </div>
-            )})}
-          </div>
-        </>}
-        {codeLoad && <Spinner/>}
-      </>
-    );
-
-
+          }).map((x, i)=>{
+            return(
+            <div key={x.id} className='cur'
+              onClick={()=>{
+                let tempState = [...qrCodes];
+                const index = tempState.findIndex((y)=> y.id==x.id)
+                tempState[index].check = !tempState[index].check;
+                setQrCodes(tempState)
+              }}
+            >
+              <input type='checkbox' className='' checked={x.check} /> 
+              <span className='mx-3'>{x.code}</span> 
+            </div>
+          )})}
+        </div>
+      </>}
+      {codeLoad && <Spinner/>}
+    </>
+  );
 
   return (
   <div className='p-0'>
     <Row>
       <Col md={1}>
         <span style={{fontSize:20, fontWeight:500}} className='mx-2'>Inventory</span> 
-        <History/>
       </Col>
       <Col md={2}>
         <Input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder='Search' />
       </Col>
-      <Col md={6}>
+      <Col md={5}>
       </Col>
-      <Col md={2} className='mx-2'>
+      <Col md={3} className='mx-2 flex'>
+        <button 
+          className={`btn-custom mx-3 ${upload?"":"curr-off"}`} 
+          disabled={!upload==true?true:false} 
+          onClick={()=>uploadData()}
+        >
+          {!load?'Upload':<Spinner size='sm' />}
+        </button>
         <CSVReader cssClass="csv-reader-input"
           onFileLoaded={CreateInventory}
           onError={(e)=>console.log(e)}
@@ -143,16 +161,28 @@ const Inventory = ({inventoryData}) => {
           inputName="ObiWan"
           inputStyle={{color: 'grey'}}
         />  
-        <button 
-          className={`btn-custom mt-2 ${upload?"":"curr-off"}`} 
-          disabled={!upload==true?true:false} 
-          onClick={()=>uploadData()}
-        >
-          {!load?'Upload':<Spinner size='sm' />}
-        </button>
       </Col>
     </Row>
-    <hr className='mt-1 mb-2' />
+      <hr/>
+    <Row className='mb-3'>
+    <Col md={'auto'} className='flex'>
+        From:
+        <Form.Control className='mx-1' type={"date"} size="sm" value={from} onChange={(e)=>setFrom(e.target.value)} />
+      </Col>
+      <Col md={'auto'} className='flex'>
+        To:
+        <Form.Control className='mx-1' type={"date"} size="sm" value={to} onChange={(e)=>setTo(e.target.value)} />
+      </Col>
+      <Col md={"auto"}>
+        <History from={from} to={to} />
+      </Col>
+      <Col md={"auto"}>
+        <AssignedHistory from={from} to={to} />
+      </Col>
+      <Col md={"auto"}>
+        <FullInventory from={from} to={to} />
+      </Col>
+    </Row>
     <Row>
       <Col md={12}> 
         <div className='table-sm-1' style={{maxHeight:"60vh", overflowY:'auto', overflowX:'hidden'}}>

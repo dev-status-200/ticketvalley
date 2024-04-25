@@ -23,7 +23,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import AccordionContext from 'react-bootstrap/AccordionContext';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import axios from 'axios';
-
+import { useSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 
 function ContextAwareToggle({ children, eventKey, callback }) {
 
@@ -39,6 +40,7 @@ function ContextAwareToggle({ children, eventKey, callback }) {
 
 function OffCanvasExample({ name, ...props }) {
 
+  const {data:session} = useSession();
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [list, setList] = useState([]);
@@ -88,27 +90,21 @@ function OffCanvasExample({ name, ...props }) {
     return () => clearTimeout(timeout);
   }, [countdown]);
 
-  const logout = ()=>{
-    setLoad(true); 
-    Cookies.remove("token"); 
-    Router.reload("/")
-  }
-
   return (
     <>
     <Container>
       <Row className='py-2'>
         <Col xs={4} className='text-start pt-3'>
-          <CgMenuLeft onClick={toggleShow} color='#194e9e' size={23}/>
+          <CgMenuLeft onClick={toggleShow} color='#31a0a1' size={23}/>
         </Col>
         <Col xs={4} className='text-center'>
         <img src={'/images/logo.png'} height={50} style={{position:'relative', right:10}} onClick={()=>router.push("/")} alt='logo' />
         </Col>
         <Col xs={4} className='text-end'>
           <div className='mt-3'>
-           <span className='mx-2 grey-txt-2'>{`(${cart.length})`}<HiShoppingCart color='#194e9e' size={23} onClick={()=>router.push("/cart")} /></span>
-            {/* {user.loggedIn && <img src={user.picture} style={{height:22, borderRadius:100}} />}
-            {!user.loggedIn && <FaUserCircle color='#194e9e' size={21} style={{position:'relative', bottom:1}} onClick={()=>router.push("/auth")} />} */}
+           <span className='mx-1 grey-txt-2'>{`(${cart.length})`}<HiShoppingCart color='#31a0a1' size={23} onClick={()=>router.push("/cart")} /></span>
+            {session && <img src={session?.user?.image||''} style={{height:22, borderRadius:100}} />}
+            {!session && <FaUserCircle color='#194e9e' size={21} style={{position:'relative', bottom:1}} onClick={()=>router.push("/auth")} />}
           </div>
         </Col>
       </Row>
@@ -120,7 +116,7 @@ function OffCanvasExample({ name, ...props }) {
       placement={"left"}
       onClose={()=>setOpen(false)}
       open={open}
-      width={"56%"}
+      width={"70%"}
     >
     <div>
     {!load &&
@@ -129,7 +125,7 @@ function OffCanvasExample({ name, ...props }) {
         <Link style={navStyles} href='/'>Home</Link><br/>
         {/* <Link style={navStyles} href={{pathname:'/activities'}} >Activities</Link><br/><br/> */}
         <Accordion defaultActiveKey="3">
-          <Link style={navStyles} href={{pathname:'/activities'}}>Destination</Link>
+          <Link style={navStyles} href={{pathname:'/search', query:{destination:"uae", city:"Dubai City"}}}>Destination</Link>
           <ContextAwareToggle eventKey="0">
             <DownCircleOutlined style={{color:'white', position:'relative', bottom:2, fontSize:20}} />
           </ContextAwareToggle>
@@ -145,7 +141,7 @@ function OffCanvasExample({ name, ...props }) {
             </div>
           </Accordion.Collapse>
           <br/>
-          <Link style={navStyles} href={{pathname:'/activities'}} >Activities</Link>
+          <Link style={navStyles} href={{pathname:'/search', query:{destination:"uae", city:"Dubai City"}}}>Activities</Link>
           <ContextAwareToggle eventKey="1">
             <DownCircleOutlined style={{color:'white', position:'relative', bottom:1, fontSize:20}} />
           </ContextAwareToggle>
@@ -167,7 +163,9 @@ function OffCanvasExample({ name, ...props }) {
         {/* <Link style={navStyles} href='/visa' >Visa</Link><br/> */}
         <Link style={navStyles} href='/about' >About</Link><br/>
         <Link style={navStyles} href='/contact' >Contact</Link><br/>
-          {/* {!user.loggedIn &&
+        <div style={{position:'absolute', bottom:10, width:'85%'}}>
+          <hr className='mb-1' />
+          {!session &&
             <span className='cur' style={navStyles}
             onClick={()=>{
               // This Logic sets the redirected URL to get back to this page
@@ -177,13 +175,12 @@ function OffCanvasExample({ name, ...props }) {
               else { 
                 Cookies.set("redirect",`${router.pathname}`) 
               }
-              router.push("/auth")
+              signIn()
             }}
           >My Login</span>
-          } */}
-
-
-        
+          }
+          {session && <Link style={navStyles} href='/myBookings'>My Bookings</Link>}
+        </div>
       </div>
     }
     {load &&

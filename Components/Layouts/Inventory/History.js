@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { HistoryOutlined } from '@ant-design/icons';
-import { Modal } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
+import { Modal, Button } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
 
-const History = () => {
+const History = ({to, from}) => {
 
     const [load, setLoad] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -13,7 +13,11 @@ const History = () => {
     const getHistpry = async() => {
         setLoad(true);
         setVisible(true)
-        await axios.get(process.env.NEXT_PUBLIC_GET_INVENTORY_HISTORY)
+        await axios.get(process.env.NEXT_PUBLIC_GET_INVENTORY_HISTORY,{
+            headers:{
+                from:from, to:to
+            }
+        })
         .then((x)=>{
             setData(x.data.result);
             setLoad(false);
@@ -22,35 +26,35 @@ const History = () => {
 
   return (
     <>
-    <div className='p-2 row-hov' onClick={()=>getHistpry()}>
-        History <HistoryOutlined style={{position:'relative', bottom:2}}  />
-    </div>
+    <button className='flex btn-custom' onClick={()=>getHistpry()}>
+        History <DownloadOutlined className='mx-2' />
+    </button>
     <Modal
         centered
         open={visible}
         onOk={() => setVisible(false) }
         onCancel={() => setVisible(false) }
-        width={600}
+        width={700}
         footer={[]}
     >
     {visible && <>
         <div>
             <h5>Upload History</h5><hr/>
-
             {load && <div className='text-center py-5' > <Spinner className='my-5' /> </div>}
-
             {!load && 
-            <div style={{maxHeight:300, overflowY:"auto"}}>
+            <div style={{maxHeight:500, overflowY:"auto"}}>
             {data.map((x, i)=>{
                 return(
                     <div key={i} className='history-list'>
-                        <div style={{float:'right'}} className='stock-number'>{x.stock}</div>
+                        <div style={{float:'right'}} className={x.type!="Delete"?'stock-number':"delete-stoc-number"}>{x.stock}</div>
                         <div><b>By: {x.by}</b></div>
                         <div>Product {x.TourOption.Tour.title}</div> 
                         <span>Option: {x.TourOption.name}</span>
-                        <div style={{float:'right'}} className='silver-txt px-2 py-1'>
+                        <div style={{float:'right'}} className='grey-txt-2 px-2 py-1'>
                             <div className='fs-12'>
-                                {moment(x.createdAt).format("DD-MM-YYYY hh:mm:ss A" )}
+                                {moment(x.createdAt).format("YYYY- MMM -DD")}
+                                <span className='mx-1'></span>
+                                {moment(x.createdAt).format("hh:mm:ss A" )}
                             </div>
                         </div>
                     </div>

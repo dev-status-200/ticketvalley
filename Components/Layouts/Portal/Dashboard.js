@@ -60,7 +60,7 @@ const Dashboard = ({sessionData, insights}) => {
       let initialValue = 0
       //let obj = [{n: 5}, {n: 9}, {n: 13}, {n: 25}, {n: 40}]
       let sum = x.data.result.reduce(function (accumulator, curValue) {
-          return accumulator + parseFloat(curValue.final_price) 
+        return accumulator + parseFloat(curValue.final_price) 
       }, initialValue)
       setTotal(sum);
     })
@@ -71,7 +71,7 @@ const Dashboard = ({sessionData, insights}) => {
     <Row>
       <Col md={2}>
         <button className='btn-custom p-2 px-4 mt-3' 
-        onClick={()=>fetchSalesReport()}>Get Report</button>
+        onClick={()=>fetchSalesReport()}>Get General Report</button>
       </Col>
         <Col md={2} >
             From: <Form.Control  type={"date"} size="sm" value={from} onChange={(e)=>setFrom(e.target.value)} />

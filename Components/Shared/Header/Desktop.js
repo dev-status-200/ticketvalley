@@ -90,16 +90,16 @@ const Header = () => {
             <a className='cur mx-1' style={{color:'grey'}}><FaSquareXTwitter size={13} /></a> */}
             {!session &&
             <span className='cur' style={{position:'relative', top:2}}
-                onClick={()=>{
-                    // This Logic sets the redirected URL to get back to this page
-                    if(Object.keys(router.query).length>0){ 
-                        Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
-                    }
-                    else { 
-                            Cookies.set("redirect",`${router.pathname}`) 
-                    }
-                    signIn();
-                }}
+              onClick={()=>{
+                // This Logic sets the redirected URL to get back to this page
+                if(Object.keys(router.query).length>0){ 
+                  Cookies.set("redirect",`${router.pathname}?id=${router.query.id}`)  
+                }
+                else { 
+                  Cookies.set("redirect",`${router.pathname}`) 
+                }
+                signIn();
+              }}
             ><AiOutlineUser size={15} style={{marginLeft:0, position:'relative', bottom:3, marginRight:4}} /> My Login</span>
             }
             {session &&
