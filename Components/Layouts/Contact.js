@@ -92,11 +92,7 @@ const Contact = () => {
         <div className={`mb-2 fw-700 fs-${size.width>600?"45":"30"} black-txt`} style={{lineHeight:1}}>HAVE ANY <span className='blue-txt'>QUESTIONS?</span></div>
         <div className={`mb-5 fw-600 fs-${size.width>600?"35":"25"} black-txt`} style={{lineHeight:1}}>FEEL FREE TO REACH OUT</div>
         <p className='grey-txt fs-18' style={{maxWidth:'75%'}}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1600s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-          It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-          It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        Have questions or need assistance with scheduling your trip? Do not hesitate to get in touch with us. Our team is here to assist you every step of the way, ensuring that your travel experience is hassle-free and memorable.
         </p>
         <p className='grey-txt fs-18'>Our Contact Form is Below</p>
         {size.width>600 && <div className='pt-5'></div>}

@@ -16,8 +16,8 @@ import { Drawer } from "antd";
 import { Dropdown, Popover, Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import MyOffers from "/Components/Shared/MyOffers";
-
+// import MyOffers from "/Components/Shared/MyOffers";
+import { HiLogout } from "react-icons/hi";
 import { useContext } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import AccordionContext from 'react-bootstrap/AccordionContext';
@@ -104,7 +104,7 @@ function OffCanvasExample({ name, ...props }) {
           <div className='mt-3'>
            <span className='mx-1 grey-txt-2'>{`(${cart.length})`}<HiShoppingCart color='#31a0a1' size={23} onClick={()=>router.push("/cart")} /></span>
             {session && <img src={session?.user?.image||''} style={{height:22, borderRadius:100}} />}
-            {!session && <FaUserCircle color='#194e9e' size={21} style={{position:'relative', bottom:1}} onClick={()=>router.push("/auth")} />}
+            {!session && <FaUserCircle color='#31a0a1' size={21} style={{position:'relative', bottom:1}} onClick={()=>router.push("/auth")} />}
           </div>
         </Col>
       </Row>
@@ -123,7 +123,6 @@ function OffCanvasExample({ name, ...props }) {
       <div className='navBar'>
         <div className='mt-3'></div>
         <Link style={navStyles} href='/'>Home</Link><br/>
-        {/* <Link style={navStyles} href={{pathname:'/activities'}} >Activities</Link><br/><br/> */}
         <Accordion defaultActiveKey="3">
           <Link style={navStyles} href={{pathname:'/search', query:{destination:"uae", city:"Dubai City"}}}>Destination</Link>
           <ContextAwareToggle eventKey="0">
@@ -159,14 +158,12 @@ function OffCanvasExample({ name, ...props }) {
           </Accordion.Collapse>
           <br/>
         </Accordion>
-        {/* <Link style={navStyles} href='/hotels' >Hotels</Link><br/> */}
-        {/* <Link style={navStyles} href='/visa' >Visa</Link><br/> */}
         <Link style={navStyles} href='/about' >About</Link><br/>
         <Link style={navStyles} href='/contact' >Contact</Link><br/>
         <div style={{position:'absolute', bottom:10, width:'85%'}}>
-          <hr className='mb-1' />
+          {/* <hr className='mb-1' /> */}
           {!session &&
-            <span className='cur' style={navStyles}
+            <span className='cur' style={{color:'white', fontSize:17}}
             onClick={()=>{
               // This Logic sets the redirected URL to get back to this page
               if(Object.keys(router.query).length>0){ 
@@ -179,7 +176,12 @@ function OffCanvasExample({ name, ...props }) {
             }}
           >My Login</span>
           }
-          {session && <Link style={navStyles} href='/myBookings'>My Bookings</Link>}
+          {session && <div>
+            <Link style={{color:'white', fontSize:17, textDecoration:'none'}} href='/myBookings'>My Bookings</Link>
+            <span style={{color:'white', fontSize:22}} className='mx-3'>|</span>
+            <span style={{color:'white', fontSize:17}} onClick={()=>signOut()}>Logout <HiLogout style={{position:'relative', bottom:2, right:4}}/></span>
+          </div>
+          }
         </div>
       </div>
     }

@@ -4,6 +4,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import Link from 'next/link';
 import { notification } from 'antd';
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const Desktop = () => {
 
@@ -18,9 +19,13 @@ const Desktop = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    openNotificationWithIcon('success');
-    setEmail("")
-  };
+    axios.post(process.env.NEXT_PUBLIC_POST_CREATE_NEWS_LETTER_CUSTOMER,{
+      email:email
+    }).then((x)=>{
+      openNotificationWithIcon('success');
+      setEmail("")
+    })
+  }
 
   return (
   <div className='footer-styles'>

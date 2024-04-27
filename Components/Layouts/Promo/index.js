@@ -2,12 +2,15 @@ import { Row, Col, Table, Spinner } from 'react-bootstrap';
 import React, { useEffect, useReducer } from 'react';
 import { EditOutlined, StopOutlined, EyeOutlined } from '@ant-design/icons';
 import CreateOrEdit from './CreateOrEdit';
-import { Modal } from 'antd';
+import { Modal, Switch } from 'antd';
 import axios from 'axios';
 import Router from 'next/router';
 
 function recordsReducer(state, action){
   switch (action.type) {
+    case 'set': { 
+      return { ...state, ...action.payload } 
+    }
     case 'toggle': { 
       return { ...state, [action.fieldName]: action.payload } 
     }
@@ -50,6 +53,7 @@ const baseValues = {
 const initialState = {
   records: [],
   load:false,
+  type:'active',
   toggleLoad:false,
   visible:false,
   edit:false,
@@ -67,6 +71,23 @@ const Transport = ({promoData}) => {
     dispatch({type:"toggle", fieldName:"records", payload:promoData.result})
   }, [])
 
+  const getPromos = async() => {
+    dispatch({type:"toggle", fieldName:"toggleLoad", payload:true})
+    await axios.get(process.env.NEXT_PUBLIC_GET_ALL_PROMO,{headers:{type:state.type=='active'?'non-active':'active'}})
+    .then((x) => {
+      dispatch({
+        type:"set", 
+        payload:{
+          toggleLoad:false,
+          type:state.type=='active'?
+            'non-active':
+            'active',
+          records:x.data.result
+        }
+      });
+    });
+  }
+
   const toggleVisibility = (data) => {
     dispatch({type:"toggle", fieldName:"toggleLoad", payload:true})
     axios.post(process.env.NEXT_PUBLIC_POST_TOGGLE_PROMO,{
@@ -83,11 +104,14 @@ const Transport = ({promoData}) => {
       <Col md={2}>
         <h5>Promo Codes</h5>
       </Col>
-      <Col md={9} className='text-end'>
-        {state.toggleLoad && <Spinner/>}
+      <Col md={8} className='text-end'>
+        {state.toggleLoad && <Spinner size="sm" />}
       </Col>
       <Col md={1}>
-        <button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button>
+        {!state.toggleLoad && <button className='btn-custom right' onClick={()=>dispatch({type:'create'})}>Create</button>}
+      </Col>
+      <Col md={1}>
+        <Switch checked={state.type=="active"?true:false} onChange={getPromos} />
       </Col>
     </Row>
     <Row>
