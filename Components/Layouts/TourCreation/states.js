@@ -122,6 +122,9 @@ const initialState = {
   inclusion:"",
   inclusions:[],
 
+  exclusion:"",
+  exclusions:[],
+
   why_should:"",
   why_shoulds:[],
 

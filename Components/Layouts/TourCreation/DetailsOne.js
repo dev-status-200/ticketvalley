@@ -122,10 +122,55 @@ const DetailsOne = ({register, control, state, setValues, dispatch}) => {
             }
         </Col>
         <Col className='px-4'>
+        <div className='mt-4'>Exclusions</div>
+        <Row>
+            <Col md={9}>
+            <Input className='mb-2' placeholder="Type Exclusions" value={state.exclusion} 
+                onChange={(e)=>setValues(e.target.value,'exclusion')} 
+            />
+            </Col>
+            <Col md={3}>
+                <div className='btn-custom text-center'
+                    onClick={()=>{
+                    if(state.exclusion!=""){
+                        // console.log(state)
+                        let tempState = [...state?.exclusions];
+                        tempState.push(state.exclusion)
+                        console.log(tempState)
+                        dispatch({type: 'field', fieldName: 'exclusions', payload: tempState });
+                        setValues("",'exclusion')
+                    }}}>
+                    Add
+                </div>
+            </Col>
+        </Row>
+        {
+        state.exclusions?.map((x, i)=>{
+            return(
+            <Row key={i} className='my-2'>
+                <Col md={"auto"}>
+                    <UpCircleOutlined className='row-hov' onClick={()=>ValueUpshift('exclusions', state.exclusions, i)} />
+                    <br/>
+                    <DownCircleOutlined className='row-hov' onClick={()=>ValueDownshift('exclusions', state.exclusions, i)} />
+                </Col>
+                <Col className='list-items'>{x}</Col>
+                <Col md={1} className='py-2'>
+                    <CloseCircleOutlined className='cross-icon' 
+                    onClick={()=>{
+                        let tempState = [...state.exclusions];
+                        tempState.splice(i,1);
+                        dispatch({ type: 'field', fieldName: 'exclusions', payload: tempState })
+                    }}/>
+                </Col>
+            </Row>
+            )
+        })
+        }
+        <hr className='my-4' />
         <div className='mt-4'>Cancellation Policy</div>
         <Row>
             <Col md={9}>
-            <Input className='mb-2' placeholder="Type Booking Policy" value={state.cancellation_policy} 
+            <Input className='mb-2' placeholder="Type Cancellation Policy" value={state.cancellation_policy} 
                 onChange={(e)=>setValues(e.target.value,'cancellation_policy')} 
             />
             </Col>

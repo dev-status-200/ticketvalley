@@ -98,7 +98,7 @@ const PackageOptions = ({register, control, state, setValues, dispatch}) => {
           </Row>
         </Row>
       </Col>
-      <Col className='px-4'>
+      <Col className='px-4' style={{maxHeight:'64vh', overflowY:'auto'}}>
         <div className='mt-4'>Per Day Detail</div>
         <Row>
         <Col md={9}>

@@ -56,6 +56,20 @@ const Details = ({tour, detail}) => {
           )
         })}
       </div>
+      {detail?.exclusions?.length>10 && <>
+      <hr/>
+      <div className=''>
+        <h3 className='blue-txt'><b>Exclusions</b></h3>
+        {detail?.exclusions?.split("//")?.map((x, i)=>{
+          return(
+          <Row key={i}>
+            <Col style={{minWidth:30, maxWidth:30}}><TbPoint className='mx-1 mt-1 blue-txt' size={20} /></Col>
+            <Col className='my-1'><div className='fs-13 grey-txt'>{x}</div></Col>
+          </Row>
+          )
+        })}
+      </div>
+      </>}
       <hr/>
       <div className=''>
         <h3 className='blue-txt'><b>Important Information</b></h3>

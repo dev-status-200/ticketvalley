@@ -2,7 +2,7 @@ import React, { useReducer, useMemo } from 'react';
 import { Row, Col, Form, Spinner } from 'react-bootstrap';
 import { Modal, Switch } from 'antd';
 import BookingInfo from './BookingInfo';
-import { EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined, StarOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
 import { AgGridReact } from "ag-grid-react";
@@ -96,6 +96,7 @@ const Bookings = () => {
             tempBookings.push({
               ...z,
               id:x.id,
+              uncheck:x.uncheck,
               payment_intent:x.payment_intent,
               payment_intent_client_secret:x.payment_intent_client_secret,
               promo:x.promo,
@@ -152,17 +153,40 @@ const Bookings = () => {
     };
   }, []);
 
+  const uncheckRecord = (data) => {
+    axios.post(process.env.NEXT_PUBLIC_POST_UN_CHECK_BOOKING,{
+      id:data.id
+    })
+    dispatch({type:'select', payload:data})
+  }
+
   const colDefs = [
     { 
       headerName:"", 
       floatingFilter: false,
-      cellRenderer:(params)=> <EyeOutlined className='cur row-hov lt-blue-txt' onClick={()=>dispatch({type:'select', payload:params.data})} />,
+      cellRenderer:(params)=> <EyeOutlined className='cur row-hov lt-blue-txt' onClick={()=>uncheckRecord(params.data)} />,
       width:20
     },
-    { headerName:"No.#", field: "booking_no",
+    { headerName:"No.", field: "booking_no",
       cellRenderer:(p)=>`#${p.value}`,
       valueGetter:(p)=> parseInt(p.data.booking_no),
-      width:100
+      width:75
+    },
+    { headerName:"Recent",
+      field: "uncheck",
+      width:90,
+      valueGetter:(p)=> p.data.uncheck=='1'?'New':'Old',
+      cellRenderer:(p)=><div>
+        {p.value=="New"?
+          <StarOutlined 
+            style={{
+              backgroundColor:'#3FBADA', borderRadius:100,
+              color:'white', padding:3
+            }} 
+          />
+          :''
+        }
+      </div>,
     },
     { field: "site",
     width:100,
@@ -229,8 +253,8 @@ const Bookings = () => {
       <Col md={4}><h5>Bookings</h5></Col>
       <Col md={1}></Col>
       <Col md={2} className='d-flex'>
-          <div className='py-1 mx-1'>From: </div>
-          <Form.Control type={"date"} size="sm" value={state.from} onChange={(e)=>dispatch({type:"set", payload:{from:e.target.value}})} />
+        <div className='py-1 mx-1'>From: </div>
+        <Form.Control type={"date"} size="sm" value={state.from} onChange={(e)=>dispatch({type:"set", payload:{from:e.target.value}})} />
       </Col>
       <Col md={2} className='d-flex'>
         <div className='py-1 mx-1'>To: </div>

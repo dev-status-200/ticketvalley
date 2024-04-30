@@ -53,6 +53,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
       state.imp_infos = tempState?.imp_infos?.split("//");
       state.why_shoulds = tempState?.why_shoulds?.split("//");
       state.inclusions = tempState?.inclusions?.split("//");
+      state.exclusions = tempState?.exclusions?.split("//")||[];
       state.packageDetail = tempState?.travelDetail?.split("//");
       state.stock = tempState.stock;
       state.dated = tempState.dated;
@@ -77,6 +78,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           cancellation_polices:["In case Tours or Tickets cancelled after Booking 100 % charges will be applicable."],
           imp_infos:[],
           why_shoulds:[],
+          exclusions:[],
           inclusions:[],
           more_images:[],
           prev_images:[],
@@ -184,6 +186,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
           main_image:cover==null?"a":cover,
           more_images:values.length>0? values.toString():"a",
           inclusions:makeString(state.inclusions),
+          exclusions:makeString(state.exclusions),
           why_shoulds:makeString(state.why_shoulds),
           imp_infos:makeString(state.imp_infos),
           policies:makeString(state.policies),
@@ -244,6 +247,7 @@ const CreateOrEdit = ({productData, id, packageType}) => {
         deleted_images:state.deleted_images,
         more_images:values.length>0?values.toString():'',
         inclusions:makeString(state.inclusions),
+        exclusions:makeString(state.exclusions),
         why_shoulds:makeString(state.why_shoulds),
         imp_infos:makeString(state.imp_infos),
         policies:makeString(state.policies),
