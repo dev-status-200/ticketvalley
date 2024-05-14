@@ -74,10 +74,10 @@ const Dashboard = ({sessionData, insights}) => {
         onClick={()=>fetchSalesReport()}>Get General Report</button>
       </Col>
         <Col md={2} >
-            From: <Form.Control  type={"date"} size="sm" value={from} onChange={(e)=>setFrom(e.target.value)} />
+          From: <Form.Control  type={"date"} size="sm" value={from} onChange={(e)=>setFrom(e.target.value)} />
         </Col>
         <Col md={2}>
-            To: <Form.Control type={"date"} size="sm" value={to} onChange={(e)=>setTo(e.target.value)} />
+          To: <Form.Control type={"date"} size="sm" value={to} onChange={(e)=>setTo(e.target.value)} />
         </Col>
     </Row>
     <hr/> 
@@ -136,7 +136,7 @@ const Dashboard = ({sessionData, insights}) => {
             <th>No.</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Date</th>
+            <th>Booking Date</th>
             <th>Price</th>
           </tr>
         </thead>
