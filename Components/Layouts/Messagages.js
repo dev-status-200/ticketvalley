@@ -96,39 +96,35 @@ const Messagages = ({}) => {
       <Col md={12}>
         <div className='table-sm-1 mt-3' style={{maxHeight:500, overflowY:'auto'}}>
           <Table className='tableFixHead'>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Message</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-          {state?.records?.map((x, index) => {
-            return (
-            <tr key={index} className='f row-hov'
-              onClick={()=> {
-                // dispatch({type:"toggle", fieldName:"selectedRecord", payload:x})
-                // dispatch({type:"toggle", fieldName:"visible", payload:true})
-                dispatch({type:"set", payload:{
-                  selectedRecord:x,
-                  visible:true
-                }})
-              }}
-            >
-              <td> {index+1} </td>
-              <td> {x.name} </td>
-              <td> {x.email} </td>
-              <td> <div style={{whiteSpace:'pre-wrap'}}>{x.msg.slice(0, 30)}...</div> </td>
-              <td> {x.status=='1'?<span className='green-txt'>Done</span>:<span className='grey-txt-2'>Pending</span>} </td>
-              <td> {moment(x.createdAt).format("YYYY/MMM/ddd")} </td>
-            </tr>
-            )
-          })}
-          </tbody>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+            {state?.records?.map((x, index) => {
+              return (
+              <tr key={index} className='f row-hov' onClick={()=> {
+                  dispatch({type:"set", payload:{
+                    selectedRecord:x,
+                    visible:true
+                  }})
+                }}
+              >
+                <td> {index+1} </td>
+                <td> {x.name} </td>
+                <td> {x.email} </td>
+                <td> <div style={{whiteSpace:'pre-wrap'}}>{x?.msg?.slice(0, 30)||''}...</div> </td>
+                <td> {x.status=='1'?<span className='green-txt'>Done</span>:<span className='grey-txt-2'>Pending</span>} </td>
+                <td> {moment(x.createdAt).format("YYYY/MMM/ddd")} </td>
+              </tr>
+            )})}
+            </tbody>
           </Table>
         </div>
       </Col>
