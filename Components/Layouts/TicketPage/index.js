@@ -148,7 +148,7 @@ const TicketPage = ({ticketData, bookingNo}) => {
                             setTickets(temp);
                             selectTour(x, y);
                         }
-                        await delay(2000);
+                        await delay(4000);
                         setLoad(false);
                     }}
                 >
