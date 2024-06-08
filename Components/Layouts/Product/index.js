@@ -185,9 +185,9 @@ const Product = ({tourData, id}) => {
     {!book && <Loader/>}
     { book &&
     <>
-      <Container className='' >
+      <Container>
         <Row className='p'>
-          <Col md={8} className=''>
+          <Col md={8}>
             <Images tour={tour} detail={detail} data-aos="fade-right" />
             {size.width<=600 && <>
             <hr/>
@@ -202,6 +202,7 @@ const Product = ({tourData, id}) => {
               <BookComp />
             </>
             }
+            {tour.duration &&
             <div className='tour-features-box my-4 mt-5'>
               <div className='tour-features py-2'>
                 <>Duration</>
@@ -210,6 +211,8 @@ const Product = ({tourData, id}) => {
                 <>{tour.duration} </>
               </div>
             </div>
+            }
+            {tour.departure &&
             <div className='tour-features-box my-4'>
               <div className='tour-features py-2'>
                 <>Departure Point</>
@@ -218,6 +221,8 @@ const Product = ({tourData, id}) => {
                 <>{tour.departure}</>
               </div>
             </div>
+            }
+            {tour.reporting && 
             <div className='tour-features-box my-4'>
               <div className='tour-features py-2'>
                 <>Reporting Point</>
@@ -226,6 +231,7 @@ const Product = ({tourData, id}) => {
                 <>{tour.reporting}</>
               </div>
             </div>
+            }
             <div className='tour-features-box my-4'>
               <div className='tour-features py-2'>
                 <>Languages</>
@@ -234,9 +240,9 @@ const Product = ({tourData, id}) => {
                 <>{tour.lang}</>
               </div>
             </div>
-            <iframe width="100%" height="480" className="p-0 m-0 tour-map-shadow" 
+            {/* <iframe width="100%" height="480" className="p-0 m-0 tour-map-shadow" 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d275009.07292683737!2d55.04092028011636!3d25.090146614866875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1684318625828!5m2!1sen!2s" 
-            ></iframe>
+            ></iframe> */}
           </div>
           </Col>
         </Row>

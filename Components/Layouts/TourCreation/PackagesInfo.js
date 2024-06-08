@@ -31,24 +31,24 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
     return(
       <Row key={i} className={`m-2 p-3 ${x.status=="1"?"bgc-01":"bgc-02"}`}>
         <Col md={12}>
-            <div className='cur copy-tag' 
-              onClick={()=>{ 
-                navigator.clipboard.writeText(`i${x.id}`);
-                message.info(`Tour Id Copied`)
-              }}
-            >
-              Copy <CopyOutlined />
-            </div>
+          <div className='cur copy-tag' 
+            onClick={()=>{ 
+              navigator.clipboard.writeText(`i${x.id}`);
+              message.info(`Tour Id Copied`)
+            }}
+          >
+            Copy <CopyOutlined />
+          </div>
         </Col>
         <Col md={4}>
-            <div className='mt-2'>Option #{i+1}</div>    
-            <Input className='mb-2' value={x.name} 
-                onChange={(e)=>{
-                    let temp = [...state.packages]
-                    temp[i].name = e.target.value;
-                    setValues(temp,'packages');
-                }} 
-            />
+          <div className='mt-2'>Option #{i+1}</div>    
+          <Input className='mb-2' value={x.name} 
+            onChange={(e)=>{
+              let temp = [...state.packages]
+              temp[i].name = e.target.value;
+              setValues(temp,'packages');
+            }}
+          />
         </Col>
         <Col style={{maxWidth:100}}>
           <div className='mt-2'>Adult Price</div>
@@ -61,234 +61,238 @@ const PackagesInfo = ({register, control, state, setValues, dispatch}) => {
           />
         </Col>
         <Col style={{maxWidth:100}}>
-                <div className='mt-2'>Child Price</div>   
-                <InputNumber className='mb-2' value={x.child_price} min="0" stringMode
-                    onChange={(e) => {
-                        let temp = [...state.packages];
-                        temp[i].child_price = e;
-                        setValues(temp,'packages');
-                    }} 
-                />
+          <div className='mt-2'>Child Price</div>   
+          <InputNumber className='mb-2' value={x.child_price} min="0" stringMode
+            onChange={(e) => {
+              let temp = [...state.packages];
+              temp[i].child_price = e;
+              setValues(temp,'packages');
+            }} 
+          />
         </Col>
         <Col style={{maxWidth:100}}>
-                <div className='mt-2 red-txt'>Old Price</div>   
-                <InputNumber className='mb-2' value={x.oldPrice} min="0" stringMode
-                    onChange={(e) => {
-                        let temp = [...state.packages];
-                        temp[i].oldPrice = e;
-                        setValues(temp,'packages');
-                    }} 
-                />
+          <div className='mt-2 red-txt'>Old Price</div>   
+          <InputNumber className='mb-2' value={x.oldPrice} min="0" stringMode
+            onChange={(e) => {
+              let temp = [...state.packages];
+              temp[i].oldPrice = e;
+              setValues(temp,'packages');
+            }} 
+          />
         </Col>
         <Col className="my-2" style={{maxWidth:70}}>
-                <div>Dated</div>
-                <Switch checked={x.dated} onChange={()=>{
-                    let tempState = [...state.packages];
-                    tempState[i].dated = !tempState[i].dated;
-                    dispatch({type:'field', fieldName:"packages", payload:tempState})
-                }} />
+          <div>Dated</div>
+          <Switch checked={x.dated} 
+            onChange={()=>{
+              let tempState = [...state.packages];
+              tempState[i].dated = !tempState[i].dated;
+              dispatch({type:'field', fieldName:"packages", payload:tempState})
+            }} 
+          />
         </Col>
         <Col className="my-2" style={{maxWidth:70}}>
-                <div>Timed</div>
-                <Switch checked={x.timed} onChange={()=>{
-                    let tempState = [...state.packages];
-                    tempState[i].timed = !tempState[i].timed
-                    dispatch({type:'field', fieldName:"packages", payload:tempState})
-                }} />
+          <div>Timed</div>
+          <Switch checked={x.timed} 
+            onChange={()=>{
+              let tempState = [...state.packages];
+              tempState[i].timed = !tempState[i].timed
+              dispatch({type:'field', fieldName:"packages", payload:tempState})
+            }} 
+          />
         </Col>
         <Col className="my-2" style={{maxWidth:100}}>
-                <div>Transport</div>
-                <Switch checked={x.transport} 
-                  onChange={()=>{
-                    let tempState = [...state.packages];
-                    tempState[i].transport = !tempState[i].transport
-                    dispatch({type:'field', fieldName:"packages", payload:tempState})
-                  }} 
-                />
+          <div>Transport</div>
+          <Switch checked={x.transport} 
+            onChange={()=>{
+              let tempState = [...state.packages];
+              tempState[i].transport = !tempState[i].transport
+              dispatch({type:'field', fieldName:"packages", payload:tempState})
+            }} 
+          />
         </Col>
         <Col className="my-2" style={{maxWidth:100}}>
-                <div>Manual</div>
-                <Switch checked={x.manual} 
-                  onChange={()=>{
-                    let tempState = [...state.packages];
-                    tempState[i].manual = !tempState[i].manual
-                    dispatch({type:'field', fieldName:"packages", payload:tempState})
-                  }} 
-                />
+          <div>Manual</div>
+          <Switch checked={x.manual} 
+            onChange={()=>{
+              let tempState = [...state.packages];
+              tempState[i].manual = !tempState[i].manual
+              dispatch({type:'field', fieldName:"packages", payload:tempState})
+            }} 
+          />
         </Col>
         <Col md={1} className="my-1">
-              {x.id!="" && <>
-                {x.status=="1"?
-                  <DeleteOutlined className='cross-icon mt-4' style={{fontSize:20}}
-                        onClick={()=>{
-                          let tempState = [...state.packages];
-                          tempState[i].status="0";
-                          // console.log(tempState[i])
-                          dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
-                    }}
-                  />:
-                  <ReloadOutlined className='cross-icon mt-4' style={{fontSize:20}}
-                        onClick={()=>{
-                          let tempState = [...state.packages];
-                          tempState[i].status="1";
-                          // console.log(tempState[i])
-                          dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
-                    }}
-                  />
-                }
-              </>
-              }
-              {x.id=="" && 
-                <CloseCircleOutlined className='cross-icon mt-4' style={{fontSize:20}}
-                    onClick={()=>{
-                      let tempState = [...state.packages];
-                      tempState.splice(i,1);
-                      dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
-                  }}
-                />
-              }
+          {x.id!="" && <>
+            {x.status=="1"?
+              <DeleteOutlined className='cross-icon mt-4' style={{fontSize:20}}
+                onClick={()=>{
+                  let tempState = [...state.packages];
+                  tempState[i].status="0";
+                  // console.log(tempState[i])
+                  dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
+                }}
+              />:
+              <ReloadOutlined className='cross-icon mt-4' style={{fontSize:20}}
+                onClick={()=>{
+                  let tempState = [...state.packages];
+                  tempState[i].status="1";
+                  // console.log(tempState[i])
+                  dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
+                }}
+              />
+            }
+          </>
+          }
+          {x.id=="" && 
+            <CloseCircleOutlined className='cross-icon mt-4' style={{fontSize:20}}
+              onClick={()=>{
+                let tempState = [...state.packages];
+                tempState.splice(i,1);
+                dispatch({ type: 'field', fieldName: 'packages', payload: tempState })
+              }}
+            />
+          }
         </Col>
         <Col md={7}>
-              <div className='mt-2'>Detail</div>    
-              <TextArea className='mb-2' value={x.detail} 
-                showCount maxLength={550}
-                placeholder='Enter Option Detail'
-                onChange={(e)=>{
-                  let temp = [...state.packages]
-                  temp[i].detail = e.target.value;
-                  setValues(temp,'packages');
-                }} 
-              />
+          <div className='mt-2'>Detail</div>    
+          <TextArea className='mb-2' value={x.detail} 
+            showCount maxLength={1000}
+            placeholder='Enter Option Detail'
+            onChange={(e)=>{
+              let temp = [...state.packages]
+              temp[i].detail = e.target.value;
+              setValues(temp,'packages');
+            }} 
+          />
         </Col>
         {x.dated &&
         <Col className="mt-1" md={5}>
-                <div>Set Dates</div>
-                <DatePicker 
-                    style={{width:400}}
-                    multiple
-                    value={x.dates}
-                    dateSeparator=","
-                    onChange={(x,y)=>{
-                        let temp = [...state.packages];
-                        temp[i].dates=y.validatedValue;
-                        dispatch({type:'field', fieldName:"packages", payload:temp})
-                    }}
-                    plugins={[
-                        <DatePanel />
-                    ]}
-                />
+          <div>Set Dates</div>
+          <DatePicker 
+            style={{width:400}}
+            multiple
+            value={x.dates}
+            dateSeparator=","
+            onChange={(x,y)=>{
+              let temp = [...state.packages];
+              temp[i].dates=y.validatedValue;
+              dispatch({type:'field', fieldName:"packages", payload:temp})
+            }}
+            plugins={[
+              <DatePanel />
+            ]}
+          />
         </Col>}
         {x.timed &&
         <Col md={6} className="mt-3">
-              <Row>
-                <Col md={5}>
-                  <div className='btn-custom text-center'
-                    onClick={()=>{
-                      let temp = [...state.packages];
-                      if(temp[i].timeSlots==undefined){
-                        temp[i].timeSlots = [];
-                      }
-                      temp[i].timeSlots.push({slot:''});
-                      dispatch({type:'field', fieldName:"packages", payload:temp})
+          <Row>
+            <Col md={5}>
+              <div className='btn-custom text-center'
+                onClick={()=>{
+                  let temp = [...state.packages];
+                  if(temp[i].timeSlots==undefined){
+                    temp[i].timeSlots = [];
+                  }
+                  temp[i].timeSlots.push({slot:''});
+                  dispatch({type:'field', fieldName:"packages", payload:temp})
+                }}
+              >
+                Add Time Slot
+              </div>
+            </Col>
+            <Col>
+              <Popover placement="topLeft" content={
+                <div>
+                  Starting Time
+                  <Form.Control 
+                    size="sm" 
+                    type="time" 
+                    value={state.timeStart}
+                    onChange={(e)=>{
+                      dispatch({
+                        type:'set', 
+                        payload:{
+                          timeStartWithDate:moment(`2012/10/09 ${e.target.value}`),
+                          timeStart:e.target.value
+                        },
+                      });
+                    }} 
+                  />
+                  <br/>
+                  {state.timeStart!="" && 
+                  <>
+                    Ending Time
+                    <Form.Control size="sm" type="time" value={state.timeEnd} 
+                    Ending Time
+                    onChange={(e)=>{
+                        dispatch({type:'field', fieldName:"timeEndWithDate", payload:moment(`2012/10/09 ${e.target.value}`)})
+                        dispatch({type:'field', fieldName:"timeEnd", payload:e.target.value})
                     }}
-                  >
-                    Add Time Slot
-                  </div>
-                </Col>
-                <Col>
-                  <Popover placement="topLeft" content={
-                    <div>
-                      Starting Time
-                      <Form.Control 
-                        size="sm" 
-                        type="time" 
-                        value={state.timeStart}
-                        onChange={(e)=>{
-                          dispatch({
-                            type:'set', 
-                            payload:{
-                              timeStartWithDate:moment(`2012/10/09 ${e.target.value}`),
-                              timeStart:e.target.value
-                            },
+                    />
+                    <div className='mt-2'>Time Slot Duration</div>
+                    <InputNumber value={state.minutes} min={0} max={60} 
+                        onChange={(e)=>dispatch({type:'field', fieldName:"minutes", payload:e})}
+                    />
+                    <br/>
+                    <button className='mt-3 btn-custom'
+                      onClick={()=>{
+                        var start = new Date(state.timeStartWithDate);
+                        var end = new Date(state.timeEndWithDate);
+                        var slices = [];
+                        var count = 0;
+                        let temp = [...state.packages]
+                        while (end > start) {
+                          if(count==0){
+                            start = new Date(start.getTime());
+                          } else {
+                            start = new Date(start.getTime() + (parseInt(state.minutes) * 60 * 1000));
+                          }
+                          slices.push({
+                            slot:`${moment(start).format("HH:mm")}`//start
                           });
-                        }} 
-                      />
-                      <br/>
-                      {state.timeStart!="" && 
-                      <>
-                        Ending Time
-                        <Form.Control size="sm" type="time" value={state.timeEnd} 
-                        Ending Time
-                        onChange={(e)=>{
-                            dispatch({type:'field', fieldName:"timeEndWithDate", payload:moment(`2012/10/09 ${e.target.value}`)})
-                            dispatch({type:'field', fieldName:"timeEnd", payload:e.target.value})
-                        }}
+                          count++;
+                        }
+                        slices.pop()
+                        temp[i].timeSlots = slices;
+                        dispatch({type:'field', fieldName:"packages", payload:temp})
+                      }}
+                    >Set Time Slots</button>
+                  </>
+                  }
+                </div>
+                } title="Title" trigger="click">
+                    <FieldTimeOutlined className='fs-20' />
+              </Popover>
+            </Col>
+            {x.timeSlots && <div className='p-3 mt-2' style={{maxHeight:200, overflowY:"auto", border:'1px solid silver'}}>
+                {x.timeSlots.map((y, j)=>{  
+                return(
+                <Row key={j}>
+                <Col md={9} className="date-list-boundary py-1 px-2">
+                    <Row>
+                        <Col md={6}>
+                        <Form.Control size="sm" type="time" value={y.slot} 
+                            onChange={(e)=>{
+                                let temp = [...state.packages];
+                                temp[i].timeSlots[j].slot=e.target.value;
+                                dispatch({type:'field', fieldName:"packages", payload:temp})
+                            }}
                         />
-                        <div className='mt-2'>Time Slot Duration</div>
-                        <InputNumber value={state.minutes} min={0} max={60} 
-                            onChange={(e)=>dispatch({type:'field', fieldName:"minutes", payload:e})}
+                        </Col>
+                        <Col className='pt-1'>
+                        <CloseCircleOutlined className='close-icon' style={{float:"right"}}
+                            onClick={()=>{
+                                let temp = [...state.packages];
+                                temp[i].timeSlots.splice(j, 1)
+                                dispatch({type:'field', fieldName:"dates", payload:temp})
+                            }}
                         />
-                        <br/>
-                        <button className='mt-3 btn-custom'
-                          onClick={()=>{
-                            var start = new Date(state.timeStartWithDate);
-                            var end = new Date(state.timeEndWithDate);
-                            var slices = [];
-                            var count = 0;
-                            let temp = [...state.packages]
-                            while (end > start) {
-                              if(count==0){
-                                start = new Date(start.getTime());
-                              } else {
-                                start = new Date(start.getTime() + (parseInt(state.minutes) * 60 * 1000));
-                              }
-                              slices.push({
-                                slot:`${moment(start).format("HH:mm")}`//start
-                              });
-                              count++;
-                            }
-                            slices.pop()
-                            temp[i].timeSlots = slices;
-                            dispatch({type:'field', fieldName:"packages", payload:temp})
-                          }}
-                        >Set Time Slots</button>
-                      </>
-                      }
-                    </div>
-                    } title="Title" trigger="click">
-                        <FieldTimeOutlined className='fs-20' />
-                  </Popover>
-                </Col>
-                {x.timeSlots && <div className='p-3 mt-2' style={{maxHeight:200, overflowY:"auto", border:'1px solid silver'}}>
-                    {x.timeSlots.map((y, j)=>{  
-                    return(
-                    <Row key={j}>
-                    <Col md={9} className="date-list-boundary py-1 px-2">
-                        <Row>
-                            <Col md={6}>
-                            <Form.Control size="sm" type="time" value={y.slot} 
-                                onChange={(e)=>{
-                                    let temp = [...state.packages];
-                                    temp[i].timeSlots[j].slot=e.target.value;
-                                    dispatch({type:'field', fieldName:"packages", payload:temp})
-                                }}
-                            />
-                            </Col>
-                            <Col className='pt-1'>
-                            <CloseCircleOutlined className='close-icon' style={{float:"right"}}
-                                onClick={()=>{
-                                    let temp = [...state.packages];
-                                    temp[i].timeSlots.splice(j, 1)
-                                    dispatch({type:'field', fieldName:"dates", payload:temp})
-                                }}
-                            />
-                            </Col>
-                        </Row>
-                    </Col>
+                        </Col>
                     </Row>
-                    )})}
-                </div>}
-              </Row>
+                </Col>
+                </Row>
+                )})}
+            </div>}
+          </Row>
         </Col>
         }
       </Row>

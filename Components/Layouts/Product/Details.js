@@ -1,25 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { FiCheckSquare } from "react-icons/fi";
-import { IoLocationSharp } from "react-icons/io5";
-import { Rate } from 'antd';
 import { TbPoint } from "react-icons/tb";
-import useWindowSize from '/functions/useWindowSize';
 
 const Details = ({tour, detail}) => {
-  const [images, setImages] = useState([]);
-  const [mainImage, setMainImage] = useState('');
-  const size = useWindowSize();
-
-  useEffect(() => {
-    if(Object.keys(detail).length>0){
-      let tempImages = [...detail.more_images.split(",")];
-      tempImages.unshift(tour.main_image)
-      setImages(tempImages)
-    }
-    setMainImage(tour.main_image);
-
-  }, [detail])
   
   return (
     <>
